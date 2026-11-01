@@ -1,0 +1,66 @@
+# cat-asset — Cam, the orange tabby (`assets/models/cat/cat.glb`)
+
+The hero asset: a fully procedural, reproducible pipeline (Blender 5.2 + numpy) that sculpts,
+retopologises, UV-unwraps, rigs, skins, textures and animates Cam, and exports one glTF.
+
+![hero](../gallery/cat-asset_hero.jpg)
+
+## What was built
+
+| Part | Details |
+|---|---|
+| **Anatomy** | `blender/lib/cat_anatomy.py` — measured landmarks: nose→tail-root 0.46 m, withers 0.25 m, tail 0.28 m (8 segments), head ≈ 0.09 m wide, ears ≈ 0.047 m. Digitigrade fore/hind limbs from feline segment ratios (scapula/humerus/radius/metacarpus, femur/tibia/metatarsus), elbow behind the chest, visible hock + calcaneus. Head authored in a "design space" placed by a similarity transform (scale 1.10, +7° pitch, lift). |
+| **Sculpt (SDF)** | `cat_sdf.py` — ~70 smooth-blended analytic primitives (ribcage, sternum keel, epaxial muscles, withers, croup, primordial pouch, scapula plates, triceps, olecranon, carpal pad, dewclaw, haunch, hamstrings, calf, Achilles, hock, 4 toes + toe beans per paw, cranium/occiput/brow/zygomatic/jowls, nose bridge, whisker pads, upper-lip flews, inverted-triangle nose leather, mandible/chin/lower lip). Carved: mouth slot + oral cavity (jaw modelled 4° open so the lips separate cleanly), almond eye apertures with rounded canthi and lid margins wrapping the eyeballs, nostrils, philtrum. Meshed with openvdb (0.8 mm voxels, ~560 k quads) = the normal-bake source `CatHigh`. |
+| **Game mesh** `CatBody` | `cat_topo.py` — QuadriFlow on the +X half (density warp: face ×1.55, eyes ×1.25, paws ×1.35), mirrored & welded (watertight, exactly symmetric), Newton-projected back on the SDF with tangential relaxation: **~18 k quads (36 k tris)** skin + parametric ears (solidified cartilage shells with cavity and Henry's pocket), teeth (canines + incisors) and tongue → **~42 k tris total** (contract 25–45 k). One material `CatFur`. |
+| **UVs** | `cat_uv.py` — islands cut where fur hides seams: head mask (neck ring + under-chin cut), torso as left/right flank pelts (dorsal + ventral midline), legs below elbow/knee (medial-posterior cut, Dijkstra paths), paw caps, tail (underside cut), mouth interior, eye sockets, ears split at the rim, teeth, tongue. Minimum-stretch unwrap, uniform texel density then importance scaling (face ×1.35, paws ×1.15, hidden interiors ×0.25–0.6). Body ≈ 6.7 k px/m, face ≈ 9.1 k px/m at 4096; coverage 0.76. |
+| **Eyes** `CatEyes` | 2 eyeballs: sclera sphere + recessed, slightly domed iris disc (real parallax under the cornea) and a separate bulging cornea cap (+1.1 mm) continuing as a tear film over the sclera. Surface 0 `CatEye_Iris` (procedural iris: radial fibres, crypts, jagged collarette, green-gold → amber gradient, dark limbal ring, lens-shaped vertical slit pupil), surface 1 `CatEye_Cornea` (alpha-blended, glossy). Eyes are skinned to `eye_L/R` bones. |
+| **Whiskers** `CatWhiskers` | 12 mystacial per side in 4 rows (curved, tapered, crossed alpha-clipped ribbons, 5–8 cm), 3 superciliary + 2 genal per side, 3 chin, 3 carpal per foreleg, and 6 ear-furnishing tuft cards per ear. One alpha-clip atlas `cat_whiskers.png`. |
+| **Rig** `CatRig` | 61 bones, all contract names + extras: `neck_02`, `tail_07/08`, `scapula_L/R`, `finger_L/R`, `ear_tip_L/R`, `eyelid_low_L/R`, `eye_L/R`, `tongue_01/02`, `whisker_L/R`, sockets `mouth_socket`, `fpp_eye`. All bones are deform bones (sockets carry no weights) so glTF keeps them. |
+| **Skinning** | Bone-heat on a ×10 scaled skin-only copy (the heat solver fails at real scale / with the separate shells), then procedural regions: jaw (below the lip line, in front of the hinge, fading at the commissures), upper/lower eyelids (lid shell around the aperture), whisker pads, ear base/tip, teeth/tongue; Laplacian smoothing, 4 influences. Test poses (neck twist, folded foreleg, spine + tail curl, open jaw, blink) show no tearing. |
+| **Textures** (`assets/models/cat/textures/`) | All computed in numpy from rest-pose position/normal maps baked into UV space, so the coat is a 3D pattern and UV seams never break it: `cat_albedo_4k.jpg` (4096, embedded), `cat_albedo.png` (2048), `cat_normal.png` (high→low SDF shape bake + fur-strand micro-normal along the flow, RNM-blended), `cat_orm.png` (AO bake / roughness / 0), `cat_fur_mask.png` (R length, G density, B stripe mask), `cat_fur_flow.png` (tangent-space comb direction, same frame as the normal map), NPC coats `cat_albedo_{black,white,calico,grey_tabby}.png`, iris `cat_eye_iris.png` + `_green/_copper/_blue`, `cat_whiskers.png`. |
+| **Coat design** (`cat_coat.py`) | Orange mackerel tabby: dorsal stripe; bars perpendicular to the spine swept backwards down the flanks, breaking into dashes toward the cream belly; hints of shoulder/thigh swirls; necklaces; barred outer legs; ringed tail with darker tip; forehead "M", crown lines to the nape, mascara line and cheek swirl; dark eyeliner + narrow pale eye ring; whisker-follicle dots; cream-white chin, muzzle, bib, belly, inner legs, toes; pink nose leather with darker rim and nostrils; rose toe beans + carpal pad; dark lip line; mouth, palate ridges, tongue, teeth; pink inner ears with pale hair. Every marking edge is feathered along the hair direction by anisotropic strand noise (≈0.4 mm × 9 mm). |
+| **Animation** (`cat_anim.py`, `cat_clips.py`) | 32 contract clips, in place, 30 fps. Armature-space solver: pelvis/spine distribution, head stabilisation (world-space head target, residual shared by neck/neck_02/head), forelegs with automatic scapular rotation + glide and carpal flex, hind legs with **pantograph IK** (femur ∥ metatarsus → 2-bone problem, knee forward, hock back), tail travelling waves, ear flicks, blinks, breathing. Gaits: walk = lateral sequence LH→LF→RH→RF (0.7 m/s, 0.5 s stride, duty 0.60), trot = diagonal pairs (1.6 m/s), run = rotary gallop LH→RH→RF→LF with gathered + extended suspension and ±26° spine flexion (4.5 m/s), sneak = low, duty 0.72 (0.45 m/s), balance_walk = single track with a balancing tail (0.40 m/s). Stance paws move at exactly the gait speed → no foot sliding; per-leg reach is checked (≤ 0.98 in all ground-contact clips). |
+
+## Animation list (frames @30 fps, L = loops)
+idle 120 L · idle_look 150 L · walk 30 L · trot 20 L · run 16 L · sneak 40 L · sneak_idle 90 L ·
+jump_crouch 12 · jump_up 10 · fall 20 L · land 12 · land_hard 24 · sit_down 30 · sit_idle 120 L ·
+stand_up 24 · lie_down 45 · sleep 150 L · groom 96 L · meow 24 · hiss 36 · swipe 15 · scratch 30 L ·
+climb 18 L · turn_left_90 20 · turn_right_90 20 · drink 40 L · eat 40 L · knead 32 L · stretch 64 ·
+balance_walk 40 L · pickup 22 · knock 24.
+
+Conventions the controller must know: turns assume a **linear** ±90° yaw over the clip; climb wall at
+Godot local z = +0.075 and 0.5 m/s; scratch surface at z = +0.12; `pickup` ends with the jaw closed on
+an item at `mouth_socket`. Loop modes are set by the import options (`configure_import.py`).
+
+## How to regenerate
+```bash
+tools/blender_run.sh blender/cat/build_cat.py                    # full build (~25 min on 4 CPUs)
+tools/blender_run.sh blender/cat/build_cat.py -- --from tex      # textures + anims + export only
+tools/blender_run.sh blender/cat/build_cat.py -- --only anim --qa  # rebuild clips + QA frames
+python3 blender/cat/configure_import.py && tools/godot_import.sh # import options (loops, compression)
+tools/run_tests.sh cat_asset                                     # contract test
+tools/blender_run.sh blender/cat/render_hero.py -- 1500000 1600x1000 96 sit   # Cycles strand-fur hero
+```
+Stages cache to `qa/out/cat-asset/cache/stage_*.blend`. Dev helpers: `dev_shape.py` (SDF clay views),
+`dev_anim.py` (render selected clips), `dev_probe.py` (pose landmarks + IK reach, no render).
+Source scene for humans: `blender/cat/cat.blend` (dense sculpt mesh removed to stay small).
+In-engine check: `assets/models/cat/preview/cat_preview.tscn` (plays `walk`; `call=pose_idle|pose_sit|
+pose_sleep|pose_run|pose_meow` for stills via `tools/screenshot.sh`).
+
+## API / contract summary
+- Nodes: `CatRig` → `Skeleton3D` → `CatBody` (1 surface, `CatFur`), `CatEyes` (surface 0 iris, 1 cornea),
+  `CatWhiskers` (alpha clip). Faces +Z in Godot, origin on the ground between the paws, real scale.
+- Fur: mask R = 1 ↔ 0.016 m (`cat_anatomy.FUR_MAX_LENGTH`); flow map decodes like a normal map's XY.
+- See `docs/requests/cat-asset.md` for hand-off notes to `player`.
+
+## Known gaps (honest)
+- Topology is QuadriFlow-generated (quad-dominant, uniform-ish flow with density warps), not hand
+  edge-looped; deformation is good in tests but the shoulders/armpits in extreme reaches (scratch,
+  climb) stretch the fur texture a little.
+- No claws mesh (optional in the contract); claws are implied by toe poses in scratch/climb/swipe.
+- Hair-level realism in-engine depends on the player's shell fur; the base mesh alone reads as a
+  short-haired, slightly smooth cat. The Cycles hero uses ~1.5 M generated strands (preview only).
+- Eyelid blink is bone-driven; the third eyelid is not modelled. Pupil size is baked (mid slit);
+  dilation would need a custom eye shader.
+- The tail is an 8-bone chain; very tight curls (sleeping donut) are approximated.
+- Turning/climb/scratch clips assume the controller conventions listed above.

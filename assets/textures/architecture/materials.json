@@ -1,0 +1,188 @@
+{
+ "plaster_ochre": {
+  "tile_m": 2.0,
+  "albedo": "plaster_ochre_albedo.jpg",
+  "normal": "plaster_ochre_normal.png",
+  "orm": "plaster_ochre_orm.jpg"
+ },
+ "plaster_blue": {
+  "tile_m": 2.0,
+  "albedo": "plaster_blue_albedo.jpg",
+  "normal": "plaster_blue_normal.png",
+  "orm": "plaster_blue_orm.jpg"
+ },
+ "plaster_pink": {
+  "tile_m": 2.0,
+  "albedo": "plaster_pink_albedo.jpg",
+  "normal": "plaster_pink_normal.png",
+  "orm": "plaster_pink_orm.jpg"
+ },
+ "plaster_white": {
+  "tile_m": 2.0,
+  "albedo": "plaster_white_albedo.jpg",
+  "normal": "plaster_white_normal.png",
+  "orm": "plaster_white_orm.jpg"
+ },
+ "plaster_green": {
+  "tile_m": 2.0,
+  "albedo": "plaster_green_albedo.jpg",
+  "normal": "plaster_green_normal.png",
+  "orm": "plaster_green_orm.jpg"
+ },
+ "plaster_yellow": {
+  "tile_m": 2.0,
+  "albedo": "plaster_yellow_albedo.jpg",
+  "normal": "plaster_yellow_normal.png",
+  "orm": "plaster_yellow_orm.jpg"
+ },
+ "cement_render": {
+  "tile_m": 2.0,
+  "albedo": "cement_render_albedo.jpg",
+  "normal": "cement_render_normal.png",
+  "orm": "cement_render_orm.jpg"
+ },
+ "concrete_weathered": {
+  "tile_m": 2.0,
+  "albedo": "concrete_weathered_albedo.jpg",
+  "normal": "concrete_weathered_normal.png",
+  "orm": "concrete_weathered_orm.jpg"
+ },
+ "brick_exposed": {
+  "tile_m": 2.0,
+  "albedo": "brick_exposed_albedo.jpg",
+  "normal": "brick_exposed_normal.png",
+  "orm": "brick_exposed_orm.jpg"
+ },
+ "tile_mosaic_blue": {
+  "tile_m": 1.0,
+  "albedo": "tile_mosaic_blue_albedo.jpg",
+  "normal": "tile_mosaic_blue_normal.png",
+  "orm": "tile_mosaic_blue_orm.jpg"
+ },
+ "tile_mosaic_green": {
+  "tile_m": 1.0,
+  "albedo": "tile_mosaic_green_albedo.jpg",
+  "normal": "tile_mosaic_green_normal.png",
+  "orm": "tile_mosaic_green_orm.jpg"
+ },
+ "tile_ceramic_beige": {
+  "tile_m": 2.0,
+  "albedo": "tile_ceramic_beige_albedo.jpg",
+  "normal": "tile_ceramic_beige_normal.png",
+  "orm": "tile_ceramic_beige_orm.jpg"
+ },
+ "tile_strip_brown": {
+  "tile_m": 2.0,
+  "albedo": "tile_strip_brown_albedo.jpg",
+  "normal": "tile_strip_brown_normal.png",
+  "orm": "tile_strip_brown_orm.jpg"
+ },
+ "roof_tile_terracotta": {
+  "tile_m": 2.0,
+  "albedo": "roof_tile_terracotta_albedo.jpg",
+  "normal": "roof_tile_terracotta_normal.png",
+  "orm": "roof_tile_terracotta_orm.jpg"
+ },
+ "roof_tile_old": {
+  "tile_m": 2.0,
+  "albedo": "roof_tile_old_albedo.jpg",
+  "normal": "roof_tile_old_normal.png",
+  "orm": "roof_tile_old_orm.jpg"
+ },
+ "corrugated_rusted": {
+  "tile_m": 2.0,
+  "albedo": "corrugated_rusted_albedo.jpg",
+  "normal": "corrugated_rusted_normal.png",
+  "orm": "corrugated_rusted_orm.jpg"
+ },
+ "corrugated_blue": {
+  "tile_m": 2.0,
+  "albedo": "corrugated_blue_albedo.jpg",
+  "normal": "corrugated_blue_normal.png",
+  "orm": "corrugated_blue_orm.jpg"
+ },
+ "metal_painted": {
+  "tile_m": 1.0,
+  "albedo": "metal_painted_albedo.jpg",
+  "normal": "metal_painted_normal.png",
+  "orm": "metal_painted_orm.jpg"
+ },
+ "iron_wrought": {
+  "tile_m": 0.5,
+  "albedo": "iron_wrought_albedo.jpg",
+  "normal": "iron_wrought_normal.png",
+  "orm": "iron_wrought_orm.jpg"
+ },
+ "stainless": {
+  "tile_m": 1.0,
+  "albedo": "stainless_albedo.jpg",
+  "normal": "stainless_normal.png",
+  "orm": "stainless_orm.jpg"
+ },
+ "steel_shutter": {
+  "tile_m": 1.0,
+  "albedo": "steel_shutter_albedo.jpg",
+  "normal": "steel_shutter_normal.png",
+  "orm": "steel_shutter_orm.jpg"
+ },
+ "acp_panel": {
+  "tile_m": 1.0,
+  "albedo": "acp_panel_albedo.jpg",
+  "normal": "acp_panel_normal.png",
+  "orm": "acp_panel_orm.jpg"
+ },
+ "wood_teal": {
+  "tile_m": 1.0,
+  "albedo": "wood_teal_albedo.jpg",
+  "normal": "wood_teal_normal.png",
+  "orm": "wood_teal_orm.jpg"
+ },
+ "wood_green": {
+  "tile_m": 1.0,
+  "albedo": "wood_green_albedo.jpg",
+  "normal": "wood_green_normal.png",
+  "orm": "wood_green_orm.jpg"
+ },
+ "wood_brown": {
+  "tile_m": 1.0,
+  "albedo": "wood_brown_albedo.jpg",
+  "normal": "wood_brown_normal.png",
+  "orm": "wood_brown_orm.jpg"
+ },
+ "terrazzo": {
+  "tile_m": 1.0,
+  "albedo": "terrazzo_albedo.jpg",
+  "normal": "terrazzo_normal.png",
+  "orm": "terrazzo_orm.jpg"
+ },
+ "granite_red": {
+  "tile_m": 1.0,
+  "albedo": "granite_red_albedo.jpg",
+  "normal": "granite_red_normal.png",
+  "orm": "granite_red_orm.jpg"
+ },
+ "render_modern": {
+  "tile_m": 2.0,
+  "albedo": "render_modern_albedo.jpg",
+  "normal": "render_modern_normal.png",
+  "orm": "render_modern_orm.jpg"
+ },
+ "stucco_detail": {
+  "tile_m": 1.0,
+  "albedo": "stucco_detail_albedo.jpg",
+  "normal": "stucco_detail_normal.png",
+  "orm": "stucco_detail_orm.jpg"
+ },
+ "fabric_canvas": {
+  "tile_m": 1.0,
+  "albedo": "fabric_canvas_albedo.jpg",
+  "normal": "fabric_canvas_normal.png",
+  "orm": "fabric_canvas_orm.jpg"
+ },
+ "rattan": {
+  "tile_m": 0.5,
+  "albedo": "rattan_albedo.jpg",
+  "normal": "rattan_normal.png",
+  "orm": "rattan_orm.jpg"
+ }
+}

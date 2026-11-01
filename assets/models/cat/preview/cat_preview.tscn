@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/cat/cat.glb" id="1_cat"]
+[ext_resource type="Script" path="res://assets/models/cat/preview/cat_preview.gd" id="2_scr"]
+
+[sub_resource type="ProceduralSkyMaterial" id="sky_mat"]
+sky_top_color = Color(0.38, 0.52, 0.72, 1)
+sky_horizon_color = Color(0.72, 0.70, 0.66, 1)
+ground_bottom_color = Color(0.22, 0.2, 0.18, 1)
+ground_horizon_color = Color(0.6, 0.57, 0.52, 1)
+sun_angle_max = 20.0
+
+[sub_resource type="Sky" id="sky"]
+sky_material = SubResource("sky_mat")
+
+[sub_resource type="Environment" id="env"]
+background_mode = 2
+sky = SubResource("sky")
+ambient_light_source = 3
+ambient_light_energy = 0.8
+reflected_light_source = 2
+tonemap_mode = 4
+ssao_enabled = true
+ssao_radius = 0.25
+ssao_intensity = 1.5
+
+[sub_resource type="PlaneMesh" id="ground"]
+size = Vector2(6, 6)
+
+[sub_resource type="StandardMaterial3D" id="ground_mat"]
+albedo_color = Color(0.36, 0.34, 0.31, 1)
+roughness = 0.9
+
+[node name="CatPreview" type="Node3D"]
+script = ExtResource("2_scr")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("env")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.766, -0.413, 0.492, 0, 0.766, 0.643, -0.643, -0.492, 0.587, 0, 2, 0)
+light_energy = 2.2
+light_color = Color(1, 0.95, 0.88, 1)
+shadow_enabled = true
+directional_shadow_max_distance = 8.0
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+mesh = SubResource("ground")
+surface_material_override/0 = SubResource("ground_mat")
+
+[node name="Cat" parent="." instance=ExtResource("1_cat")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.8079, 0.0994, -0.5809, 0, 0.9857, 0.1686, 0.5893, -0.1362, 0.7963, -0.62, 0.32, 0.9)
+fov = 40.0

@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://assets/models/city/preview/street_row.gd" id="1"]
+
+[node name="AlleyRow" type="Node3D"]
+script = ExtResource("1")
+north_row = PackedStringArray("rear_wall_3f_w6_grey", "alley_wall_8m_yellow", "alley_wall_4m_grey", "alley_wall_6m_gate_green", "rear_wall_4f_w4_brick")
+south_row = PackedStringArray("alley_wall_4m_yellow", "rear_wall_4f_w4_grey", "alley_wall_6m_gate_brick", "alley_wall_8m_grey", "rear_wall_3f_w6_yellow")
+sidewalk_w = 1.3
+road_w = 0.0
+cable_x = PackedFloat32Array(-9, -4.5, -1, 3, 7.5)
+alley_mode = true
+cable_module = "res://assets/models/city/roofprop_cables.glb"
+cable_height = 4.6
