@@ -1,0 +1,1168 @@
+[
+ {
+  "id": "bicycle_rack",
+  "file": "res://assets/models/props/bicycle_rack.glb",
+  "kind": "street",
+  "category": "street",
+  "footprint": [
+   1.92,
+   0.12
+  ],
+  "width": 1.92,
+  "depth": 0.12,
+  "height": 0.744,
+  "bounds_min": [
+   -0.96,
+   0.0,
+   -0.06
+  ],
+  "bounds_max": [
+   0.96,
+   0.744,
+   0.06
+  ],
+  "dynamic": false,
+  "mass": 28.0,
+  "surface": "metal",
+  "material_kind": "metal",
+  "name_key": "PROP_BICYCLE_RACK",
+  "tris": 3160,
+  "materials": 1,
+  "texture_size": 2048,
+  "texel_density": 1052,
+  "textures": [
+   "res://assets/textures/props/bicycle_rack_albedo.jpg",
+   "res://assets/textures/props/bicycle_rack_orm.jpg",
+   "res://assets/textures/props/bicycle_rack_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "climbable_low"
+  ]
+ },
+ {
+  "id": "construction_barrier",
+  "file": "res://assets/models/props/construction_barrier.glb",
+  "kind": "street",
+  "category": "street",
+  "footprint": [
+   1.6,
+   0.424
+  ],
+  "width": 1.6,
+  "depth": 0.424,
+  "height": 0.825,
+  "bounds_min": [
+   -0.8,
+   -0.0,
+   -0.212
+  ],
+  "bounds_max": [
+   0.8,
+   0.825,
+   0.212
+  ],
+  "dynamic": false,
+  "mass": 18.0,
+  "surface": "plastic",
+  "material_kind": "plastic",
+  "name_key": "PROP_CONSTRUCTION_BARRIER",
+  "tris": 1292,
+  "materials": 1,
+  "texture_size": 2048,
+  "texel_density": 939,
+  "textures": [
+   "res://assets/textures/props/construction_barrier_albedo.jpg",
+   "res://assets/textures/props/construction_barrier_orm.jpg",
+   "res://assets/textures/props/construction_barrier_normal.png"
+  ],
+  "colliders": 2,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "roadwork"
+  ]
+ },
+ {
+  "id": "drain_grate",
+  "file": "res://assets/models/props/drain_grate.glb",
+  "kind": "utility",
+  "category": "street",
+  "footprint": [
+   0.62,
+   0.34
+  ],
+  "width": 0.62,
+  "depth": 0.34,
+  "height": 0.278,
+  "bounds_min": [
+   -0.31,
+   -0.27,
+   -0.17
+  ],
+  "bounds_max": [
+   0.31,
+   0.008,
+   0.17
+  ],
+  "dynamic": false,
+  "mass": 22.0,
+  "surface": "metal",
+  "material_kind": "metal",
+  "name_key": "PROP_DRAIN_GRATE",
+  "tris": 1930,
+  "materials": 1,
+  "texture_size": 2048,
+  "texel_density": 1506,
+  "textures": [
+   "res://assets/textures/props/drain_grate_albedo.jpg",
+   "res://assets/textures/props/drain_grate_orm.jpg",
+   "res://assets/textures/props/drain_grate_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "ground"
+  ]
+ },
+ {
+  "id": "fire_hydrant",
+  "file": "res://assets/models/props/fire_hydrant.glb",
+  "kind": "utility",
+  "category": "street",
+  "footprint": [
+   0.422,
+   0.421
+  ],
+  "width": 0.422,
+  "depth": 0.421,
+  "height": 0.773,
+  "bounds_min": [
+   -0.211,
+   -0.003,
+   -0.21
+  ],
+  "bounds_max": [
+   0.211,
+   0.77,
+   0.211
+  ],
+  "dynamic": false,
+  "mass": 90.0,
+  "surface": "metal",
+  "material_kind": "metal",
+  "name_key": "PROP_FIRE_HYDRANT",
+  "tris": 3706,
+  "materials": 1,
+  "texture_size": 2048,
+  "texel_density": 1742,
+  "textures": [
+   "res://assets/textures/props/fire_hydrant_albedo.jpg",
+   "res://assets/textures/props/fire_hydrant_orm.jpg",
+   "res://assets/textures/props/fire_hydrant_normal.png"
+  ],
+  "colliders": 2,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "standable"
+  ]
+ },
+ {
+  "id": "lamp_post_colonial",
+  "file": "res://assets/models/props/lamp_post_colonial.glb",
+  "kind": "lighting",
+  "category": "street",
+  "footprint": [
+   0.443,
+   0.443
+  ],
+  "width": 0.443,
+  "depth": 0.443,
+  "height": 4.49,
+  "bounds_min": [
+   -0.222,
+   0.0,
+   -0.222
+  ],
+  "bounds_max": [
+   0.222,
+   4.49,
+   0.222
+  ],
+  "dynamic": false,
+  "mass": 180.0,
+  "surface": "metal",
+  "material_kind": "metal",
+  "name_key": "PROP_LAMP_POST_COLONIAL",
+  "tris": 4956,
+  "materials": 2,
+  "texture_size": 256,
+  "texel_density": 76,
+  "textures": [
+   "res://assets/textures/props/lamp_post_colonial_albedo.jpg",
+   "res://assets/textures/props/lamp_post_colonial_orm.jpg",
+   "res://assets/textures/props/lamp_post_colonial_normal.png"
+  ],
+  "colliders": 3,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "light",
+   "colonial"
+  ],
+  "lights": [
+   {
+    "name": "LIGHT_01",
+    "pos": [
+     0.0,
+     3.97,
+     -0.0
+    ],
+    "kind": "omni",
+    "range": 11.0,
+    "energy": 2.4,
+    "color": [
+     1.0,
+     0.8,
+     0.55
+    ],
+    "shadow": false,
+    "fade": 60.0
+   }
+  ],
+  "night_emission": 3.0,
+  "light_pos": [
+   0.0,
+   3.97,
+   -0.0
+  ],
+  "emissive": true
+ },
+ {
+  "id": "lamp_post_modern",
+  "file": "res://assets/models/props/lamp_post_modern.glb",
+  "kind": "lighting",
+  "category": "street",
+  "footprint": [
+   0.36,
+   2.354
+  ],
+  "width": 0.36,
+  "depth": 2.354,
+  "height": 7.408,
+  "bounds_min": [
+   -0.18,
+   0.0,
+   -0.18
+  ],
+  "bounds_max": [
+   0.18,
+   7.408,
+   2.174
+  ],
+  "dynamic": false,
+  "mass": 95.0,
+  "surface": "metal",
+  "material_kind": "metal",
+  "name_key": "PROP_LAMP_POST_MODERN",
+  "tris": 2298,
+  "materials": 2,
+  "texture_size": 2048,
+  "texel_density": 336,
+  "textures": [
+   "res://assets/textures/props/lamp_post_modern_albedo.jpg",
+   "res://assets/textures/props/lamp_post_modern_orm.jpg",
+   "res://assets/textures/props/lamp_post_modern_normal.png"
+  ],
+  "colliders": 2,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "light",
+   "modern"
+  ],
+  "lights": [
+   {
+    "name": "LIGHT_01",
+    "pos": [
+     0.0,
+     7.23,
+     1.9
+    ],
+    "kind": "spot",
+    "range": 16.0,
+    "angle": 62.0,
+    "energy": 6.0,
+    "color": [
+     1.0,
+     0.93,
+     0.82
+    ],
+    "dir": [
+     0,
+     -1.0,
+     0.12
+    ],
+    "shadow": false,
+    "fade": 80.0
+   }
+  ],
+  "night_emission": 4.0,
+  "light_pos": [
+   0.0,
+   7.23,
+   1.9
+  ],
+  "emissive": true
+ },
+ {
+  "id": "mailbox",
+  "file": "res://assets/models/props/mailbox.glb",
+  "kind": "street",
+  "category": "street",
+  "footprint": [
+   0.48,
+   0.365
+  ],
+  "width": 0.48,
+  "depth": 0.365,
+  "height": 1.384,
+  "bounds_min": [
+   -0.24,
+   0.0,
+   -0.175
+  ],
+  "bounds_max": [
+   0.24,
+   1.384,
+   0.19
+  ],
+  "dynamic": false,
+  "mass": 35.0,
+  "surface": "metal",
+  "material_kind": "metal",
+  "name_key": "PROP_MAILBOX",
+  "tris": 1156,
+  "materials": 1,
+  "texture_size": 2048,
+  "texel_density": 1222,
+  "textures": [
+   "res://assets/textures/props/mailbox_albedo.jpg",
+   "res://assets/textures/props/mailbox_orm.jpg",
+   "res://assets/textures/props/mailbox_normal.png"
+  ],
+  "colliders": 2,
+  "climb_points": [],
+  "nap_spots": [
+   [
+    0.0,
+    1.38,
+    -0.0
+   ]
+  ],
+  "entrances": [],
+  "tags": [
+   "standable"
+  ]
+ },
+ {
+  "id": "manhole_cover",
+  "file": "res://assets/models/props/manhole_cover.glb",
+  "kind": "utility",
+  "category": "street",
+  "footprint": [
+   1.177,
+   1.124
+  ],
+  "width": 1.177,
+  "depth": 1.124,
+  "height": 0.016,
+  "bounds_min": [
+   -0.589,
+   0.0,
+   -0.575
+  ],
+  "bounds_max": [
+   0.589,
+   0.016,
+   0.549
+  ],
+  "dynamic": false,
+  "mass": 40.0,
+  "surface": "metal",
+  "material_kind": "metal",
+  "name_key": "PROP_MANHOLE_COVER",
+  "tris": 1500,
+  "materials": 1,
+  "texture_size": 2048,
+  "texel_density": 1115,
+  "textures": [
+   "res://assets/textures/props/manhole_cover_albedo.jpg",
+   "res://assets/textures/props/manhole_cover_orm.jpg",
+   "res://assets/textures/props/manhole_cover_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "ground"
+  ]
+ },
+ {
+  "id": "traffic_cone",
+  "file": "res://assets/models/props/traffic_cone.glb",
+  "kind": "street",
+  "category": "street",
+  "footprint": [
+   0.38,
+   0.38
+  ],
+  "width": 0.38,
+  "depth": 0.38,
+  "height": 0.701,
+  "bounds_min": [
+   -0.19,
+   0.0,
+   -0.19
+  ],
+  "bounds_max": [
+   0.19,
+   0.701,
+   0.19
+  ],
+  "dynamic": false,
+  "mass": 2.6,
+  "surface": "plastic",
+  "material_kind": "plastic",
+  "name_key": "PROP_TRAFFIC_CONE",
+  "tris": 3442,
+  "materials": 1,
+  "texture_size": 256,
+  "texel_density": 209,
+  "textures": [
+   "res://assets/textures/props/traffic_cone_albedo.jpg",
+   "res://assets/textures/props/traffic_cone_orm.jpg",
+   "res://assets/textures/props/traffic_cone_normal.png"
+  ],
+  "colliders": 2,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "roadwork"
+  ]
+ },
+ {
+  "id": "trash_bin_household",
+  "file": "res://assets/models/props/trash_bin_household.glb",
+  "kind": "container",
+  "category": "street",
+  "footprint": [
+   0.32,
+   0.357
+  ],
+  "width": 0.32,
+  "depth": 0.357,
+  "height": 0.457,
+  "bounds_min": [
+   -0.16,
+   0.0,
+   -0.17
+  ],
+  "bounds_max": [
+   0.161,
+   0.457,
+   0.187
+  ],
+  "dynamic": true,
+  "mass": 1.4,
+  "surface": "plastic",
+  "material_kind": "plastic",
+  "name_key": "PROP_TRASH_BIN_HOUSEHOLD",
+  "tris": 2384,
+  "materials": 1,
+  "texture_size": 2048,
+  "texel_density": 1619,
+  "textures": [
+   "res://assets/textures/props/trash_bin_household_albedo.jpg",
+   "res://assets/textures/props/trash_bin_household_orm.jpg",
+   "res://assets/textures/props/trash_bin_household_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "bin",
+   "knockable"
+  ]
+ },
+ {
+  "id": "trash_bin_municipal",
+  "file": "res://assets/models/props/trash_bin_municipal.glb",
+  "kind": "container",
+  "category": "street",
+  "footprint": [
+   0.66,
+   0.847
+  ],
+  "width": 0.66,
+  "depth": 0.847,
+  "height": 1.061,
+  "bounds_min": [
+   -0.33,
+   0.0,
+   -0.437
+  ],
+  "bounds_max": [
+   0.33,
+   1.061,
+   0.41
+  ],
+  "dynamic": false,
+  "mass": 14.0,
+  "surface": "plastic",
+  "material_kind": "plastic",
+  "name_key": "PROP_TRASH_BIN_MUNICIPAL",
+  "tris": 2178,
+  "materials": 1,
+  "texture_size": 2048,
+  "texel_density": 814,
+  "textures": [
+   "res://assets/textures/props/trash_bin_municipal_albedo.jpg",
+   "res://assets/textures/props/trash_bin_municipal_orm.jpg",
+   "res://assets/textures/props/trash_bin_municipal_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [
+   [
+    0.0,
+    1.06,
+    -0.0
+   ]
+  ],
+  "entrances": [],
+  "tags": [
+   "bin",
+   "standable"
+  ]
+ },
+ {
+  "id": "ac_unit",
+  "file": "res://assets/models/props/ac_unit.glb",
+  "kind": "home",
+  "category": "utility",
+  "footprint": [
+   0.937,
+   0.481
+  ],
+  "width": 0.937,
+  "depth": 0.481,
+  "height": 0.701,
+  "bounds_min": [
+   -0.404,
+   -0.001,
+   -0.229
+  ],
+  "bounds_max": [
+   0.533,
+   0.701,
+   0.252
+  ],
+  "dynamic": false,
+  "mass": 32.0,
+  "surface": "metal",
+  "material_kind": "metal",
+  "name_key": "PROP_AC_UNIT",
+  "tris": 7600,
+  "materials": 1,
+  "texture_size": 128,
+  "texel_density": 14,
+  "textures": [
+   "res://assets/textures/props/ac_unit_albedo.jpg",
+   "res://assets/textures/props/ac_unit_orm.jpg",
+   "res://assets/textures/props/ac_unit_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [
+   [
+    0.0,
+    0.606,
+    -0.0
+   ]
+  ],
+  "entrances": [],
+  "tags": [
+   "standable",
+   "nap"
+  ]
+ },
+ {
+  "id": "cable_coil_large",
+  "file": "res://assets/models/props/cable_coil_large.glb",
+  "kind": "utility",
+  "category": "utility",
+  "footprint": [
+   0.892,
+   0.144
+  ],
+  "width": 0.892,
+  "depth": 0.144,
+  "height": 0.733,
+  "bounds_min": [
+   -0.449,
+   -0.679,
+   -0.095
+  ],
+  "bounds_max": [
+   0.443,
+   0.054,
+   0.049
+  ],
+  "dynamic": false,
+  "mass": 9.0,
+  "surface": "fabric",
+  "material_kind": "fabric",
+  "name_key": "PROP_CABLE_COIL_LARGE",
+  "tris": 24812,
+  "materials": 1,
+  "texture_size": 128,
+  "texel_density": 8,
+  "textures": [
+   "res://assets/textures/props/cable_coil_large_albedo.jpg",
+   "res://assets/textures/props/cable_coil_large_orm.jpg",
+   "res://assets/textures/props/cable_coil_large_normal.png"
+  ],
+  "colliders": 0,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "cables",
+   "hanging"
+  ],
+  "attach_points": [
+   {
+    "name": "HANG_01",
+    "pos": [
+     0.0,
+     0.0,
+     -0.0
+    ]
+   }
+  ],
+  "origin": "hang_point"
+ },
+ {
+  "id": "cable_coil_small",
+  "file": "res://assets/models/props/cable_coil_small.glb",
+  "kind": "utility",
+  "category": "utility",
+  "footprint": [
+   0.822,
+   0.098
+  ],
+  "width": 0.822,
+  "depth": 0.098,
+  "height": 0.517,
+  "bounds_min": [
+   -0.435,
+   -0.482,
+   -0.049
+  ],
+  "bounds_max": [
+   0.387,
+   0.036,
+   0.049
+  ],
+  "dynamic": false,
+  "mass": 4.0,
+  "surface": "fabric",
+  "material_kind": "fabric",
+  "name_key": "PROP_CABLE_COIL_SMALL",
+  "tris": 13864,
+  "materials": 1,
+  "texture_size": 256,
+  "texel_density": 75,
+  "textures": [
+   "res://assets/textures/props/cable_coil_small_albedo.jpg",
+   "res://assets/textures/props/cable_coil_small_orm.jpg",
+   "res://assets/textures/props/cable_coil_small_normal.png"
+  ],
+  "colliders": 0,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "cables",
+   "hanging"
+  ],
+  "attach_points": [
+   {
+    "name": "HANG_01",
+    "pos": [
+     0.0,
+     0.0,
+     -0.0
+    ]
+   }
+  ],
+  "origin": "hang_point"
+ },
+ {
+  "id": "cable_drum",
+  "file": "res://assets/models/props/cable_drum.glb",
+  "kind": "utility",
+  "category": "utility",
+  "footprint": [
+   1.202,
+   1.232
+  ],
+  "width": 1.202,
+  "depth": 1.232,
+  "height": 0.842,
+  "bounds_min": [
+   -0.3,
+   -0.002,
+   -0.422
+  ],
+  "bounds_max": [
+   0.902,
+   0.841,
+   0.811
+  ],
+  "dynamic": false,
+  "mass": 60.0,
+  "surface": "wood",
+  "material_kind": "wood",
+  "name_key": "PROP_CABLE_DRUM",
+  "tris": 20404,
+  "materials": 1,
+  "texture_size": 256,
+  "texel_density": 107,
+  "textures": [
+   "res://assets/textures/props/cable_drum_albedo.jpg",
+   "res://assets/textures/props/cable_drum_orm.jpg",
+   "res://assets/textures/props/cable_drum_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [
+   [
+    0.0,
+    0.84,
+    -0.0
+   ]
+  ],
+  "entrances": [],
+  "tags": [
+   "standable",
+   "climbable_low"
+  ],
+  "sit_spots": [
+   [
+    0.0,
+    0.84,
+    -0.0
+   ]
+  ]
+ },
+ {
+  "id": "electric_pole_concrete",
+  "file": "res://assets/models/props/electric_pole_concrete.glb",
+  "kind": "utility",
+  "category": "utility",
+  "footprint": [
+   4.06,
+   0.743
+  ],
+  "width": 4.06,
+  "depth": 0.743,
+  "height": 8.611,
+  "bounds_min": [
+   -2.03,
+   -0.006,
+   -0.285
+  ],
+  "bounds_max": [
+   2.03,
+   8.605,
+   0.459
+  ],
+  "dynamic": false,
+  "mass": 900.0,
+  "surface": "concrete",
+  "material_kind": "concrete",
+  "name_key": "PROP_ELECTRIC_POLE_CONCRETE",
+  "tris": 14841,
+  "materials": 1,
+  "texture_size": 256,
+  "texel_density": 47,
+  "textures": [
+   "res://assets/textures/props/electric_pole_concrete_albedo.jpg",
+   "res://assets/textures/props/electric_pole_concrete_orm.jpg",
+   "res://assets/textures/props/electric_pole_concrete_normal.png"
+  ],
+  "colliders": 4,
+  "climb_points": [],
+  "nap_spots": [
+   [
+    0.0,
+    3.22,
+    0.29
+   ]
+  ],
+  "entrances": [],
+  "tags": [
+   "pole",
+   "cables"
+  ],
+  "attach_points": [
+   {
+    "name": "ATTACH_LINE_00",
+    "pos": [
+     -2.03,
+     8.33,
+     0.16
+    ]
+   },
+   {
+    "name": "ATTACH_LINE_01",
+    "pos": [
+     -1.477,
+     8.33,
+     0.16
+    ]
+   },
+   {
+    "name": "ATTACH_LINE_02",
+    "pos": [
+     1.477,
+     8.33,
+     0.16
+    ]
+   },
+   {
+    "name": "ATTACH_LINE_03",
+    "pos": [
+     2.03,
+     8.33,
+     0.16
+    ]
+   },
+   {
+    "name": "ATTACH_LINE_04",
+    "pos": [
+     -1.83,
+     7.59,
+     0.16
+    ]
+   },
+   {
+    "name": "ATTACH_LINE_05",
+    "pos": [
+     -1.41,
+     7.59,
+     0.16
+    ]
+   },
+   {
+    "name": "ATTACH_LINE_06",
+    "pos": [
+     1.41,
+     7.59,
+     0.16
+    ]
+   },
+   {
+    "name": "ATTACH_LINE_07",
+    "pos": [
+     1.83,
+     7.59,
+     0.16
+    ]
+   },
+   {
+    "name": "ATTACH_BUNDLE_L",
+    "pos": [
+     -1.45,
+     6.05,
+     0.15
+    ]
+   },
+   {
+    "name": "ATTACH_BUNDLE_R",
+    "pos": [
+     1.45,
+     6.05,
+     0.15
+    ]
+   }
+  ],
+  "visibility_range": 220.0
+ },
+ {
+  "id": "gas_cylinder",
+  "file": "res://assets/models/props/gas_cylinder.glb",
+  "kind": "container",
+  "category": "utility",
+  "footprint": [
+   0.658,
+   0.513
+  ],
+  "width": 0.658,
+  "depth": 0.513,
+  "height": 0.68,
+  "bounds_min": [
+   -0.156,
+   0.0,
+   -0.156
+  ],
+  "bounds_max": [
+   0.502,
+   0.68,
+   0.357
+  ],
+  "dynamic": false,
+  "mass": 26.0,
+  "surface": "metal",
+  "material_kind": "metal",
+  "name_key": "PROP_GAS_CYLINDER",
+  "tris": 2080,
+  "materials": 1,
+  "texture_size": 128,
+  "texel_density": 76,
+  "textures": [
+   "res://assets/textures/props/gas_cylinder_albedo.jpg",
+   "res://assets/textures/props/gas_cylinder_orm.jpg",
+   "res://assets/textures/props/gas_cylinder_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "kitchen"
+  ]
+ },
+ {
+  "id": "banner_standing",
+  "file": "res://assets/models/props/banner_standing.glb",
+  "kind": "sign",
+  "category": "sign",
+  "footprint": [
+   0.802,
+   0.56
+  ],
+  "width": 0.802,
+  "depth": 0.56,
+  "height": 2.37,
+  "bounds_min": [
+   -0.242,
+   0.0,
+   -0.28
+  ],
+  "bounds_max": [
+   0.56,
+   2.37,
+   0.28
+  ],
+  "dynamic": false,
+  "mass": 12.0,
+  "surface": "plastic",
+  "material_kind": "plastic",
+  "name_key": "PROP_BANNER_STANDING",
+  "tris": 1010,
+  "materials": 2,
+  "texture_size": 2048,
+  "texel_density": 888,
+  "textures": [
+   "res://assets/textures/props/banner_standing_albedo.jpg",
+   "res://assets/textures/props/banner_standing_orm.jpg",
+   "res://assets/textures/props/banner_standing_normal.png"
+  ],
+  "colliders": 2,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "sign",
+   "fabric"
+  ]
+ },
+ {
+  "id": "sign_aframe_cafe",
+  "file": "res://assets/models/props/sign_aframe_cafe.glb",
+  "kind": "sign",
+  "category": "sign",
+  "footprint": [
+   0.64,
+   0.446
+  ],
+  "width": 0.64,
+  "depth": 0.446,
+  "height": 0.958,
+  "bounds_min": [
+   -0.32,
+   0.023,
+   -0.223
+  ],
+  "bounds_max": [
+   0.32,
+   0.958,
+   0.223
+  ],
+  "dynamic": false,
+  "mass": 6.0,
+  "surface": "metal",
+  "material_kind": "metal",
+  "name_key": "PROP_SIGN_AFRAME_CAFE",
+  "tris": 1238,
+  "materials": 1,
+  "texture_size": 2048,
+  "texel_density": 1158,
+  "textures": [
+   "res://assets/textures/props/sign_aframe_cafe_albedo.jpg",
+   "res://assets/textures/props/sign_aframe_cafe_orm.jpg",
+   "res://assets/textures/props/sign_aframe_cafe_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "sign",
+   "cafe"
+  ]
+ },
+ {
+  "id": "sign_aframe_com",
+  "file": "res://assets/models/props/sign_aframe_com.glb",
+  "kind": "sign",
+  "category": "sign",
+  "footprint": [
+   0.64,
+   0.446
+  ],
+  "width": 0.64,
+  "depth": 0.446,
+  "height": 0.958,
+  "bounds_min": [
+   -0.32,
+   0.023,
+   -0.223
+  ],
+  "bounds_max": [
+   0.32,
+   0.958,
+   0.223
+  ],
+  "dynamic": false,
+  "mass": 6.0,
+  "surface": "metal",
+  "material_kind": "metal",
+  "name_key": "PROP_SIGN_AFRAME_COM",
+  "tris": 1238,
+  "materials": 1,
+  "texture_size": 2048,
+  "texel_density": 1158,
+  "textures": [
+   "res://assets/textures/props/sign_aframe_com_albedo.jpg",
+   "res://assets/textures/props/sign_aframe_com_orm.jpg",
+   "res://assets/textures/props/sign_aframe_com_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "sign",
+   "food"
+  ]
+ },
+ {
+  "id": "sign_lightbox",
+  "file": "res://assets/models/props/sign_lightbox.glb",
+  "kind": "sign",
+  "category": "sign",
+  "footprint": [
+   0.782,
+   0.607
+  ],
+  "width": 0.782,
+  "depth": 0.607,
+  "height": 1.0,
+  "bounds_min": [
+   -0.28,
+   0.0,
+   -0.504
+  ],
+  "bounds_max": [
+   0.502,
+   1.0,
+   0.103
+  ],
+  "dynamic": false,
+  "mass": 9.0,
+  "surface": "plastic",
+  "material_kind": "plastic",
+  "name_key": "PROP_SIGN_LIGHTBOX",
+  "tris": 864,
+  "materials": 2,
+  "texture_size": 2048,
+  "texel_density": 1001,
+  "textures": [
+   "res://assets/textures/props/sign_lightbox_albedo.jpg",
+   "res://assets/textures/props/sign_lightbox_orm.jpg",
+   "res://assets/textures/props/sign_lightbox_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "sign",
+   "light"
+  ],
+  "lights": [
+   {
+    "name": "LIGHT_01",
+    "pos": [
+     0.0,
+     0.6,
+     0.25
+    ],
+    "kind": "omni",
+    "range": 2.6,
+    "energy": 0.5,
+    "color": [
+     1.0,
+     0.96,
+     0.88
+    ],
+    "shadow": false,
+    "fade": 30.0
+   }
+  ],
+  "night_emission": 2.2,
+  "light_pos": [
+   0.0,
+   0.6,
+   0.25
+  ],
+  "emissive": true
+ }
+]

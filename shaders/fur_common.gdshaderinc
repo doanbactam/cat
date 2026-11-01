@@ -37,6 +37,14 @@ instance uniform vec3 main_cam = vec3(0.0, -10000.0, 0.0);
 varying vec3 v_strand;
 varying float v_wet;
 
+// Local fur length, tapered towards bare openings (eyes, mouth, nose, pads): the blurred mask
+// (low mip) is small near them, so fur shortens smoothly instead of growing over the eyeball.
+float fur_len_factor(vec2 uv) {
+	float r = textureLod(fur_mask, uv, 0.0).r;
+	float near = textureLod(fur_mask, uv, 6.0).r;
+	return min(r, near * 1.15) * smoothstep(0.08, 0.3, near);
+}
+
 float fur_wet() {
 	return clamp(max(wet_self, wetness * global_wet_influence), 0.0, 1.0);
 }
@@ -82,7 +90,7 @@ void light() {
 	float s1 = pow(sqrt(max(0.0, 1.0 - th1 * th1)), e1);
 	float s2 = pow(sqrt(max(0.0, 1.0 - th2 * th2)), e2);
 	float vis = smoothstep(-0.1, 0.3, ndl);
-	float wet_boost = mix(1.0, 2.6, v_wet);
+	float wet_boost = mix(1.0, 1.7, v_wet);
 	vec3 spec = (vec3(s1) * spec_primary * wet_boost + ALBEDO * s2 * spec_secondary) * vis;
 	SPECULAR_LIGHT += spec * ATTENUATION * LIGHT_COLOR / PI;
 	// backlit fuzz on the silhouette

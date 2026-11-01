@@ -83,7 +83,7 @@ def st_low(o):
     import cat_topo as T
     import cat_parts as P
     d = np.load(os.path.join(CACHE, "high.npz"))
-    body = T.build_low(d["v"], d["q"], target_quads=18500)
+    body = T.build_low(d["v"], d["q"], target_quads=17600)
     parts = [body]
     for side, nm in ((1, "L"), (-1, "R")):
         parts.append(P.build_ear("CatEar_" + nm, side))

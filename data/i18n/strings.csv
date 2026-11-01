@@ -1,2 +1,889 @@
 keys,en,vi
-GAME_TITLE,"Orange Cat: Old Quarter","Mèo Cam: Phố Cũ"
+GAME_TITLE,Orange Cat: Old Quarter,Mèo Cam: Phố Cũ
+TITLE_MAIN,Mèo Cam,Mèo Cam
+TITLE_SUB,Old Quarter,Phố Cũ
+MENU_TAGLINE,"A small, warm tale of an orange cat in Hàng Mây.",Chuyện nhỏ ấm áp của một chú mèo cam ở phố Hàng Mây.
+STUDIO_NAME,Xưởng Mái Ngói,Xưởng Mái Ngói
+STUDIO_TAGLINE,Roof-Tile Workshop · presents,Roof-Tile Workshop · giới thiệu
+SPLASH_MADE_WITH,Made with,Được làm bằng
+SPLASH_AND_BLENDER,and Blender,và Blender
+MENU_CONTINUE,Continue,Tiếp tục
+MENU_NEW_GAME,New game,Chơi mới
+MENU_LOAD,Load journey,Tải hành trình
+MENU_SETTINGS,Settings,Cài đặt
+MENU_CREDITS,Credits,Đội ngũ
+MENU_QUIT,Quit,Thoát
+UI_NO_GAME_SCENE,The streets of Hàng Mây are still being built…,Phố Hàng Mây vẫn đang được dựng…
+UI_LOAD_FAILED,That journey could not be loaded.,Không tải được hành trình này.
+UI_SELECT,Select,Chọn
+UI_BACK,Back,Quay lại
+UI_CHANGE,Change,Đổi
+UI_TABS,Tabs,Đổi thẻ
+UI_SCROLL,Scroll,Cuộn
+UI_CLOSE,Close,Đóng
+UI_TRACK,Track,Theo dõi
+UI_ZOOM,Zoom,Thu phóng
+UI_PAN,Move,Di chuyển
+UI_CENTER,Centre on Cam,Về chỗ Cam
+UI_SKIP,Skip,Bỏ qua
+UI_CONTINUE,Continue,Tiếp
+UI_LOADING,Loading,Đang tải
+UI_TIP_HEADER,Did you know,Mẹo nhỏ
+BTN_SAVE,Save,Lưu
+BTN_LOAD,Load,Tải
+BTN_DELETE,Delete,Xóa
+BTN_BACK,Back,Quay lại
+BTN_CLOSE,Close,Đóng
+BTN_RESET,Reset,Khôi phục
+BTN_RESET_ALL,Reset everything,Khôi phục tất cả
+CONFIRM_YES,Yes,Đồng ý
+CONFIRM_NO,Cancel,Hủy
+CONFIRM_QUIT_TITLE,Leave Hàng Mây?,Rời phố Hàng Mây?
+CONFIRM_QUIT_MENU_BODY,Cam will keep napping on the rooftop until you return.,Cam sẽ ngủ tiếp trên mái nhà chờ bạn quay lại.
+CONFIRM_QUIT_BODY,Progress since your last save will be lost.,Tiến trình kể từ lần lưu gần nhất sẽ mất.
+CONFIRM_MAIN_MENU_TITLE,Return to the main menu?,Về màn hình chính?
+CONFIRM_NEW_GAME_TITLE,Start a new journey?,Bắt đầu hành trình mới?
+CONFIRM_NEW_GAME_BODY,Cam wakes up again on the first morning. Your autosave will be replaced as you play; manual saves stay.,Cam sẽ thức dậy lại vào buổi sáng đầu tiên. Bản tự động lưu sẽ bị thay khi chơi; các bản lưu tay vẫn giữ nguyên.
+CONFIRM_OVERWRITE_TITLE,Overwrite this save?,Ghi đè bản lưu này?
+CONFIRM_OVERWRITE_BODY,The journey stored here will be replaced.,Hành trình đang lưu ở ô này sẽ bị thay thế.
+CONFIRM_DELETE_TITLE,Delete this save?,Xóa bản lưu này?
+CONFIRM_DELETE_BODY,This cannot be undone.,Không thể hoàn tác.
+CONFIRM_LOAD_TITLE,Load this journey?,Tải hành trình này?
+CONFIRM_RESET_TITLE,Reset all settings?,Khôi phục mọi cài đặt?
+CONFIRM_RESET_BODY,"Graphics, sound, controls and key bindings return to their defaults.","Đồ họa, âm thanh, điều khiển và phím bấm sẽ trở về mặc định."
+SAVE_TITLE,Save journey,Lưu hành trình
+LOAD_TITLE,Load journey,Tải hành trình
+SLOT_AUTOSAVE,Autosave,Tự động lưu
+SLOT_MANUAL,Journal page {n},Trang nhật ký {n}
+SLOT_EMPTY,An empty page,Trang còn trống
+SLOT_DAY,Day {day},Ngày {day}
+SLOT_PLAYTIME,Played {time},Đã chơi {time}
+SAVE_DONE,Journey saved,Đã lưu hành trình
+QUICK_SAVED,Quick-saved,Đã lưu nhanh
+QUICK_LOAD_NONE,No quick-save yet,Chưa có bản lưu nhanh
+HUD_LEVEL,Level {level},Cấp {level}
+HUD_LV,Lv,Cấp
+HUD_XP,{xp} / {next} XP,{xp} / {next} KN
+HUD_XP_GAIN,+{n} XP,+{n} KN
+HUD_MOUTH,In mouth,Đang ngậm
+HUD_NEW_QUEST,New quest,Nhiệm vụ mới
+HUD_QUEST_COMPLETE,Quest complete,Hoàn thành nhiệm vụ
+HUD_QUEST_FAILED,Quest failed,Nhiệm vụ thất bại
+HUD_LEVEL_UP,Level up,Lên cấp
+HUD_LEVEL_UP_SUB,Level {level} · +{sp} skill point · +1 attribute point,Cấp {level} · +{sp} điểm kỹ năng · +1 điểm thuộc tính
+HUD_LEVEL_UP_HINT,Open Skills from the pause menu to spend them.,Mở Kỹ năng trong menu tạm dừng để dùng điểm.
+HUD_DISCOVERED,Discovered,Khám phá
+HUD_DISTANCE,{m} m,{m} m
+HUD_SAVING,Saving…,Đang lưu…
+HUD_SAVED,Saved,Đã lưu
+HUD_CAPS,{n},{n}
+HUD_REWARD_XP,+{n} XP,+{n} KN
+COMPASS_N,N,B
+COMPASS_E,E,Đ
+COMPASS_S,S,N
+COMPASS_W,W,T
+COMPASS_NE,NE,ĐB
+COMPASS_SE,SE,ĐN
+COMPASS_SW,SW,TN
+COMPASS_NW,NW,TB
+DLG_CONTINUE,Continue,Tiếp
+DLG_REQUIRES,Needs: {req},Cần: {req}
+DLG_HISTORY,Conversation,Cuộc trò chuyện
+DLG_CAM,Cam,Cam
+PAUSE_TITLE,Paused,Tạm dừng
+PAUSE_RESUME,Resume,Chơi tiếp
+PAUSE_JOURNAL,Journal,Nhật ký
+PAUSE_MAP,Map,Bản đồ
+PAUSE_INVENTORY,Belongings,Đồ đạc
+PAUSE_SKILLS,Skills,Kỹ năng
+PAUSE_SETTINGS,Settings,Cài đặt
+PAUSE_SAVE,Save journey,Lưu hành trình
+PAUSE_LOAD,Load journey,Tải hành trình
+PAUSE_MAIN_MENU,Main menu,Màn hình chính
+PAUSE_QUIT,Quit game,Thoát game
+PAUSE_STATUS,Day {day} · {time} · {weather},Ngày {day} · {time} · {weather}
+PAUSE_SKILL_POINTS,{n} unspent skill points,Còn {n} điểm kỹ năng
+WEATHER_CLEAR,clear sky,trời quang
+WEATHER_CLOUDY,cloudy,nhiều mây
+WEATHER_RAIN,rain,mưa
+WEATHER_STORM,storm,giông bão
+WEATHER_FOG,fog,sương mù
+INV_TITLE,Belongings,Đồ đạc
+INV_SUBTITLE,What Cam keeps in his den under the tea counter,Những thứ Cam cất trong ổ dưới quầy trà
+INV_TAB_ALL,All,Tất cả
+CAT_FOOD,Food,Đồ ăn
+CAT_QUEST,Story,Cốt truyện
+CAT_TOY,Toys,Đồ chơi
+CAT_SHINY,Shiny things,Đồ lấp lánh
+CAT_TROPHY,Trophies,Chiến lợi phẩm
+CAT_MEMORY,Memories,Kỷ niệm
+CAT_COSMETIC,Collars,Vòng cổ
+CAT_CONSUMABLE,Remedies,Thuốc bổ
+CAT_CURRENCY,Caps,Nắp chai
+INV_CARRY,Carry in mouth,Ngậm theo
+INV_PUT_AWAY,Put back in the den,Cất lại vào ổ
+INV_EAT,Eat,Ăn
+INV_USE,Use,Dùng
+INV_EQUIP,Wear,Đeo
+INV_UNEQUIP,Take off,Tháo ra
+INV_IN_MOUTH,In mouth,Đang ngậm
+INV_EQUIPPED,Worn,Đang đeo
+INV_EMPTY,Nothing here yet. Cam's den is waiting for treasures.,Chưa có gì cả. Ổ của Cam đang chờ báu vật.
+INV_CAPS,{n} bottle caps,{n} nắp chai
+INV_FOOD_VALUE,Fills {n} hunger,Thêm {n} no bụng
+INV_COUNT,×{n},×{n}
+INV_VALUE,Worth {n} caps to Lão Quạ,Lão Quạ trả {n} nắp chai
+INV_MOUTH_HINT,A cat carries only one thing in its mouth at a time.,Mèo chỉ ngậm được một thứ mỗi lúc.
+INV_BUFFS,Feeling,Trạng thái
+INV_BUFF_LEFT,{min} min left,còn {min} phút
+INV_NO_BUFFS,Nothing special.,Không có gì đặc biệt.
+INV_USED,Used: {item},Đã dùng: {item}
+INV_ATE,Ate: {item},Đã ăn: {item}
+SKILLS_TITLE,Skills,Kỹ năng
+SKILLS_POINTS,Skill points,Điểm kỹ năng
+SKILLS_ATTR_POINTS,Attribute points,Điểm thuộc tính
+SKILLS_LEARN,Learn,Học
+SKILLS_LEARNED,Learned,Đã học
+SKILLS_LOCKED,Locked,Chưa mở
+SKILLS_AVAILABLE,Can learn now,Có thể học
+SKILLS_REQUIRES,Needs: {req},Cần: {req}
+SKILLS_COST,Costs {n} point,Tốn {n} điểm
+SKILLS_EFFECTS,Effects,Hiệu quả
+SKILLS_RAISE,Raise,Tăng
+SKILLS_TIER,Tier {n},Bậc {n}
+SKILLS_ATTRIBUTES,Attributes,Thuộc tính
+SKILLS_LEVEL,Level {level} · {xp} XP to next level,Cấp {level} · còn {xp} KN để lên cấp
+SKILLS_LEVEL_MAX,Level {level} · highest level,Cấp {level} · cấp cao nhất
+SKILLS_UNLOCKED_TOAST,Learned {skill},Đã học {skill}
+SKILLS_ATTR_HINT,Each point raises an attribute by one (max 10).,Mỗi điểm tăng một thuộc tính thêm 1 (tối đa 10).
+SKILLS_HOLD,Hold to learn,Giữ để học
+MOD_MOVE_SPEED,Walking speed,Tốc độ đi
+MOD_SPRINT_SPEED,Running speed,Tốc độ chạy
+MOD_SNEAK_SPEED,Sneaking speed,Tốc độ rón rén
+MOD_JUMP_DISTANCE,Jump distance,Tầm nhảy xa
+MOD_JUMP_HEIGHT,Jump height,Độ nhảy cao
+MOD_CLIMB_SPEED,Climbing speed,Tốc độ leo
+MOD_WIRE_SPEED,Speed on wires,Tốc độ đi trên dây
+MOD_BALANCE,Balance,Thăng bằng
+MOD_FALL_DAMAGE_MULT,Fall damage,Sát thương khi ngã
+MOD_SAFE_FALL_HEIGHT,Safe fall height,Độ cao rơi an toàn
+MOD_WALL_JUMP,Wall jump,Bật tường
+MOD_NOISE_MULT,Noise you make,Tiếng động gây ra
+MOD_LANDING_NOISE_MULT,Landing noise,Tiếng động khi tiếp đất
+MOD_DETECTION_MULT,How easily you are noticed,Mức dễ bị phát hiện
+MOD_NIGHT_VISION,Night vision,Nhìn trong đêm
+MOD_CHARM_BONUS,Charm,Duyên
+MOD_MEOW_CHARM,Charm of your meows,Sức hút của tiếng meo
+MOD_FOOD_GIFT_CHANCE,Chance of food gifts,Cơ hội được cho ăn
+MOD_REP_GAIN_MULT,Reputation gained,Danh tiếng nhận được
+MOD_PRICE_MULT,Prices at Lão Quạ's,Giá ở chỗ Lão Quạ
+MOD_CATCH_CHANCE,Catch chance,Tỉ lệ bắt mồi
+MOD_CATCH_BIRDS,Can catch birds,Bắt được chim
+MOD_POUNCE_DISTANCE,Pounce distance,Tầm vồ
+MOD_POUNCE_SPEED,Pounce speed,Tốc độ vồ
+MOD_SCENT_RANGE,Scent range,Tầm đánh hơi
+MOD_HEARING_RANGE,Hearing range,Tầm nghe
+MOD_CAT_SENSE_COST,Cat-sense energy cost,Năng lượng cho giác quan mèo
+MOD_SENSE_COLLECTIBLES,Sense hidden memories,Cảm nhận kỷ niệm ẩn
+MOD_PREY_XP_MULT,XP from prey,Kinh nghiệm từ con mồi
+MOD_ENERGY_REGEN,Energy regained while resting,Năng lượng hồi khi nghỉ
+MOD_ENERGY_DRAIN,Energy used,Năng lượng tiêu hao
+MOD_SPRINT_ENERGY_MULT,Energy used running,Năng lượng khi chạy
+MOD_HUNGER_DRAIN,Hunger over time,Tốc độ đói
+MOD_FOOD_VALUE,Food value,Độ no từ thức ăn
+MOD_WARMTH_DRAIN,Warmth lost,Hơi ấm bị mất
+MOD_WET_RATE,How fast fur gets wet,Tốc độ ướt lông
+MOD_HEALTH_REGEN,Health regeneration,Hồi sức khỏe
+MOD_PURR_HEAL,Purring heals,Gừ gừ hồi sức
+MOD_FREE_FAINTS_PER_DAY,Free faints per day,Lần ngất miễn phí mỗi ngày
+MOD_FAINT_CAP_LOSS_MULT,Caps lost when fainting,Nắp chai mất khi ngất
+MOD_MAX_HEALTH,Max health,Sức khỏe tối đa
+MOD_MAX_HUNGER,Max fullness,No bụng tối đa
+MOD_MAX_ENERGY,Max energy,Năng lượng tối đa
+MOD_MAX_WARMTH,Max warmth,Hơi ấm tối đa
+MOD_XP_MULT,XP gained,Kinh nghiệm nhận được
+MOD_UNLOCKS,Unlocks: {what},Mở khóa: {what}
+JOURNAL_TITLE,Journal,Nhật ký
+JOURNAL_TAB_QUESTS,Quests,Nhiệm vụ
+JOURNAL_TAB_MEMORIES,Memories,Kỷ niệm
+JOURNAL_TAB_PLACES,Places,Địa điểm
+JOURNAL_TAB_CAM,Cam,Về Cam
+JOURNAL_ACTIVE,In progress,Đang làm
+JOURNAL_COMPLETED,Completed,Đã xong
+JOURNAL_FAILED,Failed,Thất bại
+JOURNAL_TRACK,Track this quest,Theo dõi nhiệm vụ này
+JOURNAL_TRACKED,Tracked,Đang theo dõi
+JOURNAL_NO_QUESTS,"No quests yet. Wander, listen, meow at people.","Chưa có nhiệm vụ nào. Cứ đi dạo, lắng nghe, kêu meo với mọi người."
+JOURNAL_SELECT_QUEST,Choose a quest to read its page.,Chọn một nhiệm vụ để đọc.
+JOURNAL_REWARDS,Rewards,Phần thưởng
+JOURNAL_GIVER,From {name},Từ {name}
+JOURNAL_OPTIONAL,optional,không bắt buộc
+JOURNAL_MEMORY_LOCKED,Not found yet,Chưa tìm thấy
+JOURNAL_MEMORY_LOCKED_HINT,Somewhere in Hàng Mây an old photograph is waiting.,"Đâu đó ở Hàng Mây, một tấm ảnh cũ đang chờ."
+JOURNAL_MEMORIES_COUNT,{n} of 12 memories found,Đã tìm {n}/12 kỷ niệm
+JOURNAL_PLACES_COUNT,{n} places discovered,Đã khám phá {n} địa điểm
+JOURNAL_NO_PLACES,Explore the quarter to fill this page.,Hãy khám phá khu phố để lấp đầy trang này.
+JOURNAL_REPUTATION,Reputation,Danh tiếng
+JOURNAL_ACHIEVEMENTS,Achievements,Thành tựu
+JOURNAL_STATS,Little numbers,Vài con số
+JOURNAL_ATTRIBUTES,Attributes,Thuộc tính
+STAT_DAYS,Days in Hàng Mây,Số ngày ở Hàng Mây
+STAT_PLAYTIME,Time played,Thời gian chơi
+STAT_KNOCKED,Things knocked off ledges,Đồ bị hất khỏi bờ tường
+STAT_NAPS,Naps taken,Số giấc ngủ
+STAT_TERRITORY,Territory marked,Lãnh thổ đã đánh dấu
+STAT_PREY,Prey caught,Con mồi đã bắt
+STAT_CAPS,Bottle caps,Nắp chai
+STAT_MEMORIES,Memories found,Kỷ niệm tìm thấy
+ACH_LOCKED,Not yet,Chưa đạt
+MAP_TITLE,Hàng Mây,Hàng Mây
+MAP_SUBTITLE,Map of the old quarter,Bản đồ phố cũ
+MAP_YOU,Cam,Cam
+MAP_QUEST,Tracked quest,Nhiệm vụ đang theo dõi
+MAP_PLACE,Discovered place,Địa điểm đã khám phá
+MAP_NAP,Nap spot,Chỗ ngủ
+MAP_HOME,Grandma Tư's tea stall,Quán trà bà Tư
+MAP_LEGEND,Legend,Chú thích
+MAP_NO_CITY,The map fills in as Cam explores the city.,Bản đồ sẽ hiện ra khi Cam đi khám phá phố.
+MAP_UNEXPLORED,Unexplored,Chưa khám phá
+SETTINGS_TITLE,Settings,Cài đặt
+SET_TAB_GRAPHICS,Graphics,Đồ họa
+SET_TAB_AUDIO,Sound,Âm thanh
+SET_TAB_CONTROLS,Controls,Điều khiển
+SET_TAB_GAMEPLAY,Gameplay,Lối chơi
+SET_TAB_GRAPHICS_DESC,Picture quality and performance. Changes apply immediately.,Chất lượng hình ảnh và hiệu năng. Thay đổi có hiệu lực ngay.
+SET_TAB_AUDIO_DESC,"Volumes of the music, the city and the interface.","Âm lượng nhạc nền, tiếng phố và giao diện."
+SET_TAB_CONTROLS_DESC,Camera feel and every key and button. Select a binding and press the new key.,Cảm giác camera và mọi phím bấm. Chọn một phím rồi bấm phím mới.
+SET_TAB_GAMEPLAY_DESC,"Language, hints and the interface.","Ngôn ngữ, gợi ý và giao diện."
+SET_HDR_DISPLAY,Display,Hiển thị
+SET_HDR_RESOLUTION,Resolution & anti-aliasing,Độ phân giải & khử răng cưa
+SET_HDR_LIGHTING,Light & atmosphere,Ánh sáng & bầu không khí
+SET_HDR_DETAIL,Detail,Chi tiết
+SET_HDR_VOLUME,Volume,Âm lượng
+SET_HDR_SUBTITLES,Subtitles,Phụ đề
+SET_HDR_CAMERA,Camera,Camera
+SET_HDR_LANGUAGE,Language,Ngôn ngữ
+SET_HDR_INTERFACE,Interface,Giao diện
+SET_HDR_RESET,Defaults,Mặc định
+SET_QUALITY,Quality preset,Mức chất lượng
+SET_QUALITY_DESC,Sets every graphics option at once. Changing a single option below switches to Custom.,Đặt mọi tùy chọn đồ họa cùng lúc. Đổi riêng một tùy chọn bên dưới sẽ chuyển sang Tùy chỉnh.
+SET_FULLSCREEN,Fullscreen,Toàn màn hình
+SET_FULLSCREEN_DESC,Fill the whole screen.,Hiển thị kín màn hình.
+SET_VSYNC,V-Sync,Đồng bộ dọc (V-Sync)
+SET_VSYNC_DESC,Prevents tearing by matching the display's refresh rate.,Chống xé hình bằng cách khớp với tần số quét của màn hình.
+SET_MAX_FPS,Frame rate limit,Giới hạn khung hình
+SET_MAX_FPS_DESC,Caps frames per second to save power and heat.,Giới hạn số khung hình mỗi giây để tiết kiệm điện và đỡ nóng máy.
+SET_FOV,Field of view,Góc nhìn (FOV)
+SET_FOV_DESC,How wide the camera sees. First-person adds a little more for cat eyes.,Độ rộng tầm nhìn của camera. Góc nhìn thứ nhất rộng hơn một chút như mắt mèo.
+SET_RENDER_SCALE,Render scale,Tỉ lệ kết xuất
+SET_RENDER_SCALE_DESC,Renders the 3D scene at a lower resolution and upscales it. Lower = faster.,Kết xuất cảnh 3D ở độ phân giải thấp hơn rồi phóng lên. Càng thấp càng nhanh.
+SET_UPSCALER,Upscaler,Bộ nâng độ phân giải
+SET_UPSCALER_DESC,How the image is scaled up when render scale is below 100%. FSR 2 is sharpest.,Cách phóng ảnh khi tỉ lệ kết xuất dưới 100%. FSR 2 sắc nét nhất.
+SET_FSR_SHARPNESS,Upscaler sharpness,Độ sắc khi nâng
+SET_FSR_SHARPNESS_DESC,Sharpening applied by FSR. 0 is sharpest.,Độ làm nét của FSR. 0 là sắc nhất.
+SET_AA,Anti-aliasing,Khử răng cưa
+SET_AA_DESC,Smooths jagged edges. TAA is the cleanest for fur and wires.,Làm mượt cạnh răng cưa. TAA mịn nhất cho lông mèo và dây điện.
+SET_SDFGI,Global illumination,Chiếu sáng toàn cục
+SET_SDFGI_DESC,"Light bouncing between walls and streets (SDFGI). Beautiful, expensive.",Ánh sáng dội giữa tường và phố (SDFGI). Rất đẹp nhưng nặng.
+SET_SSAO,Ambient occlusion,Che sáng môi trường
+SET_SSAO_DESC,Soft contact shadows in corners and under objects (SSAO).,Bóng mềm ở góc tường và dưới đồ vật (SSAO).
+SET_SSIL,Indirect light,Ánh sáng gián tiếp
+SET_SSIL_DESC,Short-range colour bleeding between nearby surfaces (SSIL).,Màu sắc loang nhẹ giữa các bề mặt gần nhau (SSIL).
+SET_SSR,Reflections,Phản chiếu
+SET_SSR_DESC,Screen-space reflections on wet streets and puddles (SSR).,Phản chiếu trên mặt đường ướt và vũng nước (SSR).
+SET_VOLFOG,Volumetric fog,Sương khói thể tích
+SET_VOLFOG_DESC,Light shafts through alleys and humid haze.,Những vệt nắng xuyên qua ngõ và hơi ẩm lơ lửng.
+SET_SHADOWS,Shadow quality,Chất lượng bóng đổ
+SET_SHADOWS_DESC,Resolution and softness of shadows.,Độ phân giải và độ mềm của bóng đổ.
+SET_FUR,Fur detail,Chi tiết lông
+SET_FUR_DESC,Number of fur shell layers on cats. More layers = fluffier.,Số lớp lông trên mèo. Nhiều lớp hơn thì mượt hơn.
+SET_LOD,Detail distance,Khoảng cách chi tiết
+SET_LOD_DESC,How far away models keep their full detail.,Khoảng cách mà mô hình vẫn giữ đủ chi tiết.
+SET_ANISO,Texture filtering,Lọc kết cấu
+SET_ANISO_DESC,Keeps streets and roof tiles sharp at grazing angles.,Giữ mặt đường và mái ngói sắc nét khi nhìn xiên.
+SET_MOTION_BLUR,Motion blur,Nhòe chuyển động
+SET_MOTION_BLUR_DESC,Blur during fast camera movement.,Làm nhòe khi camera chuyển động nhanh.
+SET_FILM_GRAIN,Film grain,Hạt phim
+SET_FILM_GRAIN_DESC,A gentle analogue grain over the image.,Một lớp hạt phim nhẹ trên hình ảnh.
+SET_RESET_TAB,Reset this tab,Khôi phục thẻ này
+SET_RESET_TAB_DESC,Restores the defaults of this tab only.,Chỉ khôi phục mặc định cho thẻ này.
+SET_VOL_MASTER,Master volume,Âm lượng tổng
+SET_VOL_MASTER_DESC,Everything at once.,Toàn bộ âm thanh.
+SET_VOL_MUSIC,Music,Nhạc nền
+SET_VOL_MUSIC_DESC,"Đàn tranh, đàn bầu and sáo trúc.","Đàn tranh, đàn bầu và sáo trúc."
+SET_VOL_SFX,Sound effects,Hiệu ứng
+SET_VOL_SFX_DESC,"Paws, meows, knocks and splashes.","Tiếng bước chân, tiếng meo, đồ rơi, nước bắn."
+SET_VOL_AMBIENCE,City ambience,Âm thanh phố
+SET_VOL_AMBIENCE_DESC,"Motorbikes, vendors, rain, birds and geckos.","Xe máy, người bán hàng, mưa, chim chóc và thạch sùng."
+SET_VOL_UI,Interface,Giao diện
+SET_VOL_UI_DESC,Menu and notification sounds.,Âm thanh menu và thông báo.
+SET_SUBTITLES,Subtitles,Phụ đề
+SET_SUBTITLES_DESC,Show what people say around Cam.,Hiện lời mọi người nói quanh Cam.
+SET_SUBTITLE_SIZE,Subtitle size,Cỡ phụ đề
+SET_SUBTITLE_SIZE_DESC,Text size of subtitles and dialogue.,Cỡ chữ của phụ đề và hội thoại.
+SET_MOUSE_SENS,Mouse sensitivity,Độ nhạy chuột
+SET_MOUSE_SENS_DESC,How fast the camera turns with the mouse.,Tốc độ xoay camera theo chuột.
+SET_PAD_SENS,Gamepad sensitivity,Độ nhạy tay cầm
+SET_PAD_SENS_DESC,How fast the camera turns with the right stick.,Tốc độ xoay camera bằng cần phải.
+SET_INVERT_Y,Invert vertical look,Đảo trục dọc
+SET_INVERT_Y_DESC,Push up to look down.,Đẩy lên để nhìn xuống.
+SET_INVERT_X,Invert horizontal look,Đảo trục ngang
+SET_INVERT_X_DESC,Push right to look left.,Đẩy sang phải để nhìn sang trái.
+SET_VIBRATION,Vibration,Rung
+SET_VIBRATION_DESC,Gamepad rumble on landings and purring.,Tay cầm rung khi tiếp đất và khi gừ gừ.
+SET_CAMERA_DEFAULT,Default camera,Góc nhìn mặc định
+SET_CAMERA_DEFAULT_DESC,The view Cam starts in. Switch any time with the camera button.,Góc nhìn khi bắt đầu. Đổi bất cứ lúc nào bằng nút camera.
+SET_HEAD_BOB,Head bob,Rung đầu khi đi
+SET_HEAD_BOB_DESC,How much the first-person view sways with Cam's steps.,Mức góc nhìn thứ nhất lắc theo bước chân của Cam.
+SET_AUTO_CENTER,Auto-centre camera,Tự căn camera
+SET_AUTO_CENTER_DESC,The third-person camera drifts behind Cam while walking.,Camera góc nhìn thứ ba tự quay về sau lưng Cam khi đi.
+SET_BINDINGS,Keys & buttons,Phím & nút
+SET_RESET_BINDINGS,Reset keys & buttons,Khôi phục phím bấm
+SET_RESET_BINDINGS_DESC,Restores the original bindings.,Trả lại các phím bấm ban đầu.
+SET_LANGUAGE,Language,Ngôn ngữ
+SET_LANGUAGE_DESC,Language of all text.,Ngôn ngữ của toàn bộ chữ.
+SET_HINTS,Hints & prompts,Gợi ý & nhắc phím
+SET_HINTS_DESC,Button prompts and gentle tips.,Nhắc phím và các gợi ý nhẹ nhàng.
+SET_COMPASS,Compass,La bàn
+SET_COMPASS_DESC,The compass strip at the top of the screen.,Dải la bàn ở đầu màn hình.
+SET_TEXT_SPEED,Text speed,Tốc độ chữ
+SET_TEXT_SPEED_DESC,How fast dialogue text appears.,Tốc độ hiện chữ trong hội thoại.
+SET_UI_SCALE,Interface scale,Cỡ giao diện
+SET_UI_SCALE_DESC,Size of menus and the HUD.,Kích cỡ menu và HUD.
+SET_HUD_OPACITY,HUD opacity,Độ đậm HUD
+SET_HUD_OPACITY_DESC,How strongly the HUD shows over the city.,Độ rõ của HUD trên nền phố.
+SET_RESET_ALL,Reset all settings,Khôi phục mọi cài đặt
+SET_RESET_ALL_DESC,Every option and binding back to its default.,Mọi tùy chọn và phím bấm trở về mặc định.
+SET_BINDINGS_DESC,"Select a binding, then press the new key or button.","Chọn một phím, rồi bấm phím hoặc nút mới."
+SET_REBIND_DESC,Left: keyboard & mouse. Right: gamepad. Select one and press the new key.,Trái: bàn phím & chuột. Phải: tay cầm. Chọn rồi bấm phím mới.
+SET_REBIND_PROMPT,Press a new key for “{action}”… (Esc cancels),Bấm phím mới cho “{action}”… (Esc để hủy)
+SET_REBIND_CONFLICT,Also used by “{action}”.,Phím này cũng đang dùng cho “{action}”.
+SET_QUALITY_CUSTOM_NOTE,Your own mix of options.,Kết hợp tùy chọn của riêng bạn.
+SET_EFFECTS_ON,Effects,Hiệu ứng
+SET_SHORT_SDFGI,GI,GI
+SET_SHORT_SSR,reflections,phản chiếu
+SET_SHORT_SSAO,AO,AO
+SET_SHORT_SSIL,indirect light,ánh sáng gián tiếp
+SET_SHORT_VOLUMETRIC_FOG,volumetric fog,sương thể tích
+SET_FPS_UNLIMITED,Unlimited,Không giới hạn
+SET_FUR_OFF,Off,Tắt
+SET_FUR_N,{n} layers,{n} lớp
+Q_LOW,Low,Thấp
+Q_MEDIUM,Medium,Trung bình
+Q_HIGH,High,Cao
+Q_ULTRA,Ultra,Cực cao
+Q_CUSTOM,Custom,Tùy chỉnh
+UPS_OFF,Off (bilinear),Tắt (song tuyến)
+UPS_FSR,AMD FSR 1,AMD FSR 1
+UPS_FSR2,AMD FSR 2,AMD FSR 2
+AA_OFF,Off,Tắt
+AA_FXAA,FXAA,FXAA
+AA_SMAA,SMAA,SMAA
+AA_TAA,TAA,TAA
+LOD_NEAR,Near,Gần
+LOD_MEDIUM,Medium,Vừa
+LOD_FAR,Far,Xa
+LOD_VERY_FAR,Very far,Rất xa
+SIZE_SMALL,Small,Nhỏ
+SIZE_MEDIUM,Medium,Vừa
+SIZE_LARGE,Large,Lớn
+CAM_TPP,Third person,Góc nhìn thứ ba
+CAM_FPP,First person (cat eyes),Góc nhìn thứ nhất (mắt mèo)
+KEY_MOUSE_LEFT,Left click,Chuột trái
+KEY_MOUSE_RIGHT,Right click,Chuột phải
+KEY_MOUSE_MIDDLE,Middle click,Chuột giữa
+KEY_WHEEL_UP,Wheel up,Lăn lên
+KEY_WHEEL_DOWN,Wheel down,Lăn xuống
+ACTION_MOVE_FORWARD,Move forward,Đi tới
+ACTION_MOVE_BACK,Move back,Lùi lại
+ACTION_MOVE_LEFT,Move left,Sang trái
+ACTION_MOVE_RIGHT,Move right,Sang phải
+ACTION_JUMP,Jump (hold to aim),Nhảy (giữ để ngắm)
+ACTION_SPRINT,Run,Chạy
+ACTION_SNEAK,Sneak,Rón rén
+ACTION_INTERACT,Interact,Tương tác
+ACTION_PICKUP_DROP,Pick up / drop,Ngậm / nhả
+ACTION_MEOW,Meow,Kêu meo
+ACTION_SWIPE,Swipe,Cào
+ACTION_AIM_JUMP,Aim jump,Ngắm nhảy
+ACTION_CAT_SENSE,Cat sense,Giác quan mèo
+ACTION_SIT_GROOM,Sit / groom,Ngồi / liếm lông
+ACTION_TOGGLE_CAMERA,Switch camera,Đổi góc nhìn
+ACTION_INVENTORY,Belongings,Đồ đạc
+ACTION_JOURNAL,Journal,Nhật ký
+ACTION_MAP,Map,Bản đồ
+ACTION_PAUSE,Pause menu,Tạm dừng
+ACTION_QUICK_SAVE,Quick save,Lưu nhanh
+ACTION_QUICK_LOAD,Quick load,Tải nhanh
+ACTION_SCREENSHOT,Screenshot,Chụp màn hình
+ACTION_LOOK_UP,Look up,Nhìn lên
+ACTION_LOOK_DOWN,Look down,Nhìn xuống
+ACTION_LOOK_LEFT,Look left,Nhìn trái
+ACTION_LOOK_RIGHT,Look right,Nhìn phải
+ACTION_ZOOM_IN,Zoom in,Phóng to
+ACTION_ZOOM_OUT,Zoom out,Thu nhỏ
+CREDITS_TITLE,Credits,Đội ngũ
+CREDITS_A_GAME_BY,a game by,một trò chơi của
+CREDITS_DIRECTION,Direction,Chỉ đạo
+CREDITS_DIRECTION_BODY,The Mái Ngói lead team,Nhóm chỉ đạo Xưởng Mái Ngói
+CREDITS_DESIGN,Game design & story,Thiết kế & cốt truyện
+CREDITS_DESIGN_BODY,Đêm Trăng Rằm — the Full-Moon Night,Đêm Trăng Rằm
+CREDITS_CAT,"Cam, the cat",Chú mèo Cam
+CREDITS_CAT_BODY,"Sculpt, fur, rig and 33 animations — the cat team","Tạc hình, lông, khung xương và 33 hoạt ảnh — tổ mèo"
+CREDITS_CITY,The old quarter,Phố cũ
+CREDITS_CITY_BODY,"Shophouses, landmarks, street props, vehicles and trees — the city teams","Nhà ống, công trình, đồ vật trên phố, xe cộ và cây xanh — các tổ dựng phố"
+CREDITS_PLAYER,Being a cat,Làm một chú mèo
+CREDITS_PLAYER_BODY,"Movement, jumping, climbing, cameras and cat-sense — the player team","Di chuyển, nhảy, leo trèo, camera và giác quan mèo — tổ nhân vật"
+CREDITS_SYSTEMS,Systems,Hệ thống
+CREDITS_SYSTEMS_BODY,"Vitals, skills, quests, dialogue and saves — the systems team","Sinh lực, kỹ năng, nhiệm vụ, hội thoại và lưu trữ — tổ hệ thống"
+CREDITS_LIFE,A living neighbourhood,Khu phố sống động
+CREDITS_LIFE_BODY,"People, dogs, crows, pigeons and traffic — the world-life team","Con người, chó, quạ, bồ câu và xe cộ — tổ đời sống"
+CREDITS_AUDIO,Sound & music,Âm thanh & âm nhạc
+CREDITS_AUDIO_BODY,"Every sound synthesised from scratch — đàn tranh, đàn bầu, sáo trúc and the city itself","Mọi âm thanh đều được tổng hợp từ đầu — đàn tranh, đàn bầu, sáo trúc và chính tiếng phố"
+CREDITS_UI,Interface,Giao diện
+CREDITS_UI_BODY,"Menus, HUD, icons and lettering — the interface team","Menu, HUD, biểu tượng và chữ — tổ giao diện"
+CREDITS_TOOLS,Made with,Công cụ
+CREDITS_TOOLS_BODY,"Godot Engine 4.7 (MIT licence) · Blender 5.2 (GPL) · Python, NumPy & Pillow","Godot Engine 4.7 (giấy phép MIT) · Blender 5.2 (GPL) · Python, NumPy & Pillow"
+CREDITS_FONTS,Typefaces,Phông chữ
+CREDITS_FONTS_BODY,Be Vietnam Pro · Playfair Display · Lora — SIL Open Font License 1.1,Be Vietnam Pro · Playfair Display · Lora — SIL Open Font License 1.1
+CREDITS_THANKS,With thanks,Cảm ơn
+CREDITS_THANKS_BODY,"Every orange cat asleep on a warm rooftop, and every grandma who leaves a bowl out for them.","Mọi chú mèo cam đang ngủ trên mái nhà ấm, và mọi bà cụ vẫn để sẵn một bát cơm cho chúng."
+CREDITS_ORIGINAL,"Hàng Mây is a fictional place. All characters, brands and signs are invented.","Hàng Mây là một nơi hư cấu. Mọi nhân vật, nhãn hiệu và biển hiệu đều do chúng tôi tưởng tượng."
+CREDITS_END,Thank you for playing.,Cảm ơn bạn đã chơi.
+TIP_01,"Hold Jump to crouch and aim, release to leap. The longer you hold, the farther Cam goes.","Giữ nút Nhảy để thu mình ngắm, thả ra để bật. Giữ càng lâu Cam nhảy càng xa."
+TIP_02,"Cat sense reveals scents, sounds and hidden memories nearby — at a small cost of energy.","Giác quan mèo làm hiện mùi, âm thanh và kỷ niệm ẩn gần đó — tốn một chút năng lượng."
+TIP_03,Awnings keep your fur dry. A wet cat gets cold fast.,Mái hiên giữ lông khô. Mèo ướt sẽ lạnh rất nhanh.
+TIP_04,Napping restores energy and passes time. Every new nap spot is worth some experience.,Ngủ giúp hồi năng lượng và cho thời gian trôi. Mỗi chỗ ngủ mới đều cho thêm kinh nghiệm.
+TIP_05,A cat carries only one thing in its mouth. Everything else waits in Cam's den.,Mèo chỉ ngậm được một thứ. Mọi thứ khác nằm chờ trong ổ của Cam.
+TIP_06,The crows of Hàng Mây trade in bottle caps. Keep an eye on gutters and café tables.,Bầy quạ Hàng Mây buôn bán bằng nắp chai. Để mắt tới rãnh nước và bàn quán cà phê.
+TIP_07,Sit and meow politely — charm opens doors (and fish stalls).,Ngồi xuống và meo thật lễ phép — sự đáng yêu mở được nhiều cánh cửa (và cả sạp cá).
+TIP_08,"Vện the market dog barks a lot but never bites. Still, sneaking is quieter.","Chó Vện ở chợ sủa nhiều nhưng không bao giờ cắn. Dù vậy, rón rén vẫn êm hơn."
+TIP_09,Switch to first person to see the quarter through Cam's eyes — whiskers and all.,Chuyển sang góc nhìn thứ nhất để nhìn phố bằng mắt Cam — có cả ria mép.
+TIP_10,Some things on ledges simply must be knocked off. People will have opinions.,Có những thứ trên bờ tường sinh ra là để bị hất xuống. Người ta sẽ có ý kiến đấy.
+TIP_11,"AC units, awnings and balconies are stairs if you are a cat.","Cục nóng điều hòa, mái hiên và ban công đều là cầu thang nếu bạn là mèo."
+TIP_12,Power lines are walkable. Move slowly and keep your balance.,Dây điện cũng đi được. Bước chậm và giữ thăng bằng.
+TIP_13,Scratch posts and rubbing spots mark your territory — the rooftop cats notice.,Cột cào và chỗ cọ người giúp đánh dấu lãnh thổ — hội mèo mái nhà để ý cả đấy.
+TIP_14,Twelve old photographs are hidden around town. Each one tells a little of Grandma Tư's life.,Mười hai tấm ảnh cũ nằm rải rác trong phố. Mỗi tấm kể một chút về cuộc đời bà Tư.
+TIP_15,"Hungry? Grandma's bowl, Uncle Sáu's bánh mì cart and the fish market all have something for a polite cat.","Đói à? Bát cơm của bà, xe bánh mì chú Sáu và chợ cá đều có gì đó cho một chú mèo lễ phép."
+TIP_16,"If Cam faints he wakes up at his last nap spot, minus a few bottle caps.","Nếu Cam ngất, chú sẽ tỉnh dậy ở chỗ ngủ gần nhất, mất vài nắp chai."
+TIP_17,Each level brings a skill point and an attribute point. Spend them in Skills.,Mỗi cấp cho một điểm kỹ năng và một điểm thuộc tính. Dùng chúng trong mục Kỹ năng.
+TIP_18,"The journal keeps your quests, memories and every place you have found.","Nhật ký lưu lại nhiệm vụ, kỷ niệm và mọi nơi bạn đã tìm thấy."
+TIP_19,Sneaking makes almost no sound. Running on tin roofs makes a lot.,Rón rén gần như không gây tiếng động. Chạy trên mái tôn thì ồn lắm.
+TIP_20,The market opens at dawn and packs up at noon — come early for the freshest fish.,Chợ mở lúc rạng sáng và dọn hàng buổi trưa — đến sớm để có cá tươi nhất.
+TIP_21,At night the street lights hum and the geckos sing. Some cats only come out then.,Ban đêm đèn đường rì rầm và thạch sùng tặc lưỡi. Có những chú mèo chỉ ra ngoài lúc ấy.
+TIP_22,Rain makes streets shine and roofs slippery. Look for dry spots under the eaves.,Mưa làm mặt đường bóng loáng và mái nhà trơn trượt. Tìm chỗ khô dưới mái hiên nhé.
+TIP_23,Mid-Autumn is coming: three days until the star lanterns light up the quarter.,Trung thu sắp tới: còn ba ngày nữa là đèn ông sao thắp sáng khắp phố.
+TIP_24,"Lost? The map shows discovered places, and the compass points to your tracked quest.","Lạc đường? Bản đồ hiện các nơi đã khám phá, còn la bàn chỉ tới nhiệm vụ đang theo dõi."
+STAT_HEALTH,Health,Sức khỏe
+STAT_HUNGER,Hunger,No bụng
+STAT_ENERGY,Energy,Năng lượng
+STAT_WARMTH,Warmth,Hơi ấm
+STAT_WETNESS,Wet fur,Lông ướt
+ATTR_AGILITY,Agility,Nhanh nhẹn
+ATTR_STEALTH,Stealth,Lén lút
+ATTR_CHARM,Charm,Duyên
+ATTR_HUNTING,Hunting,Săn mồi
+ATTR_AGILITY_DESC,"Longer, surer jumps; faster climbing and sprinting.","Nhảy xa và chắc hơn; leo trèo, chạy nước rút nhanh hơn."
+ATTR_STEALTH_DESC,Softer paws and a lower profile: people and dogs notice you later.,"Bước chân êm hơn, khó bị phát hiện: người và chó để ý đến bạn muộn hơn."
+ATTR_CHARM_DESC,"Win over humans and animals: food, favours and better trades.","Chiếm cảm tình của người và thú: được cho ăn, được giúp đỡ, trao đổi hời hơn."
+ATTR_HUNTING_DESC,"Better pounces, sharper senses, more successful catches.","Vồ chuẩn hơn, giác quan nhạy hơn, bắt mồi thành công hơn."
+FACTION_HUMANS,Humans,Con người
+FACTION_ROOFTOP_CATS,Rooftop cats,Hội mèo mái nhà
+FACTION_BIRDS,Birds,Chim chóc
+REP_TIER_HOSTILE,Hostile,Thù địch
+REP_TIER_WARY,Wary,Dè chừng
+REP_TIER_NEUTRAL,Neutral,Bình thường
+REP_TIER_FRIENDLY,Friendly,Thân thiện
+REP_TIER_BELOVED,Beloved,Được cưng chiều
+PHASE_DAWN,dawn,rạng sáng
+PHASE_DAY,daytime,ban ngày
+PHASE_DUSK,dusk,chạng vạng
+PHASE_NIGHT,night,ban đêm
+NOTIFY_LEVEL_UP,Level {level}! A new skill point and attribute point to spend.,Lên cấp {level}! Có thêm điểm kỹ năng và điểm thuộc tính.
+NOTIFY_SKILL_UNLOCKED,New skill: {skill},Kỹ năng mới: {skill}
+NOTIFY_ACHIEVEMENT,Achievement: {name},Thành tựu: {name}
+NOTIFY_LOCATION_DISCOVERED,Discovered: {name},Đã khám phá: {name}
+NOTIFY_HUNGRY,Cam's tummy is rumbling…,Bụng Cam đang réo rồi…
+NOTIFY_TIRED,Cam is exhausted — find a cosy spot to nap.,Cam mệt rã rời — tìm chỗ ấm mà ngủ một giấc đi.
+NOTIFY_COLD,Cam is cold and shivering. Get dry under an awning.,Cam lạnh run cầm cập. Trú dưới mái hiên cho khô lông.
+NOTIFY_HURT,Cam is hurt. Rest and eat to recover.,Cam bị đau. Ăn no và nghỉ ngơi để hồi sức.
+NOTIFY_NINE_LIVES,Nine Lives: Cam shakes it off — nothing lost.,Chín Mạng: Cam lắc mình đứng dậy — chẳng mất gì cả.
+NOTIFY_WOKE_UP,"Cam wakes up at his last nap spot, a little dazed.","Cam tỉnh dậy ở chỗ ngủ quen, hơi choáng váng."
+NOTIFY_TERRITORY_MARKED,Territory marked ({count}),Đã đánh dấu lãnh thổ ({count})
+NOTIFY_MEMORY_FOUND,Memory found: {name} ({count}/12),Tìm thấy kỷ niệm: {name} ({count}/12)
+NOTIFY_QUEST_STARTED,New quest: {title},Nhiệm vụ mới: {title}
+NOTIFY_QUEST_COMPLETED,Quest complete: {title},Hoàn thành: {title}
+NOTIFY_QUEST_FAILED,Quest failed: {title},Thất bại: {title}
+NOTIFY_OBJECTIVE_DONE,Done: {objective},Xong: {objective}
+QUEST_CATEGORY_MAIN,Story,Cốt truyện
+QUEST_CATEGORY_TRIAL,Rooftop trials,Thử thách mái nhà
+QUEST_CATEGORY_SIDE,Neighbourhood,Chuyện trong phố
+QUEST_CATEGORY_MISC,Other,Khác
+QUEST_STATE_ACTIVE,In progress,Đang làm
+QUEST_STATE_COMPLETED,Completed,Đã xong
+QUEST_STATE_FAILED,Failed,Thất bại
+QUEST_OPTIONAL,Optional,Không bắt buộc
+REQ_ATTRIBUTE,{attribute} {value},{attribute} {value}
+REQ_SKILL,Skill: {skill},Kỹ năng: {skill}
+REQ_LEVEL,Level {level},Cấp {level}
+REQ_SKILL_POINTS,{points} skill point(s),{points} điểm kỹ năng
+REQ_ITEM,{item} ×{count},{item} ×{count}
+REQ_MOUTH,Carry {item},Ngậm {item}
+REQ_CAPS,{count} bottle caps,{count} nắp chai
+REQ_REPUTATION,{faction} reputation {value},Uy tín với {faction}: {value}
+REQ_PHASE,Only at {phase},Chỉ vào {phase}
+REQ_TIME,Only {from}–{to},Chỉ từ {from} đến {to}
+REQ_FESTIVAL,Festival night only,Chỉ trong đêm hội
+REQ_OR,or,hoặc
+REQ_UNKNOWN_SKILL,Unknown skill,Kỹ năng không tồn tại
+REQ_ALREADY_UNLOCKED,Already learned,Đã học
+REQ_MOUTH_EMPTY,Mouth is full,Miệng đang ngậm đồ
+REQ_EMPTY,Nothing left,Hết rồi
+REQ_ALREADY_MARKED,Already yours,Đã là của Cam
+PROMPT_INTERACT,Sniff {name},Ngửi {name}
+PROMPT_PICKUP,Pick up {name},Nhặt {name}
+PROMPT_PICKUP_MOUTH,Carry {name},Ngậm {name}
+PROMPT_SWAP,"Drop {held}, carry {name}","Nhả {held}, ngậm {name}"
+PROMPT_TALK,Meow at {name},Meo với {name}
+PROMPT_SLEEP,Nap ({hours} h),Ngủ một giấc ({hours} giờ)
+PROMPT_SLEEP_UNTIL,Sleep until {time},Ngủ đến {time}
+PROMPT_EAT,Eat {name},Ăn {name}
+PROMPT_DRINK,Drink {name},Uống {name}
+PROMPT_STEAL,Snatch {name},Chôm {name}
+PROMPT_TAKE,Take {name},Lấy {name}
+PROMPT_SCRATCH,Scratch {name},Cào {name}
+PROMPT_MARK,Mark territory,Đánh dấu lãnh thổ
+PROMPT_COLLECT,Take {name},Lấy {name}
+PROMPT_KNOCK,Paw at {name},Khều {name}
+PROMPT_LIGHT,Bat the lantern,Khều đèn lồng
+PROP_OBJECT,it,món đồ
+ITEM_WATER,water,nước
+ITEM_FOOD,food,đồ ăn
+BUFF_CATNIP,Catnip zoomies,Phê bạc hà mèo
+BUFF_CATNIP_DESC,Faster and bouncier — but noisy and a bit silly.,"Chạy nhanh, nhảy hăng — nhưng ồn ào và hơi ngớ ngẩn."
+BUFF_PLAYFUL,Playful,Ham chơi
+BUFF_PLAYFUL_DESC,"In a playful mood: cuter, and a sharper pounce.","Đang vui: đáng yêu hơn, vồ cũng chuẩn hơn."
+BUFF_SHARP_CLAWS,Sharp claws,Móng sắc
+BUFF_SHARP_CLAWS_DESC,Freshly sharpened claws grip better when climbing.,"Móng vừa mài, bám chắc hơn khi leo trèo."
+BUFF_WELL_FED,Well fed,No căng
+BUFF_WELL_FED_DESC,"A full belly: faster healing, slower to tire.","Bụng no căng: hồi sức nhanh, lâu mệt hơn."
+BUFF_WARM_NAP,Warm from a nap,Ấm sau giấc ngủ
+BUFF_WARM_NAP_DESC,Still toasty from a good nap: feels the cold less.,Vẫn còn ấm sau giấc ngủ ngon: ít thấy lạnh hơn.
+BUFF_GROOMED,Freshly groomed,Vừa chải chuốt
+BUFF_GROOMED_DESC,"Shiny, tidy fur. Everyone wants to pet Cam.",Bộ lông óng mượt gọn gàng. Ai cũng muốn vuốt ve Cam.
+ACH_KNOCK_IT_OFF,Knock It Off,Cho Rơi Hết
+ACH_KNOCK_IT_OFF_DESC,Knock 20 different things off ledges.,Khều rơi 20 món đồ khác nhau khỏi gờ cao.
+ACH_MEMORY_KEEPER,Keeper of Memories,Người Giữ Kỷ Niệm
+ACH_MEMORY_KEEPER_DESC,Find all 12 of Grandma Tư's old photographs.,Tìm đủ 12 tấm ảnh cũ của bà Tư.
+ACH_NAP_CONNOISSEUR,Nap Connoisseur,Sành Ngủ
+ACH_NAP_CONNOISSEUR_DESC,Sleep in 8 different nap spots.,Ngủ ở 8 chỗ khác nhau.
+ACH_ROOFTOP_ROYALTY,Rooftop Royalty,Chúa Tể Mái Nhà
+ACH_ROOFTOP_ROYALTY_DESC,Mark all 10 territory spots.,Đánh dấu cả 10 điểm lãnh thổ.
+ACH_NIGHT_PROWLER,Night Prowler,Kẻ Rình Đêm
+ACH_NIGHT_PROWLER_DESC,Catch (and kindly release) 10 prey.,Bắt (rồi tha) 10 con mồi.
+DLG_ACT_MEOW,[Meow],[Meo]
+DLG_ACT_PURR,[Purr],[Gừ gừ]
+DLG_ACT_HEADBUTT,[Headbutt],[Dụi đầu]
+DLG_ACT_IGNORE,[Look away],[Làm lơ]
+DLG_ACT_CHIRP,[Chirp],[Kêu ríu rít]
+DLG_ACT_TRILL,[Trill],[Rù rì]
+DLG_ACT_SLOW_BLINK,[Slow blink],[Chớp mắt chậm]
+DLG_ACT_RUB,[Rub against],[Cọ người]
+DLG_ACT_HISS,[Hiss],[Khè]
+DLG_ACT_SIT,[Sit nicely],[Ngồi ngoan]
+DLG_ACT_KNEAD,[Knead],[Nhồi bột]
+DLG_ACT_FOLLOW,[Follow],[Đi theo]
+DLG_ACT_LEAVE,[Walk away],[Bỏ đi]
+DLG_ACT_ROLL_OVER,[Roll over],[Lăn ra phơi bụng]
+DLG_ACT_OFFER_ITEM,[Drop it at their feet],[Đặt đồ xuống chân]
+DLG_ACT_SWIPE,[Swipe],[Vả]
+DLG_ACT_GROOM,[Groom],[Liếm lông]
+DLG_ACT_STARE,[Stare],[Nhìn chằm chằm]
+DLG_ACT_YOWL,[Yowl],[Gào]
+DLG_ACT_WAIT,[Wait],[Chờ]
+NPC_CAM,Cam,Cam
+NPC_BA_TU,Grandma Tư,Bà Tư
+NPC_MUN,Mun,Mun
+NPC_BONG,Bông,Bông
+NPC_ONG_MUOP,Old Mướp,Ông Mướp
+NPC_LAO_QUA,Old Crow,Lão Quạ
+NPC_XAM,Xám,Xám
+NPC_VEN,Vện,Vện
+NPC_CO_HOA,Miss Hoa,Cô Hoa
+NPC_CHU_SAU,Uncle Sáu,Chú Sáu
+NPC_BIN,Bin,Bin
+LOC_TEA_STALL,Grandma Tư's tea stall,Quán trà bà Tư
+LOC_MAIN_STREET,Hàng Mây Street,Phố Hàng Mây
+LOC_CAFE,Bông's café,Quán cà phê nhà Bông
+LOC_WEST_ALLEYS,West alley maze,Mê cung hẻm phía Tây
+LOC_ROOFTOPS,Rooftop network,Mạng lưới mái nhà
+LOC_WATER_TOWER,Water tower,Tháp nước
+LOC_LAKE,Mirror Lake,Hồ Gương
+LOC_BANYAN,Old banyan by the lake,Cây đa bên hồ
+LOC_BRIDGE,Red bridge,Cầu son
+LOC_ISLET_SHRINE,Islet shrine,Miếu giữa hồ
+LOC_MARKET,Hàng Mây market,Chợ Hàng Mây
+LOC_FISH_STREET,Fish street,Dãy hàng cá
+LOC_TEMPLE_STREET,Temple Street,Phố Đình
+LOC_TEMPLE,Hàng Mây communal temple,Đình Hàng Mây
+LOC_TEMPLE_ROOF,Temple roof,Mái đình
+ITEM_CAP,Bottle cap,Nắp chai
+ITEM_CAP_DESC,A crimped metal crown cap. The crows of Hàng Mây treat them like money.,Nắp chai kim loại răng cưa. Bầy quạ phố Hàng Mây coi chúng như tiền.
+ITEM_FISH,Fresh fish,Cá tươi
+ITEM_FISH_DESC,"A silver mackerel scad, still smelling of the morning market. Heavy in the mouth.",Con cá nục bạc còn tanh mùi chợ sớm. Ngậm hơi nặng miệng.
+ITEM_DRIED_FISH,Dried anchovies,Cá cơm khô
+ITEM_DRIED_FISH_DESC,"A little bundle of sun-dried anchovies. Salty, crunchy, irresistible.","Một bó cá cơm phơi nắng. Mặn, giòn, khó cưỡng."
+ITEM_SHRIMP,Boiled shrimp,Tôm luộc
+ITEM_SHRIMP_DESC,A pink boiled shrimp that fell off someone's plate.,Con tôm luộc hồng hồng rơi từ đĩa ai đó.
+ITEM_GIO_LUA,Slice of giò lụa,Miếng giò lụa
+ITEM_GIO_LUA_DESC,A soft slice of pork roll from Uncle Sáu's bánh mì cart.,Lát giò lụa mềm từ xe bánh mì của chú Sáu.
+ITEM_PATE_CRUST,Pâté crust,Mẩu bánh mì pa-tê
+ITEM_PATE_CRUST_DESC,"The end of a bánh mì, still smeared with pâté.",Đầu mẩu bánh mì còn dính lớp pa-tê.
+ITEM_QUAIL_EGG,Quail egg,Trứng cút luộc
+ITEM_QUAIL_EGG_DESC,"A peeled, boiled quail egg. Small enough to carry gently.","Quả trứng cút đã bóc vỏ. Nhỏ xinh, ngậm nhẹ nhàng được."
+ITEM_MOONCAKE_CRUMB,Mooncake crumb,Mẩu bánh nướng
+ITEM_MOONCAKE_CRUMB_DESC,A corner of a festival mooncake — lotus seed and salted egg yolk.,Một góc bánh trung thu nhân hạt sen trứng muối.
+ITEM_LUCKY_CAT_FIGURINE,Lucky-cat figurine,Tượng mèo thần tài
+ITEM_LUCKY_CAT_FIGURINE_DESC,"Grandma Tư's little golden mèo thần tài, its paw raised in greeting. Worn smooth by years of dusting.","Chú mèo thần tài vàng nhỏ của bà Tư, giơ chân vẫy chào. Nước sơn mòn nhẵn vì bao năm được lau bụi."
+ITEM_LETTER,Letter,Lá thư
+ITEM_LETTER_DESC,A thin airmail envelope with foreign stamps. Careful — don't drool on it.,"Phong bì thư máy bay mỏng dán tem nước ngoài. Cẩn thận, đừng để dính nước miếng."
+ITEM_KEY,Bin's key,Chìa khóa của Bin
+ITEM_KEY_DESC,A small brass key on a red string with a plastic star. Bin is in trouble without it.,Chiếc chìa khóa đồng buộc dây đỏ có ngôi sao nhựa. Thiếu nó là Bin bị mắng.
+ITEM_LEG_BAND,Pigeon leg band,Vòng chân bồ câu
+ITEM_LEG_BAND_DESC,Xám's numbered aluminium ring. Proof he is a proper racing pigeon.,Chiếc vòng nhôm khắc số của Xám — bằng chứng cậu là bồ câu đua chính hiệu.
+ITEM_TOY_MOUSE,Toy mouse,Chuột vải
+ITEM_TOY_MOUSE_DESC,A grey felt mouse with one ear chewed off. Squeaks faintly.,Con chuột vải xám bị gặm mất một tai. Vẫn kêu chít chít khe khẽ.
+ITEM_YARN,Ball of yarn,Cuộn len
+ITEM_YARN_DESC,Red wool from Grandma's knitting basket. It unravels so satisfyingly.,Cuộn len đỏ trong giỏ đan của bà. Gỡ ra mới đã làm sao.
+ITEM_SILVER_SPOON,Silver spoon,Thìa bạc
+ITEM_SILVER_SPOON_DESC,A tarnished silver teaspoon. Shiny enough to tempt a crow.,"Chiếc thìa bạc xỉn màu, vẫn đủ lấp lánh để lũ quạ thèm."
+ITEM_HAIR_CLIP,Pearl hair clip,Kẹp tóc ngọc trai
+ITEM_HAIR_CLIP_DESC,"A plastic pearl hair clip, lost by someone in a hurry.","Chiếc kẹp tóc gắn ngọc trai giả, ai đó vội vàng đánh rơi."
+ITEM_GLASS_MARBLE,Glass marble,Viên bi ve
+ITEM_GLASS_MARBLE_DESC,A green glass marble with a swirl of light inside.,Viên bi ve xanh có vệt sáng xoáy bên trong.
+ITEM_BRASS_BELL,Little brass bell,Chuông đồng nhỏ
+ITEM_BRASS_BELL_DESC,A temple wind-bell clapper that rings when you carry it. Very conspicuous.,"Quả chuông gió nhỏ của đình, ngậm đi là kêu leng keng. Rất dễ bị chú ý."
+ITEM_PIGEON_FEATHER,Pigeon feather,Lông bồ câu
+ITEM_PIGEON_FEATHER_DESC,A grey feather — a souvenir of a pounce that was mostly for fun.,Một chiếc lông xám — kỷ niệm của cú vồ chủ yếu để cho vui.
+ITEM_COLLAR_RED,Red collar,Vòng cổ đỏ
+ITEM_COLLAR_RED_DESC,A soft red fabric collar. Humans find Cam a little friendlier with it.,Vòng cổ vải đỏ mềm. Người ta thấy Cam thân thiện hơn chút.
+ITEM_COLLAR_BELL,Bell collar,Vòng cổ chuông
+ITEM_COLLAR_BELL_DESC,Adorable (+1 charm) — and it jingles with every step.,Dễ thương hết sức (+1 Duyên) — nhưng bước nào cũng leng keng.
+ITEM_COLLAR_JADE,Jade bead collar,Vòng cổ hạt ngọc
+ITEM_COLLAR_JADE_DESC,"Green jade beads on red cord, said to bring luck to whoever wears it.","Chuỗi hạt ngọc xanh xâu dây đỏ, nghe đâu ai đeo cũng gặp may."
+ITEM_CATNIP,Catnip sprig,Nhánh bạc hà mèo
+ITEM_CATNIP_DESC,One sniff and the world gets very exciting for about an hour.,Hít một cái là thế giới bỗng phấn khích suốt cả tiếng đồng hồ.
+ITEM_HERBAL_TONIC,Herbal tonic,Thuốc bổ thảo mộc
+ITEM_HERBAL_TONIC_DESC,A crow-brewed remedy of lemongrass and ginger. Warms and heals.,"Bài thuốc sả gừng của lão Quạ. Ấm người, lành vết thương."
+ITEM_SKILL_TONIC,Ginseng drop,Giọt sâm tinh anh
+ITEM_SKILL_TONIC_DESC,A rare drop of ginseng essence. Grants one skill point.,Một giọt tinh chất sâm quý hiếm. Cho thêm một điểm kỹ năng.
+ITEM_MEMORY_01,Memory 1: Opening day,Kỷ niệm 1: Ngày khai trương
+ITEM_MEMORY_01_DESC,A faded photo of a tiny tea stall with a hand-painted sign.,Tấm ảnh bạc màu chụp quán trà nhỏ xíu với tấm biển kẻ tay.
+MEMORY_01_STORY,1979. A young woman in a white áo bà ba pours the first cup at her new stall. The stool she sits on is the same one Cam sleeps under today.,Năm 1979. Cô gái trẻ mặc áo bà ba trắng rót chén trà đầu tiên ở quán mới. Chiếc ghế đẩu cô ngồi chính là chiếc ghế Cam vẫn chui xuống ngủ bây giờ.
+ITEM_MEMORY_02,Memory 2: Wedding by the lake,Kỷ niệm 2: Đám cưới bên hồ
+ITEM_MEMORY_02_DESC,Two shy faces in front of Mirror Lake's red bridge.,Hai gương mặt ngượng ngùng trước cây cầu son trên Hồ Gương.
+MEMORY_02_STORY,Grandma and Grandpa Tư married in the rain. Everyone stood under one borrowed tarpaulin and laughed so hard the photographer nearly dropped the camera.,"Ông bà Tư cưới nhau trong mưa. Cả họ đứng chung dưới một tấm bạt đi mượn, cười nghiêng ngả đến nỗi anh thợ ảnh suýt đánh rơi máy."
+ITEM_MEMORY_03,Memory 3: Under the banyan,Kỷ niệm 3: Dưới gốc đa
+ITEM_MEMORY_03_DESC,A little girl with a paper kite beneath the temple banyan.,Cô bé cầm diều giấy đứng dưới gốc đa đình làng.
+MEMORY_03_STORY,"Before the street had a name on a map, a girl called Tư flew a kite from the temple courtyard and promised the banyan she would never leave Hàng Mây.","Hồi con phố còn chưa có tên trên bản đồ, cô bé tên Tư thả diều ở sân đình và hứa với cây đa rằng sẽ chẳng bao giờ rời Hàng Mây."
+ITEM_MEMORY_04,Memory 4: The flood year,Kỷ niệm 4: Năm lụt
+ITEM_MEMORY_04_DESC,"Neighbours wading waist-deep, carrying baskets on their heads.","Hàng xóm lội nước ngang bụng, đội thúng trên đầu."
+MEMORY_04_STORY,"The year the lake climbed into the street, the whole quarter moved its belongings upstairs, one house at a time. Grandma served tea from a window to anyone passing by boat.","Năm nước hồ tràn lên phố, cả khu phố khiêng đồ lên gác, hết nhà này đến nhà khác. Bà Tư rót trà qua cửa sổ mời bất cứ ai chèo thuyền ngang qua."
+ITEM_MEMORY_05,Memory 5: The Phoenix bicycle,Kỷ niệm 5: Chiếc xe Phượng Hoàng
+ITEM_MEMORY_05_DESC,Grandpa proudly holding a black bicycle with a wicker basket.,Ông nội hãnh diện dắt chiếc xe đạp đen có giỏ mây.
+MEMORY_05_STORY,"Grandpa saved for two years for that bicycle. Every morning he rode Grandma's kettles and cups to the stall, ringing the bell at each corner.","Ông dành dụm hai năm mới mua được chiếc xe ấy. Sáng nào ông cũng chở ấm chén ra quán cho bà, đến mỗi góc phố lại bấm chuông kính coong."
+ITEM_MEMORY_06,Memory 6: The first stall cat,Kỷ niệm 6: Chú mèo đầu tiên
+ITEM_MEMORY_06_DESC,A grey tabby kitten asleep in a teacup basket.,Chú mèo mướp xám con ngủ trong giỏ chén.
+MEMORY_06_STORY,"Long before Cam, a grey kitten wandered in from the temple and stayed for years. Grandma called him Mướp. Some say he still watches over the temple courtyard.","Từ rất lâu trước Cam, một chú mèo mướp xám từ đình lạc sang rồi ở lại nhiều năm. Bà gọi nó là Mướp. Người ta bảo giờ nó vẫn canh sân đình."
+ITEM_MEMORY_07,"Memory 7: Mid-Autumn, 1985",Kỷ niệm 7: Trung thu năm 1985
+ITEM_MEMORY_07_DESC,Children holding star lanterns Grandma made from bamboo and cellophane.,Lũ trẻ cầm đèn ông sao bà tự làm bằng nan tre và giấy bóng kính.
+MEMORY_07_STORY,"Every Mid-Autumn Grandma made star lanterns for the street's children. That year there were forty-two of them, and the whole quarter glowed red.","Trung thu nào bà cũng làm đèn ông sao cho trẻ con trong phố. Năm ấy có bốn mươi hai chiếc, cả khu phố rực đỏ."
+ITEM_MEMORY_08,Memory 8: Letter from afar,Kỷ niệm 8: Thư phương xa
+ITEM_MEMORY_08_DESC,"Grandma reading a letter at the stall, glasses on her nose.",Bà đeo kính ngồi đọc thư ở quán.
+MEMORY_08_STORY,"Her son went to study far away and wrote every month. Grandma read each letter three times: once quickly, once slowly, and once aloud to the customers.","Con trai bà đi học xa, tháng nào cũng viết thư về. Bà đọc mỗi lá ba lần: một lần thật nhanh, một lần thật chậm, và một lần đọc to cho khách cùng nghe."
+ITEM_MEMORY_09,Memory 9: The carrying pole,Kỷ niệm 9: Đôi quang gánh
+ITEM_MEMORY_09_DESC,A young street vendor balancing two baskets on a bamboo pole.,Cô hàng rong trẻ gánh hai thúng trên đòn tre.
+MEMORY_09_STORY,"Before the stall, there was only a pole, two baskets and a kettle. Grandma walked every alley of Hàng Mây — which is how she knows every cat by name.","Trước khi có quán, chỉ có đòn gánh, hai cái thúng và một ấm trà. Bà đi khắp mọi ngõ ngách Hàng Mây — vì thế mà con mèo nào bà cũng biết tên."
+ITEM_MEMORY_10,Memory 10: Grandpa's đàn nguyệt,Kỷ niệm 10: Cây đàn nguyệt của ông
+ITEM_MEMORY_10_DESC,Grandpa playing a moon lute on the doorstep at dusk.,Ông ngồi bậc cửa chơi đàn nguyệt lúc chạng vạng.
+MEMORY_10_STORY,"In the evenings Grandpa played the moon lute and the street went quiet to listen. The neighbourhood cats, they say, would gather on the rooftops to hear him.","Chiều chiều ông gảy đàn nguyệt, cả phố lặng đi mà nghe. Người ta kể lũ mèo trong xóm còn kéo nhau lên mái nhà ngồi nghe ông đàn."
+ITEM_MEMORY_11,Memory 11: Fish market at dawn,Kỷ niệm 11: Chợ cá lúc rạng đông
+ITEM_MEMORY_11_DESC,Two women laughing over baskets of fish in the half-light.,Hai người phụ nữ cười đùa bên những rổ cá trong ánh sáng mờ.
+MEMORY_11_STORY,Grandma and Miss Hoa's mother were best friends. Every dawn they traded a pot of tea for the day's smallest fish — always for the stall cat.,Bà Tư và mẹ cô Hoa là đôi bạn thân. Sáng nào hai bà cũng đổi một ấm trà lấy mấy con cá nhỏ nhất — lúc nào cũng để dành cho mèo của quán.
+ITEM_MEMORY_12,Memory 12: The lucky cat,Kỷ niệm 12: Chú mèo thần tài
+ITEM_MEMORY_12_DESC,Grandpa placing a small golden figurine on the stall's counter.,Ông đặt bức tượng mèo vàng nhỏ lên quầy quán.
+MEMORY_12_STORY,"On their twentieth anniversary Grandpa gave her a little lucky cat. ""So you'll always have a cat waving at the customers,"" he said. It has waved from the counter ever since.","Kỷ niệm hai mươi năm ngày cưới, ông tặng bà một chú mèo thần tài nhỏ. ""Để lúc nào cũng có một con mèo vẫy khách cho bà,"" ông nói. Từ đó đến nay nó vẫn vẫy chào trên quầy."
+SKILL_TREE_AGILITY,Agility,Nhanh nhẹn
+SKILL_TREE_AGILITY_DESC,"Leaps, landings and rooftop running.","Bật nhảy, tiếp đất và chạy trên mái nhà."
+SKILL_TREE_STEALTH,Stealth,Ẩn mình
+SKILL_TREE_STEALTH_DESC,"Silent paws, shadows and night eyes.","Bước chân êm, bóng tối và đôi mắt đêm."
+SKILL_TREE_CHARM,Charm,Duyên dáng
+SKILL_TREE_CHARM_DESC,"Win hearts, food and friends.","Chiếm trọn trái tim, đồ ăn và bạn bè."
+SKILL_TREE_HUNTING,Hunting,Săn mồi
+SKILL_TREE_HUNTING_DESC,"Pounces, scent and whiskers.","Cú vồ, khứu giác và bộ ria."
+SKILL_TREE_SURVIVAL,Survival,Sinh tồn
+SKILL_TREE_SURVIVAL_DESC,"Naps, a strong stomach and a thick coat.","Giấc ngủ, cái bụng khỏe và bộ lông dày."
+SKILL_NHAY_XA,Long Leap,Nhảy xa
+SKILL_NHAY_XA_DESC,"+15% jump distance, +5% jump height.","+15% khoảng cách nhảy, +5% độ cao."
+SKILL_CHAN_BAM,Grippy Paws,Chân bám
+SKILL_CHAN_BAM_DESC,"+25% climbing speed, steadier balance.","+25% tốc độ leo, giữ thăng bằng vững hơn."
+SKILL_DAP_MEM,Soft Landing,Đáp mềm
+SKILL_DAP_MEM_DESC,"Half damage from falls, safe falls 1.5 m higher, quieter landings.","Ngã chỉ đau một nửa, rơi an toàn cao thêm 1,5 m, tiếp đất êm hơn."
+SKILL_CHAY_MAI,Rooftop Runner,Chạy mái
+SKILL_CHAY_MAI_DESC,+12% sprint speed; sprinting tires Cam 25% less.,+12% tốc độ chạy nước rút; chạy ít mệt hơn 25%.
+SKILL_THANG_BANG,Tightrope Walker,Thăng bằng
+SKILL_THANG_BANG_DESC,"Much steadier on wires and beams, +30% speed on them.","Đi trên dây điện, xà gỗ vững hơn nhiều, nhanh hơn 30%."
+SKILL_BAT_TUONG,Wall Kick,Bật tường
+SKILL_BAT_TUONG_DESC,Kick off a wall mid-air to reach higher ledges. +10% jump distance.,Đạp tường giữa không trung để lên gờ cao hơn. +10% khoảng cách nhảy.
+SKILL_BUOC_NHUNG,Velvet Paws,Bước nhung
+SKILL_BUOC_NHUNG_DESC,"−30% noise from movement, softer landings.","Giảm 30% tiếng động khi di chuyển, tiếp đất nhẹ nhàng."
+SKILL_MAT_DEM,Night Eyes,Mắt đêm
+SKILL_MAT_DEM_DESC,See clearly in the dark in first-person view.,Nhìn rõ trong bóng tối ở góc nhìn thứ nhất.
+SKILL_LAN_TRON,Shadow Slip,Lẩn trốn
+SKILL_LAN_TRON_DESC,+25% sneaking speed; noticed 20% later.,+25% tốc độ rón rén; bị phát hiện chậm hơn 20%.
+SKILL_BONG_DEM,Child of the Night,Bóng đêm
+SKILL_BONG_DEM_DESC,At dusk and night: noticed 30% later and 10% quieter.,"Lúc chạng vạng và ban đêm: bị phát hiện chậm hơn 30%, êm hơn 10%."
+SKILL_BONG_MA,Ghost Cat,Bóng ma
+SKILL_BONG_MA_DESC,"−20% noise, noticed 20% later; even harder to spot in rain or fog.","Giảm 20% tiếng động, bị phát hiện chậm hơn 20%; mưa hay sương mù càng khó thấy."
+SKILL_TIENG_KEU_DANG_YEU,Adorable Meow,Tiếng kêu đáng yêu
+SKILL_TIENG_KEU_DANG_YEU_DESC,+1 Charm; meows soften even grumpy humans.,+1 Duyên; tiếng meo làm mềm lòng cả người khó tính.
+SKILL_RU_RU,Healing Purr,Gừ gừ chữa lành
+SKILL_RU_RU_DESC,Health recovers 50% faster; purring soothes small hurts.,Hồi máu nhanh hơn 50%; tiếng gừ gừ xoa dịu vết thương nhỏ.
+SKILL_MAT_LONG_LANH,Sparkly Eyes,Mắt long lanh
+SKILL_MAT_LONG_LANH_DESC,+1 Charm; vendors often add a little extra food.,+1 Duyên; người bán hàng hay cho thêm chút đồ ăn.
+SKILL_BAN_CUA_PHO,Friend of the Street,Bạn của phố
+SKILL_BAN_CUA_PHO_DESC,"+25% reputation gains, 15% better trades with the crows.","+25% uy tín nhận được, đổi chác với quạ hời hơn 15%."
+SKILL_NGOI_SAO_PHO_CU,Darling of the Quarter,Ngôi sao phố cũ
+SKILL_NGOI_SAO_PHO_CU_DESC,"+1 Charm, +25% reputation gains, food gifts even more often.","+1 Duyên, +25% uy tín, được cho quà ăn thường xuyên hơn nữa."
+SKILL_THO_SAN,Hunter,Thợ săn
+SKILL_THO_SAN_DESC,Can catch pigeons; +15% catch chance.,Bắt được bồ câu; +15% tỉ lệ bắt mồi.
+SKILL_VO_CHOP,Lightning Pounce,Vồ chớp
+SKILL_VO_CHOP_DESC,"+25% pounce distance, +20% pounce speed.","+25% tầm vồ, +20% tốc độ vồ."
+SKILL_MUI_THINH,Keen Nose,Mũi thính
+SKILL_MUI_THINH_DESC,Cat-sense reaches 50% further and costs 30% less energy.,Giác quan mèo xa hơn 50% và tốn ít năng lượng hơn 30%.
+SKILL_RIA_NHAY,Whisker Sense,Ria nhạy
+SKILL_RIA_NHAY_DESC,Cat-sense reveals hidden memories and caps; hear further.,Giác quan mèo lộ ra kỷ niệm và nắp chai bị giấu; nghe xa hơn.
+SKILL_VUA_SAN_MOI,Apex Hunter,Vua săn mồi
+SKILL_VUA_SAN_MOI_DESC,"+25% catch chance, +50% XP from prey.","+25% tỉ lệ bắt mồi, +50% kinh nghiệm từ con mồi."
+SKILL_NGU_SAU,Deep Sleep,Ngủ sâu
+SKILL_NGU_SAU_DESC,Energy recovers 50% faster.,Hồi năng lượng nhanh hơn 50%.
+SKILL_BUNG_KHOE,Iron Stomach,Bụng khỏe
+SKILL_BUNG_KHOE_DESC,Get hungry 25% slower; food is 25% more filling.,Đói chậm hơn 25%; ăn no hơn 25%.
+SKILL_LONG_DAY,Thick Coat,Lông dày
+SKILL_LONG_DAY_DESC,Lose 40% less warmth when wet; fur soaks 30% slower.,Mất hơi ấm ít hơn 40% khi ướt; lông thấm nước chậm hơn 30%.
+SKILL_SUC_BEN,Stamina,Sức bền
+SKILL_SUC_BEN_DESC,+20 max energy; tire 20% slower.,+20 năng lượng tối đa; lâu mệt hơn 20%.
+SKILL_CHIN_MANG,Nine Lives,Chín mạng
+SKILL_CHIN_MANG_DESC,"Once per day, fainting costs nothing; later faints lose half as many caps.",Mỗi ngày một lần ngất xỉu không mất gì; những lần sau chỉ mất nửa số nắp chai.
+SKILL_STATE_UNLOCKED,Learned,Đã học
+SKILL_STATE_AVAILABLE,Available,Có thể học
+SKILL_STATE_LOCKED,Locked,Chưa mở
+QUEST_MAIN_01_MORNING_TITLE,Early Morning,Sáng sớm
+QUEST_MAIN_01_MORNING_DESC,The sun is up over Hàng Mây and Grandma Tư is opening the tea stall. Breakfast awaits — if Cam can get down from the roof.,"Mặt trời đã lên trên phố Hàng Mây, bà Tư đang dọn quán trà. Bữa sáng đang chờ — nếu Cam leo xuống được khỏi mái nhà."
+QUEST_MAIN_01_MORNING_OBJ_CLIMB_DOWN,Climb down to the tea stall,Leo xuống quán trà
+QUEST_MAIN_01_MORNING_OBJ_GREET_GRANDMA,Say good morning to Grandma Tư,Chào buổi sáng bà Tư
+QUEST_MAIN_01_MORNING_OBJ_SNIFF_COUNTER,Sniff the empty spot on the counter,Ngửi chỗ trống trên quầy
+QUEST_MAIN_01_MORNING_OBJ_BREAKFAST,Get breakfast,Được ăn sáng
+QUEST_MAIN_02_RUMOURS_TITLE,Rumours,Tin đồn
+QUEST_MAIN_02_RUMOURS_DESC,"The little golden lucky cat is gone, three days before the lantern festival. Someone in the quarter must have seen something.","Chú mèo thần tài vàng đã biến mất, chỉ ba ngày trước đêm hội trăng rằm. Hẳn ai đó trong phố đã thấy điều gì."
+QUEST_MAIN_02_RUMOURS_OBJ_ASK_BONG,Ask Bông at the café,Hỏi Bông ở quán cà phê
+QUEST_MAIN_02_RUMOURS_OBJ_FIND_BANYAN,Find the old banyan by the lake,Tìm cây đa già bên hồ
+QUEST_MAIN_02_RUMOURS_OBJ_MEET_CROW,Speak with Old Crow,Nói chuyện với Lão Quạ
+QUEST_MAIN_03_FISH_MARKET_TITLE,The Fish Market,Chợ cá
+QUEST_MAIN_03_FISH_MARKET_DESC,Old Crow will only talk for a fresh fish and ten bottle caps. Miss Hoa's stall has the best fish — and Vện the market dog guards it.,Lão Quạ chỉ chịu nói nếu có một con cá tươi và mười cái nắp chai. Sạp cô Hoa có cá ngon nhất — và chó Vện canh chợ.
+QUEST_MAIN_03_FISH_MARKET_OBJ_GET_FISH,Get a fresh fish (charm Miss Hoa or sneak one),Kiếm một con cá tươi (làm duyên với cô Hoa hoặc lén lấy)
+QUEST_MAIN_03_FISH_MARKET_OBJ_GET_CAPS,Collect bottle caps ({progress}/{count}),Nhặt nắp chai ({progress}/{count})
+QUEST_MAIN_03_FISH_MARKET_OBJ_CHARMED,Win Miss Hoa over,Chiếm cảm tình cô Hoa
+QUEST_MAIN_03_FISH_MARKET_OBJ_GIVE_FISH,Bring the fish to Old Crow,Mang cá đến cho Lão Quạ
+QUEST_MAIN_03_FISH_MARKET_OBJ_PAY_CAPS,Pay Old Crow his ten caps,Trả Lão Quạ mười nắp chai
+QUEST_MAIN_04_ROOFTOP_TRIALS_TITLE,Rooftop Trials,Thử thách mái nhà
+QUEST_MAIN_04_ROOFTOP_TRIALS_DESC,"The crows' nest is on the temple roof, and the only way there runs over Mun's rooftops. Mun won't let just any street kitten pass.","Tổ quạ nằm trên mái đình, và lối duy nhất đi qua những mái nhà của Mun. Mun không để mèo con nào cũng qua được."
+QUEST_MAIN_04_ROOFTOP_TRIALS_OBJ_MEET_MUN,Find Mun on the rooftops,Tìm Mun trên mái nhà
+QUEST_MAIN_04_ROOFTOP_TRIALS_OBJ_MARK_THREE,Mark territory ({progress}/{count}),Đánh dấu lãnh thổ ({progress}/{count})
+QUEST_MAIN_04_ROOFTOP_TRIALS_OBJ_WATER_TOWER,Reach the top of the water tower,Lên đỉnh tháp nước
+QUEST_MAIN_04_ROOFTOP_TRIALS_OBJ_RACE,Beat Mun in a race across the rooftops,Thắng Mun trong cuộc đua trên mái nhà
+QUEST_MAIN_04_ROOFTOP_TRIALS_OBJ_SHOW_OFF,Show off: knock things off ledges ({progress}/{count}),Khoe tài: khều đồ rơi khỏi gờ ({progress}/{count})
+QUEST_MAIN_04_ROOFTOP_TRIALS_OBJ_REPORT_BACK,Return to Mun,Quay lại gặp Mun
+QUEST_MAIN_05_FESTIVAL_NIGHT_TITLE,Festival Night,Đêm hội
+QUEST_MAIN_05_FESTIVAL_NIGHT_DESC,On the night of the full moon the whole quarter will be out with lanterns — the perfect moment to slip onto the temple roof.,Đêm trăng rằm cả phố sẽ ra đường rước đèn — thời khắc hoàn hảo để lẻn lên mái đình.
+QUEST_MAIN_05_FESTIVAL_NIGHT_OBJ_WAIT_FESTIVAL,Wait for the lantern festival night,Chờ đến đêm hội rước đèn
+QUEST_MAIN_05_FESTIVAL_NIGHT_OBJ_CLIMB_TEMPLE,Climb onto the temple roof,Leo lên mái đình
+QUEST_MAIN_05_FESTIVAL_NIGHT_OBJ_TAKE_FIGURINE,Take back the lucky cat from the nest,Lấy lại mèo thần tài trong tổ quạ
+QUEST_MAIN_05_FESTIVAL_NIGHT_OBJ_BORROWED_THINGS,Rescue a 'borrowed' hair clip,Cứu chiếc kẹp tóc bị 'mượn'
+QUEST_MAIN_05_FESTIVAL_NIGHT_OBJ_BRING_HOME,Bring the lucky cat home to Grandma,Mang mèo thần tài về cho bà
+QUEST_SIDE_XAM_LEG_BAND_TITLE,The Racing Ring,Chiếc vòng đua
+QUEST_SIDE_XAM_LEG_BAND_DESC,Xám the pigeon has lost the ring that proves he's a real racing pigeon.,Bồ câu Xám đánh rơi chiếc vòng chứng minh cậu là bồ câu đua thứ thiệt.
+QUEST_SIDE_XAM_LEG_BAND_OBJ_LISTEN,Listen to Xám,Nghe Xám kể
+QUEST_SIDE_XAM_LEG_BAND_OBJ_FIND_BAND,Find the leg band,Tìm chiếc vòng chân
+QUEST_SIDE_XAM_LEG_BAND_OBJ_RETURN_BAND,Return it to Xám,Trả vòng cho Xám
+QUEST_SIDE_BINS_KEY_TITLE,Bin's Key,Chìa khóa của Bin
+QUEST_SIDE_BINS_KEY_DESC,Bin lost his house key on the way home from school. His mum will be back soon.,Bin làm rơi chìa khóa nhà trên đường đi học về. Mẹ sắp về đến nơi rồi.
+QUEST_SIDE_BINS_KEY_OBJ_MEET_BIN,Comfort Bin,Dỗ Bin
+QUEST_SIDE_BINS_KEY_OBJ_FIND_KEY,Sniff out the key,Đánh hơi tìm chìa khóa
+QUEST_SIDE_BINS_KEY_OBJ_RETURN_KEY,Bring the key to Bin (daytime),Mang chìa khóa cho Bin (ban ngày)
+QUEST_SIDE_MUOP_RIDDLES_TITLE,Old Mướp's Riddles,Câu đố của ông Mướp
+QUEST_SIDE_MUOP_RIDDLES_DESC,The old temple cat says the finest nap in Hàng Mây must be earned.,Ông mèo già ở đình bảo giấc ngủ ngon nhất phố Hàng Mây phải tự mình kiếm lấy.
+QUEST_SIDE_MUOP_RIDDLES_OBJ_VISIT_MUOP,Sit with Old Mướp,Ngồi cùng ông Mướp
+QUEST_SIDE_MUOP_RIDDLES_OBJ_RIDDLE_BRIDGE,"""Where water sleeps under a red back""","""Nơi nước ngủ dưới tấm lưng son"""
+QUEST_SIDE_MUOP_RIDDLES_OBJ_RIDDLE_BELL,"""Where bronze sings but never eats""","""Nơi đồng biết hát mà chẳng ăn"""
+QUEST_SIDE_MUOP_RIDDLES_OBJ_RIDDLE_SUN,"""Where the morning sun lands first"" (morning)","""Nơi nắng sớm đặt chân đầu tiên"" (buổi sáng)"
+QUEST_SIDE_MUOP_RIDDLES_OBJ_BEST_NAP,Nap in the secret spot,Ngủ ở chỗ bí mật
+QUEST_SIDE_LETTER_TITLE,Airmail,Thư máy bay
+QUEST_SIDE_LETTER_DESC,A letter with foreign stamps slipped from the postman's bag. It's addressed to Grandma Tư.,Một lá thư dán tem nước ngoài rơi khỏi túi bác đưa thư. Thư gửi bà Tư.
+QUEST_SIDE_LETTER_OBJ_FIND_LETTER,Pick up the letter,Nhặt lá thư
+QUEST_SIDE_LETTER_OBJ_CARRY_LETTER,Carry it to Grandma — gently,Ngậm về cho bà — nhẹ nhàng thôi
+QUEST_SIDE_MEMORIES_TITLE,Grandma's Memories,Kỷ niệm của bà
+QUEST_SIDE_MEMORIES_DESC,Old photographs of Grandma Tư's life are scattered across the quarter.,Những tấm ảnh cũ về cuộc đời bà Tư nằm rải rác khắp khu phố.
+QUEST_SIDE_MEMORIES_OBJ_FOUR,Find 4 memories,Tìm 4 kỷ niệm
+QUEST_SIDE_MEMORIES_OBJ_EIGHT,Find 8 memories,Tìm 8 kỷ niệm
+QUEST_SIDE_MEMORIES_OBJ_TWELVE,Find all 12 memories,Tìm đủ 12 kỷ niệm
+QUEST_SIDE_KNOCK_IT_OFF_TITLE,Knock It Off,Cho rơi hết
+QUEST_SIDE_KNOCK_IT_OFF_DESC,Gravity needs testing. Every ledge in Hàng Mây is a laboratory.,Trọng lực cần được kiểm chứng. Mỗi gờ tường ở Hàng Mây là một phòng thí nghiệm.
+QUEST_SIDE_KNOCK_IT_OFF_OBJ_KNOCK20,Knock things off ledges ({progress}/{count}),Khều đồ rơi khỏi gờ ({progress}/{count})
+STORY_NOTIFY_THE_END,The lucky cat is home. The quarter glows with lanterns.,Mèo thần tài đã về nhà. Cả khu phố bừng sáng ánh đèn lồng.
+STORY_BATU_MORNING,"There you are, you little rascal! Sleeping on the roof again? Come, come — the kettle's on.","Đây rồi, đồ quỷ nhỏ! Lại ngủ trên mái nhà hả? Lại đây, lại đây — bà vừa bắc ấm nước."
+STORY_BATU_OFFER,Hungry? I saved you a little fish from the market.,Đói chưa? Bà để dành cho con ít cá ngoài chợ đây.
+STORY_C_MEOW_BREAKFAST,Meow like you haven't eaten in a week,Kêu như thể cả tuần chưa được ăn
+STORY_BATU_FED,"Slowly, slowly, nobody's going to steal it. Good boy, Cam.","Từ từ thôi, có ai giành đâu. Ngoan lắm, Cam."
+STORY_BATU_SULK,Hmph. Too proud for breakfast? It'll be here when you change your mind.,Hừm. Làm cao không thèm ăn à? Lúc nào đổi ý thì vẫn còn đây.
+STORY_BATU_MISSING,"…Cam, have you seen my lucky cat? It was right here on the counter. Your grandpa gave it to me. Three days before the festival, of all times…","…Cam ơi, con có thấy con mèo thần tài của bà đâu không? Nó vẫn ở đây trên quầy mà. Ông con tặng bà đấy. Lại đúng ba ngày trước đêm hội nữa chứ…"
+STORY_BATU_WORRIED,"The stall feels so quiet without it. Silly old woman, worrying over a little statue.","Thiếu nó quán vắng hẳn. Bà già này lẩn thẩn, đi lo cho một bức tượng nhỏ."
+STORY_BATU_WORRIED_AGAIN,"Go on, go play. Don't you worry about me.",Thôi đi chơi đi con. Đừng lo cho bà.
+STORY_BATU_IDLE,"Ah, Cam. Keeping me company?","À, Cam. Ra ngồi với bà đấy à?"
+STORY_BATU_SNACK,"Hungry again? Here, a little something.","Lại đói rồi hả? Đây, ăn chút cho vui miệng."
+STORY_BATU_FINALE,"Oh! Oh, Cam… you found it. Wherever did you… Come here, come here.","Ôi! Cam ơi… con tìm thấy nó rồi. Con kiếm ở đâu ra thế… Lại đây, lại đây nào."
+STORY_BATU_FINALE2,"Look — he's waving at everyone again. Your grandpa would have laughed. Happy festival, my clever boy.","Nhìn kìa — nó lại vẫy chào mọi người rồi. Ông mà thấy chắc cười lắm. Trung thu vui vẻ, cậu bé thông minh của bà."
+STORY_BONG_GOSSIP,"Darling, you look dreadful. Has the old lady stopped brushing you? …Oh. The golden cat. Everyone's talking about it.","Cưng à, trông cưng tệ quá. Bà cụ không chải lông cho cưng nữa à? …Ồ. Con mèo vàng. Cả phố đang bàn tán đấy."
+STORY_C_GROOM_TOO,"Groom a little, to look as elegant as her",Liếm lông một chút cho sang như cô nàng
+STORY_BONG_CROWS,"Shiny, golden, small? That's crow business, sweetie. Old Crow at the lake banyan collects anything that glitters. Just don't let him cheat you.","Lấp lánh, vàng, nhỏ xinh? Đấy là chuyện của bọn quạ, cưng ạ. Lão Quạ ở cây đa bên hồ gom tất cả những gì lấp lánh. Chỉ đừng để lão lừa thôi."
+STORY_BONG_HUFF,Well! Rude. …Fine. Ask the crows at the lake. They take everything shiny.,Ôi! Vô duyên. …Thôi được. Đi hỏi bọn quạ ở hồ ấy. Chúng nó cuỗm mọi thứ lấp lánh.
+STORY_BONG_LAZY,"Mm. Sunbeam's perfect today. Go away, darling, you're blocking it.","Ừm. Nắng hôm nay đẹp quá. Tránh ra nào cưng, che nắng của chị rồi."
+STORY_QUA_DEMAND,"Kraa. A tabby kitten. Lost something, have we? Everybody's lost something.",Quà. Một con mèo mướp con. Mất gì à? Ai mà chẳng mất thứ gì.
+STORY_QUA_TERMS,Information has a price. One fresh fish — fresh! — and ten shiny caps. Then we talk.,Tin tức thì phải có giá. Một con cá tươi — tươi nhé! — và mười cái nắp chai sáng bóng. Rồi hẵng nói chuyện.
+STORY_QUA_PAY,"Mm, a good fish. And the caps, little cat? We said ten.","Ừm, cá ngon đấy. Còn nắp chai thì sao, mèo con? Đã nói là mười cái."
+STORY_C_PAY_CAPS,Push ten caps across with your paw,Lấy chân đẩy mười cái nắp chai sang
+STORY_QUA_SECRET,"Golden cat, waving paw? The young ones brought it to the nest on the temple roof. Mun's cats own the only way up. And the nest is guarded — except on festival night, when every crow is out stealing mooncake.","Mèo vàng, chân vẫy vẫy hả? Bọn quạ non tha nó về tổ trên mái đình rồi. Lối duy nhất lên đó là mái nhà của hội mèo Mun. Tổ lúc nào cũng có canh — trừ đêm hội, khi cả bầy đi ăn trộm bánh trung thu."
+STORY_QUA_NEST_HINT,"Tonight's the night, isn't it? Kraa. I never told you anything.",Đêm nay chứ gì? Quà. Ta chưa từng nói gì với mày đâu nhé.
+STORY_QUA_SHOP,"Buying or selling? Caps first, questions later.","Mua hay bán? Nắp chai trước, hỏi han sau."
+STORY_C_BUY_COLLAR,Point at the red collar (15 caps),Chỉ vào vòng cổ đỏ (15 nắp chai)
+STORY_C_BUY_TONIC,Sniff the herbal tonic (10 caps),Ngửi lọ thuốc bổ (10 nắp chai)
+STORY_C_SELL_SHINY,Drop the shiny thing in front of him,Thả món đồ lấp lánh trước mặt lão
+STORY_QUA_DEAL,Pleasure doing business. Kraa.,Làm ăn với mày vui đấy. Quà.
+STORY_HOA_STALL,"Shoo, shoo! These are for customers… oh, look at that face.","Xùy, xùy! Cá này để bán… ôi, nhìn cái mặt kìa."
+STORY_C_SIT_PRETTY,"Sit very straight, tail around your paws, and look up","Ngồi thật thẳng, quấn đuôi quanh chân và ngước lên"
+STORY_HOA_GIFT,"You're Grandma Tư's cat, aren't you? My mother always kept the smallest fish for that stall. Here — don't tell Vện.",Con là mèo nhà bà Tư phải không? Mẹ cô ngày xưa lúc nào cũng để dành con cá nhỏ nhất cho quán ấy. Đây — đừng để Vện biết nhé.
+STORY_HOA_SHOO,"No, no, no begging! Vện! …Oh, he's asleep. Go on, scoot.","Không, không xin xỏ! Vện! …Ôi, nó ngủ mất rồi. Thôi đi đi."
+STORY_HOA_BUSY,"Not now, kitty, the morning rush.","Giờ chưa được đâu mèo ơi, đang đông khách."
+STORY_MUN_CHALLENGE,"Orange kitten on my roof. Bold. Lost, or stupid?",Mèo cam con trên mái nhà của ta. Gan đấy. Lạc đường hay ngốc?
+STORY_MUN_TRIALS,"You want the temple roof, you prove you belong up here. Leave your scent on three of our spots, touch the top of the water tower, and beat me across the roofs. Then we'll see.","Muốn lên mái đình thì chứng minh mày thuộc về trên này đi. Để lại mùi ở ba chỗ của bọn ta, chạm đỉnh tháp nước, và chạy thắng ta qua các mái nhà. Rồi tính tiếp."
+STORY_MUN_NOT_YET,"Not done. Three marks, the tower, the race. I can count, kitten.","Chưa xong. Ba dấu, tháp nước, cuộc đua. Ta biết đếm đấy, mèo con."
+STORY_MUN_RESPECT,"…Fine. You're quick, for a tea-stall cat. The roofs are open to you. Don't make me regret it.","…Được. Nhanh đấy, so với mèo quán trà. Mái nhà giờ mở cho mày. Đừng để ta phải hối hận."
+STORY_MUN_FRIEND,"Orange. Warm tiles on the east side today, if you're looking.","Mèo cam. Hôm nay ngói phía đông ấm lắm, nếu mày muốn."
+STORY_MUOP_RIDDLES,"Where water sleeps under a red back. Where bronze sings but never eats. Where the morning sun lands first. Find all three, young one, and the best nap in Hàng Mây is yours.","Nơi nước ngủ dưới tấm lưng son. Nơi đồng biết hát mà chẳng ăn. Nơi nắng sớm đặt chân đầu tiên. Tìm đủ ba nơi, nhóc ạ, giấc ngủ ngon nhất Hàng Mây sẽ là của con."
+STORY_MUOP_WISDOM,"I knew your Grandma when she carried tea on a pole. Sit a while, young one. There's no hurry in a temple.","Ta biết bà con từ hồi bà còn gánh trà rong. Ngồi đây một lát, nhóc. Ở đình thì chẳng việc gì phải vội."
+STORY_XAM_LOST,"Coo… my ring, my racing ring! Without it nobody believes I'm a champion. It fell somewhere over the alleys…","Gù… vòng của tôi, vòng đua của tôi! Không có nó chẳng ai tin tôi là nhà vô địch. Nó rơi đâu đó trên mấy con hẻm…"
+STORY_XAM_WAITING,"Any sign of it? Silver, with a number. Number seven. Lucky seven.","Thấy chưa? Màu bạc, có khắc số. Số bảy. Số bảy may mắn."
+STORY_XAM_THANKS,Coo-coo! A cat helping a pigeon. Wait till the flock hears.,Gù gù! Mèo mà lại giúp bồ câu. Để cả đàn nghe chuyện này xem.
+STORY_BIN_CRYING,Mum's going to kill me… I lost the key. Do cats find keys? Probably not.,Mẹ sẽ mắng chết mất… tớ làm mất chìa khóa rồi. Mèo có tìm được chìa khóa không nhỉ? Chắc là không.
+STORY_BIN_HOPE,Did you find it? It's got a red string and a star!,Cậu tìm thấy chưa? Nó có dây đỏ với ngôi sao đấy!
+STORY_BIN_PLAY,You found it! You're the best cat in the whole world. Want to play?,Cậu tìm thấy thật này! Cậu là con mèo giỏi nhất thế giới. Chơi với tớ không?

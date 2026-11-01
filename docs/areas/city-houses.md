@@ -35,6 +35,10 @@ No hand-made binary sources — rerun the three commands below and you get the s
 | `rear_wall_4f_w4` / `rear_wall_3f_w6` | wall | 4–6 × 0.3, h 10–14 | 3–4 | 2 each | block-interior back facades: small windows, cages, AC, corrugated hoods, pipes |
 | `roofprop_*` | roof_prop | – | – | 8 | plank bridge, bamboo ladder, steel ladder, corrugated shed, alley cables (3 m), **street cables (13.5 m)**, tank on stand, solar heater |
 
+Triangle budgets: 4–36 k per house/shop module, 88 k for the corner building, 0.1–11 k for
+alley/rear/roof pieces; Godot auto-LODs on import. Kit size: 79 MB of GLBs (geometry only) +
+~70 MB shared textures.
+
 Every house module includes the full visible shell: front facade, both party walls (exposed above
 lower neighbours), detailed rear wall, and a **complete walkable roof**: flat terraces with
 parapets, stair-head room ("tum") with door, stainless water tank (horizontal or vertical), solar
@@ -76,13 +80,13 @@ weathered), `signs_v.png` (blade signs, enamel house numbers, notices), `glass_i
 ```bash
 python3 blender/city/gen_textures.py [--only plaster_ochre,...] [--sheet]   # ~3 min, PBR sets + materials.json
 python3 blender/city/gen_atlases.py [--sheet]                              # ~30 s, atlases + atlases.json
+python3 blender/city/write_texture_imports.py                              # Godot .import presets (VRAM, normal maps)
 tools/blender_run.sh blender/city/build_city.py [--only <id-prefix>,...] [--preview [all]]   # ~6 min, 52 GLBs + catalog
 tools/godot_import.sh && tools/run_tests.sh city_houses
 ```
 Texture-only changes need no Blender rebuild (GLBs reference the shared files by URI).
 `build_city.py` also writes each GLB's `.import` (post-import script, LODs, shadow meshes);
-texture `.import` presets (VRAM compressed, normal maps as RGTC) are written by the snippet in the
-"Pipeline" section (`city_glb.texture_import_params`).
+texture `.import` presets (VRAM compressed, normal maps as RGTC) come from `write_texture_imports.py`.
 Preview renders: `--preview` → `qa/out/city-houses/<id>.png` (Cycles); in-engine QA scenes:
 `assets/models/city/preview/street_row.tscn` (25 modules, 2 rows, cables, cat-scale reference) and
 `alley_row.tscn` (alley + rear walls facing each other 2.6 m apart).
@@ -127,19 +131,31 @@ world-scale box UVs per material tile size; smooth-by-angle + weighted normals);
 `city_parts.py` = components; `city_mats.py` = Blender materials (albedo × vertex colour, ORM with
 glTF occlusion output); `city_texlib.py` = periodic noise/feature synthesis.
 
-## Tests
-`tools/run_tests.sh city_houses` (5 tests): catalog contract (keys, types, kinds/styles, files exist,
+## Tests / verification
+`tools/validate.sh` → VALIDATION OK (whole project, 132 resources). `tools/run_tests.sh city_houses` → 5/5 pass: catalog contract (keys, types, kinds/styles, files exist,
 ≥14 distinct house/shop modules, all 4 styles), points inside module bounds, every module has only
 box colliders with valid `surface` + vertex-colour materials + climbable colliders when it lists
 climb points, **physics check that every nap spot has a collider 0–0.35 m below it and every climb
 point touches a layer-6 collider** (ray / shape queries per module), and the street-row scene loads
 with ≥ 8 modules.
 
+## Visual QA log (critique → fix loops, images in `qa/out/city-houses/`)
+1. First Cycles previews: black bands at roof edges (roof slab faces coplanar with party walls) →
+   slab emits only its top face; noisy blue-grey party walls → cement texture rebuilt.
+2. First Godot street (`g_street1`): cartoon "ABC" goods, blobby rattan shop, downpipe floating in
+   front of the sign, camouflage-blotchy party walls → shaded goods atlas, 3D rattan baskets/hats/
+   trays, dog-leg downpipes hugging the wing walls, calmer render texture, balcony variety
+   (cage / rail / glass-enclosed / solid).
+3. Tests found nap spots inside railing colliders → moved/removed; mirrored shelf labels fixed.
+4. SDFGI pass (`g3`/`g4`): shops black under GI → per-shop OmniLight fill + lit tube material;
+   street spans of cables added; preview rows extended so the street recedes.
+5. Rooftop pass (`g5`–`g7`): identical cracks repeating every 2 m on big walls → distinctive
+   features moved out of tiling textures into randomly placed decals + tall rain-wash vertex
+   bands; gap between colonial gable/eave and wall tops closed; soot decal softened; AC pipe
+   poking through an old-tile roof clamped; rafters re-oriented under the eaves.
+6. Final (`g8`/`g10`, sun 54°): street level, cat eye (0.2 m), rooftop → `docs/gallery/city-houses_*.jpg`.
+
 ## Known gaps (honest)
-- **Main-project import is currently blocked by another area's files**: `qa/out/cat-asset/cache/*.blend`
-  make headless `--import` abort for every pending file (request filed in
-  `docs/requests/city-houses.md`). All verification above was done in a mirror project
-  (symlinks to my asset dirs + scripts/tests/tools/data) — same files, separate `.godot` cache.
 - Interiors are shallow "stage sets" (≤ 3.5 m deep shop, curtains/rooms behind glass via an atlas);
   upper floors are not enterable.
 - Pitched-roof tiles are a stepped plane per course + normal map, not individual tile meshes; ridge

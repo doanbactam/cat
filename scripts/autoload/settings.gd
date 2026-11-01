@@ -595,8 +595,6 @@ func _apply_render() -> void:
 	RenderingServer.environment_set_ssil_quality(
 		RenderingServer.ENV_SSIL_QUALITY_HIGH if ultra else RenderingServer.ENV_SSIL_QUALITY_MEDIUM,
 		not ultra, 0.5, 4, 50.0, 300.0)
-	RenderingServer.environment_set_ssr_roughness_quality(
-		RenderingServer.ENV_SSR_ROUGHNESS_QUALITY_HIGH if ultra else RenderingServer.ENV_SSR_ROUGHNESS_QUALITY_LOW)
 	RenderingServer.environment_set_volumetric_fog_volume_size(128 if ultra else (48 if low else 64), 96 if ultra else (48 if low else 64))
 	RenderingServer.environment_set_volumetric_fog_filter_active(not low)
 

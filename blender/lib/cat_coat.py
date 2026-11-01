@@ -155,12 +155,12 @@ def fields(P: np.ndarray, N: np.ndarray, part: np.ndarray, seed: int = 1) -> dic
         [(0.0060, 0.2600), (0.0120, 0.2625), (0.0185, 0.2640), (0.0245, 0.2610)],   # brow arc of the M
     ]
     dm = np.min([_line_dist2d(hx, hz, l) for l in m_lines], axis=0)
-    m_str = (1 - smoothstep(0.0006, 0.0014, dm + 0.0004 * n3)) * front * (hf > 0.190)
+    m_str = (1 - smoothstep(0.0005, 0.0011, dm + 0.0004 * n3)) * front * (hf > 0.190)
     m_str *= 0.55 + 0.45 * smoothstep(-0.25, 0.25, fbm3(P * 70.0, 2, seed=seed + 12))
     # crown lines (front->back over the head into the nape)
     crown_x = np.array([0.0, 0.0058, 0.0125])
     dc = np.min(np.abs(hx[:, None] - crown_x[None, :] - 0.0007 * n1[:, None]), axis=1)
-    crown = (1 - smoothstep(0.0007, 0.0015, dc)) * top * smoothstep(0.205, 0.195, hf) * smoothstep(0.125, 0.145, hf)
+    crown = (1 - smoothstep(0.0005, 0.0012, dc)) * top * smoothstep(0.205, 0.195, hf) * smoothstep(0.125, 0.145, hf)
     crown *= 0.6 + 0.4 * smoothstep(-0.3, 0.3, fbm3(P * 45.0, 2, seed=seed + 7))
     # eyes: liner + pale ring, mascara line, cheek swirl
     c, g, u, v = S.eye_frame(1)
@@ -187,7 +187,7 @@ def fields(P: np.ndarray, N: np.ndarray, part: np.ndarray, seed: int = 1) -> dic
     # ---------------- white / cream areas ----------------
     pj = S.jaw_space(ph)
     chin = head_w * smoothstep(0.2195, 0.2150, pj[:, 2]) * smoothstep(0.168, 0.182, hf)
-    pads = head_w * smoothstep(0.0022, 0.0004, S.ellipsoid(phm, A.WHISKER_PAD_L, (0.0102, 0.0090, 0.0098)) + 0.0006 * n3)
+    pads = head_w * smoothstep(0.0048, 0.0002, S.ellipsoid(phm, A.WHISKER_PAD_L, (0.0102, 0.0090, 0.0098)) + 0.0010 * n3 + 0.0008 * n1)
     muzzle = np.clip(pads * 1.0, 0, 1)
     bib_n = np.asarray((0.0, -0.55, -0.83))
     bib = smoothstep(0.25, 0.6, N @ bib_n) * smoothstep(0.03, 0.08, f) * (1 - head_w * 0.0)
@@ -207,7 +207,7 @@ def fields(P: np.ndarray, N: np.ndarray, part: np.ndarray, seed: int = 1) -> dic
     nostril = head_w * smoothstep(0.0004, 0.0, S.ellipsoid(phm, (0.0040, -0.2240, 0.2330), (0.0017, 0.0014, 0.0009), S.rot_axis((0, 1, 0), 35.0)))
     mc = S.mouth_carve(ph)
     mouth = head_w * (mc < 0.00025) * skin
-    lips = head_w * (mc >= 0.00025) * (mc < 0.0013) * smoothstep(0.188, 0.196, hf) * skin
+    lips = head_w * (mc >= 0.00025) * smoothstep(0.0010, 0.0005, mc) * smoothstep(0.190, 0.198, hf) * skin
     socket = (np.linalg.norm(q, axis=1) < A.EYE_RADIUS + 0.0007) * head_w
     # paw pads (beans): near the bean ellipsoids on the underside
     beans = np.full(M, np.inf)
@@ -304,7 +304,7 @@ def _follicles(phm):
 PALETTES = {
     "cam": dict(ground=hexc("e3a25c"), ground2=hexc("d48843"), stripe=hexc("b25d26"), stripe_dark=hexc("97481b"),
                 cream=hexc("efd6ad"), white=hexc("eae1cf"), nose=hexc("dc8f88"), nose_rim=hexc("b7655f"),
-                pad=hexc("c98179"), lips=hexc("8a4a3e"), liner=hexc("6a3018"), inner_ear=hexc("d9a29b"),
+                pad=hexc("c98179"), lips=hexc("a05c50"), liner=hexc("6a3018"), inner_ear=hexc("d9a29b"),
                 stripe_strength=1.0, tabby=True),
     "grey_tabby": dict(ground=hexc("a8a196"), ground2=hexc("8f877c"), stripe=hexc("3c3632"), stripe_dark=hexc("2c2724"),
                        cream=hexc("d9d2c4"), white=hexc("e4ded3"), nose=hexc("a8655c"), nose_rim=hexc("5a3a36"),
@@ -371,7 +371,7 @@ def albedo(F: dict, P: np.ndarray, pal_name: str = "cam", seed: int = 1) -> np.n
     nose_col = TX.lerp(pal["nose"], pal["nose_rim"], F["nose_rim"] * 0.9)
     nose_col = nose_col * (1 + 0.06 * n_fine)[:, None]
     col = TX.lerp(col, nose_col, F["nose"])
-    col = TX.lerp(col, pal["nose_rim"] * 0.55, F["nostril"])
+    col = TX.lerp(col, pal["nose_rim"] * 0.75, F["nostril"] * 0.8)
     col = TX.lerp(col, pal["lips"], F["lips"])
     mouth_col = TX.lerp(srgb_to_lin(hexc("8e3a40")), srgb_to_lin(hexc("b85a62")), F["palate"])
     col = TX.lerp(col, mouth_col, F["mouth"])

@@ -109,7 +109,7 @@ def cement_render(name, seed, base="#9b978e", tile_m=2.0, algae=0.5):
     """Bare cement render / party walls: soft trowel arcs, large rain stains, algae, patches."""
     n = N
     rng = np.random.default_rng(seed)
-    und = T.spectral(n, seed, 2.6, 1.5, 60) * 0.002
+    und = T.spectral(n, seed, 3.0, 1.5, 18) * 0.0012
     arcs = np.zeros((n, n), np.float32)
     yy, xx = np.mgrid[0:n, 0:n].astype(np.float32)
     for k in range(30):  # trowel swirl arcs

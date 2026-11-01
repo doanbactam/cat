@@ -11,17 +11,19 @@ const FUR_SCRIPT := "res://scripts/player/fur_shells.gd"
 
 ## Near row (camera side, facing the street = +Z) and far row (rotated 180°, across the street).
 @export var near_row: PackedStringArray = PackedStringArray([
-	"tube90s_5f_w3_5_white", "tube90s_4f_w4_green", "colonial_3f_w4_5_ochre", "tube90s_4f_w5_pink",
-	"tube90s_6f_w5_yellow", "colonial_2f_w4_yellow", "tube90s_5f_w3_5_blue"])
+	"tube90s_4f_w4_blue", "colonial_2f_w4_ochre", "oldtile_1f_w4_white", "colonial_2f_w6_yellow",
+	"tube90s_3f_w4_5_pink", "colonial_3f_w5_white", "tube90s_4f_w4_green", "colonial_3f_w4_5_ochre",
+	"tube90s_4f_w5_pink"])
 @export var far_row: PackedStringArray = PackedStringArray([
-	"colonial_3f_w5_white", "tube90s_6f_w5_blue", "tube90s_4f_w4_pink", "colonial_2f_w6_yellow",
-	"modern_5f_w4_white", "tube90s_3f_w4_5_green", "colonial_corner_3f_yellow", "tube90s_5f_w3_5_yellow",
-	"tube90s_4f_w5_green"])
+	"tube90s_6f_w5_white", "colonial_3f_w5_pink", "tube90s_4f_w4_blue", "modern_5f_w4_grey",
+	"colonial_2f_w4_ochre", "tube90s_5f_w3_5_white", "colonial_3f_w5_ochre", "tube90s_4f_w5_green",
+	"oldtile_1f_w5_shop_yellow", "tube90s_6f_w5_yellow", "colonial_corner_3f_ochre", "tube90s_3f_w4_5_green",
+	"modern_4f_w6_dark"])
 ## Index (in near_row) of the house the cat sleeps on.
-@export var hero_index := 1
+@export var hero_index := 5
 @export var street_width := 13.5
-@export var sun_elevation_deg := 7.0
-@export var sun_azimuth_deg := 205.0
+@export var sun_elevation_deg := 6.0
+@export var sun_azimuth_deg := -74.0
 @export var drift_amount := 0.22
 @export var use_dof := true
 
@@ -49,7 +51,7 @@ func _ready() -> void:
 	_build_roof_clutter()
 	camera = Camera3D.new()
 	camera.name = "MenuCamera"
-	camera.fov = 38.0
+	camera.fov = 44.0
 	camera.near = 0.03
 	camera.far = 900.0
 	add_child(camera)
@@ -118,13 +120,13 @@ func _build_environment() -> void:
 	_env.fog_light_color = Color("#d98e62")
 	_env.fog_light_energy = 0.9
 	_env.fog_sun_scatter = 0.35
-	_env.fog_density = 0.6
+	_env.fog_density = 0.42
 	_env.fog_depth_begin = 18.0
 	_env.fog_depth_end = 260.0
 	_env.fog_depth_curve = 1.6
 	_env.fog_sky_affect = 0.25
 	_env.volumetric_fog_enabled = true
-	_env.volumetric_fog_density = 0.012
+	_env.volumetric_fog_density = 0.008
 	_env.volumetric_fog_albedo = Color("#f2c9a8")
 	_env.volumetric_fog_anisotropy = 0.6
 	_env.volumetric_fog_length = 90.0
@@ -135,9 +137,9 @@ func _build_environment() -> void:
 	if use_dof:
 		var attr := CameraAttributesPractical.new()
 		attr.dof_blur_far_enabled = true
-		attr.dof_blur_far_distance = 3.2
-		attr.dof_blur_far_transition = 6.0
-		attr.dof_blur_amount = 0.09
+		attr.dof_blur_far_distance = 3.4
+		attr.dof_blur_far_transition = 7.0
+		attr.dof_blur_amount = 0.07
 		we.camera_attributes = attr
 	add_child(we)
 	apply_graphics_settings()
@@ -189,7 +191,7 @@ func _build_rows() -> void:
 				_hero_origin = m.position
 				_hero_width = w
 		x += w
-	x = -24.0
+	x = _hero_origin.x - 50.0
 	for id in far_row:
 		var w := float(_module(id).get("width", 4.0))
 		var m := _instance_module(id)
@@ -219,35 +221,37 @@ func _build_ground() -> void:
 
 
 func _build_lantern_string() -> void:
-	# A catenary of silk lanterns across the street, a little in front of the hero roofline.
-	var a := Vector3(_hero_origin.x - 9.0, 11.6, 0.6)
-	var b := Vector3(_hero_origin.x + 7.0, 12.4, street_width - 0.6)
-	var count := 16
-	var wire_pts: PackedVector3Array = []
-	for i in count + 1:
-		var u := float(i) / float(count)
-		var p := a.lerp(b, u)
-		p.y -= sin(u * PI) * 1.6
-		wire_pts.append(p)
-	_add_wire(wire_pts, 0.012)
+	# Strings of silk lanterns across the street (down-street from the cat, toward the sun) and
+	# a few sagging power cables above them for depth.
 	var colors := [Color("#e8402a"), Color("#f08a2a"), Color("#e8402a"), Color("#f2c04a")]
-	for i in range(1, count):
-		var p := wire_pts[i]
-		var l := _make_lantern(colors[i % colors.size()], i % 3 == 0)
-		add_child(l)
-		l.position = p + Vector3(0, -0.28, 0)
-		_lanterns.append(l)
-	# second, higher wire with no lanterns (power cables) for depth
-	var c := Vector3(_hero_origin.x - 14.0, 13.8, 0.3)
-	var d := Vector3(_hero_origin.x + 16.0, 14.6, street_width - 0.3)
 	for k in 3:
-		var pts: PackedVector3Array = []
-		for i in 25:
-			var u := float(i) / 24.0
-			var p := (c + Vector3(0, -0.25 * k, 0.4 * k)).lerp(d + Vector3(0, -0.3 * k, -0.2 * k), u)
-			p.y -= sin(u * PI) * (1.1 + 0.3 * k)
-			pts.append(p)
-		_add_wire(pts, 0.009)
+		var x0 := _hero_origin.x - 9.0 - 7.0 * float(k)
+		var a := Vector3(x0, 12.2 - 0.4 * k, 0.5)
+		var b := Vector3(x0 - 1.5, 12.6 - 0.3 * k, street_width - 0.5)
+		var count := 12
+		var wire_pts: PackedVector3Array = []
+		for i in count + 1:
+			var u := float(i) / float(count)
+			var p := a.lerp(b, u)
+			p.y -= sin(u * PI) * 1.25
+			wire_pts.append(p)
+		_add_wire(wire_pts, 0.011)
+		for i in range(1, count):
+			var l := _make_lantern(colors[(i + k) % colors.size()], i % 4 == 2)
+			add_child(l)
+			l.position = wire_pts[i] + Vector3(0, -0.27, 0)
+			_lanterns.append(l)
+	for k in 4:
+		var c := Vector3(_hero_origin.x - 2.0 - 9.0 * k, 14.2 + 0.3 * k, 0.2)
+		var d := Vector3(_hero_origin.x - 6.0 - 9.0 * k, 13.6 + 0.2 * k, street_width - 0.2)
+		for j in 2:
+			var pts: PackedVector3Array = []
+			for i in 25:
+				var u := float(i) / 24.0
+				var p := (c + Vector3(0, -0.22 * j, 0.25 * j)).lerp(d + Vector3(0, -0.25 * j, -0.2 * j), u)
+				p.y -= sin(u * PI) * (0.9 + 0.35 * j)
+				pts.append(p)
+			_add_wire(pts, 0.008)
 
 
 func _add_wire(pts: PackedVector3Array, radius: float) -> void:
@@ -352,10 +356,11 @@ func _make_lantern(color: Color, with_light: bool) -> Node3D:
 func _build_roof_clutter() -> void:
 	# Water tank stand and solar heater on neighbouring roofs, a plank bridge between roofs.
 	var items := [
-		["roofprop_tank_stand", Vector3(_hero_origin.x + _hero_width * 0.5 + 2.3, -1.0, -6.0), 0.4],
-		["roofprop_solar", Vector3(_hero_origin.x - _hero_width * 0.5 - 1.8, -1.0, -8.0), 2.6],
-		["roofprop_tank_stand", Vector3(_hero_origin.x - 6.0, -1.0, street_width + 6.0), 1.2],
-		["roofprop_solar", Vector3(_hero_origin.x + 3.0, -1.0, street_width + 8.0), -0.4],
+		["roofprop_tank_stand", Vector3(_hero_origin.x - 22.0, -1.0, -5.0), 0.4],
+		["roofprop_solar", Vector3(_hero_origin.x - 14.0, -1.0, -8.0), 2.6],
+		["roofprop_tank_stand", Vector3(_hero_origin.x - 9.0, -1.0, street_width + 6.0), 1.2],
+		["roofprop_solar", Vector3(_hero_origin.x - 20.0, -1.0, street_width + 8.0), -0.4],
+		["roofprop_tank_stand", Vector3(_hero_origin.x - 31.0, -1.0, street_width + 5.0), 2.0],
 	]
 	for it: Array in items:
 		var m := _instance_module(String(it[0]))
@@ -397,9 +402,10 @@ func _place_camera_default() -> void:
 
 
 func _set_shot(cat_pos: Vector3) -> void:
-	# Low camera on the roof behind/beside the cat, looking across the street toward the sun.
-	var cam_pos := cat_pos + Vector3(1.25, 0.32, -1.45)
-	_look_target = cat_pos + Vector3(-0.9, 0.05, 1.4)
+	# Camera hovers just outside the facade beside the sleeping cat and looks down the street
+	# canyon toward the low sun: cat in the right third, lanterns and rooftops recede left.
+	var cam_pos := cat_pos + Vector3(1.85, 0.42, 0.95)
+	_look_target = cat_pos + Vector3(-7.5, -1.25, 0.05)
 	_cam_base = Transform3D(Basis.IDENTITY, cam_pos).looking_at(_look_target, Vector3.UP)
 	camera.global_transform = _cam_base
 
@@ -407,19 +413,25 @@ func _set_shot(cat_pos: Vector3) -> void:
 func _settle_and_place_cat() -> void:
 	for i in 3:
 		await get_tree().physics_frame
-	var top_guess := float(_module(near_row[hero_index] if hero_index < near_row.size() else "").get("height", 14.7))
-	# Front parapet: probe along the facade for the highest surface near the roof line.
+	var hero_id := near_row[hero_index] if hero_index < near_row.size() else ""
+	var top_guess := float(_module(hero_id).get("height", 14.7))
+	# Use the module's catalogued nap spots: the highest one on the front facade (z > -0.5).
 	var best := Vector3.ZERO
 	var best_y := -INF
-	for xi in range(-3, 4):
-		for zi in [0.05, 0.12, 0.2, 0.3]:
-			var px := _hero_origin.x - _hero_width * 0.5 + 0.55 + float(xi + 3) * 0.12
-			var y := _ray_down(Vector3(px, top_guess + 6.0, _hero_origin.z - float(zi)))
-			if y > best_y and y < top_guess + 1.5 and y > top_guess - 3.0:
-				best_y = y
-				best = Vector3(px, y, _hero_origin.z - float(zi))
-	if best_y == -INF:
-		best = _hero_origin + Vector3(-_hero_width * 0.5 + 0.6, top_guess, -0.15)
+	for sp: Variant in _module(hero_id).get("nap_spots", []):
+		if sp is Array and (sp as Array).size() >= 3:
+			var v := Vector3(float(sp[0]), float(sp[1]), float(sp[2]))
+			if v.z > -0.5 and v.y > best_y:
+				best_y = v.y
+				best = _hero_origin + v
+	if best_y > -INF:
+		# Nudge 0.25 m inward from the corner so the tail does not hang past the end.
+		best.x += signf(_hero_origin.x - best.x) * 0.25
+		var y := _ray_down(Vector3(best.x, best.y + 1.0, best.z))
+		if absf(y - best.y) < 0.12:
+			best.y = y
+	else:
+		best = _hero_origin + Vector3(0.0, top_guess, -0.12)
 	_spawn_cat(best)
 	_set_shot(best)
 	_ready_done = true
@@ -435,8 +447,15 @@ func _spawn_cat(pos: Vector3) -> void:
 	cat.name = "SleepingCam"
 	add_child(cat)
 	cat.global_position = pos
-	# Lying along the parapet, head toward the camera side.
-	cat.rotation.y = deg_to_rad(-100.0)
+	# Lying along the parapet, face turned toward the camera.
+	cat.rotation.y = deg_to_rad(118.0)
+	var key := OmniLight3D.new()
+	key.light_color = Color("#ffb070")
+	key.light_energy = 0.55
+	key.omni_range = 2.2
+	key.shadow_enabled = false
+	add_child(key)
+	key.global_position = pos + Vector3(0.7, 0.45, 0.5)
 	var players := cat.find_children("*", "AnimationPlayer", true, false)
 	if players.size() > 0:
 		_cat_anim = players[0] as AnimationPlayer

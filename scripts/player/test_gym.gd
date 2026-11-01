@@ -62,9 +62,11 @@ func _ready() -> void:
 func _place(pos: Vector3, yaw_deg: float, cam_yaw_deg: float, cam_pitch_deg: float, dist := -1.0) -> void:
 	if player == null:
 		return
+	Input.action_release(&"jump")
 	player.call(&"teleport", Transform3D(Basis(Vector3.UP, deg_to_rad(yaw_deg)), pos))
 	var rig: Node3D = player.call(&"get_camera_rig")
 	if rig != null:
+		rig.call(&"set_mode", &"third_person", true)
 		rig.set(&"yaw", deg_to_rad(cam_yaw_deg))
 		rig.set(&"pitch", deg_to_rad(cam_pitch_deg))
 		if dist > 0.0:
@@ -96,8 +98,13 @@ func demo_fpp_down() -> void:
 
 func demo_aim() -> void:
 	# crouched in front of the 0.8 m ledge, jump held → reticle + arc on the ledge top
-	_place(Vector3(-0.15, 0.0, 0.55), 0.0, 205.0, -18.0, 1.5)
+	_place(Vector3(-0.85, 0.0, 1.25), 0.0, 215.0, -14.0, 1.35)
 	Input.action_press(&"jump")
+
+
+func demo_portrait() -> void:
+	# sunny 3/4 portrait for fur / material review
+	_place(Vector3(-1.6, 0.0, 0.2), 200.0, 130.0, -8.0, 0.62)
 
 
 func demo_sense() -> void:
@@ -217,6 +224,12 @@ static func _basis_y_to(a: Vector3) -> Basis:
 	return Basis(x, y, z)
 
 
+## Translated label text with an English fallback while the key is not merged yet.
+func _t(key: String, fallback: String) -> String:
+	var s := tr(key)
+	return fallback if s == key else s
+
+
 func _label(text: String, pos: Vector3, yaw_deg := 180.0) -> void:
 	var l := Label3D.new()
 	l.text = text
@@ -313,6 +326,14 @@ func _build_ledges() -> void:
 		var h := heights[i]
 		var b := _box("Ledge_%d" % int(h * 100), Vector3(x, h * 0.5, 2.4), Vector3(0.9, h, 1.0), _mat(mats[i % mats.size()]), L_WORLD | L_CAMERA_BLOCK, &"concrete")
 		b.set_meta(&"ledge_height", h)
+		# cement coping slab: slight overhang + darker edge reads as built masonry, not a box
+		var cap := MeshInstance3D.new()
+		var cm := BoxMesh.new()
+		cm.size = Vector3(0.96, 0.035, 1.06)
+		cap.mesh = cm
+		cap.material_override = _mat("cement_render", Color(0.82, 0.8, 0.76))
+		cap.position = Vector3(0, h * 0.5 - 0.0175 + 0.001, 0)
+		b.add_child(cap)
 		_label("%.2f m" % h, Vector3(x, h + 0.12, 1.88))
 		x += 1.45
 
@@ -323,7 +344,7 @@ func _build_stairs_and_ramps() -> void:
 		var top := 0.16 * float(i + 1)
 		_box("Step_%d" % i, Vector3(7.6, top * 0.5, 0.0 + 0.3 * float(i)), Vector3(1.1, top, 0.3), stone, L_WORLD | L_CAMERA_BLOCK, &"tile")
 	_box("StairLanding", Vector3(7.6, 0.64, 3.0), Vector3(1.1, 1.28, 1.2), stone, L_WORLD | L_CAMERA_BLOCK, &"tile")
-	_label("stairs 0.16", Vector3(7.6, 0.3, -0.4))
+	_label(_t("GYM_STAIRS", "stairs 0.16 m"), Vector3(7.6, 0.3, -0.4))
 	# ramps
 	for spec: Array in [[20.0, -9.2], [32.0, -11.0]]:
 		var ang: float = deg_to_rad(spec[0])
@@ -346,15 +367,15 @@ func _build_beams() -> void:
 	# 5 cm pipe B→C and a 2.4 cm cable slightly offset (balance-walkable)
 	_cyl("Pipe", Vector3(3.3, 0.975, 6.38), 0.025, 2.8, _mat("metal_painted"), Vector3.RIGHT, L_WORLD, &"metal")
 	_cyl("Cable", Vector3(3.3, 0.988, 6.68), 0.012, 2.8, _mat("iron_wrought", Color(0.25, 0.25, 0.25)), Vector3.RIGHT, L_WORLD, &"metal")
-	_label("beam 9 cm", Vector3(-0.8, 1.15, 6.1))
-	_label("pipe / cable", Vector3(3.3, 1.15, 6.1))
+	_label(_t("GYM_BEAM", "beam 9 cm"), Vector3(-0.8, 1.15, 6.1))
+	_label(_t("GYM_PIPE_CABLE", "pipe / cable"), Vector3(3.3, 1.15, 6.1))
 
 
 func _build_climbables() -> void:
 	# rough brick wall (climbable) with a walkable top and a drainpipe
 	_box("ClimbWall", Vector3(-1.0, 1.2, 10.4), Vector3(3.0, 2.4, 0.35), _mat("brick_exposed"), L_WORLD | L_CLIMB | L_CAMERA_BLOCK, &"concrete")
 	_cyl("Drainpipe", Vector3(1.1, 1.4, 10.18), 0.045, 2.8, _mat("metal_painted", Color(0.75, 0.78, 0.8)), Vector3.UP, L_WORLD | L_CLIMB, &"metal")
-	_label("climb (brick, drainpipe)", Vector3(-1.0, 0.25, 10.1))
+	_label(_t("GYM_CLIMB", "climb (brick, drainpipe)"), Vector3(-1.0, 0.25, 10.1))
 	# tree trunk
 	var bark := _mat("wood_brown", Color(0.55, 0.47, 0.4))
 	_cyl("TreeTrunk", Vector3(-6.0, 1.75, 8.0), 0.16, 3.5, bark, Vector3.UP, L_WORLD | L_CLIMB | L_CAMERA_BLOCK, &"wood")
@@ -383,7 +404,7 @@ func _build_facade_with_ac() -> void:
 		ac.add_child(grille)
 		# support brackets
 		_box("ACBracket_%d" % i, c + Vector3(0.0, -0.3, 0.0), Vector3(0.36, 0.04, 0.7), _mat("iron_wrought", Color(0.35, 0.3, 0.28)), L_WORLD, &"metal")
-	_label("AC units → roof 3.6 m", Vector3(10.2, 0.3, 4.2), -90.0)
+	_label(_t("GYM_AC_ROOF", "AC units → roof 3.6 m"), Vector3(10.2, 0.3, 4.2), -90.0)
 
 
 func _build_pool() -> void:
@@ -440,7 +461,7 @@ func _build_pool() -> void:
 	water.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	water.position = c + Vector3(0, level, 0)
 	add_child(water)
-	_label("pool", c + Vector3(0, 0.55, -size.y * 0.5 - 0.05))
+	_label(_t("GYM_POOL", "pool"), c + Vector3(0, 0.55, -size.y * 0.5 - 0.05))
 
 
 func _build_table() -> void:
@@ -503,7 +524,7 @@ func _build_low_gap() -> void:
 	for sx: float in [-0.78, 0.78]:
 		for sz: float in [-1.2, 1.2]:
 			_cyl("Wheel", c + Vector3(sx, 0.3, sz), 0.3, 0.18, tyre, Vector3.RIGHT, L_WORLD, &"plastic")
-	_label("crawl under (0.17 m)", Vector3(c.x, 0.1, c.z - 1.9))
+	_label(_t("GYM_CRAWL", "crawl under (0.17 m)"), Vector3(c.x, 0.1, c.z - 1.9))
 
 
 func _build_interactables() -> void:

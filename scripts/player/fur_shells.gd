@@ -26,8 +26,9 @@ const BODY_MESH_NAMES: Array[String] = ["CatBody", "Body", "cat_body"]
 @export var shell_count := -1
 @export var albedo_override: Texture2D
 @export var tint := Color(1, 1, 1, 1)
-## Metres of fur at mask R = 1 (cat-asset FUR_MAX_LENGTH).
-@export var fur_length := 0.016
+## Metres of undercoat at mask R = 1 (cat-asset FUR_MAX_LENGTH 0.016 + guard-hair headroom);
+## guard hairs reach 1.35× this.
+@export var fur_length := 0.02
 ## Player: own wet state from GameState. NPCs: the world's global wetness × influence.
 @export var use_game_state_wetness := true
 @export_range(0.0, 1.0) var global_wet_influence := 0.75
@@ -51,6 +52,8 @@ static var _strand_tex: ImageTexture = null
 
 
 func _ready() -> void:
+	# after the camera rig moved the camera this frame (main-pass detection uses its position)
+	process_priority = 100
 	GameEvents.settings_changed.connect(_on_settings_changed)
 
 
@@ -246,23 +249,50 @@ static func _load_tex(file: String) -> Texture2D:
 	return null
 
 
-## Tiling strand-height field: thousands of small cones (value 1 at the strand centre, falling to
-## 0 at its edge, random length) with mipmaps. A shell at height h keeps texels where value > h,
-## so strands taper towards their tips.
+## Tiling strand field (RGBA8, mipmapped), 256² texels tiled `strand_tiling` times per UV:
+##  R = undercoat strands: dense small cones (1 at the strand centre → 0 at its edge, random
+##      length 0.55–1), a shell at height h keeps texels where R > h → strands taper to tips;
+##  G = guard hairs: sparse, thinner, longer cones (the shells extend past the coat for them);
+##  B = lock field: smooth tileable noise used to group strands into tufts.
 static func get_strand_texture() -> ImageTexture:
 	if _strand_tex != null:
 		return _strand_tex
 	var size := 256
-	var data := PackedFloat32Array()
-	data.resize(size * size)
+	var under := PackedFloat32Array()
+	var guard := PackedFloat32Array()
+	under.resize(size * size)
+	guard.resize(size * size)
 	var rng := RandomNumberGenerator.new()
 	rng.seed = 90210
-	var count := 2900
+	_splat(under, size, rng, 2300, Vector2(1.6, 2.8), Vector2(0.55, 1.0))
+	_splat(guard, size, rng, 260, Vector2(1.1, 1.7), Vector2(0.85, 1.0))
+	var noise := FastNoiseLite.new()
+	noise.seed = 4242
+	noise.noise_type = FastNoiseLite.TYPE_CELLULAR
+	noise.cellular_return_type = FastNoiseLite.RETURN_DISTANCE
+	noise.frequency = 1.0 / 22.0
+	var img := Image.create_empty(size, size, false, Image.FORMAT_RGBA8)
+	for y in size:
+		for x in size:
+			# seamless cellular "locks": sample on a torus
+			var ax := TAU * float(x) / float(size)
+			var ay := TAU * float(y) / float(size)
+			var r := float(size) / TAU
+			var n := noise.get_noise_3d(cos(ax) * r, sin(ax) * r + cos(ay) * r, sin(ay) * r)
+			var lock := clampf(1.0 - (n * 0.5 + 0.5), 0.0, 1.0)
+			var i := y * size + x
+			img.set_pixel(x, y, Color(clampf(under[i], 0.0, 1.0), clampf(guard[i], 0.0, 1.0), lock, 1.0))
+	img.generate_mipmaps()
+	_strand_tex = ImageTexture.create_from_image(img)
+	return _strand_tex
+
+
+static func _splat(data: PackedFloat32Array, size: int, rng: RandomNumberGenerator, count: int, radius: Vector2, height: Vector2) -> void:
 	for i in count:
 		var cx := rng.randf() * size
 		var cy := rng.randf() * size
-		var r := rng.randf_range(1.7, 3.1)
-		var hgt := rng.randf_range(0.55, 1.0)
+		var r := rng.randf_range(radius.x, radius.y)
+		var hgt := rng.randf_range(height.x, height.y)
 		var ri := int(ceil(r))
 		for dy in range(-ri, ri + 1):
 			for dx in range(-ri, ri + 1):
@@ -270,16 +300,6 @@ static func get_strand_texture() -> ImageTexture:
 				if d >= 1.0:
 					continue
 				var v := hgt * (1.0 - d * d * 0.6 - d * 0.4)
-				var px := posmod(int(cx) + dx, size)
-				var py := posmod(int(cy) + dy, size)
-				var idx := py * size + px
+				var idx := posmod(int(cy) + dy, size) * size + posmod(int(cx) + dx, size)
 				if v > data[idx]:
 					data[idx] = v
-	var img := Image.create_empty(size, size, false, Image.FORMAT_L8)
-	for y in size:
-		for x in size:
-			var v := clampf(data[y * size + x], 0.0, 1.0)
-			img.set_pixel(x, y, Color(v, v, v, 1.0))
-	img.generate_mipmaps()
-	_strand_tex = ImageTexture.create_from_image(img)
-	return _strand_tex

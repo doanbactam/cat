@@ -123,7 +123,7 @@ def build_ear(name: str, side: int, col=None) -> bpy.types.Object:
 # ---------------------------------------------------------------------------
 # Eyes
 # ---------------------------------------------------------------------------
-LIMBUS_DEG = 50.0
+LIMBUS_DEG = 56.0          # cat irises are huge: little sclera ever shows
 
 
 def _eye_geometry(side: int):
@@ -479,9 +479,9 @@ def eye_materials(eye_objs):
     import cat_tex as TX
     d = tex_dir()
     iris_path = os.path.join(d, "cat_eye_iris.png")
-    TX.save_png(iris_path, TX.iris_texture(1024, palette="cam"))
+    TX.save_png(iris_path, TX.iris_texture(1024, palette="cam", limbus_deg=LIMBUS_DEG))
     for pal in ("green", "copper", "blue"):
-        TX.save_png(os.path.join(d, f"cat_eye_iris_{pal}.png"), TX.iris_texture(512, palette=pal))
+        TX.save_png(os.path.join(d, f"cat_eye_iris_{pal}.png"), TX.iris_texture(512, palette=pal, limbus_deg=LIMBUS_DEG))
     m_iris = C.image_material("CatEye_Iris", albedo=iris_path)
     bsdf = next(n for n in m_iris.node_tree.nodes if n.bl_idname == "ShaderNodeBsdfPrincipled")
     bsdf.inputs["Roughness"].default_value = 0.30

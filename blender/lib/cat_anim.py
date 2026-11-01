@@ -324,7 +324,7 @@ class Solver:
         reach = (self.len[names[1]] + self.len[names[2]]) * 0.975
         dvec = W - S
         if dvec.length > reach:
-            g = dvec.normalized() * min(dvec.length - reach, 0.026)
+            g = dvec.normalized() * min(dvec.length - reach, 0.034)
             h_s = h_s + g
             S = S + g
         back = (yaw_q @ Y)

@@ -109,7 +109,7 @@ func spawn_player(pos: Vector3, yaw := 0.0) -> CharacterBody3D:
 ## linger in the physics space for a step).
 func settle(timeout := 1.5) -> void:
 	await step(2)
-	await wait_until(func() -> bool: return player != null and player.is_on_floor() and int(player.call(&"get_mode")) == 0, timeout)
+	await wait_until(func() -> bool: return player != null and player.is_on_floor() and int(player.call(&"get_mode")) == 0 and player.call(&"get_state") in [&"idle", &"idle_look", &"sneak_idle", &"balance"], timeout)
 	await step(2)
 
 

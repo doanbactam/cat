@@ -60,3 +60,34 @@ func pose_run() -> void:
 
 func pose_meow() -> void:
 	_play_at(&"meow", 0.4)
+
+
+func _coat(v: String) -> void:
+	variant = v
+	var cat := get_node_or_null("Cat")
+	var body := cat.find_child("CatBody", true, false) as MeshInstance3D if cat else null
+	var tex := load("res://assets/models/cat/textures/cat_albedo_%s.png" % v) as Texture2D
+	if body != null and tex != null:
+		var mat := body.get_active_material(0).duplicate() as StandardMaterial3D
+		mat.albedo_texture = tex
+		body.set_surface_override_material(0, mat)
+
+
+func coat_black() -> void:
+	_coat("black")
+	_play_at(&"sit_idle", 0.5)
+
+
+func coat_white() -> void:
+	_coat("white")
+	_play_at(&"sit_idle", 0.5)
+
+
+func coat_calico() -> void:
+	_coat("calico")
+	_play_at(&"sit_idle", 0.5)
+
+
+func coat_grey_tabby() -> void:
+	_coat("grey_tabby")
+	_play_at(&"sit_idle", 0.5)

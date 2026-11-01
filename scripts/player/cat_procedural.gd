@@ -16,7 +16,7 @@ const SOLID_MASK := 1 | (1 << 3) | (1 << 5) | (1 << 7)
 @export var breath_depth := 0.012
 @export var ik_max_delta := 0.11
 @export var pelvis_max_drop := 0.08
-@export var blink_axis_sign := 1.0
+@export var blink_axis_sign := -1.0
 @export var blink_close_deg := 38.0
 
 var player: Node = null
@@ -36,7 +36,6 @@ var _blink_t := 0.0
 var _blink_next := 2.5
 var _blink_len := 0.16
 var _blink_slow := false
-var _sleep_lids := 0.0
 var _ray := PhysicsRayQueryParameters3D.new()
 
 
@@ -179,8 +178,8 @@ func _update_blink(skel: Skeleton3D, delta: float, state: StringName) -> void:
 	var up_r := _bone("eyelid_R")
 	if up_l < 0 or up_r < 0:
 		return
-	var sleeping := state == &"sleep"
-	_sleep_lids = move_toward(_sleep_lids, 1.0 if sleeping else 0.0, delta * (0.6 if sleeping else 3.0))
+	if state == &"sleep":
+		return  # the sleep clip keeps the lids closed
 	_blink_t += delta
 	var close := 0.0
 	if _blink_t > _blink_next:
@@ -194,18 +193,18 @@ func _update_blink(skel: Skeleton3D, delta: float, state: StringName) -> void:
 			close = sin(PI * t)
 			if _blink_slow:
 				close = minf(1.0, close * 1.4) * 0.92
-	close = maxf(close, _sleep_lids)
 	if close < 0.01:
 		return
-	var ang := deg_to_rad(blink_close_deg) * close * blink_axis_sign
+	# blend towards the absolute closed pose (clips may already narrow the eyes)
+	var up_ang := deg_to_rad(blink_close_deg) * blink_axis_sign
 	for idx: int in [up_l, up_r]:
-		var q := skel.get_bone_pose_rotation(idx) * Quaternion(Vector3.RIGHT, ang)
-		skel.set_bone_pose_rotation(idx, q)
+		var closed := skel.get_bone_rest(idx).basis.get_rotation_quaternion() * Quaternion(Vector3.RIGHT, up_ang)
+		skel.set_bone_pose_rotation(idx, skel.get_bone_pose_rotation(idx).slerp(closed, close))
 	for nm: String in ["eyelid_low_L", "eyelid_low_R"]:
 		var li := _bone(nm)
 		if li >= 0:
-			var q2 := skel.get_bone_pose_rotation(li) * Quaternion(Vector3.RIGHT, -ang * 0.35)
-			skel.set_bone_pose_rotation(li, q2)
+			var closed_lo := skel.get_bone_rest(li).basis.get_rotation_quaternion() * Quaternion(Vector3.RIGHT, -up_ang * 14.0 / 38.0)
+			skel.set_bone_pose_rotation(li, skel.get_bone_pose_rotation(li).slerp(closed_lo, close))
 
 
 # --- feet ----------------------------------------------------------------------------------------

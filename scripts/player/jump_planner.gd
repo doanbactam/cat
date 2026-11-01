@@ -94,7 +94,9 @@ static func default_apex_extra(p0: Vector3, p1: Vector3) -> float:
 ## origin: the cat's feet. aim_dir: horizontal unit direction. aim_point: exact camera-aim world
 ## point (Vector3.INF if none). Returns {} when nothing suitable, else
 ## {point, normal, collider, v0, time, apex, score, kind, narrow}.
-func find_target(origin: Vector3, aim_dir: Vector3, aim_point: Vector3 = Vector3.INF) -> Dictionary:
+## allow_flat_aim: also accept a plain spot on the same floor under the aim point (deliberate
+## aiming); otherwise only ledges, drops, gaps and beams are targets.
+func find_target(origin: Vector3, aim_dir: Vector3, aim_point: Vector3 = Vector3.INF, allow_flat_aim := false) -> Dictionary:
 	if space == null:
 		return {}
 	aim_dir.y = 0.0
@@ -111,7 +113,7 @@ func find_target(origin: Vector3, aim_dir: Vector3, aim_point: Vector3 = Vector3
 	# 2) exact probe under the aim point (thin rails, cables, precise picks)
 	if aim_point != Vector3.INF:
 		var c := _probe_point(origin, aim_point)
-		if not c.is_empty():
+		if not c.is_empty() and (allow_flat_aim or bool(c["interesting"])):
 			c["aim_exact"] = true
 			candidates.append(c)
 	if candidates.is_empty():
@@ -239,10 +241,15 @@ func _probe_point(origin: Vector3, aim_point: Vector3) -> Dictionary:
 	if dh > max_height + 0.02 or dh < -max_drop:
 		return {}
 	var nrm: Vector3 = hit["normal"]
+	# a void / big drop between the cat and the aim point makes it a gap jump
+	var mid := origin.lerp(p, 0.5)
+	var mid_hit := _ray_down(Vector3(mid.x, maxf(origin.y, p.y) + 0.2, mid.z), minf(origin.y, p.y) - 0.4)
+	var gap := mid_hit.is_empty() or float((mid_hit["position"] as Vector3).y) < minf(origin.y, p.y) - 0.35
+	var narrow := nrm.y < floor_normal_min
 	return {
 		"point": p, "normal": nrm if nrm.y >= floor_normal_min else Vector3.UP, "collider": hit.get("collider"),
-		"angle": 0.0, "dist": d, "dh": dh, "gap": false, "narrow": nrm.y < floor_normal_min,
-		"kind": &"aim",
+		"angle": 0.0, "dist": d, "dh": dh, "gap": gap, "narrow": narrow,
+		"interesting": absf(dh) > 0.16 or gap or narrow, "kind": &"aim",
 	}
 
 

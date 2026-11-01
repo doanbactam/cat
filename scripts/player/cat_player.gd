@@ -679,6 +679,15 @@ func _physics_ground(delta: float) -> void:
 		_yaw += clampf(diff, -rate * delta, rate * delta)
 		# speed falls off while the body is still pointing away from the input
 		target_speed *= clampf(cos(diff) * 1.2, 0.15, 1.0)
+	elif is_first_person() and absf(_speed) < 0.1 and _land_t <= 0.0 and not _balancing and _camera_rig != null:
+		# first person, standing: the body follows the view once the neck can't turn further
+		var view: Vector3 = _camera_rig.call(&"get_view_forward")
+		view.y = 0.0
+		if view.length_squared() > 0.01:
+			var vyaw := atan2(view.x, view.z)
+			if absf(angle_difference(_yaw, vyaw)) > deg_to_rad(80.0):
+				_enter_turn(vyaw)
+				return
 	if _balancing:
 		_yaw += clampf(_balance_yaw_err, -1.2 * delta, 1.2 * delta)
 	_yaw = wrapf(_yaw, -PI, PI)
@@ -1155,7 +1164,8 @@ func _update_planner(_force: bool) -> void:
 			var flat := Vector2(aim_point.x - global_position.x, aim_point.z - global_position.z).length()
 			if flat > _planner.max_distance + 0.4:
 				aim_point = Vector3.INF
-	_target = _planner.find_target(global_position, _aim_direction(), aim_point)
+	var deliberate := _aiming() or _jump_down_t > 0.3
+	_target = _planner.find_target(global_position, _aim_direction(), aim_point, deliberate)
 	if _reticle != null:
 		if _target.is_empty():
 			_reticle.call(&"hide_target")
@@ -1495,7 +1505,7 @@ func _check_climb_start(delta: float) -> bool:
 	if fwd.dot(-Vector3(n.x, 0.0, n.z).normalized()) < 0.6:
 		return false
 	var dist := (global_position + Vector3.UP * 0.12).distance_to(c["position"])
-	if dist > body_radius + 0.12:
+	if dist > nose_reach + 0.06:
 		return false
 	_climb_intent += delta
 	if _climb_intent > 0.12 or _jump_just_pressed():
@@ -1896,8 +1906,8 @@ func drop_mouth_item() -> void:
 	var xf := _mouth_attach.global_transform
 	xf.basis = Basis(Vector3.UP, _yaw)
 	var parent := get_parent() if get_parent() != null else get_tree().current_scene
+	# (GameState.drop_mouth_item already emitted GameEvents.item_dropped)
 	PickupItem.spawn_dropped(id, Transform3D(xf.basis, xf.origin + _forward() * 0.04), parent)
-	GameEvents.item_dropped.emit(id, 1)
 	_play_sfx(&"cat_drop", xf.origin)
 	if mode == Mode.GROUND and absf(_speed) < 0.5:
 		_enter_action(&"pickup", _clip_length(&"pickup", 0.6) * 0.8, 0.3)

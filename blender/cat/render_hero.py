@@ -217,6 +217,7 @@ bsdf.inputs["Sheen Weight"].default_value = 0.3
 cm = bpy.data.materials.get("CatEye_Cornea")
 cb = next(nd for nd in cm.node_tree.nodes if nd.bl_idname == "ShaderNodeBsdfPrincipled")
 cb.inputs["Alpha"].default_value = 1.0
+cb.inputs["Base Color"].default_value = (1.0, 1.0, 1.0, 1.0)
 cb.inputs["Transmission Weight"].default_value = 1.0
 cb.inputs["Roughness"].default_value = 0.0
 
@@ -267,18 +268,57 @@ gb = next(nd for nd in gt.nodes if nd.bl_idname == "ShaderNodeBsdfPrincipled")
 noise = gt.nodes.new("ShaderNodeTexNoise")
 noise.inputs["Scale"].default_value = 22.0
 noise.inputs["Detail"].default_value = 8.0
+brick = gt.nodes.new("ShaderNodeTexBrick")          # 20 cm terracotta floor tiles, grout lines
+brick.inputs["Scale"].default_value = 8.0 / 0.20 / 8.0
+brick.inputs["Mortar Size"].default_value = 0.012
+brick.inputs["Color1"].default_value = (0.36, 0.13, 0.06, 1)
+brick.inputs["Color2"].default_value = (0.30, 0.10, 0.05, 1)
+brick.inputs["Mortar"].default_value = (0.20, 0.17, 0.14, 1)
+brick.offset = 0.0
+tc = gt.nodes.new("ShaderNodeTexCoord")
+gt.links.new(tc.outputs["Object"], brick.inputs["Vector"])
 ramp = gt.nodes.new("ShaderNodeValToRGB")
-ramp.color_ramp.elements[0].color = (0.16, 0.12, 0.09, 1)
-ramp.color_ramp.elements[1].color = (0.34, 0.26, 0.20, 1)
+ramp.color_ramp.elements[0].color = (0.55, 0.50, 0.45, 1)
+ramp.color_ramp.elements[1].color = (1.0, 1.0, 1.0, 1)
 gt.links.new(noise.outputs["Fac"], ramp.inputs["Fac"])
-gt.links.new(ramp.outputs["Color"], gb.inputs["Base Color"])
+mul = gt.nodes.new("ShaderNodeMix")
+mul.data_type = "RGBA"
+mul.blend_type = "MULTIPLY"
+mul.inputs["Factor"].default_value = 1.0
+gt.links.new(brick.outputs["Color"], mul.inputs["A"])
+gt.links.new(ramp.outputs["Color"], mul.inputs["B"])
+gt.links.new(mul.outputs["Result"], gb.inputs["Base Color"])
 gb.inputs["Roughness"].default_value = 0.85
 bump = gt.nodes.new("ShaderNodeBump")
 bump.inputs["Strength"].default_value = 0.25
 bump.inputs["Distance"].default_value = 0.002
-gt.links.new(noise.outputs["Fac"], bump.inputs["Height"])
+gt.links.new(brick.outputs["Fac"], bump.inputs["Height"])
 gt.links.new(bump.outputs["Normal"], gb.inputs["Normal"])
 g.data.materials.append(gm)
+# out-of-focus ochre plaster wall with damp stains (Phố Cũ mood)
+bpy.ops.mesh.primitive_plane_add(size=6, location=(0, 1.1, 1.2), rotation=(math.radians(90), 0, 0))
+wall = bpy.context.active_object
+wm = bpy.data.materials.new("hero_wall")
+wt = wm.node_tree
+wb = next(nd for nd in wt.nodes if nd.bl_idname == "ShaderNodeBsdfPrincipled")
+n1 = wt.nodes.new("ShaderNodeTexNoise")
+n1.inputs["Scale"].default_value = 1.6
+n1.inputs["Detail"].default_value = 10.0
+n2 = wt.nodes.new("ShaderNodeTexNoise")
+n2.inputs["Scale"].default_value = 0.8
+r1 = wt.nodes.new("ShaderNodeValToRGB")
+r1.color_ramp.elements[0].color = (0.30, 0.20, 0.08, 1)
+r1.color_ramp.elements[1].color = (0.80, 0.55, 0.20, 1)
+wt.links.new(n1.outputs["Fac"], r1.inputs["Fac"])
+mixn = wt.nodes.new("ShaderNodeMix")
+mixn.data_type = "RGBA"
+mixn.blend_type = "MULTIPLY"
+mixn.inputs["Factor"].default_value = 0.6
+wt.links.new(r1.outputs["Color"], mixn.inputs["A"])
+wt.links.new(n2.outputs["Color"], mixn.inputs["B"])
+wt.links.new(mixn.outputs["Result"], wb.inputs["Base Color"])
+wb.inputs["Roughness"].default_value = 0.9
+wall.data.materials.append(wm)
 # camera: 3/4 front, eye level of the cat, shallow depth of field on the near eye
 eye = Vector(solver.tip(Acc, H, "fpp_eye")) if False else Vector(H["fpp_eye"])
 cam_d = bpy.data.cameras.new("hero_cam")

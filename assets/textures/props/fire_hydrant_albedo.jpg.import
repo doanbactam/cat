@@ -1,0 +1,43 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://dyd21v3p6j7t7"
+path.s3tc="res://.godot/imported/fire_hydrant_albedo.jpg-5a4d4ad1fe6f49cedc4c9aee8307593f.s3tc.ctex"
+path.etc2="res://.godot/imported/fire_hydrant_albedo.jpg-5a4d4ad1fe6f49cedc4c9aee8307593f.etc2.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
+}
+
+[deps]
+
+source_file="res://assets/textures/props/fire_hydrant_albedo.jpg"
+dest_files=["res://.godot/imported/fire_hydrant_albedo.jpg-5a4d4ad1fe6f49cedc4c9aee8307593f.s3tc.ctex", "res://.godot/imported/fire_hydrant_albedo.jpg-5a4d4ad1fe6f49cedc4c9aee8307593f.etc2.ctex"]
+
+[params]
+
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=2
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0

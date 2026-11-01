@@ -107,11 +107,10 @@ func _ready() -> void:
 	_distance = tpp_distance
 	_distance_target = tpp_distance
 	_read_settings()
-	if Engine.has_singleton(&"GameEvents") or get_node_or_null(^"/root/GameEvents") != null:
-		GameEvents.settings_changed.connect(_on_settings_changed)
-		GameEvents.ui_menu_opened.connect(_on_menu_opened)
-		GameEvents.ui_menu_closed.connect(_on_menu_closed)
-		GameEvents.pause_requested.connect(_on_pause_requested)
+	GameEvents.settings_changed.connect(_on_settings_changed)
+	GameEvents.ui_menu_opened.connect(_on_menu_opened)
+	GameEvents.ui_menu_closed.connect(_on_menu_closed)
+	GameEvents.pause_requested.connect(_on_pause_requested)
 	var default_mode := StringName(_setting("camera", "default_mode", "third_person"))
 	if default_mode == MODE_FPP:
 		set_mode(MODE_FPP, true)

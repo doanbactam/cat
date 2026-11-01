@@ -6,6 +6,7 @@ render_mode unshaded, blend_mix, depth_draw_never, cull_disabled, shadows_disabl
 uniform vec4 color : source_color = vec4(1.0, 0.93, 0.8, 1.0);
 uniform float opacity = 0.45;
 varying float v_t;
+varying float v_cam_d;
 
 void vertex() {
 	v_t = INSTANCE_CUSTOM.x;
@@ -15,6 +16,7 @@ void vertex() {
 	vec3 right = INV_VIEW_MATRIX[0].xyz;
 	vec3 up = INV_VIEW_MATRIX[1].xyz;
 	vec3 wp = world_origin + (right * VERTEX.x + up * VERTEX.y) * s;
+	v_cam_d = distance(world_origin, INV_VIEW_MATRIX[3].xyz);
 	POSITION = PROJECTION_MATRIX * VIEW_MATRIX * vec4(wp, 1.0);
 }
 
@@ -23,5 +25,7 @@ void fragment() {
 	float a = smoothstep(1.0, 0.35, r);
 	float ends = smoothstep(0.0, 0.18, v_t) * smoothstep(1.0, 0.8, v_t);
 	ALBEDO = color.rgb;
-	ALPHA = a * opacity * ends;
+	// never put blobs right in front of the lens (first person)
+	float near_fade = smoothstep(0.35, 0.8, v_cam_d);
+	ALPHA = a * opacity * ends * near_fade;
 }

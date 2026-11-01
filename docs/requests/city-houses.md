@@ -1,6 +1,6 @@
 # Requests from city-houses
 
-## 1. BLOCKER for everyone: headless import aborts on stray .blend files (lead / cat-asset)
+## 1. RESOLVED (lead added qa/.gdignore + import/blender/enabled=false) — headless import aborted on stray .blend files
 `qa/out/cat-asset/cache/*.blend` (cat-asset scratch files) make `tools/godot_import.sh` print
 `ERROR: Blender path is invalid or not set ... Cannot configure blender path in headless mode`
 and then **no pending file is imported at all** (148 files stayed un-imported in my test, incl. every

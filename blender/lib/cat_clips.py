@@ -106,7 +106,7 @@ CROUCH = P(pel=(0.0, 0.010, -0.050), pel_rot=(-4.0, 0.0, 0.0), spine=(2.0, 0, 0)
 
 
 def sit_pose():
-    return P(pel=(0.0, -0.022, -0.122), pel_rot=(46.0, 0.0, 0.0), spine=(-27.0, 0.0, 0.0), neck_lift=10.0,
+    return P(pel=(0.0, -0.022, -0.122), pel_rot=(46.0, 0.0, 0.0), spine=(-27.0, 0.0, 0.0), neck_lift=-4.0,
              head=(-2.0, 0.0, 0.0),
              tail={"lift": 34.0, "curve": -4.0, "side": 140.0, "tip": 26.0},
              FL={"p": rp("FL", df=-0.030, dx=-0.004), "a": 4.0},

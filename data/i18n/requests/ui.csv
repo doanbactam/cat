@@ -1,0 +1,476 @@
+keys,en,vi
+GAME_TITLE,Orange Cat: Old Quarter,Mèo Cam: Phố Cũ
+TITLE_MAIN,Mèo Cam,Mèo Cam
+TITLE_SUB,Old Quarter,Phố Cũ
+MENU_TAGLINE,"A small, warm tale of an orange cat in Hàng Mây.",Chuyện nhỏ ấm áp của một chú mèo cam ở phố Hàng Mây.
+STUDIO_NAME,Xưởng Mái Ngói,Xưởng Mái Ngói
+STUDIO_TAGLINE,Roof-Tile Workshop · presents,Roof-Tile Workshop · giới thiệu
+SPLASH_MADE_WITH,Made with,Được làm bằng
+SPLASH_AND_BLENDER,and Blender,và Blender
+MENU_CONTINUE,Continue,Tiếp tục
+MENU_NEW_GAME,New game,Chơi mới
+MENU_LOAD,Load journey,Tải hành trình
+MENU_SETTINGS,Settings,Cài đặt
+MENU_CREDITS,Credits,Đội ngũ
+MENU_QUIT,Quit,Thoát
+UI_NO_GAME_SCENE,The streets of Hàng Mây are still being built…,Phố Hàng Mây vẫn đang được dựng…
+UI_LOAD_FAILED,That journey could not be loaded.,Không tải được hành trình này.
+UI_SELECT,Select,Chọn
+UI_BACK,Back,Quay lại
+UI_CHANGE,Change,Đổi
+UI_TABS,Tabs,Đổi thẻ
+UI_SCROLL,Scroll,Cuộn
+UI_CLOSE,Close,Đóng
+UI_TRACK,Track,Theo dõi
+UI_ZOOM,Zoom,Thu phóng
+UI_PAN,Move,Di chuyển
+UI_CENTER,Centre on Cam,Về chỗ Cam
+UI_SKIP,Skip,Bỏ qua
+UI_CONTINUE,Continue,Tiếp
+UI_LOADING,Loading,Đang tải
+UI_TIP_HEADER,Did you know,Mẹo nhỏ
+BTN_SAVE,Save,Lưu
+BTN_LOAD,Load,Tải
+BTN_DELETE,Delete,Xóa
+BTN_BACK,Back,Quay lại
+BTN_CLOSE,Close,Đóng
+BTN_RESET,Reset,Khôi phục
+BTN_RESET_ALL,Reset everything,Khôi phục tất cả
+CONFIRM_YES,Yes,Đồng ý
+CONFIRM_NO,Cancel,Hủy
+CONFIRM_QUIT_TITLE,Leave Hàng Mây?,Rời phố Hàng Mây?
+CONFIRM_QUIT_MENU_BODY,Cam will keep napping on the rooftop until you return.,Cam sẽ ngủ tiếp trên mái nhà chờ bạn quay lại.
+CONFIRM_QUIT_BODY,Progress since your last save will be lost.,Tiến trình kể từ lần lưu gần nhất sẽ mất.
+CONFIRM_MAIN_MENU_TITLE,Return to the main menu?,Về màn hình chính?
+CONFIRM_NEW_GAME_TITLE,Start a new journey?,Bắt đầu hành trình mới?
+CONFIRM_NEW_GAME_BODY,Cam wakes up again on the first morning. Your autosave will be replaced as you play; manual saves stay.,Cam sẽ thức dậy lại vào buổi sáng đầu tiên. Bản tự động lưu sẽ bị thay khi chơi; các bản lưu tay vẫn giữ nguyên.
+CONFIRM_OVERWRITE_TITLE,Overwrite this save?,Ghi đè bản lưu này?
+CONFIRM_OVERWRITE_BODY,The journey stored here will be replaced.,Hành trình đang lưu ở ô này sẽ bị thay thế.
+CONFIRM_DELETE_TITLE,Delete this save?,Xóa bản lưu này?
+CONFIRM_DELETE_BODY,This cannot be undone.,Không thể hoàn tác.
+CONFIRM_LOAD_TITLE,Load this journey?,Tải hành trình này?
+CONFIRM_RESET_TITLE,Reset all settings?,Khôi phục mọi cài đặt?
+CONFIRM_RESET_BODY,"Graphics, sound, controls and key bindings return to their defaults.","Đồ họa, âm thanh, điều khiển và phím bấm sẽ trở về mặc định."
+SAVE_TITLE,Save journey,Lưu hành trình
+LOAD_TITLE,Load journey,Tải hành trình
+SLOT_AUTOSAVE,Autosave,Tự động lưu
+SLOT_MANUAL,Journal page {n},Trang nhật ký {n}
+SLOT_EMPTY,An empty page,Trang còn trống
+SLOT_DAY,Day {day},Ngày {day}
+SLOT_PLAYTIME,Played {time},Đã chơi {time}
+SAVE_DONE,Journey saved,Đã lưu hành trình
+QUICK_SAVED,Quick-saved,Đã lưu nhanh
+QUICK_LOAD_NONE,No quick-save yet,Chưa có bản lưu nhanh
+HUD_LEVEL,Level {level},Cấp {level}
+HUD_LV,Lv,Cấp
+HUD_XP,{xp} / {next} XP,{xp} / {next} KN
+HUD_XP_GAIN,+{n} XP,+{n} KN
+HUD_MOUTH,In mouth,Đang ngậm
+HUD_NEW_QUEST,New quest,Nhiệm vụ mới
+HUD_QUEST_COMPLETE,Quest complete,Hoàn thành nhiệm vụ
+HUD_QUEST_FAILED,Quest failed,Nhiệm vụ thất bại
+HUD_LEVEL_UP,Level up,Lên cấp
+HUD_LEVEL_UP_SUB,Level {level} · +{sp} skill point · +1 attribute point,Cấp {level} · +{sp} điểm kỹ năng · +1 điểm thuộc tính
+HUD_LEVEL_UP_HINT,Open Skills from the pause menu to spend them.,Mở Kỹ năng trong menu tạm dừng để dùng điểm.
+HUD_DISCOVERED,Discovered,Khám phá
+HUD_DISTANCE,{m} m,{m} m
+HUD_SAVING,Saving…,Đang lưu…
+HUD_SAVED,Saved,Đã lưu
+HUD_CAPS,{n},{n}
+HUD_REWARD_XP,+{n} XP,+{n} KN
+COMPASS_N,N,B
+COMPASS_E,E,Đ
+COMPASS_S,S,N
+COMPASS_W,W,T
+COMPASS_NE,NE,ĐB
+COMPASS_SE,SE,ĐN
+COMPASS_SW,SW,TN
+COMPASS_NW,NW,TB
+DLG_CONTINUE,Continue,Tiếp
+DLG_REQUIRES,Needs: {req},Cần: {req}
+DLG_HISTORY,Conversation,Cuộc trò chuyện
+DLG_CAM,Cam,Cam
+PAUSE_TITLE,Paused,Tạm dừng
+PAUSE_RESUME,Resume,Chơi tiếp
+PAUSE_JOURNAL,Journal,Nhật ký
+PAUSE_MAP,Map,Bản đồ
+PAUSE_INVENTORY,Belongings,Đồ đạc
+PAUSE_SKILLS,Skills,Kỹ năng
+PAUSE_SETTINGS,Settings,Cài đặt
+PAUSE_SAVE,Save journey,Lưu hành trình
+PAUSE_LOAD,Load journey,Tải hành trình
+PAUSE_MAIN_MENU,Main menu,Màn hình chính
+PAUSE_QUIT,Quit game,Thoát game
+PAUSE_STATUS,Day {day} · {time} · {weather},Ngày {day} · {time} · {weather}
+PAUSE_SKILL_POINTS,{n} unspent skill points,Còn {n} điểm kỹ năng
+WEATHER_CLEAR,clear sky,trời quang
+WEATHER_CLOUDY,cloudy,nhiều mây
+WEATHER_RAIN,rain,mưa
+WEATHER_STORM,storm,giông bão
+WEATHER_FOG,fog,sương mù
+INV_TITLE,Belongings,Đồ đạc
+INV_SUBTITLE,What Cam keeps in his den under the tea counter,Những thứ Cam cất trong ổ dưới quầy trà
+INV_TAB_ALL,All,Tất cả
+CAT_FOOD,Food,Đồ ăn
+CAT_QUEST,Story,Cốt truyện
+CAT_TOY,Toys,Đồ chơi
+CAT_SHINY,Shiny things,Đồ lấp lánh
+CAT_TROPHY,Trophies,Chiến lợi phẩm
+CAT_MEMORY,Memories,Kỷ niệm
+CAT_COSMETIC,Collars,Vòng cổ
+CAT_CONSUMABLE,Remedies,Thuốc bổ
+CAT_CURRENCY,Caps,Nắp chai
+INV_CARRY,Carry in mouth,Ngậm theo
+INV_PUT_AWAY,Put back in the den,Cất lại vào ổ
+INV_EAT,Eat,Ăn
+INV_USE,Use,Dùng
+INV_EQUIP,Wear,Đeo
+INV_UNEQUIP,Take off,Tháo ra
+INV_IN_MOUTH,In mouth,Đang ngậm
+INV_EQUIPPED,Worn,Đang đeo
+INV_EMPTY,Nothing here yet. Cam's den is waiting for treasures.,Chưa có gì cả. Ổ của Cam đang chờ báu vật.
+INV_CAPS,{n} bottle caps,{n} nắp chai
+INV_FOOD_VALUE,Fills {n} hunger,Thêm {n} no bụng
+INV_COUNT,×{n},×{n}
+INV_VALUE,Worth {n} caps to Lão Quạ,Lão Quạ trả {n} nắp chai
+INV_MOUTH_HINT,A cat carries only one thing in its mouth at a time.,Mèo chỉ ngậm được một thứ mỗi lúc.
+INV_BUFFS,Feeling,Trạng thái
+INV_BUFF_LEFT,{min} min left,còn {min} phút
+INV_NO_BUFFS,Nothing special.,Không có gì đặc biệt.
+INV_USED,Used: {item},Đã dùng: {item}
+INV_ATE,Ate: {item},Đã ăn: {item}
+SKILLS_TITLE,Skills,Kỹ năng
+SKILLS_POINTS,Skill points,Điểm kỹ năng
+SKILLS_ATTR_POINTS,Attribute points,Điểm thuộc tính
+SKILLS_LEARN,Learn,Học
+SKILLS_LEARNED,Learned,Đã học
+SKILLS_LOCKED,Locked,Chưa mở
+SKILLS_AVAILABLE,Can learn now,Có thể học
+SKILLS_REQUIRES,Needs: {req},Cần: {req}
+SKILLS_COST,Costs {n} point,Tốn {n} điểm
+SKILLS_EFFECTS,Effects,Hiệu quả
+SKILLS_RAISE,Raise,Tăng
+SKILLS_TIER,Tier {n},Bậc {n}
+SKILLS_ATTRIBUTES,Attributes,Thuộc tính
+SKILLS_LEVEL,Level {level} · {xp} XP to next level,Cấp {level} · còn {xp} KN để lên cấp
+SKILLS_LEVEL_MAX,Level {level} · highest level,Cấp {level} · cấp cao nhất
+SKILLS_UNLOCKED_TOAST,Learned {skill},Đã học {skill}
+SKILLS_ATTR_HINT,Each point raises an attribute by one (max 10).,Mỗi điểm tăng một thuộc tính thêm 1 (tối đa 10).
+SKILLS_HOLD,Hold to learn,Giữ để học
+MOD_MOVE_SPEED,Walking speed,Tốc độ đi
+MOD_SPRINT_SPEED,Running speed,Tốc độ chạy
+MOD_SNEAK_SPEED,Sneaking speed,Tốc độ rón rén
+MOD_JUMP_DISTANCE,Jump distance,Tầm nhảy xa
+MOD_JUMP_HEIGHT,Jump height,Độ nhảy cao
+MOD_CLIMB_SPEED,Climbing speed,Tốc độ leo
+MOD_WIRE_SPEED,Speed on wires,Tốc độ đi trên dây
+MOD_BALANCE,Balance,Thăng bằng
+MOD_FALL_DAMAGE_MULT,Fall damage,Sát thương khi ngã
+MOD_SAFE_FALL_HEIGHT,Safe fall height,Độ cao rơi an toàn
+MOD_WALL_JUMP,Wall jump,Bật tường
+MOD_NOISE_MULT,Noise you make,Tiếng động gây ra
+MOD_LANDING_NOISE_MULT,Landing noise,Tiếng động khi tiếp đất
+MOD_DETECTION_MULT,How easily you are noticed,Mức dễ bị phát hiện
+MOD_NIGHT_VISION,Night vision,Nhìn trong đêm
+MOD_CHARM_BONUS,Charm,Duyên
+MOD_MEOW_CHARM,Charm of your meows,Sức hút của tiếng meo
+MOD_FOOD_GIFT_CHANCE,Chance of food gifts,Cơ hội được cho ăn
+MOD_REP_GAIN_MULT,Reputation gained,Danh tiếng nhận được
+MOD_PRICE_MULT,Prices at Lão Quạ's,Giá ở chỗ Lão Quạ
+MOD_CATCH_CHANCE,Catch chance,Tỉ lệ bắt mồi
+MOD_CATCH_BIRDS,Can catch birds,Bắt được chim
+MOD_POUNCE_DISTANCE,Pounce distance,Tầm vồ
+MOD_POUNCE_SPEED,Pounce speed,Tốc độ vồ
+MOD_SCENT_RANGE,Scent range,Tầm đánh hơi
+MOD_HEARING_RANGE,Hearing range,Tầm nghe
+MOD_CAT_SENSE_COST,Cat-sense energy cost,Năng lượng cho giác quan mèo
+MOD_SENSE_COLLECTIBLES,Sense hidden memories,Cảm nhận kỷ niệm ẩn
+MOD_PREY_XP_MULT,XP from prey,Kinh nghiệm từ con mồi
+MOD_ENERGY_REGEN,Energy regained while resting,Năng lượng hồi khi nghỉ
+MOD_ENERGY_DRAIN,Energy used,Năng lượng tiêu hao
+MOD_SPRINT_ENERGY_MULT,Energy used running,Năng lượng khi chạy
+MOD_HUNGER_DRAIN,Hunger over time,Tốc độ đói
+MOD_FOOD_VALUE,Food value,Độ no từ thức ăn
+MOD_WARMTH_DRAIN,Warmth lost,Hơi ấm bị mất
+MOD_WET_RATE,How fast fur gets wet,Tốc độ ướt lông
+MOD_HEALTH_REGEN,Health regeneration,Hồi sức khỏe
+MOD_PURR_HEAL,Purring heals,Gừ gừ hồi sức
+MOD_FREE_FAINTS_PER_DAY,Free faints per day,Lần ngất miễn phí mỗi ngày
+MOD_FAINT_CAP_LOSS_MULT,Caps lost when fainting,Nắp chai mất khi ngất
+MOD_MAX_HEALTH,Max health,Sức khỏe tối đa
+MOD_MAX_HUNGER,Max fullness,No bụng tối đa
+MOD_MAX_ENERGY,Max energy,Năng lượng tối đa
+MOD_MAX_WARMTH,Max warmth,Hơi ấm tối đa
+MOD_XP_MULT,XP gained,Kinh nghiệm nhận được
+MOD_UNLOCKS,Unlocks: {what},Mở khóa: {what}
+JOURNAL_TITLE,Journal,Nhật ký
+JOURNAL_TAB_QUESTS,Quests,Nhiệm vụ
+JOURNAL_TAB_MEMORIES,Memories,Kỷ niệm
+JOURNAL_TAB_PLACES,Places,Địa điểm
+JOURNAL_TAB_CAM,Cam,Về Cam
+JOURNAL_ACTIVE,In progress,Đang làm
+JOURNAL_COMPLETED,Completed,Đã xong
+JOURNAL_FAILED,Failed,Thất bại
+JOURNAL_TRACK,Track this quest,Theo dõi nhiệm vụ này
+JOURNAL_TRACKED,Tracked,Đang theo dõi
+JOURNAL_NO_QUESTS,"No quests yet. Wander, listen, meow at people.","Chưa có nhiệm vụ nào. Cứ đi dạo, lắng nghe, kêu meo với mọi người."
+JOURNAL_SELECT_QUEST,Choose a quest to read its page.,Chọn một nhiệm vụ để đọc.
+JOURNAL_REWARDS,Rewards,Phần thưởng
+JOURNAL_GIVER,From {name},Từ {name}
+JOURNAL_OPTIONAL,optional,không bắt buộc
+JOURNAL_MEMORY_LOCKED,Not found yet,Chưa tìm thấy
+JOURNAL_MEMORY_LOCKED_HINT,Somewhere in Hàng Mây an old photograph is waiting.,"Đâu đó ở Hàng Mây, một tấm ảnh cũ đang chờ."
+JOURNAL_MEMORIES_COUNT,{n} of 12 memories found,Đã tìm {n}/12 kỷ niệm
+JOURNAL_PLACES_COUNT,{n} places discovered,Đã khám phá {n} địa điểm
+JOURNAL_NO_PLACES,Explore the quarter to fill this page.,Hãy khám phá khu phố để lấp đầy trang này.
+JOURNAL_REPUTATION,Reputation,Danh tiếng
+JOURNAL_ACHIEVEMENTS,Achievements,Thành tựu
+JOURNAL_STATS,Little numbers,Vài con số
+JOURNAL_ATTRIBUTES,Attributes,Thuộc tính
+STAT_DAYS,Days in Hàng Mây,Số ngày ở Hàng Mây
+STAT_PLAYTIME,Time played,Thời gian chơi
+STAT_KNOCKED,Things knocked off ledges,Đồ bị hất khỏi bờ tường
+STAT_NAPS,Naps taken,Số giấc ngủ
+STAT_TERRITORY,Territory marked,Lãnh thổ đã đánh dấu
+STAT_PREY,Prey caught,Con mồi đã bắt
+STAT_CAPS,Bottle caps,Nắp chai
+STAT_MEMORIES,Memories found,Kỷ niệm tìm thấy
+ACH_LOCKED,Not yet,Chưa đạt
+MAP_TITLE,Hàng Mây,Hàng Mây
+MAP_SUBTITLE,Map of the old quarter,Bản đồ phố cũ
+MAP_YOU,Cam,Cam
+MAP_QUEST,Tracked quest,Nhiệm vụ đang theo dõi
+MAP_PLACE,Discovered place,Địa điểm đã khám phá
+MAP_NAP,Nap spot,Chỗ ngủ
+MAP_HOME,Grandma Tư's tea stall,Quán trà bà Tư
+MAP_LEGEND,Legend,Chú thích
+MAP_NO_CITY,The map fills in as Cam explores the city.,Bản đồ sẽ hiện ra khi Cam đi khám phá phố.
+MAP_UNEXPLORED,Unexplored,Chưa khám phá
+SETTINGS_TITLE,Settings,Cài đặt
+SET_TAB_GRAPHICS,Graphics,Đồ họa
+SET_TAB_AUDIO,Sound,Âm thanh
+SET_TAB_CONTROLS,Controls,Điều khiển
+SET_TAB_GAMEPLAY,Gameplay,Lối chơi
+SET_TAB_GRAPHICS_DESC,Picture quality and performance. Changes apply immediately.,Chất lượng hình ảnh và hiệu năng. Thay đổi có hiệu lực ngay.
+SET_TAB_AUDIO_DESC,"Volumes of the music, the city and the interface.","Âm lượng nhạc nền, tiếng phố và giao diện."
+SET_TAB_CONTROLS_DESC,Camera feel and every key and button. Select a binding and press the new key.,Cảm giác camera và mọi phím bấm. Chọn một phím rồi bấm phím mới.
+SET_TAB_GAMEPLAY_DESC,"Language, hints and the interface.","Ngôn ngữ, gợi ý và giao diện."
+SET_HDR_DISPLAY,Display,Hiển thị
+SET_HDR_RESOLUTION,Resolution & anti-aliasing,Độ phân giải & khử răng cưa
+SET_HDR_LIGHTING,Light & atmosphere,Ánh sáng & bầu không khí
+SET_HDR_DETAIL,Detail,Chi tiết
+SET_HDR_VOLUME,Volume,Âm lượng
+SET_HDR_SUBTITLES,Subtitles,Phụ đề
+SET_HDR_CAMERA,Camera,Camera
+SET_HDR_LANGUAGE,Language,Ngôn ngữ
+SET_HDR_INTERFACE,Interface,Giao diện
+SET_HDR_RESET,Defaults,Mặc định
+SET_QUALITY,Quality preset,Mức chất lượng
+SET_QUALITY_DESC,Sets every graphics option at once. Changing a single option below switches to Custom.,Đặt mọi tùy chọn đồ họa cùng lúc. Đổi riêng một tùy chọn bên dưới sẽ chuyển sang Tùy chỉnh.
+SET_FULLSCREEN,Fullscreen,Toàn màn hình
+SET_FULLSCREEN_DESC,Fill the whole screen.,Hiển thị kín màn hình.
+SET_VSYNC,V-Sync,Đồng bộ dọc (V-Sync)
+SET_VSYNC_DESC,Prevents tearing by matching the display's refresh rate.,Chống xé hình bằng cách khớp với tần số quét của màn hình.
+SET_MAX_FPS,Frame rate limit,Giới hạn khung hình
+SET_MAX_FPS_DESC,Caps frames per second to save power and heat.,Giới hạn số khung hình mỗi giây để tiết kiệm điện và đỡ nóng máy.
+SET_FOV,Field of view,Góc nhìn (FOV)
+SET_FOV_DESC,How wide the camera sees. First-person adds a little more for cat eyes.,Độ rộng tầm nhìn của camera. Góc nhìn thứ nhất rộng hơn một chút như mắt mèo.
+SET_RENDER_SCALE,Render scale,Tỉ lệ kết xuất
+SET_RENDER_SCALE_DESC,Renders the 3D scene at a lower resolution and upscales it. Lower = faster.,Kết xuất cảnh 3D ở độ phân giải thấp hơn rồi phóng lên. Càng thấp càng nhanh.
+SET_UPSCALER,Upscaler,Bộ nâng độ phân giải
+SET_UPSCALER_DESC,How the image is scaled up when render scale is below 100%. FSR 2 is sharpest.,Cách phóng ảnh khi tỉ lệ kết xuất dưới 100%. FSR 2 sắc nét nhất.
+SET_FSR_SHARPNESS,Upscaler sharpness,Độ sắc khi nâng
+SET_FSR_SHARPNESS_DESC,Sharpening applied by FSR. 0 is sharpest.,Độ làm nét của FSR. 0 là sắc nhất.
+SET_AA,Anti-aliasing,Khử răng cưa
+SET_AA_DESC,Smooths jagged edges. TAA is the cleanest for fur and wires.,Làm mượt cạnh răng cưa. TAA mịn nhất cho lông mèo và dây điện.
+SET_SDFGI,Global illumination,Chiếu sáng toàn cục
+SET_SDFGI_DESC,"Light bouncing between walls and streets (SDFGI). Beautiful, expensive.",Ánh sáng dội giữa tường và phố (SDFGI). Rất đẹp nhưng nặng.
+SET_SSAO,Ambient occlusion,Che sáng môi trường
+SET_SSAO_DESC,Soft contact shadows in corners and under objects (SSAO).,Bóng mềm ở góc tường và dưới đồ vật (SSAO).
+SET_SSIL,Indirect light,Ánh sáng gián tiếp
+SET_SSIL_DESC,Short-range colour bleeding between nearby surfaces (SSIL).,Màu sắc loang nhẹ giữa các bề mặt gần nhau (SSIL).
+SET_SSR,Reflections,Phản chiếu
+SET_SSR_DESC,Screen-space reflections on wet streets and puddles (SSR).,Phản chiếu trên mặt đường ướt và vũng nước (SSR).
+SET_VOLFOG,Volumetric fog,Sương khói thể tích
+SET_VOLFOG_DESC,Light shafts through alleys and humid haze.,Những vệt nắng xuyên qua ngõ và hơi ẩm lơ lửng.
+SET_SHADOWS,Shadow quality,Chất lượng bóng đổ
+SET_SHADOWS_DESC,Resolution and softness of shadows.,Độ phân giải và độ mềm của bóng đổ.
+SET_FUR,Fur detail,Chi tiết lông
+SET_FUR_DESC,Number of fur shell layers on cats. More layers = fluffier.,Số lớp lông trên mèo. Nhiều lớp hơn thì mượt hơn.
+SET_LOD,Detail distance,Khoảng cách chi tiết
+SET_LOD_DESC,How far away models keep their full detail.,Khoảng cách mà mô hình vẫn giữ đủ chi tiết.
+SET_ANISO,Texture filtering,Lọc kết cấu
+SET_ANISO_DESC,Keeps streets and roof tiles sharp at grazing angles.,Giữ mặt đường và mái ngói sắc nét khi nhìn xiên.
+SET_MOTION_BLUR,Motion blur,Nhòe chuyển động
+SET_MOTION_BLUR_DESC,Blur during fast camera movement.,Làm nhòe khi camera chuyển động nhanh.
+SET_FILM_GRAIN,Film grain,Hạt phim
+SET_FILM_GRAIN_DESC,A gentle analogue grain over the image.,Một lớp hạt phim nhẹ trên hình ảnh.
+SET_RESET_TAB,Reset this tab,Khôi phục thẻ này
+SET_RESET_TAB_DESC,Restores the defaults of this tab only.,Chỉ khôi phục mặc định cho thẻ này.
+SET_VOL_MASTER,Master volume,Âm lượng tổng
+SET_VOL_MASTER_DESC,Everything at once.,Toàn bộ âm thanh.
+SET_VOL_MUSIC,Music,Nhạc nền
+SET_VOL_MUSIC_DESC,"Đàn tranh, đàn bầu and sáo trúc.","Đàn tranh, đàn bầu và sáo trúc."
+SET_VOL_SFX,Sound effects,Hiệu ứng
+SET_VOL_SFX_DESC,"Paws, meows, knocks and splashes.","Tiếng bước chân, tiếng meo, đồ rơi, nước bắn."
+SET_VOL_AMBIENCE,City ambience,Âm thanh phố
+SET_VOL_AMBIENCE_DESC,"Motorbikes, vendors, rain, birds and geckos.","Xe máy, người bán hàng, mưa, chim chóc và thạch sùng."
+SET_VOL_UI,Interface,Giao diện
+SET_VOL_UI_DESC,Menu and notification sounds.,Âm thanh menu và thông báo.
+SET_SUBTITLES,Subtitles,Phụ đề
+SET_SUBTITLES_DESC,Show what people say around Cam.,Hiện lời mọi người nói quanh Cam.
+SET_SUBTITLE_SIZE,Subtitle size,Cỡ phụ đề
+SET_SUBTITLE_SIZE_DESC,Text size of subtitles and dialogue.,Cỡ chữ của phụ đề và hội thoại.
+SET_MOUSE_SENS,Mouse sensitivity,Độ nhạy chuột
+SET_MOUSE_SENS_DESC,How fast the camera turns with the mouse.,Tốc độ xoay camera theo chuột.
+SET_PAD_SENS,Gamepad sensitivity,Độ nhạy tay cầm
+SET_PAD_SENS_DESC,How fast the camera turns with the right stick.,Tốc độ xoay camera bằng cần phải.
+SET_INVERT_Y,Invert vertical look,Đảo trục dọc
+SET_INVERT_Y_DESC,Push up to look down.,Đẩy lên để nhìn xuống.
+SET_INVERT_X,Invert horizontal look,Đảo trục ngang
+SET_INVERT_X_DESC,Push right to look left.,Đẩy sang phải để nhìn sang trái.
+SET_VIBRATION,Vibration,Rung
+SET_VIBRATION_DESC,Gamepad rumble on landings and purring.,Tay cầm rung khi tiếp đất và khi gừ gừ.
+SET_CAMERA_DEFAULT,Default camera,Góc nhìn mặc định
+SET_CAMERA_DEFAULT_DESC,The view Cam starts in. Switch any time with the camera button.,Góc nhìn khi bắt đầu. Đổi bất cứ lúc nào bằng nút camera.
+SET_HEAD_BOB,Head bob,Rung đầu khi đi
+SET_HEAD_BOB_DESC,How much the first-person view sways with Cam's steps.,Mức góc nhìn thứ nhất lắc theo bước chân của Cam.
+SET_AUTO_CENTER,Auto-centre camera,Tự căn camera
+SET_AUTO_CENTER_DESC,The third-person camera drifts behind Cam while walking.,Camera góc nhìn thứ ba tự quay về sau lưng Cam khi đi.
+SET_BINDINGS,Keys & buttons,Phím & nút
+SET_RESET_BINDINGS,Reset keys & buttons,Khôi phục phím bấm
+SET_RESET_BINDINGS_DESC,Restores the original bindings.,Trả lại các phím bấm ban đầu.
+SET_LANGUAGE,Language,Ngôn ngữ
+SET_LANGUAGE_DESC,Language of all text.,Ngôn ngữ của toàn bộ chữ.
+SET_HINTS,Hints & prompts,Gợi ý & nhắc phím
+SET_HINTS_DESC,Button prompts and gentle tips.,Nhắc phím và các gợi ý nhẹ nhàng.
+SET_COMPASS,Compass,La bàn
+SET_COMPASS_DESC,The compass strip at the top of the screen.,Dải la bàn ở đầu màn hình.
+SET_TEXT_SPEED,Text speed,Tốc độ chữ
+SET_TEXT_SPEED_DESC,How fast dialogue text appears.,Tốc độ hiện chữ trong hội thoại.
+SET_UI_SCALE,Interface scale,Cỡ giao diện
+SET_UI_SCALE_DESC,Size of menus and the HUD.,Kích cỡ menu và HUD.
+SET_HUD_OPACITY,HUD opacity,Độ đậm HUD
+SET_HUD_OPACITY_DESC,How strongly the HUD shows over the city.,Độ rõ của HUD trên nền phố.
+SET_RESET_ALL,Reset all settings,Khôi phục mọi cài đặt
+SET_RESET_ALL_DESC,Every option and binding back to its default.,Mọi tùy chọn và phím bấm trở về mặc định.
+SET_BINDINGS_DESC,"Select a binding, then press the new key or button.","Chọn một phím, rồi bấm phím hoặc nút mới."
+SET_REBIND_DESC,Left: keyboard & mouse. Right: gamepad. Select one and press the new key.,Trái: bàn phím & chuột. Phải: tay cầm. Chọn rồi bấm phím mới.
+SET_REBIND_PROMPT,Press a new key for “{action}”… (Esc cancels),Bấm phím mới cho “{action}”… (Esc để hủy)
+SET_REBIND_CONFLICT,Also used by “{action}”.,Phím này cũng đang dùng cho “{action}”.
+SET_QUALITY_CUSTOM_NOTE,Your own mix of options.,Kết hợp tùy chọn của riêng bạn.
+SET_EFFECTS_ON,Effects,Hiệu ứng
+SET_SHORT_SDFGI,GI,GI
+SET_SHORT_SSR,reflections,phản chiếu
+SET_SHORT_SSAO,AO,AO
+SET_SHORT_SSIL,indirect light,ánh sáng gián tiếp
+SET_SHORT_VOLUMETRIC_FOG,volumetric fog,sương thể tích
+SET_FPS_UNLIMITED,Unlimited,Không giới hạn
+SET_FUR_OFF,Off,Tắt
+SET_FUR_N,{n} layers,{n} lớp
+Q_LOW,Low,Thấp
+Q_MEDIUM,Medium,Trung bình
+Q_HIGH,High,Cao
+Q_ULTRA,Ultra,Cực cao
+Q_CUSTOM,Custom,Tùy chỉnh
+UPS_OFF,Off (bilinear),Tắt (song tuyến)
+UPS_FSR,AMD FSR 1,AMD FSR 1
+UPS_FSR2,AMD FSR 2,AMD FSR 2
+AA_OFF,Off,Tắt
+AA_FXAA,FXAA,FXAA
+AA_SMAA,SMAA,SMAA
+AA_TAA,TAA,TAA
+LOD_NEAR,Near,Gần
+LOD_MEDIUM,Medium,Vừa
+LOD_FAR,Far,Xa
+LOD_VERY_FAR,Very far,Rất xa
+SIZE_SMALL,Small,Nhỏ
+SIZE_MEDIUM,Medium,Vừa
+SIZE_LARGE,Large,Lớn
+CAM_TPP,Third person,Góc nhìn thứ ba
+CAM_FPP,First person (cat eyes),Góc nhìn thứ nhất (mắt mèo)
+KEY_MOUSE_LEFT,Left click,Chuột trái
+KEY_MOUSE_RIGHT,Right click,Chuột phải
+KEY_MOUSE_MIDDLE,Middle click,Chuột giữa
+KEY_WHEEL_UP,Wheel up,Lăn lên
+KEY_WHEEL_DOWN,Wheel down,Lăn xuống
+ACTION_MOVE_FORWARD,Move forward,Đi tới
+ACTION_MOVE_BACK,Move back,Lùi lại
+ACTION_MOVE_LEFT,Move left,Sang trái
+ACTION_MOVE_RIGHT,Move right,Sang phải
+ACTION_JUMP,Jump (hold to aim),Nhảy (giữ để ngắm)
+ACTION_SPRINT,Run,Chạy
+ACTION_SNEAK,Sneak,Rón rén
+ACTION_INTERACT,Interact,Tương tác
+ACTION_PICKUP_DROP,Pick up / drop,Ngậm / nhả
+ACTION_MEOW,Meow,Kêu meo
+ACTION_SWIPE,Swipe,Cào
+ACTION_AIM_JUMP,Aim jump,Ngắm nhảy
+ACTION_CAT_SENSE,Cat sense,Giác quan mèo
+ACTION_SIT_GROOM,Sit / groom,Ngồi / liếm lông
+ACTION_TOGGLE_CAMERA,Switch camera,Đổi góc nhìn
+ACTION_INVENTORY,Belongings,Đồ đạc
+ACTION_JOURNAL,Journal,Nhật ký
+ACTION_MAP,Map,Bản đồ
+ACTION_PAUSE,Pause menu,Tạm dừng
+ACTION_QUICK_SAVE,Quick save,Lưu nhanh
+ACTION_QUICK_LOAD,Quick load,Tải nhanh
+ACTION_SCREENSHOT,Screenshot,Chụp màn hình
+ACTION_LOOK_UP,Look up,Nhìn lên
+ACTION_LOOK_DOWN,Look down,Nhìn xuống
+ACTION_LOOK_LEFT,Look left,Nhìn trái
+ACTION_LOOK_RIGHT,Look right,Nhìn phải
+ACTION_ZOOM_IN,Zoom in,Phóng to
+ACTION_ZOOM_OUT,Zoom out,Thu nhỏ
+CREDITS_TITLE,Credits,Đội ngũ
+CREDITS_A_GAME_BY,a game by,một trò chơi của
+CREDITS_DIRECTION,Direction,Chỉ đạo
+CREDITS_DIRECTION_BODY,The Mái Ngói lead team,Nhóm chỉ đạo Xưởng Mái Ngói
+CREDITS_DESIGN,Game design & story,Thiết kế & cốt truyện
+CREDITS_DESIGN_BODY,Đêm Trăng Rằm — the Full-Moon Night,Đêm Trăng Rằm
+CREDITS_CAT,"Cam, the cat",Chú mèo Cam
+CREDITS_CAT_BODY,"Sculpt, fur, rig and 33 animations — the cat team","Tạc hình, lông, khung xương và 33 hoạt ảnh — tổ mèo"
+CREDITS_CITY,The old quarter,Phố cũ
+CREDITS_CITY_BODY,"Shophouses, landmarks, street props, vehicles and trees — the city teams","Nhà ống, công trình, đồ vật trên phố, xe cộ và cây xanh — các tổ dựng phố"
+CREDITS_PLAYER,Being a cat,Làm một chú mèo
+CREDITS_PLAYER_BODY,"Movement, jumping, climbing, cameras and cat-sense — the player team","Di chuyển, nhảy, leo trèo, camera và giác quan mèo — tổ nhân vật"
+CREDITS_SYSTEMS,Systems,Hệ thống
+CREDITS_SYSTEMS_BODY,"Vitals, skills, quests, dialogue and saves — the systems team","Sinh lực, kỹ năng, nhiệm vụ, hội thoại và lưu trữ — tổ hệ thống"
+CREDITS_LIFE,A living neighbourhood,Khu phố sống động
+CREDITS_LIFE_BODY,"People, dogs, crows, pigeons and traffic — the world-life team","Con người, chó, quạ, bồ câu và xe cộ — tổ đời sống"
+CREDITS_AUDIO,Sound & music,Âm thanh & âm nhạc
+CREDITS_AUDIO_BODY,"Every sound synthesised from scratch — đàn tranh, đàn bầu, sáo trúc and the city itself","Mọi âm thanh đều được tổng hợp từ đầu — đàn tranh, đàn bầu, sáo trúc và chính tiếng phố"
+CREDITS_UI,Interface,Giao diện
+CREDITS_UI_BODY,"Menus, HUD, icons and lettering — the interface team","Menu, HUD, biểu tượng và chữ — tổ giao diện"
+CREDITS_TOOLS,Made with,Công cụ
+CREDITS_TOOLS_BODY,"Godot Engine 4.7 (MIT licence) · Blender 5.2 (GPL) · Python, NumPy & Pillow","Godot Engine 4.7 (giấy phép MIT) · Blender 5.2 (GPL) · Python, NumPy & Pillow"
+CREDITS_FONTS,Typefaces,Phông chữ
+CREDITS_FONTS_BODY,Be Vietnam Pro · Playfair Display · Lora — SIL Open Font License 1.1,Be Vietnam Pro · Playfair Display · Lora — SIL Open Font License 1.1
+CREDITS_THANKS,With thanks,Cảm ơn
+CREDITS_THANKS_BODY,"Every orange cat asleep on a warm rooftop, and every grandma who leaves a bowl out for them.","Mọi chú mèo cam đang ngủ trên mái nhà ấm, và mọi bà cụ vẫn để sẵn một bát cơm cho chúng."
+CREDITS_ORIGINAL,"Hàng Mây is a fictional place. All characters, brands and signs are invented.","Hàng Mây là một nơi hư cấu. Mọi nhân vật, nhãn hiệu và biển hiệu đều do chúng tôi tưởng tượng."
+CREDITS_END,Thank you for playing.,Cảm ơn bạn đã chơi.
+TIP_01,"Hold Jump to crouch and aim, release to leap. The longer you hold, the farther Cam goes.","Giữ nút Nhảy để thu mình ngắm, thả ra để bật. Giữ càng lâu Cam nhảy càng xa."
+TIP_02,"Cat sense reveals scents, sounds and hidden memories nearby — at a small cost of energy.","Giác quan mèo làm hiện mùi, âm thanh và kỷ niệm ẩn gần đó — tốn một chút năng lượng."
+TIP_03,Awnings keep your fur dry. A wet cat gets cold fast.,Mái hiên giữ lông khô. Mèo ướt sẽ lạnh rất nhanh.
+TIP_04,Napping restores energy and passes time. Every new nap spot is worth some experience.,Ngủ giúp hồi năng lượng và cho thời gian trôi. Mỗi chỗ ngủ mới đều cho thêm kinh nghiệm.
+TIP_05,A cat carries only one thing in its mouth. Everything else waits in Cam's den.,Mèo chỉ ngậm được một thứ. Mọi thứ khác nằm chờ trong ổ của Cam.
+TIP_06,The crows of Hàng Mây trade in bottle caps. Keep an eye on gutters and café tables.,Bầy quạ Hàng Mây buôn bán bằng nắp chai. Để mắt tới rãnh nước và bàn quán cà phê.
+TIP_07,Sit and meow politely — charm opens doors (and fish stalls).,Ngồi xuống và meo thật lễ phép — sự đáng yêu mở được nhiều cánh cửa (và cả sạp cá).
+TIP_08,"Vện the market dog barks a lot but never bites. Still, sneaking is quieter.","Chó Vện ở chợ sủa nhiều nhưng không bao giờ cắn. Dù vậy, rón rén vẫn êm hơn."
+TIP_09,Switch to first person to see the quarter through Cam's eyes — whiskers and all.,Chuyển sang góc nhìn thứ nhất để nhìn phố bằng mắt Cam — có cả ria mép.
+TIP_10,Some things on ledges simply must be knocked off. People will have opinions.,Có những thứ trên bờ tường sinh ra là để bị hất xuống. Người ta sẽ có ý kiến đấy.
+TIP_11,"AC units, awnings and balconies are stairs if you are a cat.","Cục nóng điều hòa, mái hiên và ban công đều là cầu thang nếu bạn là mèo."
+TIP_12,Power lines are walkable. Move slowly and keep your balance.,Dây điện cũng đi được. Bước chậm và giữ thăng bằng.
+TIP_13,Scratch posts and rubbing spots mark your territory — the rooftop cats notice.,Cột cào và chỗ cọ người giúp đánh dấu lãnh thổ — hội mèo mái nhà để ý cả đấy.
+TIP_14,Twelve old photographs are hidden around town. Each one tells a little of Grandma Tư's life.,Mười hai tấm ảnh cũ nằm rải rác trong phố. Mỗi tấm kể một chút về cuộc đời bà Tư.
+TIP_15,"Hungry? Grandma's bowl, Uncle Sáu's bánh mì cart and the fish market all have something for a polite cat.","Đói à? Bát cơm của bà, xe bánh mì chú Sáu và chợ cá đều có gì đó cho một chú mèo lễ phép."
+TIP_16,"If Cam faints he wakes up at his last nap spot, minus a few bottle caps.","Nếu Cam ngất, chú sẽ tỉnh dậy ở chỗ ngủ gần nhất, mất vài nắp chai."
+TIP_17,Each level brings a skill point and an attribute point. Spend them in Skills.,Mỗi cấp cho một điểm kỹ năng và một điểm thuộc tính. Dùng chúng trong mục Kỹ năng.
+TIP_18,"The journal keeps your quests, memories and every place you have found.","Nhật ký lưu lại nhiệm vụ, kỷ niệm và mọi nơi bạn đã tìm thấy."
+TIP_19,Sneaking makes almost no sound. Running on tin roofs makes a lot.,Rón rén gần như không gây tiếng động. Chạy trên mái tôn thì ồn lắm.
+TIP_20,The market opens at dawn and packs up at noon — come early for the freshest fish.,Chợ mở lúc rạng sáng và dọn hàng buổi trưa — đến sớm để có cá tươi nhất.
+TIP_21,At night the street lights hum and the geckos sing. Some cats only come out then.,Ban đêm đèn đường rì rầm và thạch sùng tặc lưỡi. Có những chú mèo chỉ ra ngoài lúc ấy.
+TIP_22,Rain makes streets shine and roofs slippery. Look for dry spots under the eaves.,Mưa làm mặt đường bóng loáng và mái nhà trơn trượt. Tìm chỗ khô dưới mái hiên nhé.
+TIP_23,Mid-Autumn is coming: three days until the star lanterns light up the quarter.,Trung thu sắp tới: còn ba ngày nữa là đèn ông sao thắp sáng khắp phố.
+TIP_24,"Lost? The map shows discovered places, and the compass points to your tracked quest.","Lạc đường? Bản đồ hiện các nơi đã khám phá, còn la bàn chỉ tới nhiệm vụ đang theo dõi."

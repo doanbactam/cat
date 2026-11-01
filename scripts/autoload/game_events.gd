@@ -81,3 +81,7 @@ signal dialogue_node_shown(info: Dictionary)               # rich version of dia
 signal dialogue_choice_made(dialogue_id: StringName, action: StringName)
 signal quest_objective_revealed(quest_id: StringName, objective_id: StringName)
 signal counter_changed(counter: StringName, value: int)
+
+# --- Added by ui (HUD) ----------------------------------------------------------------------
+signal subtitle_requested(speaker: String, text: String, duration: float)  # ambient lines / barks
+signal hud_visibility_requested(visible: bool)                             # cutscenes / photo mode

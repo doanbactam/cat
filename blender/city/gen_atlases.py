@@ -558,8 +558,12 @@ def gen_decals():
     put(6, "splash_base", np.broadcast_to(np.array([0.2, 0.18, 0.15]), (C, C, 3)),
         m * 0.75 * T.smoothstep(0, 0.05, np.minimum(xx, 1 - xx)))
     # 7: black mould corner / soot under eaves (top edge source)
-    m = T.smoothstep(-0.2, 1.6, n1(70, 2, 60) + (1 - yy) * 2.2 - 1.0)
-    put(7, "soot_top", np.broadcast_to(np.array([0.09, 0.09, 0.08]), (C, C, 3)), m * 0.8 * edge_fade(0.08))
+    grad = np.clip(1 - yy, 0, 1) ** 1.6
+    soft = 0.75 + 0.25 * np.clip(n1(70, 1, 10, 2.4) / 3 + 0.5, 0, 1)
+    runs = T.smoothstep(-0.8, 2.0, n1(71, 3, 60, 1.6, (1, 20)))
+    m = grad * soft * (0.55 + 0.45 * runs)
+    side = T.smoothstep(0.0, 0.25, np.minimum(xx, 1 - xx))
+    put(7, "soot_top", np.broadcast_to(np.array([0.12, 0.115, 0.1]), (C, C, 3)), m * 0.65 * side)
     # 8: peeling paint flake area (light under-layer with darker rim)
     pf = T.fbm(C, 80, 2, 25) - np.sqrt((xx - 0.5) ** 2 + (yy - 0.5) ** 2) * 0.5
     pn = T.smoothstep(0.42, 0.46, pf)

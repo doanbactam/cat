@@ -66,7 +66,7 @@
   ],
   "variant_of": "colonial_2f_w4",
   "colliders": 37,
-  "tris": 46061
+  "tris": 46049
  },
  {
   "id": "colonial_2f_w4_blue",
@@ -155,7 +155,7 @@
   ],
   "variant_of": "colonial_2f_w4",
   "colliders": 41,
-  "tris": 46539
+  "tris": 46527
  },
  {
   "id": "colonial_2f_w4_yellow",
@@ -244,7 +244,7 @@
   ],
   "variant_of": "colonial_2f_w4",
   "colliders": 42,
-  "tris": 52793
+  "tris": 52781
  },
  {
   "id": "colonial_3f_w5_pink",
@@ -328,7 +328,7 @@
   ],
   "variant_of": "colonial_3f_w5",
   "colliders": 58,
-  "tris": 33871
+  "tris": 33859
  },
  {
   "id": "colonial_3f_w5_ochre",
@@ -402,7 +402,7 @@
   ],
   "variant_of": "colonial_3f_w5",
   "colliders": 57,
-  "tris": 35231
+  "tris": 35219
  },
  {
   "id": "colonial_3f_w5_white",
@@ -476,7 +476,7 @@
   ],
   "variant_of": "colonial_3f_w5",
   "colliders": 57,
-  "tris": 34455
+  "tris": 34443
  },
  {
   "id": "colonial_2f_w6_yellow",
@@ -560,7 +560,7 @@
   ],
   "variant_of": "colonial_2f_w6",
   "colliders": 48,
-  "tris": 30943
+  "tris": 30931
  },
  {
   "id": "colonial_2f_w6_blue",
@@ -644,7 +644,7 @@
   ],
   "variant_of": "colonial_2f_w6",
   "colliders": 48,
-  "tris": 30081
+  "tris": 30069
  },
  {
   "id": "colonial_3f_w4_5_ochre",
@@ -728,7 +728,7 @@
   ],
   "variant_of": "colonial_3f_w4_5",
   "colliders": 52,
-  "tris": 35350
+  "tris": 35338
  },
  {
   "id": "colonial_3f_w4_5_green",
@@ -822,7 +822,7 @@
   ],
   "variant_of": "colonial_3f_w4_5",
   "colliders": 54,
-  "tris": 36592
+  "tris": 36580
  },
  {
   "id": "colonial_corner_3f_ochre",
@@ -2774,7 +2774,7 @@
    ],
    [
     -1.4,
-    2.85,
+    2.75,
     0.235
    ]
   ],
@@ -2786,8 +2786,8 @@
    ]
   ],
   "variant_of": "oldtile_1f_w4",
-  "colliders": 13,
-  "tris": 5230
+  "colliders": 14,
+  "tris": 5520
  },
  {
   "id": "oldtile_1f_w4_yellow",
@@ -2823,7 +2823,7 @@
    ],
    [
     -1.4,
-    2.85,
+    2.75,
     0.235
    ]
   ],
@@ -2835,8 +2835,8 @@
    ]
   ],
   "variant_of": "oldtile_1f_w4",
-  "colliders": 13,
-  "tris": 5478
+  "colliders": 14,
+  "tris": 5768
  },
  {
   "id": "oldtile_1f_w4_blue",
@@ -2879,8 +2879,8 @@
    ]
   ],
   "variant_of": "oldtile_1f_w4",
-  "colliders": 11,
-  "tris": 3732
+  "colliders": 12,
+  "tris": 4024
  },
  {
   "id": "oldtile_1f_w5_shop_yellow",
@@ -2911,7 +2911,7 @@
    ],
    [
     -1.9,
-    3.05,
+    2.95,
     0.235
    ]
   ],
@@ -2924,7 +2924,7 @@
   ],
   "variant_of": "oldtile_1f_w5_shop",
   "colliders": 17,
-  "tris": 4736
+  "tris": 4848
  },
  {
   "id": "oldtile_1f_w5_shop_white",
@@ -2963,7 +2963,7 @@
   ],
   "variant_of": "oldtile_1f_w5_shop",
   "colliders": 15,
-  "tris": 3242
+  "tris": 3354
  },
  {
   "id": "alley_wall_4m_grey",

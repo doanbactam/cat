@@ -187,14 +187,14 @@ def load_image_np(path: str, linear: bool = True) -> np.ndarray:
 # ---------------------------------------------------------------------------
 # Eye iris
 # ---------------------------------------------------------------------------
-def iris_texture(size: int = 1024, seed: int = 7, palette: str = "cam") -> np.ndarray:
+def iris_texture(size: int = 1024, seed: int = 7, palette: str = "cam", limbus_deg: float = 56.0) -> np.ndarray:
     """Planar eye texture: iris radius = 0.5*sin(50deg) of the half-size (see cat_parts)."""
     y, x = np.mgrid[0:size, 0:size]
     u = (x + 0.5) / size - 0.5
     v = 0.5 - (y + 0.5) / size
     r = np.sqrt(u * u + v * v)
     th = np.arctan2(v, u)
-    r_l = 0.5 * math.sin(math.radians(50))
+    r_l = 0.5 * math.sin(math.radians(limbus_deg))
     rn = r / r_l
     pal = {
         "cam": (hexc("a9bd3a"), hexc("eeb52c"), hexc("d98c1a"), hexc("5e3a0e")),     # green-gold -> amber
@@ -229,6 +229,7 @@ def iris_texture(size: int = 1024, seed: int = 7, palette: str = "cam") -> np.nd
     col = lerp(col, np.array([0.004, 0.004, 0.005]), pupil)
     # sclera beyond the limbus (rarely visible on cats): warm off-white with veins
     sclera = srgb_to_lin(hexc("d8cbb3")) * (0.85 + 0.15 * fbm2(u * 20, v * 20, 2, seed + 11)[..., None])
+    sclera = lerp(edge * 0.55, sclera, smoothstep(1.02, 1.30, rn))   # dark amber band right outside the limbus
     veins = smoothstep(0.62, 0.75, 1 - np.abs(fbm2(u * 9, v * 9, 3, seed + 21))) * smoothstep(1.05, 1.4, rn)
     sclera = lerp(sclera, srgb_to_lin(hexc("a0503c")), 0.35 * veins)
     out = lerp(col, sclera, smoothstep(1.0, 1.04, rn))

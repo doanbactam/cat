@@ -312,3 +312,32 @@ static func pop_in(c: CanvasItem, dur: float = 0.35, rise: float = 18.0) -> Twee
 		ctrl.position.y = y + rise
 		t.tween_property(ctrl, "position:y", y, dur)
 	return t
+
+
+# --- skill / modifier formatting --------------------------------------------------------------
+
+const MOD_FLAT := ["charm_bonus", "max_health", "max_hunger", "max_energy", "max_warmth", "free_faints_per_day"]
+const MOD_METRES := ["safe_fall_height"]
+const MOD_UNLOCK := ["wall_jump", "catch_birds", "night_vision", "sense_collectibles", "purr_heal"]
+## Modifiers where a negative number is the good direction (shown in green when negative).
+const MOD_LOWER_IS_BETTER := ["fall_damage_mult", "noise_mult", "landing_noise_mult", "detection_mult", "cat_sense_cost",
+	"energy_drain", "sprint_energy_mult", "hunger_drain", "warmth_drain", "wet_rate", "price_mult", "faint_cap_loss_mult"]
+
+
+## "+15% Jump distance", "−30% Noise you make", "+1 Charm", "+1.5 m Safe fall height",
+## "Unlocks: Wall jump". Returns [text, is_good].
+static func format_effect(mod: String, value: float) -> Array:
+	var name := TranslationServer.translate("MOD_" + mod.to_upper())
+	if mod in MOD_UNLOCK:
+		return [TranslationServer.translate("MOD_UNLOCKS").format({"what": name}), true]
+	var sign_s := "+" if value >= 0.0 else "−"
+	var mag := absf(value)
+	var num := ""
+	if mod in MOD_FLAT:
+		num = "%s%s" % [sign_s, str(int(round(mag))) if absf(mag - round(mag)) < 0.01 else "%.1f" % mag]
+	elif mod in MOD_METRES:
+		num = "%s%.1f m" % [sign_s, mag]
+	else:
+		num = "%s%d%%" % [sign_s, int(round(mag * 100.0))]
+	var good := (value < 0.0) if mod in MOD_LOWER_IS_BETTER else (value > 0.0)
+	return ["%s %s" % [num, name], good]

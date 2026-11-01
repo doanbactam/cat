@@ -102,11 +102,11 @@ CALCANEUS_L = F(0.034, -0.201, 0.066)
 
 # Face landmarks
 EYE_L = F(0.0198, 0.2045, 0.2490)       # eyeball centre
-EYE_RADIUS = 0.0096       # design space (x HEAD_SCALE in world)
+EYE_RADIUS = 0.0101       # design space (x HEAD_SCALE in world)
 EYE_GAZE_OUT_DEG = 12.0                 # divergence from straight ahead
 EYE_GAZE_UP_DEG = 3.0
-EYE_APERTURE_W = 0.0166                 # corner to corner
-EYE_APERTURE_H = 0.0112                 # lid to lid (open)
+EYE_APERTURE_W = 0.0168                 # corner to corner
+EYE_APERTURE_H = 0.0119                 # lid to lid (open)
 EYE_APERTURE_TILT_DEG = 11.0             # outer corner higher
 EAR_BASE_L = F(0.0270, 0.166, 0.2705)    # centre of the ear base on the skull
 EAR_HEIGHT = 0.046
@@ -121,7 +121,7 @@ NOSE_TIP = F(0, 0.2250, 0.2345)
 # (scale + pitch about the atlas joint, then lift).  Use head_to_world() for them.
 # ---------------------------------------------------------------------------
 HEAD_PIVOT = HEAD
-HEAD_SCALE = 1.10
+HEAD_SCALE = 1.13
 HEAD_PITCH_DEG = 7.0           # + = nose up
 HEAD_LIFT = (0.0, 0.002, 0.022)  # Blender-space translation after scaling (up 10 mm)
 
