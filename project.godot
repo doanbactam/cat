@@ -211,6 +211,33 @@ debug_overlay={
 ]
 }
 
+[shader_globals]
+
+wetness={
+"type": "float",
+"value": 0.0
+}
+night_factor={
+"type": "float",
+"value": 0.0
+}
+wind_strength={
+"type": "float",
+"value": 0.3
+}
+wind_direction={
+"type": "vec3",
+"value": Vector3(1, 0, 0.3)
+}
+player_position={
+"type": "vec3",
+"value": Vector3(0, 0, 0)
+}
+cat_sense={
+"type": "float",
+"value": 0.0
+}
+
 [layer_names]
 
 3d_physics/layer_1="world"
