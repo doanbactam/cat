@@ -1,0 +1,954 @@
+{
+	"version": 1,
+	"modifiers": {
+		"move_speed": {
+			"base": 1.0,
+			"min": 0.4,
+			"max": 1.5,
+			"vitals": "speed"
+		},
+		"sprint_speed": {
+			"base": 1.0,
+			"per_attribute": {
+				"agility": 0.02
+			},
+			"min": 0.4,
+			"max": 1.8,
+			"vitals": "speed"
+		},
+		"sneak_speed": {
+			"base": 1.0,
+			"per_attribute": {
+				"stealth": 0.02
+			},
+			"min": 0.4,
+			"max": 1.8,
+			"vitals": "speed"
+		},
+		"jump_distance": {
+			"base": 1.0,
+			"per_attribute": {
+				"agility": 0.03
+			},
+			"min": 0.5,
+			"max": 2.0,
+			"vitals": "speed"
+		},
+		"jump_height": {
+			"base": 1.0,
+			"per_attribute": {
+				"agility": 0.015
+			},
+			"min": 0.5,
+			"max": 1.6,
+			"vitals": "speed"
+		},
+		"climb_speed": {
+			"base": 1.0,
+			"per_attribute": {
+				"agility": 0.03
+			},
+			"min": 0.4,
+			"max": 2.2,
+			"vitals": "speed"
+		},
+		"wire_speed": {
+			"base": 1.0,
+			"per_attribute": {
+				"agility": 0.01
+			},
+			"min": 0.4,
+			"max": 2.0,
+			"vitals": "speed"
+		},
+		"balance": {
+			"base": 0.0,
+			"per_attribute": {
+				"agility": 0.05
+			},
+			"min": 0.0,
+			"max": 1.0
+		},
+		"fall_damage_mult": {
+			"base": 1.0,
+			"per_attribute": {
+				"agility": -0.03
+			},
+			"min": 0.1,
+			"max": 2.0
+		},
+		"safe_fall_height": {
+			"base": 2.5,
+			"per_attribute": {
+				"agility": 0.1
+			},
+			"min": 1.0,
+			"max": 8.0
+		},
+		"wall_jump": {
+			"base": 0.0,
+			"min": 0.0,
+			"max": 1.0
+		},
+		"noise_mult": {
+			"base": 1.0,
+			"per_attribute": {
+				"stealth": -0.04
+			},
+			"min": 0.15,
+			"max": 2.5,
+			"vitals": "noise"
+		},
+		"landing_noise_mult": {
+			"base": 1.0,
+			"per_attribute": {
+				"stealth": -0.03
+			},
+			"min": 0.1,
+			"max": 2.0,
+			"vitals": "noise"
+		},
+		"detection_mult": {
+			"base": 1.0,
+			"per_attribute": {
+				"stealth": -0.04
+			},
+			"min": 0.2,
+			"max": 2.0,
+			"vitals": "noise"
+		},
+		"night_vision": {
+			"base": 0.0,
+			"min": 0.0,
+			"max": 1.0
+		},
+		"charm_bonus": {
+			"base": 0.0,
+			"min": -5.0,
+			"max": 5.0
+		},
+		"meow_charm": {
+			"base": 0.0,
+			"min": 0.0,
+			"max": 1.0
+		},
+		"food_gift_chance": {
+			"base": 0.0,
+			"per_attribute": {
+				"charm": 0.03
+			},
+			"min": 0.0,
+			"max": 1.0
+		},
+		"rep_gain_mult": {
+			"base": 1.0,
+			"per_attribute": {
+				"charm": 0.02
+			},
+			"min": 0.5,
+			"max": 2.5
+		},
+		"price_mult": {
+			"base": 1.0,
+			"per_attribute": {
+				"charm": -0.02
+			},
+			"min": 0.5,
+			"max": 1.5
+		},
+		"purr_heal": {
+			"base": 0.0,
+			"min": 0.0,
+			"max": 1.0
+		},
+		"catch_chance": {
+			"base": 0.1,
+			"per_attribute": {
+				"hunting": 0.05
+			},
+			"min": 0.0,
+			"max": 0.95
+		},
+		"catch_birds": {
+			"base": 0.0,
+			"min": 0.0,
+			"max": 1.0
+		},
+		"pounce_distance": {
+			"base": 1.0,
+			"per_attribute": {
+				"hunting": 0.03
+			},
+			"min": 0.5,
+			"max": 2.0,
+			"vitals": "speed"
+		},
+		"pounce_speed": {
+			"base": 1.0,
+			"per_attribute": {
+				"hunting": 0.02
+			},
+			"min": 0.5,
+			"max": 2.0,
+			"vitals": "speed"
+		},
+		"scent_range": {
+			"base": 1.0,
+			"per_attribute": {
+				"hunting": 0.05
+			},
+			"min": 0.5,
+			"max": 3.0
+		},
+		"hearing_range": {
+			"base": 1.0,
+			"per_attribute": {
+				"hunting": 0.03
+			},
+			"min": 0.5,
+			"max": 3.0
+		},
+		"cat_sense_cost": {
+			"base": 1.0,
+			"min": 0.2,
+			"max": 2.0
+		},
+		"sense_collectibles": {
+			"base": 0.0,
+			"min": 0.0,
+			"max": 1.0
+		},
+		"prey_xp_mult": {
+			"base": 1.0,
+			"min": 0.5,
+			"max": 3.0
+		},
+		"energy_regen": {
+			"base": 1.0,
+			"min": 0.3,
+			"max": 3.0
+		},
+		"energy_drain": {
+			"base": 1.0,
+			"min": 0.3,
+			"max": 2.0
+		},
+		"sprint_energy_mult": {
+			"base": 1.0,
+			"min": 0.3,
+			"max": 2.0
+		},
+		"hunger_drain": {
+			"base": 1.0,
+			"min": 0.3,
+			"max": 2.0
+		},
+		"food_value": {
+			"base": 1.0,
+			"min": 0.5,
+			"max": 2.0
+		},
+		"warmth_drain": {
+			"base": 1.0,
+			"min": 0.2,
+			"max": 2.0
+		},
+		"wet_rate": {
+			"base": 1.0,
+			"min": 0.2,
+			"max": 2.0
+		},
+		"health_regen": {
+			"base": 1.0,
+			"min": 0.0,
+			"max": 3.0
+		},
+		"free_faints_per_day": {
+			"base": 0.0,
+			"min": 0.0,
+			"max": 3.0
+		},
+		"faint_cap_loss_mult": {
+			"base": 1.0,
+			"min": 0.0,
+			"max": 2.0
+		},
+		"max_health": {
+			"base": 0.0,
+			"min": 0.0,
+			"max": 100.0
+		},
+		"max_hunger": {
+			"base": 0.0,
+			"min": 0.0,
+			"max": 100.0
+		},
+		"max_energy": {
+			"base": 0.0,
+			"min": 0.0,
+			"max": 100.0
+		},
+		"max_warmth": {
+			"base": 0.0,
+			"min": 0.0,
+			"max": 100.0
+		},
+		"xp_mult": {
+			"base": 1.0,
+			"min": 0.5,
+			"max": 3.0
+		}
+	},
+	"trees": {
+		"agility": {
+			"name_key": "SKILL_TREE_AGILITY",
+			"desc_key": "SKILL_TREE_AGILITY_DESC",
+			"attribute": "agility",
+			"icon": "res://assets/ui/icons/skills/tree_agility.png",
+			"color": "#e8a33d"
+		},
+		"stealth": {
+			"name_key": "SKILL_TREE_STEALTH",
+			"desc_key": "SKILL_TREE_STEALTH_DESC",
+			"attribute": "stealth",
+			"icon": "res://assets/ui/icons/skills/tree_stealth.png",
+			"color": "#5d6f8f"
+		},
+		"charm": {
+			"name_key": "SKILL_TREE_CHARM",
+			"desc_key": "SKILL_TREE_CHARM_DESC",
+			"attribute": "charm",
+			"icon": "res://assets/ui/icons/skills/tree_charm.png",
+			"color": "#d9707a"
+		},
+		"hunting": {
+			"name_key": "SKILL_TREE_HUNTING",
+			"desc_key": "SKILL_TREE_HUNTING_DESC",
+			"attribute": "hunting",
+			"icon": "res://assets/ui/icons/skills/tree_hunting.png",
+			"color": "#7f9a4e"
+		},
+		"survival": {
+			"name_key": "SKILL_TREE_SURVIVAL",
+			"desc_key": "SKILL_TREE_SURVIVAL_DESC",
+			"attribute": "",
+			"icon": "res://assets/ui/icons/skills/tree_survival.png",
+			"color": "#b9855a"
+		}
+	},
+	"skills": {
+		"nhay_xa": {
+			"tree": "agility",
+			"tier": 1,
+			"pos": [
+				0,
+				0
+			],
+			"name_key": "SKILL_NHAY_XA",
+			"desc_key": "SKILL_NHAY_XA_DESC",
+			"icon": "res://assets/ui/icons/skills/nhay_xa.png",
+			"cost": 1,
+			"requires": [],
+			"min_level": 1,
+			"attributes": {},
+			"effects": {
+				"jump_distance": 0.15,
+				"jump_height": 0.05
+			}
+		},
+		"chan_bam": {
+			"tree": "agility",
+			"tier": 1,
+			"pos": [
+				2,
+				0
+			],
+			"name_key": "SKILL_CHAN_BAM",
+			"desc_key": "SKILL_CHAN_BAM_DESC",
+			"icon": "res://assets/ui/icons/skills/chan_bam.png",
+			"cost": 1,
+			"requires": [],
+			"min_level": 1,
+			"attributes": {},
+			"effects": {
+				"climb_speed": 0.25,
+				"balance": 0.1
+			}
+		},
+		"dap_mem": {
+			"tree": "agility",
+			"tier": 2,
+			"pos": [
+				0,
+				1
+			],
+			"name_key": "SKILL_DAP_MEM",
+			"desc_key": "SKILL_DAP_MEM_DESC",
+			"icon": "res://assets/ui/icons/skills/dap_mem.png",
+			"cost": 1,
+			"requires": [
+				"nhay_xa"
+			],
+			"min_level": 1,
+			"attributes": {},
+			"effects": {
+				"fall_damage_mult": -0.5,
+				"safe_fall_height": 1.5,
+				"landing_noise_mult": -0.35
+			}
+		},
+		"chay_mai": {
+			"tree": "agility",
+			"tier": 2,
+			"pos": [
+				1,
+				1
+			],
+			"name_key": "SKILL_CHAY_MAI",
+			"desc_key": "SKILL_CHAY_MAI_DESC",
+			"icon": "res://assets/ui/icons/skills/chay_mai.png",
+			"cost": 2,
+			"requires": [
+				"chan_bam"
+			],
+			"min_level": 2,
+			"attributes": {},
+			"effects": {
+				"sprint_speed": 0.12,
+				"sprint_energy_mult": -0.25
+			}
+		},
+		"thang_bang": {
+			"tree": "agility",
+			"tier": 2,
+			"pos": [
+				2,
+				1
+			],
+			"name_key": "SKILL_THANG_BANG",
+			"desc_key": "SKILL_THANG_BANG_DESC",
+			"icon": "res://assets/ui/icons/skills/thang_bang.png",
+			"cost": 2,
+			"requires": [
+				"chan_bam"
+			],
+			"min_level": 2,
+			"attributes": {},
+			"effects": {
+				"balance": 0.4,
+				"wire_speed": 0.3
+			}
+		},
+		"bat_tuong": {
+			"tree": "agility",
+			"tier": 3,
+			"pos": [
+				1,
+				2
+			],
+			"name_key": "SKILL_BAT_TUONG",
+			"desc_key": "SKILL_BAT_TUONG_DESC",
+			"icon": "res://assets/ui/icons/skills/bat_tuong.png",
+			"cost": 3,
+			"requires": [
+				"nhay_xa",
+				"dap_mem"
+			],
+			"min_level": 4,
+			"attributes": {
+				"agility": 5
+			},
+			"effects": {
+				"wall_jump": 1.0,
+				"jump_distance": 0.1
+			}
+		},
+		"buoc_nhung": {
+			"tree": "stealth",
+			"tier": 1,
+			"pos": [
+				0,
+				0
+			],
+			"name_key": "SKILL_BUOC_NHUNG",
+			"desc_key": "SKILL_BUOC_NHUNG_DESC",
+			"icon": "res://assets/ui/icons/skills/buoc_nhung.png",
+			"cost": 1,
+			"requires": [],
+			"min_level": 1,
+			"attributes": {},
+			"effects": {
+				"noise_mult": -0.3,
+				"landing_noise_mult": -0.2
+			}
+		},
+		"mat_dem": {
+			"tree": "stealth",
+			"tier": 1,
+			"pos": [
+				2,
+				0
+			],
+			"name_key": "SKILL_MAT_DEM",
+			"desc_key": "SKILL_MAT_DEM_DESC",
+			"icon": "res://assets/ui/icons/skills/mat_dem.png",
+			"cost": 1,
+			"requires": [],
+			"min_level": 1,
+			"attributes": {},
+			"effects": {
+				"night_vision": 1.0
+			}
+		},
+		"lan_tron": {
+			"tree": "stealth",
+			"tier": 2,
+			"pos": [
+				0,
+				1
+			],
+			"name_key": "SKILL_LAN_TRON",
+			"desc_key": "SKILL_LAN_TRON_DESC",
+			"icon": "res://assets/ui/icons/skills/lan_tron.png",
+			"cost": 1,
+			"requires": [
+				"buoc_nhung"
+			],
+			"min_level": 1,
+			"attributes": {},
+			"effects": {
+				"sneak_speed": 0.25,
+				"detection_mult": -0.2
+			}
+		},
+		"bong_dem": {
+			"tree": "stealth",
+			"tier": 2,
+			"pos": [
+				1,
+				1
+			],
+			"name_key": "SKILL_BONG_DEM",
+			"desc_key": "SKILL_BONG_DEM_DESC",
+			"icon": "res://assets/ui/icons/skills/bong_dem.png",
+			"cost": 2,
+			"requires": [
+				"buoc_nhung"
+			],
+			"min_level": 2,
+			"attributes": {},
+			"effects": {
+				"detection_mult": -0.05
+			},
+			"conditional_effects": [
+				{
+					"when": {
+						"phase": [
+							"dusk",
+							"night"
+						]
+					},
+					"effects": {
+						"detection_mult": -0.25,
+						"noise_mult": -0.1
+					}
+				}
+			]
+		},
+		"bong_ma": {
+			"tree": "stealth",
+			"tier": 3,
+			"pos": [
+				1,
+				2
+			],
+			"name_key": "SKILL_BONG_MA",
+			"desc_key": "SKILL_BONG_MA_DESC",
+			"icon": "res://assets/ui/icons/skills/bong_ma.png",
+			"cost": 3,
+			"requires": [
+				"lan_tron",
+				"mat_dem"
+			],
+			"min_level": 4,
+			"attributes": {
+				"stealth": 5
+			},
+			"effects": {
+				"noise_mult": -0.2,
+				"detection_mult": -0.2
+			},
+			"conditional_effects": [
+				{
+					"when": {
+						"weather": [
+							"rain",
+							"storm",
+							"fog"
+						]
+					},
+					"effects": {
+						"detection_mult": -0.1
+					}
+				}
+			]
+		},
+		"tieng_keu_dang_yeu": {
+			"tree": "charm",
+			"tier": 1,
+			"pos": [
+				0,
+				0
+			],
+			"name_key": "SKILL_TIENG_KEU_DANG_YEU",
+			"desc_key": "SKILL_TIENG_KEU_DANG_YEU_DESC",
+			"icon": "res://assets/ui/icons/skills/tieng_keu_dang_yeu.png",
+			"cost": 1,
+			"requires": [],
+			"min_level": 1,
+			"attributes": {},
+			"effects": {
+				"charm_bonus": 1.0,
+				"meow_charm": 0.25
+			}
+		},
+		"ru_ru": {
+			"tree": "charm",
+			"tier": 1,
+			"pos": [
+				2,
+				0
+			],
+			"name_key": "SKILL_RU_RU",
+			"desc_key": "SKILL_RU_RU_DESC",
+			"icon": "res://assets/ui/icons/skills/ru_ru.png",
+			"cost": 1,
+			"requires": [],
+			"min_level": 1,
+			"attributes": {},
+			"effects": {
+				"health_regen": 0.5,
+				"purr_heal": 1.0
+			}
+		},
+		"mat_long_lanh": {
+			"tree": "charm",
+			"tier": 2,
+			"pos": [
+				0,
+				1
+			],
+			"name_key": "SKILL_MAT_LONG_LANH",
+			"desc_key": "SKILL_MAT_LONG_LANH_DESC",
+			"icon": "res://assets/ui/icons/skills/mat_long_lanh.png",
+			"cost": 2,
+			"requires": [
+				"tieng_keu_dang_yeu"
+			],
+			"min_level": 2,
+			"attributes": {},
+			"effects": {
+				"charm_bonus": 1.0,
+				"food_gift_chance": 0.25
+			}
+		},
+		"ban_cua_pho": {
+			"tree": "charm",
+			"tier": 2,
+			"pos": [
+				1,
+				1
+			],
+			"name_key": "SKILL_BAN_CUA_PHO",
+			"desc_key": "SKILL_BAN_CUA_PHO_DESC",
+			"icon": "res://assets/ui/icons/skills/ban_cua_pho.png",
+			"cost": 2,
+			"requires": [
+				"tieng_keu_dang_yeu"
+			],
+			"min_level": 2,
+			"attributes": {},
+			"effects": {
+				"rep_gain_mult": 0.25,
+				"price_mult": -0.15
+			}
+		},
+		"ngoi_sao_pho_cu": {
+			"tree": "charm",
+			"tier": 3,
+			"pos": [
+				1,
+				2
+			],
+			"name_key": "SKILL_NGOI_SAO_PHO_CU",
+			"desc_key": "SKILL_NGOI_SAO_PHO_CU_DESC",
+			"icon": "res://assets/ui/icons/skills/ngoi_sao_pho_cu.png",
+			"cost": 3,
+			"requires": [
+				"mat_long_lanh",
+				"ban_cua_pho"
+			],
+			"min_level": 4,
+			"attributes": {
+				"charm": 5
+			},
+			"effects": {
+				"charm_bonus": 1.0,
+				"rep_gain_mult": 0.25,
+				"food_gift_chance": 0.25
+			}
+		},
+		"tho_san": {
+			"tree": "hunting",
+			"tier": 1,
+			"pos": [
+				0,
+				0
+			],
+			"name_key": "SKILL_THO_SAN",
+			"desc_key": "SKILL_THO_SAN_DESC",
+			"icon": "res://assets/ui/icons/skills/tho_san.png",
+			"cost": 1,
+			"requires": [],
+			"min_level": 1,
+			"attributes": {},
+			"effects": {
+				"catch_chance": 0.15,
+				"catch_birds": 1.0
+			}
+		},
+		"vo_chop": {
+			"tree": "hunting",
+			"tier": 1,
+			"pos": [
+				1,
+				0
+			],
+			"name_key": "SKILL_VO_CHOP",
+			"desc_key": "SKILL_VO_CHOP_DESC",
+			"icon": "res://assets/ui/icons/skills/vo_chop.png",
+			"cost": 1,
+			"requires": [],
+			"min_level": 1,
+			"attributes": {},
+			"effects": {
+				"pounce_distance": 0.25,
+				"pounce_speed": 0.2
+			}
+		},
+		"mui_thinh": {
+			"tree": "hunting",
+			"tier": 1,
+			"pos": [
+				2,
+				0
+			],
+			"name_key": "SKILL_MUI_THINH",
+			"desc_key": "SKILL_MUI_THINH_DESC",
+			"icon": "res://assets/ui/icons/skills/mui_thinh.png",
+			"cost": 1,
+			"requires": [],
+			"min_level": 1,
+			"attributes": {},
+			"effects": {
+				"scent_range": 0.5,
+				"cat_sense_cost": -0.3
+			}
+		},
+		"ria_nhay": {
+			"tree": "hunting",
+			"tier": 2,
+			"pos": [
+				2,
+				1
+			],
+			"name_key": "SKILL_RIA_NHAY",
+			"desc_key": "SKILL_RIA_NHAY_DESC",
+			"icon": "res://assets/ui/icons/skills/ria_nhay.png",
+			"cost": 2,
+			"requires": [
+				"mui_thinh"
+			],
+			"min_level": 2,
+			"attributes": {},
+			"effects": {
+				"sense_collectibles": 1.0,
+				"hearing_range": 0.3
+			}
+		},
+		"vua_san_moi": {
+			"tree": "hunting",
+			"tier": 3,
+			"pos": [
+				0,
+				2
+			],
+			"name_key": "SKILL_VUA_SAN_MOI",
+			"desc_key": "SKILL_VUA_SAN_MOI_DESC",
+			"icon": "res://assets/ui/icons/skills/vua_san_moi.png",
+			"cost": 3,
+			"requires": [
+				"tho_san",
+				"vo_chop"
+			],
+			"min_level": 4,
+			"attributes": {
+				"hunting": 5
+			},
+			"effects": {
+				"catch_chance": 0.25,
+				"prey_xp_mult": 0.5
+			}
+		},
+		"ngu_sau": {
+			"tree": "survival",
+			"tier": 1,
+			"pos": [
+				0,
+				0
+			],
+			"name_key": "SKILL_NGU_SAU",
+			"desc_key": "SKILL_NGU_SAU_DESC",
+			"icon": "res://assets/ui/icons/skills/ngu_sau.png",
+			"cost": 1,
+			"requires": [],
+			"min_level": 1,
+			"attributes": {},
+			"effects": {
+				"energy_regen": 0.5
+			}
+		},
+		"bung_khoe": {
+			"tree": "survival",
+			"tier": 1,
+			"pos": [
+				1,
+				0
+			],
+			"name_key": "SKILL_BUNG_KHOE",
+			"desc_key": "SKILL_BUNG_KHOE_DESC",
+			"icon": "res://assets/ui/icons/skills/bung_khoe.png",
+			"cost": 1,
+			"requires": [],
+			"min_level": 1,
+			"attributes": {},
+			"effects": {
+				"hunger_drain": -0.25,
+				"food_value": 0.25
+			}
+		},
+		"long_day": {
+			"tree": "survival",
+			"tier": 1,
+			"pos": [
+				2,
+				0
+			],
+			"name_key": "SKILL_LONG_DAY",
+			"desc_key": "SKILL_LONG_DAY_DESC",
+			"icon": "res://assets/ui/icons/skills/long_day.png",
+			"cost": 1,
+			"requires": [],
+			"min_level": 1,
+			"attributes": {},
+			"effects": {
+				"warmth_drain": -0.4,
+				"wet_rate": -0.3
+			}
+		},
+		"suc_ben": {
+			"tree": "survival",
+			"tier": 2,
+			"pos": [
+				0,
+				1
+			],
+			"name_key": "SKILL_SUC_BEN",
+			"desc_key": "SKILL_SUC_BEN_DESC",
+			"icon": "res://assets/ui/icons/skills/suc_ben.png",
+			"cost": 2,
+			"requires": [
+				"ngu_sau"
+			],
+			"min_level": 2,
+			"attributes": {},
+			"effects": {
+				"max_energy": 20.0,
+				"energy_drain": -0.2
+			}
+		},
+		"chin_mang": {
+			"tree": "survival",
+			"tier": 3,
+			"pos": [
+				1,
+				2
+			],
+			"name_key": "SKILL_CHIN_MANG",
+			"desc_key": "SKILL_CHIN_MANG_DESC",
+			"icon": "res://assets/ui/icons/skills/chin_mang.png",
+			"cost": 3,
+			"requires": [
+				"ngu_sau",
+				"long_day"
+			],
+			"min_level": 3,
+			"attributes": {},
+			"effects": {
+				"free_faints_per_day": 1.0,
+				"faint_cap_loss_mult": -0.5
+			}
+		}
+	},
+	"buffs": {
+		"catnip": {
+			"name_key": "BUFF_CATNIP",
+			"hours": 1.0,
+			"modifiers": {
+				"sprint_speed": 0.2,
+				"jump_distance": 0.1,
+				"noise_mult": 0.25,
+				"charm_bonus": -1.0
+			}
+		},
+		"playful": {
+			"name_key": "BUFF_PLAYFUL",
+			"hours": 1.0,
+			"modifiers": {
+				"charm_bonus": 1.0,
+				"catch_chance": 0.05
+			}
+		},
+		"sharp_claws": {
+			"name_key": "BUFF_SHARP_CLAWS",
+			"hours": 3.0,
+			"modifiers": {
+				"climb_speed": 0.15,
+				"balance": 0.05
+			}
+		},
+		"well_fed": {
+			"name_key": "BUFF_WELL_FED",
+			"hours": 4.0,
+			"modifiers": {
+				"health_regen": 0.5,
+				"energy_drain": -0.1
+			}
+		},
+		"warm_nap": {
+			"name_key": "BUFF_WARM_NAP",
+			"hours": 3.0,
+			"modifiers": {
+				"warmth_drain": -0.3,
+				"energy_drain": -0.1
+			}
+		},
+		"groomed": {
+			"name_key": "BUFF_GROOMED",
+			"hours": 2.0,
+			"modifiers": {
+				"charm_bonus": 1.0
+			}
+		}
+	}
+}

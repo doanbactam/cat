@@ -37,6 +37,11 @@ window/size/window_height_override=900
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
+[filesystem]
+
+import/blender/enabled=false
+import/fbx2gltf/enabled=false
+
 [input]
 
 move_forward={

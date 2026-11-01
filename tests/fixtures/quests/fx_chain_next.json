@@ -1,0 +1,19 @@
+{
+	"id": "fx_chain_next",
+	"category": "main",
+	"prerequisites": {
+		"quests": [
+			"fx_collect"
+		]
+	},
+	"objectives": [
+		{
+			"id": "talk_bong",
+			"type": "talk_to",
+			"npc": "fx_bong"
+		}
+	],
+	"rewards": {
+		"xp": 10
+	}
+}

@@ -1,0 +1,91 @@
+{
+	"id": "fx_crow",
+	"speaker": "lao_qua",
+	"start": "check",
+	"nodes": {
+		"check": {
+			"branch": [
+				{
+					"if": {
+						"mouth": "fish"
+					},
+					"next": "has_fish"
+				},
+				{
+					"if": {
+						"caps": 10
+					},
+					"next": "rich"
+				},
+				{
+					"next": "poor"
+				}
+			]
+		},
+		"has_fish": {
+			"text_key": "FX_CROW_FISH",
+			"choices": [
+				{
+					"action": "offer_item",
+					"effects": [
+						{
+							"deliver": "fish",
+							"to": "fx_crow"
+						}
+					],
+					"next": "thanks"
+				},
+				{
+					"action": "leave"
+				}
+			]
+		},
+		"rich": {
+			"text_key": "FX_CROW_RICH",
+			"choices": [
+				{
+					"action": "meow",
+					"text_key": "FX_BUY_COLLAR",
+					"if": {
+						"caps": 15
+					},
+					"show_locked": true,
+					"effects": [
+						{
+							"buy": "collar_red",
+							"price": 15
+						}
+					],
+					"next": "end"
+				},
+				{
+					"action": "leave"
+				}
+			]
+		},
+		"poor": {
+			"text_key": "FX_CROW_POOR"
+		},
+		"thanks": {
+			"text_key": "FX_CROW_THANKS",
+			"effects": [
+				{
+					"if": {
+						"quest": "fx_collect",
+						"state": "completed"
+					},
+					"then": [
+						{
+							"set_flag": "fx_crow_happy"
+						}
+					],
+					"else": [
+						{
+							"set_flag": "fx_crow_meh"
+						}
+					]
+				}
+			]
+		}
+	}
+}

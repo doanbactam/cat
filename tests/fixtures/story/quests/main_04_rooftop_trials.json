@@ -1,0 +1,73 @@
+{
+	"id": "main_04_rooftop_trials",
+	"category": "main",
+	"giver": "mun",
+	"prerequisites": {
+		"quests": [
+			"main_03_fish_market"
+		]
+	},
+	"objectives": [
+		{
+			"id": "meet_mun",
+			"type": "talk_to",
+			"npc": "mun",
+			"stage": 0
+		},
+		{
+			"id": "mark_three",
+			"type": "mark_territory",
+			"count": 3,
+			"stage": 1,
+			"count_existing": true
+		},
+		{
+			"id": "water_tower",
+			"type": "reach_location",
+			"target": "water_tower",
+			"radius": 2.5,
+			"stage": 1
+		},
+		{
+			"id": "race",
+			"type": "event",
+			"event": "rooftop_race_won",
+			"match": {
+				"rival": "mun"
+			},
+			"stage": 1,
+			"target_id": "race_start"
+		},
+		{
+			"id": "show_off",
+			"type": "knock_objects",
+			"count": 3,
+			"optional": true,
+			"hidden": true,
+			"stage": 1,
+			"rewards": {
+				"xp": 25,
+				"reputation": {
+					"rooftop_cats": 5
+				}
+			}
+		},
+		{
+			"id": "report_back",
+			"type": "talk_to",
+			"npc": "mun",
+			"stage": 2
+		}
+	],
+	"rewards": {
+		"xp": 200,
+		"skill_points": 1,
+		"reputation": {
+			"rooftop_cats": 25
+		},
+		"flags": {
+			"rooftops_open": true
+		}
+	},
+	"next": "main_05_festival_night"
+}

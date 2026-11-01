@@ -1,0 +1,56 @@
+{
+	"id": "xam",
+	"speaker": "xam",
+	"start": [
+		{
+			"if": {
+				"quest": "side_xam_leg_band",
+				"state": "completed"
+			},
+			"node": "thanks"
+		},
+		{
+			"if": {
+				"quest": "side_xam_leg_band",
+				"state": "not_started"
+			},
+			"node": "lost"
+		},
+		{
+			"node": "waiting"
+		}
+	],
+	"nodes": {
+		"lost": {
+			"text_key": "STORY_XAM_LOST",
+			"choices": [
+				{
+					"action": "chirp",
+					"effects": [
+						{
+							"start_quest": "side_xam_leg_band"
+						}
+					]
+				},
+				{
+					"action": "swipe",
+					"if": {
+						"skill": "tho_san"
+					},
+					"effects": [
+						{
+							"add_rep": "birds",
+							"amount": -5
+						}
+					]
+				}
+			]
+		},
+		"waiting": {
+			"text_key": "STORY_XAM_WAITING"
+		},
+		"thanks": {
+			"text_key": "STORY_XAM_THANKS"
+		}
+	}
+}

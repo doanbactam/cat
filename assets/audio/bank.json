@@ -1,0 +1,3157 @@
+{
+ "version": 1,
+ "sounds": {
+  "ac_unit_loop": {
+   "files": [
+    "res://assets/audio/sfx/entities/ac_unit_loop_01.ogg",
+    "res://assets/audio/sfx/entities/ac_unit_loop_02.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": true,
+   "volume_db": 0.0,
+   "pitch_jitter": 0,
+   "unit_size": 2,
+   "max_distance": 18,
+   "priority": 5,
+   "desc": "AC condenser hum loop (emitter on AC units)",
+   "length": 6.0
+  },
+  "amb_alley": {
+   "files": [
+    "res://assets/audio/ambience/amb_alley.ogg"
+   ],
+   "category": "ambience",
+   "group": "",
+   "bus": "Ambience",
+   "loop": true,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 3.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "Alley: echoey, TV murmur, kitchen sounds, drips, AC hum",
+   "length": 70.0
+  },
+  "amb_dawn_chorus": {
+   "files": [
+    "res://assets/audio/ambience/amb_dawn_chorus.ogg"
+   ],
+   "category": "ambience",
+   "group": "",
+   "bus": "Ambience",
+   "loop": true,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 3.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "Overlay: dawn birds + distant roosters",
+   "length": 60.0
+  },
+  "amb_festival": {
+   "files": [
+    "res://assets/audio/ambience/amb_festival.ogg"
+   ],
+   "category": "ambience",
+   "group": "",
+   "bus": "Ambience",
+   "loop": true,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 3.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "Mid-Autumn festival night: crowd, children, lion-dance drums",
+   "length": 96.0
+  },
+  "amb_lake": {
+   "files": [
+    "res://assets/audio/ambience/amb_lake.ogg"
+   ],
+   "category": "ambience",
+   "group": "",
+   "bus": "Ambience",
+   "loop": true,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 3.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "Lake: water lapping, birds, leaves, distant city",
+   "length": 75.0
+  },
+  "amb_market": {
+   "files": [
+    "res://assets/audio/ambience/amb_market.ogg"
+   ],
+   "category": "ambience",
+   "group": "",
+   "bus": "Ambience",
+   "loop": true,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 3.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "Market bustle: dense crowd, vendors' calls, clatter, slow scooters",
+   "length": 90.0
+  },
+  "amb_night_insects": {
+   "files": [
+    "res://assets/audio/ambience/amb_night_insects.ogg"
+   ],
+   "category": "ambience",
+   "group": "",
+   "bus": "Ambience",
+   "loop": true,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 3.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "Overlay: crickets, geckos, frogs (night, non-street areas)",
+   "length": 60.0
+  },
+  "amb_rooftop": {
+   "files": [
+    "res://assets/audio/ambience/amb_rooftop.ogg"
+   ],
+   "category": "ambience",
+   "group": "",
+   "bus": "Ambience",
+   "loop": true,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 3.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "Rooftop: wind, distant city, laundry flaps, pigeons",
+   "length": 80.0
+  },
+  "amb_street_day": {
+   "files": [
+    "res://assets/audio/ambience/amb_street_day.ogg"
+   ],
+   "category": "ambience",
+   "group": "",
+   "bus": "Ambience",
+   "loop": true,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 3.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "Day street: motorbike flow, horns, vendor murmur, birds",
+   "length": 90.0
+  },
+  "amb_street_night": {
+   "files": [
+    "res://assets/audio/ambience/amb_street_night.ogg"
+   ],
+   "category": "ambience",
+   "group": "",
+   "bus": "Ambience",
+   "loop": true,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 3.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "Night street: crickets, geckos, distant traffic, TV",
+   "length": 80.0
+  },
+  "amb_temple": {
+   "files": [
+    "res://assets/audio/ambience/amb_temple.ogg"
+   ],
+   "category": "ambience",
+   "group": "",
+   "bus": "Ambience",
+   "loop": true,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 3.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "Temple courtyard: wind chimes, quiet wind, birds",
+   "length": 75.0
+  },
+  "bicycle_bell": {
+   "files": [
+    "res://assets/audio/sfx/entities/bicycle_bell_01.ogg",
+    "res://assets/audio/sfx/entities/bicycle_bell_02.ogg",
+    "res://assets/audio/sfx/entities/bicycle_bell_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 6,
+   "max_distance": 60,
+   "priority": 5,
+   "desc": "Thumb-lever bicycle bell",
+   "length": 1.746
+  },
+  "bicycle_pass": {
+   "files": [
+    "res://assets/audio/sfx/entities/bicycle_pass_01.ogg",
+    "res://assets/audio/sfx/entities/bicycle_pass_02.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 3,
+   "max_distance": 30,
+   "priority": 5,
+   "desc": "Bicycle freewheel ticking pass-by",
+   "length": 3.998
+  },
+  "bulbul_song": {
+   "files": [
+    "res://assets/audio/sfx/entities/bulbul_song_01.ogg",
+    "res://assets/audio/sfx/entities/bulbul_song_02.ogg",
+    "res://assets/audio/sfx/entities/bulbul_song_03.ogg",
+    "res://assets/audio/sfx/entities/bulbul_song_04.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 6,
+   "max_distance": 70,
+   "priority": 5,
+   "desc": "Red-whiskered bulbul (chào mào) phrase",
+   "length": 0.846
+  },
+  "cat_drop": {
+   "files": [
+    "res://assets/audio/sfx/cat/cat_drop_01.ogg",
+    "res://assets/audio/sfx/cat/cat_drop_02.ogg",
+    "res://assets/audio/sfx/cat/cat_drop_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "cat",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 2.5,
+   "max_distance": 20,
+   "priority": 5,
+   "desc": "Drop item from mouth",
+   "length": 0.272
+  },
+  "cat_eat_crunch": {
+   "files": [
+    "res://assets/audio/sfx/cat/cat_eat_crunch_01.ogg",
+    "res://assets/audio/sfx/cat/cat_eat_crunch_02.ogg",
+    "res://assets/audio/sfx/cat/cat_eat_crunch_03.ogg",
+    "res://assets/audio/sfx/cat/cat_eat_crunch_04.ogg"
+   ],
+   "category": "sfx",
+   "group": "cat",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 1.5,
+   "max_distance": 12,
+   "priority": 5,
+   "desc": "Single crunchy bite",
+   "length": 0.315
+  },
+  "cat_eat_loop": {
+   "files": [
+    "res://assets/audio/sfx/cat/cat_eat_loop.ogg"
+   ],
+   "category": "sfx",
+   "group": "cat",
+   "bus": "SFX",
+   "loop": true,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 1.5,
+   "max_distance": 12,
+   "priority": 5,
+   "desc": "Crunchy dry-food chewing loop",
+   "length": 6.4
+  },
+  "cat_eat_wet_loop": {
+   "files": [
+    "res://assets/audio/sfx/cat/cat_eat_wet_loop.ogg"
+   ],
+   "category": "sfx",
+   "group": "cat",
+   "bus": "SFX",
+   "loop": true,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 1.5,
+   "max_distance": 12,
+   "priority": 5,
+   "desc": "Wet food / fish chewing loop",
+   "length": 6.0
+  },
+  "cat_groom_loop": {
+   "files": [
+    "res://assets/audio/sfx/cat/cat_groom_loop.ogg"
+   ],
+   "category": "sfx",
+   "group": "cat",
+   "bus": "SFX",
+   "loop": true,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 1.5,
+   "max_distance": 10,
+   "priority": 5,
+   "desc": "Licking/grooming loop",
+   "length": 6.0
+  },
+  "cat_growl": {
+   "files": [
+    "res://assets/audio/sfx/cat/cat_growl_01.ogg",
+    "res://assets/audio/sfx/cat/cat_growl_02.ogg",
+    "res://assets/audio/sfx/cat/cat_growl_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "cat",
+   "bus": "Voice",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 4,
+   "max_distance": 35,
+   "priority": 8,
+   "desc": "Low rough growl (variant 3 rises into a yowl)",
+   "length": 2.219
+  },
+  "cat_hiss": {
+   "files": [
+    "res://assets/audio/sfx/cat/cat_hiss_01.ogg",
+    "res://assets/audio/sfx/cat/cat_hiss_02.ogg",
+    "res://assets/audio/sfx/cat/cat_hiss_03.ogg",
+    "res://assets/audio/sfx/cat/cat_hiss_04.ogg"
+   ],
+   "category": "sfx",
+   "group": "cat",
+   "bus": "Voice",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 5,
+   "max_distance": 40,
+   "priority": 8,
+   "desc": "Hiss with spit onset (odd variants have growl underlay)",
+   "length": 0.95
+  },
+  "cat_jump_effort": {
+   "files": [
+    "res://assets/audio/sfx/cat/cat_jump_effort_01.ogg",
+    "res://assets/audio/sfx/cat/cat_jump_effort_02.ogg",
+    "res://assets/audio/sfx/cat/cat_jump_effort_03.ogg",
+    "res://assets/audio/sfx/cat/cat_jump_effort_04.ogg"
+   ],
+   "category": "sfx",
+   "group": "cat",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 2,
+   "max_distance": 15,
+   "priority": 5,
+   "desc": "Push-off exhale + fur swish",
+   "length": 0.225
+  },
+  "cat_knead_loop": {
+   "files": [
+    "res://assets/audio/sfx/cat/cat_knead_loop.ogg"
+   ],
+   "category": "sfx",
+   "group": "cat",
+   "bus": "SFX",
+   "loop": true,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 1.5,
+   "max_distance": 8,
+   "priority": 5,
+   "desc": "Kneading a cushion loop",
+   "length": 4.0
+  },
+  "cat_lap_loop": {
+   "files": [
+    "res://assets/audio/sfx/cat/cat_lap_loop.ogg"
+   ],
+   "category": "sfx",
+   "group": "cat",
+   "bus": "SFX",
+   "loop": true,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 1.5,
+   "max_distance": 10,
+   "priority": 5,
+   "desc": "Lapping water loop",
+   "length": 5.0
+  },
+  "cat_meow_chirp": {
+   "files": [
+    "res://assets/audio/sfx/cat/cat_meow_chirp_01.ogg",
+    "res://assets/audio/sfx/cat/cat_meow_chirp_02.ogg",
+    "res://assets/audio/sfx/cat/cat_meow_chirp_03.ogg",
+    "res://assets/audio/sfx/cat/cat_meow_chirp_04.ogg"
+   ],
+   "category": "sfx",
+   "group": "cat",
+   "bus": "Voice",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 3,
+   "max_distance": 35,
+   "priority": 8,
+   "desc": "'mrrp!' rising chirp (kind &\"chirp\")",
+   "length": 0.268
+  },
+  "cat_meow_complain": {
+   "files": [
+    "res://assets/audio/sfx/cat/cat_meow_complain_01.ogg",
+    "res://assets/audio/sfx/cat/cat_meow_complain_02.ogg",
+    "res://assets/audio/sfx/cat/cat_meow_complain_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "cat",
+   "bus": "Voice",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 4,
+   "max_distance": 45,
+   "priority": 8,
+   "desc": "Long descending grumble",
+   "length": 0.897
+  },
+  "cat_meow_demand": {
+   "files": [
+    "res://assets/audio/sfx/cat/cat_meow_demand_01.ogg",
+    "res://assets/audio/sfx/cat/cat_meow_demand_02.ogg",
+    "res://assets/audio/sfx/cat/cat_meow_demand_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "cat",
+   "bus": "Voice",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 5,
+   "max_distance": 55,
+   "priority": 8,
+   "desc": "Insistent 'MEOW!' (demanding food)",
+   "length": 0.504
+  },
+  "cat_meow_greet": {
+   "files": [
+    "res://assets/audio/sfx/cat/cat_meow_greet_01.ogg",
+    "res://assets/audio/sfx/cat/cat_meow_greet_02.ogg",
+    "res://assets/audio/sfx/cat/cat_meow_greet_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "cat",
+   "bus": "Voice",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 4,
+   "max_distance": 45,
+   "priority": 8,
+   "desc": "Friendly 'mrr-aow' greeting",
+   "length": 0.504
+  },
+  "cat_meow_loud": {
+   "files": [
+    "res://assets/audio/sfx/cat/cat_meow_loud_01.ogg",
+    "res://assets/audio/sfx/cat/cat_meow_loud_02.ogg",
+    "res://assets/audio/sfx/cat/cat_meow_loud_03.ogg",
+    "res://assets/audio/sfx/cat/cat_meow_loud_04.ogg"
+   ],
+   "category": "sfx",
+   "group": "cat",
+   "bus": "Voice",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 6,
+   "max_distance": 70,
+   "priority": 9,
+   "desc": "Loud plaintive meow (kind &\"loud\")",
+   "length": 1.144
+  },
+  "cat_meow_question": {
+   "files": [
+    "res://assets/audio/sfx/cat/cat_meow_question_01.ogg",
+    "res://assets/audio/sfx/cat/cat_meow_question_02.ogg",
+    "res://assets/audio/sfx/cat/cat_meow_question_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "cat",
+   "bus": "Voice",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 4,
+   "max_distance": 45,
+   "priority": 8,
+   "desc": "'mrrow?' questioning",
+   "length": 0.628
+  },
+  "cat_meow_short": {
+   "files": [
+    "res://assets/audio/sfx/cat/cat_meow_short_01.ogg",
+    "res://assets/audio/sfx/cat/cat_meow_short_02.ogg",
+    "res://assets/audio/sfx/cat/cat_meow_short_03.ogg",
+    "res://assets/audio/sfx/cat/cat_meow_short_04.ogg",
+    "res://assets/audio/sfx/cat/cat_meow_short_05.ogg"
+   ],
+   "category": "sfx",
+   "group": "cat",
+   "bus": "Voice",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 4,
+   "max_distance": 45,
+   "priority": 8,
+   "desc": "Short 'mew/meow' (kind &\"short\")",
+   "length": 0.417
+  },
+  "cat_meow_soft": {
+   "files": [
+    "res://assets/audio/sfx/cat/cat_meow_soft_01.ogg",
+    "res://assets/audio/sfx/cat/cat_meow_soft_02.ogg",
+    "res://assets/audio/sfx/cat/cat_meow_soft_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "cat",
+   "bus": "Voice",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 3,
+   "max_distance": 30,
+   "priority": 8,
+   "desc": "Tiny soft mew (affection)",
+   "length": 0.227
+  },
+  "cat_meow_trill": {
+   "files": [
+    "res://assets/audio/sfx/cat/cat_meow_trill_01.ogg",
+    "res://assets/audio/sfx/cat/cat_meow_trill_02.ogg",
+    "res://assets/audio/sfx/cat/cat_meow_trill_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "cat",
+   "bus": "Voice",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 3,
+   "max_distance": 35,
+   "priority": 8,
+   "desc": "'brrrrp' rolled trill greeting",
+   "length": 0.469
+  },
+  "cat_pickup": {
+   "files": [
+    "res://assets/audio/sfx/cat/cat_pickup_01.ogg",
+    "res://assets/audio/sfx/cat/cat_pickup_02.ogg",
+    "res://assets/audio/sfx/cat/cat_pickup_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "cat",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 2,
+   "max_distance": 15,
+   "priority": 5,
+   "desc": "Grab item in mouth",
+   "length": 0.197
+  },
+  "cat_purr": {
+   "files": [
+    "res://assets/audio/sfx/cat/cat_purr_01.ogg",
+    "res://assets/audio/sfx/cat/cat_purr_02.ogg"
+   ],
+   "category": "sfx",
+   "group": "cat",
+   "bus": "Voice",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 1.5,
+   "max_distance": 12,
+   "priority": 5,
+   "desc": "Purr one-shot ~4 s (kind &\"purr\")",
+   "length": 4.194
+  },
+  "cat_purr_loop": {
+   "files": [
+    "res://assets/audio/sfx/cat/cat_purr_loop.ogg"
+   ],
+   "category": "sfx",
+   "group": "cat",
+   "bus": "Voice",
+   "loop": true,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 1.5,
+   "max_distance": 12,
+   "priority": 5,
+   "desc": "Purr loop (~25 Hz pulses, inhale/exhale)",
+   "length": 16.0
+  },
+  "cat_scratch": {
+   "files": [
+    "res://assets/audio/sfx/cat/cat_scratch_01.ogg",
+    "res://assets/audio/sfx/cat/cat_scratch_02.ogg",
+    "res://assets/audio/sfx/cat/cat_scratch_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "cat",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 2.5,
+   "max_distance": 25,
+   "priority": 5,
+   "desc": "Claws on wood post, 4-6 strokes",
+   "length": 1.524
+  },
+  "cat_scratch_fabric": {
+   "files": [
+    "res://assets/audio/sfx/cat/cat_scratch_fabric_01.ogg",
+    "res://assets/audio/sfx/cat/cat_scratch_fabric_02.ogg"
+   ],
+   "category": "sfx",
+   "group": "cat",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 2.5,
+   "max_distance": 25,
+   "priority": 5,
+   "desc": "Claws on fabric/sofa",
+   "length": 1.818
+  },
+  "cat_scratch_loop": {
+   "files": [
+    "res://assets/audio/sfx/cat/cat_scratch_loop.ogg"
+   ],
+   "category": "sfx",
+   "group": "cat",
+   "bus": "SFX",
+   "loop": true,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 2.5,
+   "max_distance": 25,
+   "priority": 5,
+   "desc": "Scratching loop for the scratch anim",
+   "length": 4.4
+  },
+  "cat_shake_dry": {
+   "files": [
+    "res://assets/audio/sfx/cat/cat_shake_dry_01.ogg",
+    "res://assets/audio/sfx/cat/cat_shake_dry_02.ogg"
+   ],
+   "category": "sfx",
+   "group": "cat",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 2.5,
+   "max_distance": 20,
+   "priority": 5,
+   "desc": "Dry fur shake + ear flaps",
+   "length": 0.831
+  },
+  "cat_shake_wet": {
+   "files": [
+    "res://assets/audio/sfx/cat/cat_shake_wet_01.ogg",
+    "res://assets/audio/sfx/cat/cat_shake_wet_02.ogg"
+   ],
+   "category": "sfx",
+   "group": "cat",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 2.5,
+   "max_distance": 20,
+   "priority": 5,
+   "desc": "Shake-off with water spray + ear flaps",
+   "length": 1.243
+  },
+  "cat_sniff": {
+   "files": [
+    "res://assets/audio/sfx/cat/cat_sniff_01.ogg",
+    "res://assets/audio/sfx/cat/cat_sniff_02.ogg",
+    "res://assets/audio/sfx/cat/cat_sniff_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "cat",
+   "bus": "Voice",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 1.5,
+   "max_distance": 10,
+   "priority": 5,
+   "desc": "Quick sniffs (cat-sense)",
+   "length": 0.514
+  },
+  "cat_swipe": {
+   "files": [
+    "res://assets/audio/sfx/cat/cat_swipe_01.ogg",
+    "res://assets/audio/sfx/cat/cat_swipe_02.ogg",
+    "res://assets/audio/sfx/cat/cat_swipe_03.ogg",
+    "res://assets/audio/sfx/cat/cat_swipe_04.ogg"
+   ],
+   "category": "sfx",
+   "group": "cat",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 2,
+   "max_distance": 15,
+   "priority": 5,
+   "desc": "Paw swipe whoosh",
+   "length": 0.209
+  },
+  "cat_yawn": {
+   "files": [
+    "res://assets/audio/sfx/cat/cat_yawn_01.ogg",
+    "res://assets/audio/sfx/cat/cat_yawn_02.ogg"
+   ],
+   "category": "sfx",
+   "group": "cat",
+   "bus": "Voice",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 3,
+   "max_distance": 25,
+   "priority": 5,
+   "desc": "Squeaky yawn (waking from nap)",
+   "length": 1.166
+  },
+  "cat_yowl": {
+   "files": [
+    "res://assets/audio/sfx/cat/cat_yowl_01.ogg",
+    "res://assets/audio/sfx/cat/cat_yowl_02.ogg",
+    "res://assets/audio/sfx/cat/cat_yowl_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "cat",
+   "bus": "Voice",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 8,
+   "max_distance": 90,
+   "priority": 8,
+   "desc": "Territorial caterwaul (rooftop rivals)",
+   "length": 2.01
+  },
+  "crow_caw": {
+   "files": [
+    "res://assets/audio/sfx/entities/crow_caw_01.ogg",
+    "res://assets/audio/sfx/entities/crow_caw_02.ogg",
+    "res://assets/audio/sfx/entities/crow_caw_03.ogg",
+    "res://assets/audio/sfx/entities/crow_caw_04.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 10,
+   "max_distance": 150,
+   "priority": 5,
+   "desc": "Single caw (Lão Quạ)",
+   "length": 0.343
+  },
+  "crow_caw_series": {
+   "files": [
+    "res://assets/audio/sfx/entities/crow_caw_series_01.ogg",
+    "res://assets/audio/sfx/entities/crow_caw_series_02.ogg",
+    "res://assets/audio/sfx/entities/crow_caw_series_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 10,
+   "max_distance": 150,
+   "priority": 5,
+   "desc": "2-4 caws",
+   "length": 1.494
+  },
+  "crow_rattle": {
+   "files": [
+    "res://assets/audio/sfx/entities/crow_rattle_01.ogg",
+    "res://assets/audio/sfx/entities/crow_rattle_02.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 5,
+   "max_distance": 50,
+   "priority": 5,
+   "desc": "Corvid rattle/chuckle (Lão Quạ talking)",
+   "length": 0.767
+  },
+  "dog_bark": {
+   "files": [
+    "res://assets/audio/sfx/entities/dog_bark_01.ogg",
+    "res://assets/audio/sfx/entities/dog_bark_02.ogg",
+    "res://assets/audio/sfx/entities/dog_bark_03.ogg",
+    "res://assets/audio/sfx/entities/dog_bark_04.ogg",
+    "res://assets/audio/sfx/entities/dog_bark_05.ogg",
+    "res://assets/audio/sfx/entities/dog_bark_06.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 8,
+   "max_distance": 120,
+   "priority": 7,
+   "desc": "Single bark (Vện)",
+   "length": 0.198
+  },
+  "dog_bark_series": {
+   "files": [
+    "res://assets/audio/sfx/entities/dog_bark_series_01.ogg",
+    "res://assets/audio/sfx/entities/dog_bark_series_02.ogg",
+    "res://assets/audio/sfx/entities/dog_bark_series_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 8,
+   "max_distance": 120,
+   "priority": 7,
+   "desc": "3-5 barks",
+   "length": 1.268
+  },
+  "dog_growl": {
+   "files": [
+    "res://assets/audio/sfx/entities/dog_growl_01.ogg",
+    "res://assets/audio/sfx/entities/dog_growl_02.ogg",
+    "res://assets/audio/sfx/entities/dog_growl_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 4,
+   "max_distance": 35,
+   "priority": 7,
+   "desc": "Low warning growl",
+   "length": 2.002
+  },
+  "dog_pant_loop": {
+   "files": [
+    "res://assets/audio/sfx/entities/dog_pant_loop.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": true,
+   "volume_db": 0.0,
+   "pitch_jitter": 0,
+   "unit_size": 2,
+   "max_distance": 20,
+   "priority": 5,
+   "desc": "Panting loop (after chase)",
+   "length": 4.0
+  },
+  "dog_whine": {
+   "files": [
+    "res://assets/audio/sfx/entities/dog_whine_01.ogg",
+    "res://assets/audio/sfx/entities/dog_whine_02.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 4,
+   "max_distance": 40,
+   "priority": 5,
+   "desc": "Whine",
+   "length": 0.906
+  },
+  "door_creak": {
+   "files": [
+    "res://assets/audio/sfx/entities/door_creak_01.ogg",
+    "res://assets/audio/sfx/entities/door_creak_02.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 4,
+   "max_distance": 30,
+   "priority": 5,
+   "desc": "Wooden door hinge creak + latch",
+   "length": 1.562
+  },
+  "flock_takeoff": {
+   "files": [
+    "res://assets/audio/sfx/entities/flock_takeoff_01.ogg",
+    "res://assets/audio/sfx/entities/flock_takeoff_02.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 8,
+   "max_distance": 80,
+   "priority": 5,
+   "desc": "Whole flock bursts up (stereo)",
+   "length": 1.883
+  },
+  "frog_croak": {
+   "files": [
+    "res://assets/audio/sfx/entities/frog_croak_01.ogg",
+    "res://assets/audio/sfx/entities/frog_croak_02.ogg",
+    "res://assets/audio/sfx/entities/frog_croak_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 5,
+   "max_distance": 60,
+   "priority": 5,
+   "desc": "Frog croaks (lake, night)",
+   "length": 0.885
+  },
+  "gecko_chirp": {
+   "files": [
+    "res://assets/audio/sfx/entities/gecko_chirp_01.ogg",
+    "res://assets/audio/sfx/entities/gecko_chirp_02.ogg",
+    "res://assets/audio/sfx/entities/gecko_chirp_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 4,
+   "max_distance": 40,
+   "priority": 5,
+   "desc": "House gecko (thạch sùng) chirps",
+   "length": 1.07
+  },
+  "horn_car": {
+   "files": [
+    "res://assets/audio/sfx/entities/horn_car_01.ogg",
+    "res://assets/audio/sfx/entities/horn_car_02.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 14,
+   "max_distance": 220,
+   "priority": 6,
+   "desc": "Car dual-tone horn",
+   "length": 0.635
+  },
+  "horn_motorbike": {
+   "files": [
+    "res://assets/audio/sfx/entities/horn_motorbike_01.ogg",
+    "res://assets/audio/sfx/entities/horn_motorbike_02.ogg",
+    "res://assets/audio/sfx/entities/horn_motorbike_03.ogg",
+    "res://assets/audio/sfx/entities/horn_motorbike_04.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 12,
+   "max_distance": 200,
+   "priority": 6,
+   "desc": "Motorbike horn: short, double, long",
+   "length": 0.469
+  },
+  "human_aww": {
+   "files": [
+    "res://assets/audio/sfx/entities/human_aww_01.ogg",
+    "res://assets/audio/sfx/entities/human_aww_02.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 3,
+   "max_distance": 25,
+   "priority": 5,
+   "desc": "Soft delighted 'ôi~' (petting the cat)",
+   "length": 0.681
+  },
+  "human_call": {
+   "files": [
+    "res://assets/audio/sfx/entities/human_call_01.ogg",
+    "res://assets/audio/sfx/entities/human_call_02.ogg",
+    "res://assets/audio/sfx/entities/human_call_03.ogg",
+    "res://assets/audio/sfx/entities/human_call_04.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 8,
+   "max_distance": 80,
+   "priority": 5,
+   "desc": "Non-verbal 'ơi!' call (even=female)",
+   "length": 0.83
+  },
+  "human_clap_shoo": {
+   "files": [
+    "res://assets/audio/sfx/entities/human_clap_shoo_01.ogg",
+    "res://assets/audio/sfx/entities/human_clap_shoo_02.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 6,
+   "max_distance": 50,
+   "priority": 7,
+   "desc": "Hand claps + shoo",
+   "length": 0.914
+  },
+  "human_hum": {
+   "files": [
+    "res://assets/audio/sfx/entities/human_hum_01.ogg",
+    "res://assets/audio/sfx/entities/human_hum_02.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 3,
+   "max_distance": 25,
+   "priority": 5,
+   "desc": "Vendor humming a little tune",
+   "length": 2.625
+  },
+  "human_laugh": {
+   "files": [
+    "res://assets/audio/sfx/entities/human_laugh_01.ogg",
+    "res://assets/audio/sfx/entities/human_laugh_02.ogg",
+    "res://assets/audio/sfx/entities/human_laugh_03.ogg",
+    "res://assets/audio/sfx/entities/human_laugh_04.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 5,
+   "max_distance": 50,
+   "priority": 5,
+   "desc": "Laugh/chuckle (even=female)",
+   "length": 0.759
+  },
+  "human_shoo": {
+   "files": [
+    "res://assets/audio/sfx/entities/human_shoo_01.ogg",
+    "res://assets/audio/sfx/entities/human_shoo_02.ogg",
+    "res://assets/audio/sfx/entities/human_shoo_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 5,
+   "max_distance": 40,
+   "priority": 7,
+   "desc": "'Suỵt!/Xùy!' shoo hiss",
+   "length": 0.538
+  },
+  "human_surprise": {
+   "files": [
+    "res://assets/audio/sfx/entities/human_surprise_01.ogg",
+    "res://assets/audio/sfx/entities/human_surprise_02.ogg",
+    "res://assets/audio/sfx/entities/human_surprise_03.ogg",
+    "res://assets/audio/sfx/entities/human_surprise_04.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 5,
+   "max_distance": 50,
+   "priority": 5,
+   "desc": "'Ơ!' surprised (object knocked over)",
+   "length": 0.284
+  },
+  "impact_cardboard": {
+   "files": [
+    "res://assets/audio/sfx/impacts/impact_cardboard_01.ogg",
+    "res://assets/audio/sfx/impacts/impact_cardboard_02.ogg",
+    "res://assets/audio/sfx/impacts/impact_cardboard_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "impacts",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.06,
+   "unit_size": 5.0,
+   "max_distance": 60,
+   "priority": 6,
+   "desc": "Cardboard box thud",
+   "length": 0.317
+  },
+  "impact_ceramic": {
+   "files": [
+    "res://assets/audio/sfx/impacts/impact_ceramic_01.ogg",
+    "res://assets/audio/sfx/impacts/impact_ceramic_02.ogg",
+    "res://assets/audio/sfx/impacts/impact_ceramic_03.ogg",
+    "res://assets/audio/sfx/impacts/impact_ceramic_04.ogg"
+   ],
+   "category": "sfx",
+   "group": "impacts",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.06,
+   "unit_size": 5.0,
+   "max_distance": 60,
+   "priority": 6,
+   "desc": "Ceramic pot/bowl smashes",
+   "length": 0.852
+  },
+  "impact_ceramic_knock": {
+   "files": [
+    "res://assets/audio/sfx/impacts/impact_ceramic_knock_01.ogg",
+    "res://assets/audio/sfx/impacts/impact_ceramic_knock_02.ogg",
+    "res://assets/audio/sfx/impacts/impact_ceramic_knock_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "impacts",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.06,
+   "unit_size": 5.0,
+   "max_distance": 60,
+   "priority": 6,
+   "desc": "Ceramic knocked over, not broken",
+   "length": 0.95
+  },
+  "impact_glass_break": {
+   "files": [
+    "res://assets/audio/sfx/impacts/impact_glass_break_01.ogg",
+    "res://assets/audio/sfx/impacts/impact_glass_break_02.ogg",
+    "res://assets/audio/sfx/impacts/impact_glass_break_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "impacts",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.06,
+   "unit_size": 5.0,
+   "max_distance": 60,
+   "priority": 6,
+   "desc": "Glass shatters",
+   "length": 1.8
+  },
+  "impact_glass_clink": {
+   "files": [
+    "res://assets/audio/sfx/impacts/impact_glass_clink_01.ogg",
+    "res://assets/audio/sfx/impacts/impact_glass_clink_02.ogg",
+    "res://assets/audio/sfx/impacts/impact_glass_clink_03.ogg",
+    "res://assets/audio/sfx/impacts/impact_glass_clink_04.ogg"
+   ],
+   "category": "sfx",
+   "group": "impacts",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.06,
+   "unit_size": 5.0,
+   "max_distance": 60,
+   "priority": 6,
+   "desc": "Glass/bottle clink and ring",
+   "length": 1.6
+  },
+  "impact_metal": {
+   "files": [
+    "res://assets/audio/sfx/impacts/impact_metal_01.ogg",
+    "res://assets/audio/sfx/impacts/impact_metal_02.ogg",
+    "res://assets/audio/sfx/impacts/impact_metal_03.ogg",
+    "res://assets/audio/sfx/impacts/impact_metal_04.ogg"
+   ],
+   "category": "sfx",
+   "group": "impacts",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.06,
+   "unit_size": 5.0,
+   "max_distance": 60,
+   "priority": 6,
+   "desc": "Metal clang (even: pot/can, odd: lid wobble)",
+   "length": 2.4
+  },
+  "impact_plastic": {
+   "files": [
+    "res://assets/audio/sfx/impacts/impact_plastic_01.ogg",
+    "res://assets/audio/sfx/impacts/impact_plastic_02.ogg",
+    "res://assets/audio/sfx/impacts/impact_plastic_03.ogg",
+    "res://assets/audio/sfx/impacts/impact_plastic_04.ogg"
+   ],
+   "category": "sfx",
+   "group": "impacts",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.06,
+   "unit_size": 5.0,
+   "max_distance": 60,
+   "priority": 6,
+   "desc": "Hollow plastic bounces",
+   "length": 0.676
+  },
+  "impact_soft": {
+   "files": [
+    "res://assets/audio/sfx/impacts/impact_soft_01.ogg",
+    "res://assets/audio/sfx/impacts/impact_soft_02.ogg",
+    "res://assets/audio/sfx/impacts/impact_soft_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "impacts",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.06,
+   "unit_size": 5.0,
+   "max_distance": 60,
+   "priority": 6,
+   "desc": "Fabric/bag/cushion thud",
+   "length": 0.17
+  },
+  "impact_wood": {
+   "files": [
+    "res://assets/audio/sfx/impacts/impact_wood_01.ogg",
+    "res://assets/audio/sfx/impacts/impact_wood_02.ogg",
+    "res://assets/audio/sfx/impacts/impact_wood_03.ogg",
+    "res://assets/audio/sfx/impacts/impact_wood_04.ogg"
+   ],
+   "category": "sfx",
+   "group": "impacts",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.06,
+   "unit_size": 5.0,
+   "max_distance": 60,
+   "priority": 6,
+   "desc": "Wooden object thud (odd: tips over)",
+   "length": 0.44
+  },
+  "land_hard_metal": {
+   "files": [
+    "res://assets/audio/sfx/foley/land_hard_metal_01.ogg",
+    "res://assets/audio/sfx/foley/land_hard_metal_02.ogg",
+    "res://assets/audio/sfx/foley/land_hard_metal_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "foley",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 3.5,
+   "max_distance": 45,
+   "priority": 6,
+   "desc": "Hard landing on metal",
+   "length": 1.133
+  },
+  "land_hard_plastic": {
+   "files": [
+    "res://assets/audio/sfx/foley/land_hard_plastic_01.ogg",
+    "res://assets/audio/sfx/foley/land_hard_plastic_02.ogg",
+    "res://assets/audio/sfx/foley/land_hard_plastic_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "foley",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 3.5,
+   "max_distance": 45,
+   "priority": 6,
+   "desc": "Hard landing on plastic",
+   "length": 0.32
+  },
+  "land_hard_roof": {
+   "files": [
+    "res://assets/audio/sfx/foley/land_hard_roof_01.ogg",
+    "res://assets/audio/sfx/foley/land_hard_roof_02.ogg",
+    "res://assets/audio/sfx/foley/land_hard_roof_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "foley",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 3.5,
+   "max_distance": 45,
+   "priority": 6,
+   "desc": "Hard landing on roof",
+   "length": 0.297
+  },
+  "land_hard_soft": {
+   "files": [
+    "res://assets/audio/sfx/foley/land_hard_soft_01.ogg",
+    "res://assets/audio/sfx/foley/land_hard_soft_02.ogg",
+    "res://assets/audio/sfx/foley/land_hard_soft_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "foley",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 3.5,
+   "max_distance": 45,
+   "priority": 6,
+   "desc": "Hard landing on soft",
+   "length": 0.214
+  },
+  "land_hard_stone": {
+   "files": [
+    "res://assets/audio/sfx/foley/land_hard_stone_01.ogg",
+    "res://assets/audio/sfx/foley/land_hard_stone_02.ogg",
+    "res://assets/audio/sfx/foley/land_hard_stone_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "foley",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 3.5,
+   "max_distance": 45,
+   "priority": 6,
+   "desc": "Hard landing on stone",
+   "length": 0.187
+  },
+  "land_hard_tile": {
+   "files": [
+    "res://assets/audio/sfx/foley/land_hard_tile_01.ogg",
+    "res://assets/audio/sfx/foley/land_hard_tile_02.ogg",
+    "res://assets/audio/sfx/foley/land_hard_tile_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "foley",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 3.5,
+   "max_distance": 45,
+   "priority": 6,
+   "desc": "Hard landing on tile",
+   "length": 0.215
+  },
+  "land_hard_water": {
+   "files": [
+    "res://assets/audio/sfx/foley/land_hard_water_01.ogg",
+    "res://assets/audio/sfx/foley/land_hard_water_02.ogg",
+    "res://assets/audio/sfx/foley/land_hard_water_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "foley",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 3.5,
+   "max_distance": 45,
+   "priority": 6,
+   "desc": "Hard landing on water",
+   "length": 1.79
+  },
+  "land_hard_wood": {
+   "files": [
+    "res://assets/audio/sfx/foley/land_hard_wood_01.ogg",
+    "res://assets/audio/sfx/foley/land_hard_wood_02.ogg",
+    "res://assets/audio/sfx/foley/land_hard_wood_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "foley",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 3.5,
+   "max_distance": 45,
+   "priority": 6,
+   "desc": "Hard landing on wood",
+   "length": 0.297
+  },
+  "land_soft_metal": {
+   "files": [
+    "res://assets/audio/sfx/foley/land_soft_metal_01.ogg",
+    "res://assets/audio/sfx/foley/land_soft_metal_02.ogg",
+    "res://assets/audio/sfx/foley/land_soft_metal_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "foley",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 2.5,
+   "max_distance": 30,
+   "priority": 5,
+   "desc": "Soft landing on metal",
+   "length": 1.132
+  },
+  "land_soft_plastic": {
+   "files": [
+    "res://assets/audio/sfx/foley/land_soft_plastic_01.ogg",
+    "res://assets/audio/sfx/foley/land_soft_plastic_02.ogg",
+    "res://assets/audio/sfx/foley/land_soft_plastic_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "foley",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 2.5,
+   "max_distance": 30,
+   "priority": 5,
+   "desc": "Soft landing on plastic",
+   "length": 0.312
+  },
+  "land_soft_roof": {
+   "files": [
+    "res://assets/audio/sfx/foley/land_soft_roof_01.ogg",
+    "res://assets/audio/sfx/foley/land_soft_roof_02.ogg",
+    "res://assets/audio/sfx/foley/land_soft_roof_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "foley",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 2.5,
+   "max_distance": 30,
+   "priority": 5,
+   "desc": "Soft landing on roof",
+   "length": 0.286
+  },
+  "land_soft_soft": {
+   "files": [
+    "res://assets/audio/sfx/foley/land_soft_soft_01.ogg",
+    "res://assets/audio/sfx/foley/land_soft_soft_02.ogg",
+    "res://assets/audio/sfx/foley/land_soft_soft_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "foley",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 2.5,
+   "max_distance": 30,
+   "priority": 5,
+   "desc": "Soft landing on soft",
+   "length": 0.218
+  },
+  "land_soft_stone": {
+   "files": [
+    "res://assets/audio/sfx/foley/land_soft_stone_01.ogg",
+    "res://assets/audio/sfx/foley/land_soft_stone_02.ogg",
+    "res://assets/audio/sfx/foley/land_soft_stone_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "foley",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 2.5,
+   "max_distance": 30,
+   "priority": 5,
+   "desc": "Soft landing on stone",
+   "length": 0.204
+  },
+  "land_soft_tile": {
+   "files": [
+    "res://assets/audio/sfx/foley/land_soft_tile_01.ogg",
+    "res://assets/audio/sfx/foley/land_soft_tile_02.ogg",
+    "res://assets/audio/sfx/foley/land_soft_tile_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "foley",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 2.5,
+   "max_distance": 30,
+   "priority": 5,
+   "desc": "Soft landing on tile",
+   "length": 0.183
+  },
+  "land_soft_water": {
+   "files": [
+    "res://assets/audio/sfx/foley/land_soft_water_01.ogg",
+    "res://assets/audio/sfx/foley/land_soft_water_02.ogg",
+    "res://assets/audio/sfx/foley/land_soft_water_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "foley",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 2.5,
+   "max_distance": 30,
+   "priority": 5,
+   "desc": "Soft landing on water",
+   "length": 0.617
+  },
+  "land_soft_wood": {
+   "files": [
+    "res://assets/audio/sfx/foley/land_soft_wood_01.ogg",
+    "res://assets/audio/sfx/foley/land_soft_wood_02.ogg",
+    "res://assets/audio/sfx/foley/land_soft_wood_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "foley",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 2.5,
+   "max_distance": 30,
+   "priority": 5,
+   "desc": "Soft landing on wood",
+   "length": 0.293
+  },
+  "metal_can_roll": {
+   "files": [
+    "res://assets/audio/sfx/impacts/metal_can_roll_01.ogg",
+    "res://assets/audio/sfx/impacts/metal_can_roll_02.ogg"
+   ],
+   "category": "sfx",
+   "group": "impacts",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.06,
+   "unit_size": 5.0,
+   "max_distance": 60,
+   "priority": 6,
+   "desc": "Tin can rolling away",
+   "length": 2.5
+  },
+  "motorbike_ride_loop": {
+   "files": [
+    "res://assets/audio/sfx/entities/motorbike_ride_loop_01.ogg",
+    "res://assets/audio/sfx/entities/motorbike_ride_loop_02.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": true,
+   "volume_db": 0.0,
+   "pitch_jitter": 0,
+   "unit_size": 6,
+   "max_distance": 100,
+   "priority": 5,
+   "desc": "Manual-gear motorbike cruising loop",
+   "length": 4.0
+  },
+  "mouse_squeak": {
+   "files": [
+    "res://assets/audio/sfx/entities/mouse_squeak_01.ogg",
+    "res://assets/audio/sfx/entities/mouse_squeak_02.ogg",
+    "res://assets/audio/sfx/entities/mouse_squeak_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 1.5,
+   "max_distance": 12,
+   "priority": 5,
+   "desc": "Mouse squeaks",
+   "length": 0.22
+  },
+  "mus_festival": {
+   "files": [
+    "res://assets/audio/music/mus_festival.ogg"
+   ],
+   "category": "music",
+   "group": "",
+   "bus": "Music",
+   "loop": true,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 3.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "'Đêm Trăng Rằm' festival night — C Bắc, 112 bpm, 2:17",
+   "length": 137.143,
+   "bpm": 112,
+   "bars": 64
+  },
+  "mus_menu": {
+   "files": [
+    "res://assets/audio/music/mus_menu.ogg"
+   ],
+   "category": "music",
+   "group": "",
+   "bus": "Music",
+   "loop": true,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 3.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "'Phố Cũ' menu theme — D Bắc, 72 bpm, 2:00",
+   "length": 120.0,
+   "bpm": 72,
+   "bars": 36
+  },
+  "mus_morning": {
+   "files": [
+    "res://assets/audio/music/mus_morning.ogg"
+   ],
+   "category": "music",
+   "group": "",
+   "bus": "Music",
+   "loop": true,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 3.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "'Sáng Hàng Mây' day exploration — G Bắc, 90 bpm, 2:08",
+   "length": 128.0,
+   "bpm": 90,
+   "bars": 48
+  },
+  "mus_night": {
+   "files": [
+    "res://assets/audio/music/mus_night.ogg"
+   ],
+   "category": "music",
+   "group": "",
+   "bus": "Music",
+   "loop": true,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 3.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "'Đêm Phố' night exploration — A Nam/oán, 64 bpm, 2:15",
+   "length": 135.0,
+   "bpm": 64,
+   "bars": 36
+  },
+  "mus_tension": {
+   "files": [
+    "res://assets/audio/music/mus_tension.ogg"
+   ],
+   "category": "music",
+   "group": "",
+   "bus": "Music",
+   "loop": true,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 3.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "'Vện Đuổi' light tension for the dog chase — E Nam, 128 bpm, 1:30",
+   "length": 90.0,
+   "bpm": 128,
+   "bars": 48
+  },
+  "neon_buzz_loop": {
+   "files": [
+    "res://assets/audio/sfx/entities/neon_buzz_loop.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": true,
+   "volume_db": 0.0,
+   "pitch_jitter": 0,
+   "unit_size": 1.5,
+   "max_distance": 10,
+   "priority": 5,
+   "desc": "Neon/fluorescent sign buzz loop",
+   "length": 5.0
+  },
+  "pigeon_coo": {
+   "files": [
+    "res://assets/audio/sfx/entities/pigeon_coo_01.ogg",
+    "res://assets/audio/sfx/entities/pigeon_coo_02.ogg",
+    "res://assets/audio/sfx/entities/pigeon_coo_03.ogg",
+    "res://assets/audio/sfx/entities/pigeon_coo_04.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 3,
+   "max_distance": 30,
+   "priority": 5,
+   "desc": "Rock dove coo",
+   "length": 1.29
+  },
+  "pigeon_land": {
+   "files": [
+    "res://assets/audio/sfx/entities/pigeon_land_01.ogg",
+    "res://assets/audio/sfx/entities/pigeon_land_02.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 3,
+   "max_distance": 30,
+   "priority": 5,
+   "desc": "Flutter and land",
+   "length": 0.704
+  },
+  "pigeon_takeoff": {
+   "files": [
+    "res://assets/audio/sfx/entities/pigeon_takeoff_01.ogg",
+    "res://assets/audio/sfx/entities/pigeon_takeoff_02.ogg",
+    "res://assets/audio/sfx/entities/pigeon_takeoff_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 4,
+   "max_distance": 40,
+   "priority": 5,
+   "desc": "Wing claps on take-off",
+   "length": 0.873
+  },
+  "push_scrape": {
+   "files": [
+    "res://assets/audio/sfx/impacts/push_scrape_01.ogg",
+    "res://assets/audio/sfx/impacts/push_scrape_02.ogg",
+    "res://assets/audio/sfx/impacts/push_scrape_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "impacts",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.06,
+   "unit_size": 5.0,
+   "max_distance": 60,
+   "priority": 6,
+   "desc": "Object pushed along a ledge by a paw",
+   "length": 0.632
+  },
+  "rain_heavy_loop": {
+   "files": [
+    "res://assets/audio/ambience/weather/rain_heavy_loop.ogg"
+   ],
+   "category": "ambience",
+   "group": "weather",
+   "bus": "Ambience",
+   "loop": true,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 3.0,
+   "max_distance": 0.0,
+   "priority": 9,
+   "desc": "Heavy rain loop",
+   "length": 45.0
+  },
+  "rain_light_loop": {
+   "files": [
+    "res://assets/audio/ambience/weather/rain_light_loop.ogg"
+   ],
+   "category": "ambience",
+   "group": "weather",
+   "bus": "Ambience",
+   "loop": true,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 3.0,
+   "max_distance": 0.0,
+   "priority": 9,
+   "desc": "Light rain loop",
+   "length": 45.0
+  },
+  "rain_tin_loop": {
+   "files": [
+    "res://assets/audio/ambience/weather/rain_tin_loop.ogg"
+   ],
+   "category": "ambience",
+   "group": "weather",
+   "bus": "Ambience",
+   "loop": true,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 3.0,
+   "max_distance": 0.0,
+   "priority": 9,
+   "desc": "Rain drumming on corrugated iron (sheltered)",
+   "length": 40.0
+  },
+  "rooster": {
+   "files": [
+    "res://assets/audio/sfx/entities/rooster_01.ogg",
+    "res://assets/audio/sfx/entities/rooster_02.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 12,
+   "max_distance": 200,
+   "priority": 5,
+   "desc": "Rooster crow (dawn)",
+   "length": 1.26
+  },
+  "scooter_idle_loop": {
+   "files": [
+    "res://assets/audio/sfx/entities/scooter_idle_loop_01.ogg",
+    "res://assets/audio/sfx/entities/scooter_idle_loop_02.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": true,
+   "volume_db": 0.0,
+   "pitch_jitter": 0,
+   "unit_size": 4,
+   "max_distance": 60,
+   "priority": 5,
+   "desc": "Scooter idling (attach with play_loop; pitch_scale ~ rpm)",
+   "length": 4.0
+  },
+  "scooter_pass": {
+   "files": [
+    "res://assets/audio/sfx/entities/scooter_pass_01.ogg",
+    "res://assets/audio/sfx/entities/scooter_pass_02.ogg",
+    "res://assets/audio/sfx/entities/scooter_pass_03.ogg",
+    "res://assets/audio/sfx/entities/scooter_pass_04.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 8,
+   "max_distance": 120,
+   "priority": 5,
+   "desc": "Mono pass-by with baked Doppler",
+   "length": 5.974
+  },
+  "scooter_ride_loop": {
+   "files": [
+    "res://assets/audio/sfx/entities/scooter_ride_loop_01.ogg",
+    "res://assets/audio/sfx/entities/scooter_ride_loop_02.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": true,
+   "volume_db": 0.0,
+   "pitch_jitter": 0,
+   "unit_size": 6,
+   "max_distance": 90,
+   "priority": 5,
+   "desc": "Scooter cruising loop (CVT); use with doppler",
+   "length": 4.0
+  },
+  "scooter_start": {
+   "files": [
+    "res://assets/audio/sfx/entities/scooter_start_01.ogg",
+    "res://assets/audio/sfx/entities/scooter_start_02.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 5,
+   "max_distance": 60,
+   "priority": 5,
+   "desc": "Electric start, catch, idle",
+   "length": 2.994
+  },
+  "shutter_close": {
+   "files": [
+    "res://assets/audio/sfx/entities/shutter_close_01.ogg",
+    "res://assets/audio/sfx/entities/shutter_close_02.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 8,
+   "max_distance": 80,
+   "priority": 5,
+   "desc": "Roller shutter coming down + slam",
+   "length": 3.765
+  },
+  "shutter_open": {
+   "files": [
+    "res://assets/audio/sfx/entities/shutter_open_01.ogg",
+    "res://assets/audio/sfx/entities/shutter_open_02.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 8,
+   "max_distance": 80,
+   "priority": 5,
+   "desc": "Roller shutter going up",
+   "length": 3.609
+  },
+  "sparrow_chirp": {
+   "files": [
+    "res://assets/audio/sfx/entities/sparrow_chirp_01.ogg",
+    "res://assets/audio/sfx/entities/sparrow_chirp_02.ogg",
+    "res://assets/audio/sfx/entities/sparrow_chirp_03.ogg",
+    "res://assets/audio/sfx/entities/sparrow_chirp_04.ogg",
+    "res://assets/audio/sfx/entities/sparrow_chirp_05.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 4,
+   "max_distance": 50,
+   "priority": 5,
+   "desc": "Tree sparrow chirps",
+   "length": 0.637
+  },
+  "splash_big": {
+   "files": [
+    "res://assets/audio/sfx/impacts/splash_big_01.ogg",
+    "res://assets/audio/sfx/impacts/splash_big_02.ogg"
+   ],
+   "category": "sfx",
+   "group": "impacts",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.06,
+   "unit_size": 5.0,
+   "max_distance": 60,
+   "priority": 6,
+   "desc": "Cat falls into water",
+   "length": 1.757
+  },
+  "splash_small": {
+   "files": [
+    "res://assets/audio/sfx/impacts/splash_small_01.ogg",
+    "res://assets/audio/sfx/impacts/splash_small_02.ogg",
+    "res://assets/audio/sfx/impacts/splash_small_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "impacts",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.06,
+   "unit_size": 5.0,
+   "max_distance": 60,
+   "priority": 6,
+   "desc": "Small object / paw into water",
+   "length": 0.626
+  },
+  "step_asphalt": {
+   "files": [
+    "res://assets/audio/sfx/foley/step_asphalt_01.ogg",
+    "res://assets/audio/sfx/foley/step_asphalt_02.ogg",
+    "res://assets/audio/sfx/foley/step_asphalt_03.ogg",
+    "res://assets/audio/sfx/foley/step_asphalt_04.ogg",
+    "res://assets/audio/sfx/foley/step_asphalt_05.ogg",
+    "res://assets/audio/sfx/foley/step_asphalt_06.ogg"
+   ],
+   "category": "sfx",
+   "group": "foley",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.06,
+   "unit_size": 1.6,
+   "max_distance": 18,
+   "priority": 2,
+   "desc": "Cat paw step on asphalt (walk/sneak/trot)",
+   "length": 0.097
+  },
+  "step_asphalt_run": {
+   "files": [
+    "res://assets/audio/sfx/foley/step_asphalt_run_01.ogg",
+    "res://assets/audio/sfx/foley/step_asphalt_run_02.ogg",
+    "res://assets/audio/sfx/foley/step_asphalt_run_03.ogg",
+    "res://assets/audio/sfx/foley/step_asphalt_run_04.ogg"
+   ],
+   "category": "sfx",
+   "group": "foley",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.06,
+   "unit_size": 2.0,
+   "max_distance": 22,
+   "priority": 3,
+   "desc": "Cat paw step on asphalt at a run",
+   "length": 0.097
+  },
+  "step_concrete": {
+   "files": [
+    "res://assets/audio/sfx/foley/step_concrete_01.ogg",
+    "res://assets/audio/sfx/foley/step_concrete_02.ogg",
+    "res://assets/audio/sfx/foley/step_concrete_03.ogg",
+    "res://assets/audio/sfx/foley/step_concrete_04.ogg",
+    "res://assets/audio/sfx/foley/step_concrete_05.ogg",
+    "res://assets/audio/sfx/foley/step_concrete_06.ogg"
+   ],
+   "category": "sfx",
+   "group": "foley",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.06,
+   "unit_size": 1.6,
+   "max_distance": 18,
+   "priority": 2,
+   "desc": "Cat paw step on concrete (walk/sneak/trot)",
+   "length": 0.098
+  },
+  "step_concrete_run": {
+   "files": [
+    "res://assets/audio/sfx/foley/step_concrete_run_01.ogg",
+    "res://assets/audio/sfx/foley/step_concrete_run_02.ogg",
+    "res://assets/audio/sfx/foley/step_concrete_run_03.ogg",
+    "res://assets/audio/sfx/foley/step_concrete_run_04.ogg"
+   ],
+   "category": "sfx",
+   "group": "foley",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.06,
+   "unit_size": 2.0,
+   "max_distance": 22,
+   "priority": 3,
+   "desc": "Cat paw step on concrete at a run",
+   "length": 0.115
+  },
+  "step_dirt": {
+   "files": [
+    "res://assets/audio/sfx/foley/step_dirt_01.ogg",
+    "res://assets/audio/sfx/foley/step_dirt_02.ogg",
+    "res://assets/audio/sfx/foley/step_dirt_03.ogg",
+    "res://assets/audio/sfx/foley/step_dirt_04.ogg",
+    "res://assets/audio/sfx/foley/step_dirt_05.ogg",
+    "res://assets/audio/sfx/foley/step_dirt_06.ogg"
+   ],
+   "category": "sfx",
+   "group": "foley",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.06,
+   "unit_size": 1.6,
+   "max_distance": 18,
+   "priority": 2,
+   "desc": "Cat paw step on dirt (walk/sneak/trot)",
+   "length": 0.101
+  },
+  "step_dirt_run": {
+   "files": [
+    "res://assets/audio/sfx/foley/step_dirt_run_01.ogg",
+    "res://assets/audio/sfx/foley/step_dirt_run_02.ogg",
+    "res://assets/audio/sfx/foley/step_dirt_run_03.ogg",
+    "res://assets/audio/sfx/foley/step_dirt_run_04.ogg"
+   ],
+   "category": "sfx",
+   "group": "foley",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.06,
+   "unit_size": 2.0,
+   "max_distance": 22,
+   "priority": 3,
+   "desc": "Cat paw step on dirt at a run",
+   "length": 0.113
+  },
+  "step_fabric": {
+   "files": [
+    "res://assets/audio/sfx/foley/step_fabric_01.ogg",
+    "res://assets/audio/sfx/foley/step_fabric_02.ogg",
+    "res://assets/audio/sfx/foley/step_fabric_03.ogg",
+    "res://assets/audio/sfx/foley/step_fabric_04.ogg",
+    "res://assets/audio/sfx/foley/step_fabric_05.ogg",
+    "res://assets/audio/sfx/foley/step_fabric_06.ogg"
+   ],
+   "category": "sfx",
+   "group": "foley",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.06,
+   "unit_size": 1.6,
+   "max_distance": 18,
+   "priority": 2,
+   "desc": "Cat paw step on fabric (walk/sneak/trot)",
+   "length": 0.113
+  },
+  "step_fabric_run": {
+   "files": [
+    "res://assets/audio/sfx/foley/step_fabric_run_01.ogg",
+    "res://assets/audio/sfx/foley/step_fabric_run_02.ogg",
+    "res://assets/audio/sfx/foley/step_fabric_run_03.ogg",
+    "res://assets/audio/sfx/foley/step_fabric_run_04.ogg"
+   ],
+   "category": "sfx",
+   "group": "foley",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.06,
+   "unit_size": 2.0,
+   "max_distance": 22,
+   "priority": 3,
+   "desc": "Cat paw step on fabric at a run",
+   "length": 0.132
+  },
+  "step_grass": {
+   "files": [
+    "res://assets/audio/sfx/foley/step_grass_01.ogg",
+    "res://assets/audio/sfx/foley/step_grass_02.ogg",
+    "res://assets/audio/sfx/foley/step_grass_03.ogg",
+    "res://assets/audio/sfx/foley/step_grass_04.ogg",
+    "res://assets/audio/sfx/foley/step_grass_05.ogg",
+    "res://assets/audio/sfx/foley/step_grass_06.ogg"
+   ],
+   "category": "sfx",
+   "group": "foley",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.06,
+   "unit_size": 1.6,
+   "max_distance": 18,
+   "priority": 2,
+   "desc": "Cat paw step on grass (walk/sneak/trot)",
+   "length": 0.142
+  },
+  "step_grass_run": {
+   "files": [
+    "res://assets/audio/sfx/foley/step_grass_run_01.ogg",
+    "res://assets/audio/sfx/foley/step_grass_run_02.ogg",
+    "res://assets/audio/sfx/foley/step_grass_run_03.ogg",
+    "res://assets/audio/sfx/foley/step_grass_run_04.ogg"
+   ],
+   "category": "sfx",
+   "group": "foley",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.06,
+   "unit_size": 2.0,
+   "max_distance": 22,
+   "priority": 3,
+   "desc": "Cat paw step on grass at a run",
+   "length": 0.177
+  },
+  "step_metal": {
+   "files": [
+    "res://assets/audio/sfx/foley/step_metal_01.ogg",
+    "res://assets/audio/sfx/foley/step_metal_02.ogg",
+    "res://assets/audio/sfx/foley/step_metal_03.ogg",
+    "res://assets/audio/sfx/foley/step_metal_04.ogg",
+    "res://assets/audio/sfx/foley/step_metal_05.ogg",
+    "res://assets/audio/sfx/foley/step_metal_06.ogg"
+   ],
+   "category": "sfx",
+   "group": "foley",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.06,
+   "unit_size": 1.6,
+   "max_distance": 18,
+   "priority": 2,
+   "desc": "Cat paw step on metal (walk/sneak/trot)",
+   "length": 0.5
+  },
+  "step_metal_run": {
+   "files": [
+    "res://assets/audio/sfx/foley/step_metal_run_01.ogg",
+    "res://assets/audio/sfx/foley/step_metal_run_02.ogg",
+    "res://assets/audio/sfx/foley/step_metal_run_03.ogg",
+    "res://assets/audio/sfx/foley/step_metal_run_04.ogg"
+   ],
+   "category": "sfx",
+   "group": "foley",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.06,
+   "unit_size": 2.0,
+   "max_distance": 22,
+   "priority": 3,
+   "desc": "Cat paw step on metal at a run",
+   "length": 0.5
+  },
+  "step_plastic": {
+   "files": [
+    "res://assets/audio/sfx/foley/step_plastic_01.ogg",
+    "res://assets/audio/sfx/foley/step_plastic_02.ogg",
+    "res://assets/audio/sfx/foley/step_plastic_03.ogg",
+    "res://assets/audio/sfx/foley/step_plastic_04.ogg",
+    "res://assets/audio/sfx/foley/step_plastic_05.ogg",
+    "res://assets/audio/sfx/foley/step_plastic_06.ogg"
+   ],
+   "category": "sfx",
+   "group": "foley",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.06,
+   "unit_size": 1.6,
+   "max_distance": 18,
+   "priority": 2,
+   "desc": "Cat paw step on plastic (walk/sneak/trot)",
+   "length": 0.245
+  },
+  "step_plastic_run": {
+   "files": [
+    "res://assets/audio/sfx/foley/step_plastic_run_01.ogg",
+    "res://assets/audio/sfx/foley/step_plastic_run_02.ogg",
+    "res://assets/audio/sfx/foley/step_plastic_run_03.ogg",
+    "res://assets/audio/sfx/foley/step_plastic_run_04.ogg"
+   ],
+   "category": "sfx",
+   "group": "foley",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.06,
+   "unit_size": 2.0,
+   "max_distance": 22,
+   "priority": 3,
+   "desc": "Cat paw step on plastic at a run",
+   "length": 0.246
+  },
+  "step_roof_tile": {
+   "files": [
+    "res://assets/audio/sfx/foley/step_roof_tile_01.ogg",
+    "res://assets/audio/sfx/foley/step_roof_tile_02.ogg",
+    "res://assets/audio/sfx/foley/step_roof_tile_03.ogg",
+    "res://assets/audio/sfx/foley/step_roof_tile_04.ogg",
+    "res://assets/audio/sfx/foley/step_roof_tile_05.ogg",
+    "res://assets/audio/sfx/foley/step_roof_tile_06.ogg"
+   ],
+   "category": "sfx",
+   "group": "foley",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.06,
+   "unit_size": 1.6,
+   "max_distance": 18,
+   "priority": 2,
+   "desc": "Cat paw step on roof_tile (walk/sneak/trot)",
+   "length": 0.2
+  },
+  "step_roof_tile_run": {
+   "files": [
+    "res://assets/audio/sfx/foley/step_roof_tile_run_01.ogg",
+    "res://assets/audio/sfx/foley/step_roof_tile_run_02.ogg",
+    "res://assets/audio/sfx/foley/step_roof_tile_run_03.ogg",
+    "res://assets/audio/sfx/foley/step_roof_tile_run_04.ogg"
+   ],
+   "category": "sfx",
+   "group": "foley",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.06,
+   "unit_size": 2.0,
+   "max_distance": 22,
+   "priority": 3,
+   "desc": "Cat paw step on roof_tile at a run",
+   "length": 0.209
+  },
+  "step_tile": {
+   "files": [
+    "res://assets/audio/sfx/foley/step_tile_01.ogg",
+    "res://assets/audio/sfx/foley/step_tile_02.ogg",
+    "res://assets/audio/sfx/foley/step_tile_03.ogg",
+    "res://assets/audio/sfx/foley/step_tile_04.ogg",
+    "res://assets/audio/sfx/foley/step_tile_05.ogg",
+    "res://assets/audio/sfx/foley/step_tile_06.ogg"
+   ],
+   "category": "sfx",
+   "group": "foley",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.06,
+   "unit_size": 1.6,
+   "max_distance": 18,
+   "priority": 2,
+   "desc": "Cat paw step on tile (walk/sneak/trot)",
+   "length": 0.113
+  },
+  "step_tile_run": {
+   "files": [
+    "res://assets/audio/sfx/foley/step_tile_run_01.ogg",
+    "res://assets/audio/sfx/foley/step_tile_run_02.ogg",
+    "res://assets/audio/sfx/foley/step_tile_run_03.ogg",
+    "res://assets/audio/sfx/foley/step_tile_run_04.ogg"
+   ],
+   "category": "sfx",
+   "group": "foley",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.06,
+   "unit_size": 2.0,
+   "max_distance": 22,
+   "priority": 3,
+   "desc": "Cat paw step on tile at a run",
+   "length": 0.147
+  },
+  "step_water": {
+   "files": [
+    "res://assets/audio/sfx/foley/step_water_01.ogg",
+    "res://assets/audio/sfx/foley/step_water_02.ogg",
+    "res://assets/audio/sfx/foley/step_water_03.ogg",
+    "res://assets/audio/sfx/foley/step_water_04.ogg",
+    "res://assets/audio/sfx/foley/step_water_05.ogg",
+    "res://assets/audio/sfx/foley/step_water_06.ogg"
+   ],
+   "category": "sfx",
+   "group": "foley",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.06,
+   "unit_size": 1.6,
+   "max_distance": 18,
+   "priority": 2,
+   "desc": "Cat paw step on water (walk/sneak/trot)",
+   "length": 0.204
+  },
+  "step_water_run": {
+   "files": [
+    "res://assets/audio/sfx/foley/step_water_run_01.ogg",
+    "res://assets/audio/sfx/foley/step_water_run_02.ogg",
+    "res://assets/audio/sfx/foley/step_water_run_03.ogg",
+    "res://assets/audio/sfx/foley/step_water_run_04.ogg"
+   ],
+   "category": "sfx",
+   "group": "foley",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.06,
+   "unit_size": 2.0,
+   "max_distance": 22,
+   "priority": 3,
+   "desc": "Cat paw step on water at a run",
+   "length": 0.241
+  },
+  "step_wet": {
+   "files": [
+    "res://assets/audio/sfx/foley/step_wet_01.ogg",
+    "res://assets/audio/sfx/foley/step_wet_02.ogg",
+    "res://assets/audio/sfx/foley/step_wet_03.ogg",
+    "res://assets/audio/sfx/foley/step_wet_04.ogg",
+    "res://assets/audio/sfx/foley/step_wet_05.ogg",
+    "res://assets/audio/sfx/foley/step_wet_06.ogg"
+   ],
+   "category": "sfx",
+   "group": "foley",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 1.6,
+   "max_distance": 15,
+   "priority": 2,
+   "desc": "Wet layer added to steps while ground is wet",
+   "length": 0.077
+  },
+  "step_wood": {
+   "files": [
+    "res://assets/audio/sfx/foley/step_wood_01.ogg",
+    "res://assets/audio/sfx/foley/step_wood_02.ogg",
+    "res://assets/audio/sfx/foley/step_wood_03.ogg",
+    "res://assets/audio/sfx/foley/step_wood_04.ogg",
+    "res://assets/audio/sfx/foley/step_wood_05.ogg",
+    "res://assets/audio/sfx/foley/step_wood_06.ogg"
+   ],
+   "category": "sfx",
+   "group": "foley",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.06,
+   "unit_size": 1.6,
+   "max_distance": 18,
+   "priority": 2,
+   "desc": "Cat paw step on wood (walk/sneak/trot)",
+   "length": 0.214
+  },
+  "step_wood_run": {
+   "files": [
+    "res://assets/audio/sfx/foley/step_wood_run_01.ogg",
+    "res://assets/audio/sfx/foley/step_wood_run_02.ogg",
+    "res://assets/audio/sfx/foley/step_wood_run_03.ogg",
+    "res://assets/audio/sfx/foley/step_wood_run_04.ogg"
+   ],
+   "category": "sfx",
+   "group": "foley",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.06,
+   "unit_size": 2.0,
+   "max_distance": 22,
+   "priority": 3,
+   "desc": "Cat paw step on wood at a run",
+   "length": 0.223
+  },
+  "stinger_chase_end": {
+   "files": [
+    "res://assets/audio/music/stingers/stinger_chase_end.ogg"
+   ],
+   "category": "music",
+   "group": "stingers",
+   "bus": "Music",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 3.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "Escaped the dog — relief",
+   "length": 5.008
+  },
+  "stinger_discovery": {
+   "files": [
+    "res://assets/audio/music/stingers/stinger_discovery.ogg"
+   ],
+   "category": "music",
+   "group": "stingers",
+   "bus": "Music",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 3.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "Location discovered",
+   "length": 7.503
+  },
+  "stinger_festival": {
+   "files": [
+    "res://assets/audio/music/stingers/stinger_festival.ogg"
+   ],
+   "category": "music",
+   "group": "stingers",
+   "bus": "Music",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 3.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "Festival begins",
+   "length": 6.05
+  },
+  "stinger_memory": {
+   "files": [
+    "res://assets/audio/music/stingers/stinger_memory.ogg"
+   ],
+   "category": "music",
+   "group": "stingers",
+   "bus": "Music",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 3.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "Kỷ niệm memory photograph found",
+   "length": 10.209
+  },
+  "stinger_quest_complete": {
+   "files": [
+    "res://assets/audio/music/stingers/stinger_quest_complete.ogg"
+   ],
+   "category": "music",
+   "group": "stingers",
+   "bus": "Music",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 3.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "Main quest step complete (bigger than ui_quest_complete)",
+   "length": 7.232
+  },
+  "temple_bell": {
+   "files": [
+    "res://assets/audio/sfx/entities/temple_bell_01.ogg",
+    "res://assets/audio/sfx/entities/temple_bell_02.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 20,
+   "max_distance": 300,
+   "priority": 5,
+   "desc": "Bronze temple bell (stereo, long)",
+   "length": 10.0
+  },
+  "temple_woodblock": {
+   "files": [
+    "res://assets/audio/sfx/entities/temple_woodblock_01.ogg",
+    "res://assets/audio/sfx/entities/temple_woodblock_02.ogg",
+    "res://assets/audio/sfx/entities/temple_woodblock_03.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 6,
+   "max_distance": 60,
+   "priority": 5,
+   "desc": "Mõ wood block knocks",
+   "length": 0.761
+  },
+  "thunder_far": {
+   "files": [
+    "res://assets/audio/ambience/weather/thunder_far_01.ogg",
+    "res://assets/audio/ambience/weather/thunder_far_02.ogg",
+    "res://assets/audio/ambience/weather/thunder_far_03.ogg"
+   ],
+   "category": "ambience",
+   "group": "weather",
+   "bus": "Ambience",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 3.0,
+   "max_distance": 0.0,
+   "priority": 9,
+   "desc": "Distant rolling thunder (stereo)",
+   "length": 6.893
+  },
+  "thunder_near": {
+   "files": [
+    "res://assets/audio/ambience/weather/thunder_near_01.ogg",
+    "res://assets/audio/ambience/weather/thunder_near_02.ogg",
+    "res://assets/audio/ambience/weather/thunder_near_03.ogg"
+   ],
+   "category": "ambience",
+   "group": "weather",
+   "bus": "Ambience",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 3.0,
+   "max_distance": 0.0,
+   "priority": 9,
+   "desc": "Close thunder: crack + rumble (stereo)",
+   "length": 8.306
+  },
+  "tokay_call": {
+   "files": [
+    "res://assets/audio/sfx/entities/tokay_call_01.ogg",
+    "res://assets/audio/sfx/entities/tokay_call_02.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 10,
+   "max_distance": 120,
+   "priority": 5,
+   "desc": "Tokay gecko 'tắc kè' call",
+   "length": 7.362
+  },
+  "ui_back": {
+   "files": [
+    "res://assets/audio/ui/ui_back.ogg"
+   ],
+   "category": "ui",
+   "group": "",
+   "bus": "UI",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 1.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "Back/cancel (falling pluck)",
+   "length": 0.838
+  },
+  "ui_cat_sense_off": {
+   "files": [
+    "res://assets/audio/ui/ui_cat_sense_off.ogg"
+   ],
+   "category": "ui",
+   "group": "",
+   "bus": "UI",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 1.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "Cat-sense ends",
+   "length": 0.617
+  },
+  "ui_cat_sense_on": {
+   "files": [
+    "res://assets/audio/ui/ui_cat_sense_on.ogg"
+   ],
+   "category": "ui",
+   "group": "",
+   "bus": "UI",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 1.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "Cat-sense activated",
+   "length": 1.2
+  },
+  "ui_click": {
+   "files": [
+    "res://assets/audio/ui/ui_click_01.ogg",
+    "res://assets/audio/ui/ui_click_02.ogg"
+   ],
+   "category": "ui",
+   "group": "",
+   "bus": "UI",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 1.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "Button press",
+   "length": 0.344
+  },
+  "ui_collectible": {
+   "files": [
+    "res://assets/audio/ui/ui_collectible.ogg"
+   ],
+   "category": "ui",
+   "group": "",
+   "bus": "UI",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 1.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "Collectible / memory found",
+   "length": 2.6
+  },
+  "ui_confirm": {
+   "files": [
+    "res://assets/audio/ui/ui_confirm.ogg"
+   ],
+   "category": "ui",
+   "group": "",
+   "bus": "UI",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 1.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "Confirm/accept (rising pluck)",
+   "length": 1.2
+  },
+  "ui_dialogue_next": {
+   "files": [
+    "res://assets/audio/ui/ui_dialogue_next_01.ogg",
+    "res://assets/audio/ui/ui_dialogue_next_02.ogg",
+    "res://assets/audio/ui/ui_dialogue_next_03.ogg"
+   ],
+   "category": "ui",
+   "group": "",
+   "bus": "UI",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 1.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "Dialogue line advance blip",
+   "length": 0.156
+  },
+  "ui_discover": {
+   "files": [
+    "res://assets/audio/ui/ui_discover.ogg"
+   ],
+   "category": "ui",
+   "group": "",
+   "bus": "UI",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 1.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "New location discovered (short)",
+   "length": 2.4
+  },
+  "ui_error": {
+   "files": [
+    "res://assets/audio/ui/ui_error.ogg"
+   ],
+   "category": "ui",
+   "group": "",
+   "bus": "UI",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 1.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "Not allowed / error (soft double knock)",
+   "length": 0.456
+  },
+  "ui_hover": {
+   "files": [
+    "res://assets/audio/ui/ui_hover_01.ogg",
+    "res://assets/audio/ui/ui_hover_02.ogg"
+   ],
+   "category": "ui",
+   "group": "",
+   "bus": "UI",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 1.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "Focus/hover tick",
+   "length": 0.185
+  },
+  "ui_item_get": {
+   "files": [
+    "res://assets/audio/ui/ui_item_get.ogg"
+   ],
+   "category": "ui",
+   "group": "",
+   "bus": "UI",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 1.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "Item obtained",
+   "length": 1.3
+  },
+  "ui_level_up": {
+   "files": [
+    "res://assets/audio/ui/ui_level_up.ogg"
+   ],
+   "category": "ui",
+   "group": "",
+   "bus": "UI",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 1.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "Level up (sweep + bell chord)",
+   "length": 4.0
+  },
+  "ui_map_close": {
+   "files": [
+    "res://assets/audio/ui/ui_map_close.ogg"
+   ],
+   "category": "ui",
+   "group": "",
+   "bus": "UI",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 1.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "Map folds",
+   "length": 0.37
+  },
+  "ui_map_open": {
+   "files": [
+    "res://assets/audio/ui/ui_map_open.ogg"
+   ],
+   "category": "ui",
+   "group": "",
+   "bus": "UI",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 1.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "Map unfolds",
+   "length": 1.8
+  },
+  "ui_menu_close": {
+   "files": [
+    "res://assets/audio/ui/ui_menu_close.ogg"
+   ],
+   "category": "ui",
+   "group": "",
+   "bus": "UI",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 1.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "Menu closes",
+   "length": 0.761
+  },
+  "ui_menu_open": {
+   "files": [
+    "res://assets/audio/ui/ui_menu_open.ogg"
+   ],
+   "category": "ui",
+   "group": "",
+   "bus": "UI",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 1.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "Menu opens (swish + rising arpeggio)",
+   "length": 1.0
+  },
+  "ui_notify": {
+   "files": [
+    "res://assets/audio/ui/ui_notify.ogg"
+   ],
+   "category": "ui",
+   "group": "",
+   "bus": "UI",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 1.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "Toast notification (two bells)",
+   "length": 2.2
+  },
+  "ui_page": {
+   "files": [
+    "res://assets/audio/ui/ui_page_01.ogg",
+    "res://assets/audio/ui/ui_page_02.ogg"
+   ],
+   "category": "ui",
+   "group": "",
+   "bus": "UI",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 1.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "Journal page turn",
+   "length": 0.22
+  },
+  "ui_pause": {
+   "files": [
+    "res://assets/audio/ui/ui_pause.ogg"
+   ],
+   "category": "ui",
+   "group": "",
+   "bus": "UI",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 1.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "Pause (world muffles)",
+   "length": 0.5
+  },
+  "ui_quest_complete": {
+   "files": [
+    "res://assets/audio/ui/ui_quest_complete.ogg"
+   ],
+   "category": "ui",
+   "group": "",
+   "bus": "UI",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 1.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "Quest/objective complete",
+   "length": 3.2
+  },
+  "ui_quest_start": {
+   "files": [
+    "res://assets/audio/ui/ui_quest_start.ogg"
+   ],
+   "category": "ui",
+   "group": "",
+   "bus": "UI",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 1.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "Quest started",
+   "length": 2.4
+  },
+  "ui_save": {
+   "files": [
+    "res://assets/audio/ui/ui_save.ogg"
+   ],
+   "category": "ui",
+   "group": "",
+   "bus": "UI",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 1.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "Game saved",
+   "length": 1.8
+  },
+  "ui_skill_unlock": {
+   "files": [
+    "res://assets/audio/ui/ui_skill_unlock.ogg"
+   ],
+   "category": "ui",
+   "group": "",
+   "bus": "UI",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 1.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "Skill unlocked",
+   "length": 2.6
+  },
+  "ui_slider": {
+   "files": [
+    "res://assets/audio/ui/ui_slider_01.ogg",
+    "res://assets/audio/ui/ui_slider_02.ogg"
+   ],
+   "category": "ui",
+   "group": "",
+   "bus": "UI",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 1.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "Slider step tick",
+   "length": 0.06
+  },
+  "ui_unpause": {
+   "files": [
+    "res://assets/audio/ui/ui_unpause.ogg"
+   ],
+   "category": "ui",
+   "group": "",
+   "bus": "UI",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 1.0,
+   "max_distance": 0.0,
+   "priority": 10,
+   "desc": "Unpause",
+   "length": 0.45
+  },
+  "water_drip": {
+   "files": [
+    "res://assets/audio/sfx/entities/water_drip_01.ogg",
+    "res://assets/audio/sfx/entities/water_drip_02.ogg",
+    "res://assets/audio/sfx/entities/water_drip_03.ogg",
+    "res://assets/audio/sfx/entities/water_drip_04.ogg"
+   ],
+   "category": "sfx",
+   "group": "entities",
+   "bus": "SFX",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.04,
+   "unit_size": 2,
+   "max_distance": 15,
+   "priority": 5,
+   "desc": "Single drip into a puddle",
+   "length": 0.166
+  },
+  "wind_gust": {
+   "files": [
+    "res://assets/audio/ambience/weather/wind_gust_01.ogg",
+    "res://assets/audio/ambience/weather/wind_gust_02.ogg",
+    "res://assets/audio/ambience/weather/wind_gust_03.ogg",
+    "res://assets/audio/ambience/weather/wind_gust_04.ogg"
+   ],
+   "category": "ambience",
+   "group": "weather",
+   "bus": "Ambience",
+   "loop": false,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 3.0,
+   "max_distance": 0.0,
+   "priority": 9,
+   "desc": "Wind gust one-shot (stereo)",
+   "length": 4.399
+  },
+  "wind_storm_loop": {
+   "files": [
+    "res://assets/audio/ambience/weather/wind_storm_loop.ogg"
+   ],
+   "category": "ambience",
+   "group": "weather",
+   "bus": "Ambience",
+   "loop": true,
+   "volume_db": 0.0,
+   "pitch_jitter": 0.0,
+   "unit_size": 3.0,
+   "max_distance": 0.0,
+   "priority": 9,
+   "desc": "Storm wind loop",
+   "length": 60.0
+  }
+ }
+}

@@ -1,0 +1,23 @@
+{
+	"id": "fx_reach",
+	"category": "side",
+	"objectives": [
+		{
+			"id": "go_lake",
+			"type": "reach_location",
+			"target": "fx_lake",
+			"radius": 2.0
+		},
+		{
+			"id": "find_memory",
+			"type": "collect_item",
+			"item": "memory_02",
+			"optional": true,
+			"hidden": true,
+			"stage": 0
+		}
+	],
+	"rewards": {
+		"xp": 30
+	}
+}

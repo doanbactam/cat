@@ -1,0 +1,13 @@
+{
+	"id": "fx_bong_hi",
+	"speaker": "fx_bong",
+	"start": "hi",
+	"nodes": {
+		"hi": {
+			"text_key": "FX_BONG_HI",
+			"text_args": {
+				"who": "Cam"
+			}
+		}
+	}
+}

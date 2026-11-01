@@ -1,0 +1,43 @@
+{
+	"id": "fx_state",
+	"sequential": false,
+	"objectives": [
+		{
+			"id": "door",
+			"type": "flag_set",
+			"flag": "fx_door_open"
+		},
+		{
+			"id": "night",
+			"type": "time_window",
+			"from": 19,
+			"to": 5
+		},
+		{
+			"id": "charming",
+			"type": "condition",
+			"if": {
+				"attribute": "charm",
+				"gte": 3
+			}
+		},
+		{
+			"id": "secret",
+			"type": "event",
+			"event": "fx_secret",
+			"optional": true,
+			"hidden": true,
+			"rewards": {
+				"xp": 15
+			},
+			"effects": [
+				{
+					"set_flag": "fx_secret_found"
+				}
+			]
+		}
+	],
+	"rewards": {
+		"xp": 5
+	}
+}

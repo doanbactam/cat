@@ -1,0 +1,42 @@
+{
+	"id": "main_01_morning",
+	"category": "main",
+	"giver": "ba_tu",
+	"auto_start": true,
+	"objectives": [
+		{
+			"id": "climb_down",
+			"type": "reach_location",
+			"target": "tea_stall",
+			"radius": 3.0
+		},
+		{
+			"id": "greet_grandma",
+			"type": "talk_to",
+			"npc": "ba_tu"
+		},
+		{
+			"id": "sniff_counter",
+			"type": "interact",
+			"verb": "sniff",
+			"target": "stall_counter"
+		},
+		{
+			"id": "breakfast",
+			"type": "flag_set",
+			"flag": "fed_breakfast",
+			"optional": true,
+			"stage": 1,
+			"rewards": {
+				"xp": 10
+			}
+		}
+	],
+	"rewards": {
+		"xp": 50,
+		"flags": {
+			"figurine_missing": true
+		}
+	},
+	"next": "main_02_rumours"
+}

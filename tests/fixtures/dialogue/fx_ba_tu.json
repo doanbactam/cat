@@ -1,0 +1,122 @@
+{
+	"id": "fx_ba_tu",
+	"speaker": "ba_tu",
+	"speakers": {
+		"ba_tu": {
+			"name_key": "NPC_BA_TU",
+			"portrait": "res://assets/ui/portraits/ba_tu.png"
+		}
+	},
+	"start": [
+		{
+			"if": {
+				"quest": "fx_collect",
+				"state": "completed"
+			},
+			"node": "thanks"
+		},
+		{
+			"node": "greet"
+		}
+	],
+	"nodes": {
+		"greet": {
+			"speaker": "ba_tu",
+			"text_key": "FX_GREET",
+			"next": "ask",
+			"effects": [
+				{
+					"set_flag": "fx_greeted"
+				}
+			],
+			"anim": "talk"
+		},
+		"ask": {
+			"speaker": "ba_tu",
+			"text_key": "FX_ASK",
+			"choices": [
+				{
+					"action": "meow",
+					"effects": [
+						{
+							"add_rep": "humans",
+							"amount": 2
+						}
+					],
+					"next": "fed"
+				},
+				{
+					"action": "purr",
+					"text_key": "FX_PURR_SWEET",
+					"if": {
+						"attribute": "charm",
+						"gte": 3
+					},
+					"show_locked": true,
+					"effects": [
+						{
+							"set_flag": "fx_purred"
+						},
+						{
+							"add_xp": 10
+						}
+					],
+					"next": "happy"
+				},
+				{
+					"action": "headbutt",
+					"once": true,
+					"effects": [
+						{
+							"counter": "fx_headbutts"
+						}
+					],
+					"next": "ask"
+				},
+				{
+					"action": "hiss",
+					"if": {
+						"flag": "fx_never"
+					}
+				},
+				{
+					"action": "ignore",
+					"next": "end"
+				}
+			]
+		},
+		"fed": {
+			"speaker": "ba_tu",
+			"text_key": "FX_FED",
+			"effects": [
+				{
+					"eat": 30
+				},
+				{
+					"give_item": "dried_fish"
+				}
+			]
+		},
+		"happy": {
+			"speaker": "ba_tu",
+			"text_key": "FX_HAPPY",
+			"effects": [
+				{
+					"start_quest": "fx_collect"
+				}
+			],
+			"next": "end"
+		},
+		"thanks": {
+			"speaker": "ba_tu",
+			"text_key": "FX_THANKS",
+			"once": true,
+			"else": "thanks_again",
+			"next": "end"
+		},
+		"thanks_again": {
+			"speaker": "ba_tu",
+			"text_key": "FX_THANKS_AGAIN"
+		}
+	}
+}

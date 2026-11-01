@@ -1,0 +1,38 @@
+{
+	"id": "side_xam_leg_band",
+	"category": "side",
+	"giver": "xam",
+	"prerequisites": {
+		"quests": [
+			"main_01_morning"
+		]
+	},
+	"objectives": [
+		{
+			"id": "listen",
+			"type": "talk_to",
+			"npc": "xam"
+		},
+		{
+			"id": "find_band",
+			"type": "collect_item",
+			"item": "leg_band",
+			"target_id": "leg_band_spot"
+		},
+		{
+			"id": "return_band",
+			"type": "deliver_item",
+			"item": "leg_band",
+			"to": "xam"
+		}
+	],
+	"rewards": {
+		"xp": 60,
+		"reputation": {
+			"birds": 12
+		},
+		"items": {
+			"pigeon_feather": 1
+		}
+	}
+}

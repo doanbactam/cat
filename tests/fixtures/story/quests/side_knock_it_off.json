@@ -1,0 +1,25 @@
+{
+	"id": "side_knock_it_off",
+	"category": "misc",
+	"auto_start": true,
+	"prerequisites": {
+		"quests": [
+			"main_01_morning"
+		]
+	},
+	"objectives": [
+		{
+			"id": "knock20",
+			"type": "knock_objects",
+			"count": 20,
+			"count_existing": true
+		}
+	],
+	"rewards": {
+		"xp": 80,
+		"reputation": {
+			"rooftop_cats": 10,
+			"humans": -5
+		}
+	}
+}

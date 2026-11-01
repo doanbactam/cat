@@ -1,0 +1,17 @@
+{
+	"id": "fx_existing",
+	"objectives": [
+		{
+			"id": "mark3",
+			"type": "mark_territory",
+			"count": 3,
+			"count_existing": true,
+			"spots": [
+				"roof_a",
+				"roof_b",
+				"roof_c",
+				"roof_d"
+			]
+		}
+	]
+}

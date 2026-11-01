@@ -1,0 +1,29 @@
+{
+	"id": "fx_gated",
+	"fail_if": {
+		"flag": "fx_fail"
+	},
+	"objectives": [
+		{
+			"id": "race",
+			"type": "event",
+			"event": "fx_race",
+			"match": {
+				"track": "rooftops"
+			},
+			"when": {
+				"phase": "night"
+			}
+		},
+		{
+			"id": "festival_lantern",
+			"type": "interact",
+			"verb": "light",
+			"time_window": {
+				"from": 18,
+				"to": 23
+			},
+			"festival": true
+		}
+	]
+}

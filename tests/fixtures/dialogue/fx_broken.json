@@ -1,0 +1,27 @@
+{
+	"id": "fx_broken",
+	"start": "a",
+	"nodes": {
+		"a": {
+			"text_key": "X",
+			"next": "missing",
+			"choices": [
+				{
+					"action": "dance",
+					"next": "nowhere"
+				}
+			]
+		},
+		"b": {
+			"text_key": "Y",
+			"effects": [
+				{
+					"explode": true
+				}
+			],
+			"if": {
+				"colour": "red"
+			}
+		}
+	}
+}

@@ -1,0 +1,12 @@
+{
+	"id": "fx_pickup_mode",
+	"objectives": [
+		{
+			"id": "pick",
+			"type": "collect_item",
+			"item": "cap",
+			"count": 3,
+			"mode": "pickup"
+		}
+	]
+}

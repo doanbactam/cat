@@ -1,0 +1,38 @@
+{
+	"id": "fx_interact",
+	"category": "trial",
+	"objectives": [
+		{
+			"id": "scratch",
+			"type": "interact",
+			"verb": "scratch",
+			"target": "fx_post"
+		},
+		{
+			"id": "mark",
+			"type": "mark_territory",
+			"count": 2
+		},
+		{
+			"id": "nap",
+			"type": "nap",
+			"count": 1,
+			"min_hours": 1.0
+		},
+		{
+			"id": "knock",
+			"type": "knock_objects",
+			"count": 2
+		},
+		{
+			"id": "catch",
+			"type": "catch_prey",
+			"count": 1,
+			"prey": "pigeon"
+		}
+	],
+	"rewards": {
+		"xp": 50,
+		"attribute_points": 1
+	}
+}

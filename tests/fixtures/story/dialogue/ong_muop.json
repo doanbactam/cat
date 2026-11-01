@@ -1,0 +1,50 @@
+{
+	"id": "ong_muop",
+	"speaker": "ong_muop",
+	"start": [
+		{
+			"if": {
+				"quest": "side_muop_riddles",
+				"state": "active"
+			},
+			"node": "riddles"
+		},
+		{
+			"node": "wisdom"
+		}
+	],
+	"nodes": {
+		"riddles": {
+			"text_key": "STORY_MUOP_RIDDLES",
+			"choices": [
+				{
+					"action": "slow_blink"
+				},
+				{
+					"action": "sit"
+				}
+			]
+		},
+		"wisdom": {
+			"text_key": "STORY_MUOP_WISDOM",
+			"choices": [
+				{
+					"action": "sit",
+					"if": {
+						"quest": "side_muop_riddles",
+						"state": "available"
+					},
+					"effects": [
+						{
+							"start_quest": "side_muop_riddles"
+						}
+					],
+					"next": "riddles"
+				},
+				{
+					"action": "leave"
+				}
+			]
+		}
+	}
+}

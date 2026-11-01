@@ -1,0 +1,96 @@
+{
+	"id": "mun",
+	"speaker": "mun",
+	"start": [
+		{
+			"if": {
+				"objective": "meet_mun",
+				"quest": "main_04_rooftop_trials",
+				"done": false
+			},
+			"node": "challenge"
+		},
+		{
+			"if": {
+				"objective": "report_back",
+				"quest": "main_04_rooftop_trials",
+				"done": false
+			},
+			"node": "progress"
+		},
+		{
+			"node": "friend"
+		}
+	],
+	"nodes": {
+		"challenge": {
+			"text_key": "STORY_MUN_CHALLENGE",
+			"choices": [
+				{
+					"action": "stare",
+					"next": "trials"
+				},
+				{
+					"action": "hiss",
+					"next": "trials"
+				},
+				{
+					"action": "slow_blink",
+					"effects": [
+						{
+							"add_rep": "rooftop_cats",
+							"amount": 3
+						}
+					],
+					"next": "trials"
+				}
+			]
+		},
+		"trials": {
+			"text_key": "STORY_MUN_TRIALS"
+		},
+		"progress": {
+			"branch": [
+				{
+					"if": {
+						"all": [
+							{
+								"objective": "mark_three",
+								"quest": "main_04_rooftop_trials",
+								"done": true
+							},
+							{
+								"objective": "water_tower",
+								"quest": "main_04_rooftop_trials",
+								"done": true
+							},
+							{
+								"objective": "race",
+								"quest": "main_04_rooftop_trials",
+								"done": true
+							}
+						]
+					},
+					"next": "respect"
+				},
+				{
+					"next": "not_yet"
+				}
+			]
+		},
+		"not_yet": {
+			"text_key": "STORY_MUN_NOT_YET"
+		},
+		"respect": {
+			"text_key": "STORY_MUN_RESPECT",
+			"effects": [
+				{
+					"set_flag": "mun_friend"
+				}
+			]
+		},
+		"friend": {
+			"text_key": "STORY_MUN_FRIEND"
+		}
+	}
+}

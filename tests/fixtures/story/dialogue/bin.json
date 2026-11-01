@@ -1,0 +1,56 @@
+{
+	"id": "bin",
+	"speaker": "bin",
+	"start": [
+		{
+			"if": {
+				"quest": "side_bins_key",
+				"state": "completed"
+			},
+			"node": "play"
+		},
+		{
+			"if": {
+				"quest": "side_bins_key",
+				"state": "not_started"
+			},
+			"node": "crying"
+		},
+		{
+			"node": "hope"
+		}
+	],
+	"nodes": {
+		"crying": {
+			"text_key": "STORY_BIN_CRYING",
+			"choices": [
+				{
+					"action": "headbutt",
+					"effects": [
+						{
+							"start_quest": "side_bins_key"
+						}
+					]
+				},
+				{
+					"action": "leave"
+				}
+			]
+		},
+		"hope": {
+			"text_key": "STORY_BIN_HOPE"
+		},
+		"play": {
+			"text_key": "STORY_BIN_PLAY",
+			"anim": "pet_cat",
+			"choices": [
+				{
+					"action": "roll_over"
+				},
+				{
+					"action": "purr"
+				}
+			]
+		}
+	}
+}

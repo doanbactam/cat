@@ -1,0 +1,35 @@
+{
+	"id": "fx_collect",
+	"category": "main",
+	"giver": "ba_tu",
+	"objectives": [
+		{
+			"id": "caps",
+			"type": "collect_item",
+			"item": "cap",
+			"count": 5
+		},
+		{
+			"id": "give_fish",
+			"type": "deliver_item",
+			"item": "fish",
+			"to": "fx_crow",
+			"target_id": "fx_crow_marker"
+		}
+	],
+	"rewards": {
+		"xp": 120,
+		"caps": 3,
+		"items": {
+			"catnip": 1
+		},
+		"flags": {
+			"fx_collect_done": true
+		},
+		"reputation": {
+			"birds": 10
+		},
+		"skill_points": 1
+	},
+	"next": "fx_chain_next"
+}
