@@ -1,0 +1,13 @@
+# Godot 4
+.godot/
+*.translation
+export_presets.cfg
+*.tmp
+# Blender
+*.blend1
+*.blend@
+# Python
+__pycache__/
+*.pyc
+# QA output
+qa/out/
