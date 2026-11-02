@@ -271,3 +271,4 @@ anti_aliasing/quality/use_debanding=true
 global_illumination/sdfgi/probe_ray_count=2
 environment/defaults/default_clear_color=Color(0.07, 0.08, 0.1, 1)
 anti_aliasing/quality/use_taa=true
+occlusion_culling/use_occlusion_culling=true

@@ -12,8 +12,8 @@ func test_base_interactable_defaults() -> void:
 	assert_eq(it.target_id, &"Bell")
 	var shapes := it.get_children().filter(func(c: Node) -> bool: return c is CollisionShape3D)
 	assert_eq(shapes.size(), 1, "auto collision shape")
-	assert_eq(it.get_prompt(null), "PROMPT_INTERACT")
-	assert_eq(it.get_display_name(), "PROP_OBJECT", "never shows raw node names")
+	assert_eq(it.get_prompt(null), tr("PROMPT_INTERACT").format({"name": tr("PROP_OBJECT")}))
+	assert_eq(it.get_display_name(), tr("PROP_OBJECT"), "never shows raw node names")
 
 
 func test_distance_requirement_cooldown_one_shot() -> void:
@@ -28,7 +28,7 @@ func test_distance_requirement_cooldown_one_shot() -> void:
 	assert_false(it.can_interact(p), "too far")
 	it.global_position = Vector3(0.8, 0, 0)
 	assert_false(it.can_interact(p), "charm too low")
-	assert_true(it.get_prompt(p).contains("REQ_ATTRIBUTE"), "lock reason in prompt")
+	assert_true(it.get_prompt(p).contains(tr("ATTR_CHARM")), "lock reason in prompt")
 	GameState.set_attribute(&"charm", 3)
 	assert_true(it.can_interact(p))
 	var fired := [0]
@@ -55,7 +55,7 @@ func test_pickup_mouth_item_and_swap() -> void:
 	fish.item_id = &"fish"
 	root.add_child(fish)
 	assert_eq(fish.verb, &"pickup")
-	assert_eq(fish.get_prompt(p), "PROMPT_PICKUP_MOUTH")
+	assert_eq(fish.get_prompt(p), tr("PROMPT_PICKUP_MOUTH").format({"name": GameState.get_item_name(&"fish", true)}))
 	assert_not_null(fish.get_highlight_node(), "procedural/GLB visual created")
 	fish.interact(p)
 	assert_eq(GameState.mouth_item, &"fish")
@@ -66,7 +66,7 @@ func test_pickup_mouth_item_and_swap() -> void:
 	letter.item_id = &"letter"
 	root.add_child(letter)
 	letter.global_position = Vector3(0.5, 0, 0)
-	assert_eq(letter.get_prompt(p), "PROMPT_SWAP")
+	assert_eq(letter.get_prompt(p), tr("PROMPT_SWAP").format({"held": GameState.get_item_name(&"fish", true), "name": GameState.get_item_name(&"letter", true)}))
 	assert_true(letter.can_interact(p))
 	letter.interact(p)
 	assert_eq(GameState.mouth_item, &"letter")
@@ -84,7 +84,7 @@ func test_pickup_no_swap_blocks() -> void:
 	yarn.swap_if_mouth_full = false
 	spawn(yarn)
 	assert_false(yarn.can_interact(p))
-	assert_eq(yarn.get_lock_reason(p), "REQ_MOUTH_EMPTY")
+	assert_eq(yarn.get_lock_reason(p), tr("REQ_MOUTH_EMPTY"))
 
 
 func test_pickup_stash_persistent_and_respawn() -> void:
@@ -146,7 +146,7 @@ func test_talkable_delivers_and_starts_dialogue() -> void:
 	npc.add_child(t)
 	assert_eq(t.speaker_id, &"fx_crow", "speaker id from parent meta")
 	assert_eq(t.target_id, &"fx_crow")
-	assert_eq(t.get_prompt(p), "PROMPT_TALK")
+	assert_eq(t.get_prompt(p), tr("PROMPT_TALK").format({"name": "NPC_FX_CROW"}))
 	QuestManager.start_quest(&"fx_collect")
 	GameState.add_item(&"cap", 5)
 	GameState.add_item(&"fish")
@@ -207,7 +207,7 @@ func test_food_source_servings_refill_and_stealing() -> void:
 	bowl.interact(p)
 	assert_near(GameState.get_stat(&"hunger"), 70.0)
 	assert_false(bowl.can_interact(p), "empty")
-	assert_eq(bowl.get_lock_reason(p), "REQ_EMPTY")
+	assert_eq(bowl.get_lock_reason(p), tr("REQ_EMPTY"))
 	TimeOfDay.advance_hours(12.5)
 	assert_true(bowl.can_interact(p), "refilled")
 	var stall := FoodSource.new()
@@ -274,7 +274,7 @@ func test_scratch_post_and_territory_spot() -> void:
 	assert_true(visual.visible)
 	assert_true(spot.is_marked())
 	assert_false(spot.can_interact(p))
-	assert_eq(spot.get_lock_reason(p), "REQ_ALREADY_MARKED")
+	assert_eq(spot.get_lock_reason(p), tr("REQ_ALREADY_MARKED"))
 	assert_true(GameState.get_reputation(&"rooftop_cats") >= 5)
 
 

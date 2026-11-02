@@ -495,7 +495,8 @@ func get_tracked_objective() -> Dictionary:
 func get_tracked_target_position() -> Vector3:
 	if _tracked == &"" or not is_active(_tracked):
 		return Vector3.INF
-	var objs: Array = get_quest_def(_tracked)["objectives"]
+	# A save can track a quest whose JSON no longer exists.
+	var objs: Array = get_quest_def(_tracked).get("objectives", [])
 	for i in objs.size():
 		var o: Dictionary = objs[i]
 		if not _is_obj_active(_tracked, i):

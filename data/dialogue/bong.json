@@ -1,0 +1,61 @@
+{
+	"id": "bong",
+	"speaker": "bong",
+	"start": [
+		{
+			"if": {
+				"quest": "main_02_rumours",
+				"state": "active"
+			},
+			"node": "gossip"
+		},
+		{
+			"node": "lazy"
+		}
+	],
+	"nodes": {
+		"gossip": {
+			"text_key": "STORY_BONG_GOSSIP",
+			"choices": [
+				{
+					"action": "chirp",
+					"next": "crows"
+				},
+				{
+					"action": "groom",
+					"text_key": "STORY_C_GROOM_TOO",
+					"next": "crows"
+				},
+				{
+					"action": "hiss",
+					"effects": [
+						{
+							"add_rep": "rooftop_cats",
+							"amount": -2
+						}
+					],
+					"next": "huff"
+				}
+			]
+		},
+		"crows": {
+			"text_key": "STORY_BONG_CROWS",
+			"effects": [
+				{
+					"set_flag": "heard_crows"
+				}
+			]
+		},
+		"huff": {
+			"text_key": "STORY_BONG_HUFF",
+			"effects": [
+				{
+					"set_flag": "heard_crows"
+				}
+			]
+		},
+		"lazy": {
+			"text_key": "STORY_BONG_LAZY"
+		}
+	}
+}

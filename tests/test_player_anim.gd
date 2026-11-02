@@ -34,7 +34,7 @@ func _posed(sk: Skeleton3D, bone: int) -> Transform3D:
 
 
 func test_uses_real_cat_model() -> void:
-	ground()
+	Settings.reset_all(); ground()
 	var p := spawn_player(Vector3.ZERO)
 	await settle()
 	var model: Node3D = p.call(&"get_model")
@@ -47,7 +47,7 @@ func test_uses_real_cat_model() -> void:
 
 
 func test_clips_and_loops() -> void:
-	ground()
+	Settings.reset_all(); ground()
 	spawn_player(Vector3.ZERO)
 	await settle()
 	var a := _anim()
@@ -60,7 +60,7 @@ func test_clips_and_loops() -> void:
 
 
 func test_state_drives_tree() -> void:
-	ground()
+	Settings.reset_all(); ground()
 	var p := spawn_player(Vector3.ZERO)
 	await settle()
 	var a := _anim()
@@ -95,7 +95,7 @@ func test_gait_playback_matches_speed() -> void:
 
 
 func test_foot_ik_lifts_paw_on_raised_ground() -> void:
-	ground()
+	Settings.reset_all(); ground()
 	var p := spawn_player(Vector3.ZERO)
 	await settle()
 	await seconds(0.4)
@@ -115,7 +115,7 @@ func test_foot_ik_lifts_paw_on_raised_ground() -> void:
 
 
 func test_head_looks_at_target() -> void:
-	ground()
+	Settings.reset_all(); ground()
 	var p := spawn_player(Vector3.ZERO)
 	await settle()
 	var a := _anim()
@@ -135,7 +135,7 @@ func test_head_looks_at_target() -> void:
 
 
 func test_spring_bones_and_sockets() -> void:
-	ground()
+	Settings.reset_all(); ground()
 	var p := spawn_player(Vector3.ZERO)
 	await settle()
 	var a := _anim()
@@ -151,7 +151,7 @@ func test_spring_bones_and_sockets() -> void:
 
 
 func test_fur_built_from_settings() -> void:
-	ground()
+	Settings.reset_all(); ground()
 	var p := spawn_player(Vector3.ZERO)
 	await settle()
 	var fur: FurShells = p.get_node(^"Fur") as FurShells

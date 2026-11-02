@@ -103,19 +103,19 @@ TOE_TIP_L = F(0.031, -0.136, 0.007)
 CALCANEUS_L = F(0.034, -0.201, 0.066)
 
 # Face landmarks (head design space; see REFERENCE_HEAD for the world-space targets)
-EYE_L = F(0.0168, 0.2020, 0.2496)       # eyeball centre (sunk into the orbit: brow, bridge and
+EYE_L = F(0.0168, 0.2050, 0.2496)       # eyeball centre (sunk into the orbit: brow, bridge and
                                         # zygoma surround the cornea; lids overlap it)
 EYE_RADIUS = 0.0094       # design space (x HEAD_SCALE in world -> eyeball diameter ~21 mm)
-EYE_GAZE_OUT_DEG = 11.0                 # divergence from straight ahead
+EYE_GAZE_OUT_DEG = 9.0                 # divergence from straight ahead
 EYE_GAZE_UP_DEG = 2.0
 EYE_APERTURE_W = 0.0150                 # corner to corner (palpebral fissure)
 EYE_APERTURE_H = 0.0094                 # lid to lid (relaxed open)
 EYE_APERTURE_UP_FRAC = 0.46             # share of the height above the corner line (flatter upper lid)
 EYE_APERTURE_TILT_DEG = 13.0            # outer corner higher (almond slant)
-EYE_APERTURE_OUT_DEG = 14.0             # lid opening faces further outward than the gaze (cornea visible in profile)
+EYE_APERTURE_OUT_DEG = 10.0             # lid opening faces further outward than the gaze (cornea visible in profile)
 EAR_BASE_L = F(0.0255, 0.166, 0.2705)   # centre of the ear base on the skull
-EAR_HEIGHT = 0.046
-EAR_BASE_WIDTH = 0.038
+EAR_HEIGHT = 0.042
+EAR_BASE_WIDTH = 0.041
 WHISKER_PAD_L = F(0.0080, 0.2150, 0.2262)
 NOSE_TIP = F(0, 0.2250, 0.2345)
 
@@ -138,12 +138,12 @@ REFERENCE_HEAD = {
 # in design space before the similarity transform, lengthening the face without moving the
 # eyes (eyeball region masked out) or the skull/jaw hinge.  Applied by head_to_world() to
 # every head-space part, inverted by cat_sdf.world_to_head(), so all consumers stay in sync.
-MUZZLE_PUSH = 0.0060            # design metres at full weight
+MUZZLE_PUSH = 0.0085            # design metres at full weight
 MUZZLE_RAMP_F = (0.176, 0.212)  # forward ramp (design f)
-MUZZLE_Z = (0.196, 0.236, 0.252, 0.264)   # vertical window: rise, full, fall-start, zero
+MUZZLE_Z = (0.196, 0.230, 0.240, 0.262)   # vertical window: rise, full, fall-start, zero
 # Lower-face lift: lips, jaw and chin move up towards the nose (shorter philtrum, shallower
 # lower jaw); fades out above the nose leather and behind the jaw hinge (throat untouched).
-LOWER_FACE_LIFT = 0.0072
+LOWER_FACE_LIFT = 0.0095
 LOWER_FACE_F = (0.150, 0.178)
 LOWER_FACE_Z = (0.213, 0.2355)
 

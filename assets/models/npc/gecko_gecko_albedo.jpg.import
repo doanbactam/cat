@@ -2,13 +2,10 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ccqpjnyvrg6ef"
+uid="uid://coae7jyed16"
 path="res://.godot/imported/gecko_gecko_albedo.jpg-735e3089ac7f316f2aed730fb6688996.ctex"
 metadata={
 "vram_texture": false
-}
-generator_parameters={
-"md5": "0d68d1b3803c348ab978eaf1e062f495"
 }
 
 [deps]
@@ -26,7 +23,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

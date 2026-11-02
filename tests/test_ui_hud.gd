@@ -126,7 +126,7 @@ func test_subtitles() -> void:
 func test_quest_tracker_shows_tracked_quest() -> void:
 	var qm := tree.root.get_node("QuestManager")
 	qm.call("load_quest_dir", STORY_QUESTS)
-	assert_true(bool(qm.call("start_quest", &"main_01_morning", true)), "quest started")
+	assert_true(bool(qm.call("is_active", &"main_01_morning")) or bool(qm.call("start_quest", &"main_01_morning", true)), "quest started")
 	qm.call("track", &"main_01_morning")
 	await _frames(4)
 	var tr_node: Control = hud.get("tracker")

@@ -27,8 +27,8 @@ const BODY_MESH_NAMES: Array[String] = ["CatBody", "Body", "cat_body"]
 @export var albedo_override: Texture2D
 @export var tint := Color(1, 1, 1, 1)
 ## Metres of undercoat at mask R = 1 (cat-asset FUR_MAX_LENGTH 0.016 + guard-hair headroom);
-## guard hairs reach 1.35× this.
-@export var fur_length := 0.02
+## guard hairs reach 1.28× this.
+@export var fur_length := 0.015
 ## Player: own wet state from GameState. NPCs: the world's global wetness × influence.
 @export var use_game_state_wetness := true
 @export_range(0.0, 1.0) var global_wet_influence := 0.75
@@ -66,6 +66,7 @@ func attach_to_model(model: Node3D, body: Node3D = null) -> bool:
 		push_warning("FurShells: no body mesh under %s" % model.name)
 		return false
 	_build_base()
+	_enhance_eyes(model)
 	_requested = _settings_shell_count()
 	_rebuild_shells(_requested)
 	_prev_pos = _body.global_position if _body.is_inside_tree() else Vector3.ZERO
@@ -172,10 +173,10 @@ func _build_base() -> void:
 	_base_mat = ShaderMaterial.new()
 	_base_mat.shader = BASE_SHADER
 	var albedo: Texture2D = albedo_override
-	if albedo == null and std != null:
-		albedo = std.albedo_texture
 	if albedo == null:
 		albedo = _load_tex("cat_albedo.png")
+	if albedo == null and std != null:
+		albedo = std.albedo_texture
 	var normal: Texture2D = std.normal_texture if std != null else null
 	if normal == null:
 		normal = _load_tex("cat_normal.png")
@@ -185,6 +186,36 @@ func _build_base() -> void:
 	_base_mat.set_shader_parameter(&"orm_tex", orm)
 	_set_common(_base_mat, albedo)
 	mesh_instance.material_override = _base_mat
+
+
+func _enhance_eyes(root: Node) -> void:
+	var eyes := root.find_child("CatEyes", true, false) as MeshInstance3D
+	if eyes == null or eyes.mesh == null:
+		return
+	# Surface 0: Iris (preserve any custom override set by NPC spawner, otherwise upgrade default)
+	if eyes.get_surface_override_material(0) == null:
+		var iris_tex := _load_tex("cat_eye_iris.png")
+		if iris_tex != null:
+			var imat := StandardMaterial3D.new()
+			imat.albedo_texture = iris_tex
+			imat.roughness = 0.22
+			imat.metallic_specular = 0.65
+			imat.emission_enabled = true
+			imat.emission_texture = iris_tex
+			imat.emission_energy_multiplier = 0.14
+			eyes.set_surface_override_material(0, imat)
+	# Surface 1: Cornea (glossy wet tear-film layer with crisp specular reflection)
+	if eyes.mesh.get_surface_count() > 1:
+		var cmat := StandardMaterial3D.new()
+		cmat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+		cmat.albedo_color = Color(1.0, 1.0, 1.0, 0.12)
+		cmat.roughness = 0.02
+		cmat.metallic = 0.12
+		cmat.metallic_specular = 1.0
+		cmat.clearcoat_enabled = true
+		cmat.clearcoat = 1.0
+		cmat.clearcoat_roughness = 0.02
+		eyes.set_surface_override_material(1, cmat)
 
 
 func _set_common(m: ShaderMaterial, albedo: Texture2D) -> void:
@@ -264,8 +295,8 @@ static func get_strand_texture() -> ImageTexture:
 	guard.resize(size * size)
 	var rng := RandomNumberGenerator.new()
 	rng.seed = 90210
-	_splat(under, size, rng, 2300, Vector2(1.6, 2.8), Vector2(0.55, 1.0))
-	_splat(guard, size, rng, 260, Vector2(1.1, 1.7), Vector2(0.85, 1.0))
+	_splat(under, size, rng, 2500, Vector2(1.5, 2.6), Vector2(0.58, 1.0))
+	_splat(guard, size, rng, 280, Vector2(1.0, 1.6), Vector2(0.85, 1.0))
 	var noise := FastNoiseLite.new()
 	noise.seed = 4242
 	noise.noise_type = FastNoiseLite.TYPE_CELLULAR

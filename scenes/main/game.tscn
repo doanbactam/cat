@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/game.gd" id="1_g"]
+[ext_resource type="PackedScene" path="res://scenes/world/city.tscn" id="2_c"]
+[ext_resource type="PackedScene" path="res://scenes/npc/life_director.tscn" id="3_l"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="4_h"]
+
+[node name="Game" type="Node3D"]
+script = ExtResource("1_g")
+metadata/map_bounds = Rect2(-124, -98, 248, 212)
+
+[node name="City" parent="." instance=ExtResource("2_c")]
+
+[node name="LifeDirector" parent="." instance=ExtResource("3_l")]
+
+[node name="HUD" parent="." instance=ExtResource("4_h")]

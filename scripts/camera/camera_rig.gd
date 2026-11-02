@@ -326,7 +326,15 @@ func _update_camera(delta: float) -> void:
 	# --- TPP pose via the spring arm --------------------------------------------------------
 	_distance = lerpf(_distance, _distance_target + _frame_amount * 0.35, 1.0 - exp(-8.0 * maxf(delta, 0.0)))
 	_arm.spring_length = _distance
-	_arm.global_transform = Transform3D(Basis.from_euler(Vector3(pitch, yaw, 0.0)), _pivot + _arm_side())
+	# the lagged/shoulder-offset arm origin can sit inside a wall, where the arm's sweep cannot see
+	# it: pull the origin back along the ray from the cat's real pivot
+	var arm_origin := _pivot + _arm_side()
+	var real := _target_pivot()
+	var oq := PhysicsRayQueryParameters3D.create(real, arm_origin, collision_mask)
+	var ohit := get_world_3d().direct_space_state.intersect_ray(oq)
+	if not ohit.is_empty():
+		arm_origin = real + (ohit["position"] - real).limit_length(maxf(real.distance_to(ohit["position"]) - 0.12, 0.0))
+	_arm.global_transform = Transform3D(Basis.from_euler(Vector3(pitch, yaw, 0.0)), arm_origin)
 	_arm.force_update_transform()
 	var tpp_xf := Transform3D(_arm.global_transform.basis, _arm.global_position + _arm.global_transform.basis.z * _arm.get_hit_length())
 

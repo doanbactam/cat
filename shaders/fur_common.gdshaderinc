@@ -11,18 +11,18 @@ uniform sampler2D albedo_tex : source_color, filter_linear_mipmap_anisotropic, r
 uniform sampler2D fur_mask : hint_default_white, filter_linear_mipmap, repeat_disable;
 uniform sampler2D fur_flow : hint_default_black, filter_linear_mipmap, repeat_disable;
 uniform vec4 tint : source_color = vec4(1.0, 1.0, 1.0, 1.0);
-uniform float fur_length = 0.016;
+uniform float fur_length = 0.014;
 // flow map (tangent-space RG) → model space; flip if the source convention differs
 uniform float flow_sign_x = 1.0;
 uniform float flow_sign_y = 1.0;  // verified: dorsal fur combs toward the tail (-Z) with +1
 // how upright the strands stand (0 = combed flat along the flow, 1 = straight out)
-uniform float strand_lift = 0.38;
+uniform float strand_lift = 0.52;
 uniform float wet_darken = 0.58;
 uniform float global_wet_influence = 0.0;
-uniform float spec_primary = 0.16;
-uniform float spec_secondary = 0.22;
-uniform float rim_strength = 0.32;
-uniform float wrap_diffuse = 0.42;
+uniform float spec_primary = 0.18;
+uniform float spec_secondary = 0.28;
+uniform float rim_strength = 0.36;
+uniform float wrap_diffuse = 0.48;
 
 global uniform float wetness;
 global uniform float cat_sense;
@@ -37,12 +37,12 @@ instance uniform vec3 main_cam = vec3(0.0, -10000.0, 0.0);
 varying vec3 v_strand;
 varying float v_wet;
 
-// Local fur length, tapered towards bare openings (eyes, mouth, nose, pads): the blurred mask
-// (low mip) is small near them, so fur shortens smoothly instead of growing over the eyeball.
+// Local fur length, tapered towards bare openings (eyes, mouth, nose, pads, inner ears):
+// the blurred mask (low mip) is small near them, so fur shortens smoothly instead of spiking.
 float fur_len_factor(vec2 uv) {
 	float r = textureLod(fur_mask, uv, 0.0).r;
-	float near = textureLod(fur_mask, uv, 6.0).r;
-	return min(r, near * 1.15) * smoothstep(0.08, 0.3, near);
+	float near = textureLod(fur_mask, uv, 5.0).r;
+	return min(r, near * 1.12) * smoothstep(0.05, 0.24, r) * smoothstep(0.06, 0.26, near);
 }
 
 float fur_wet() {
@@ -55,7 +55,8 @@ vec3 fur_strand_dir(vec3 n, vec3 t, vec3 b, vec2 uv, float wet) {
 	vec3 comb = t * fl.x * flow_sign_x + b * fl.y * flow_sign_y;
 	float cl = length(comb);
 	comb = cl > 0.05 ? comb / cl : vec3(0.0);
-	float lift = mix(strand_lift, strand_lift * 0.55, wet);
+	float lf = fur_len_factor(uv);
+	float lift = mix(0.82, mix(strand_lift, strand_lift * 0.58, wet), smoothstep(0.08, 0.45, lf));
 	return normalize(n * lift + comb * (1.0 - lift) + n * 0.0001);
 }
 
@@ -72,10 +73,10 @@ void fur_fpp_discard(vec3 world_pos, vec3 cam_world) {
 void light() {
 	float ndl = dot(NORMAL, LIGHT);
 	float diff = clamp((ndl + wrap_diffuse) / (1.0 + wrap_diffuse), 0.0, 1.0);
-	diff *= diff;
-	// warm light bleeding through thin fur / ears at the terminator
-	float band = smoothstep(-0.3, 0.15, ndl) * (1.0 - smoothstep(0.15, 0.6, ndl));
-	vec3 sss = vec3(0.9, 0.38, 0.18) * band * 0.22;
+	diff = pow(diff, 1.65);
+	// warm golden-apricot light bleeding through plush fur & thin ears at the terminator
+	float band = smoothstep(-0.35, 0.18, ndl) * (1.0 - smoothstep(0.18, 0.65, ndl));
+	vec3 sss = vec3(0.96, 0.46, 0.18) * band * 0.26;
 	DIFFUSE_LIGHT += (vec3(diff) + sss) * ATTENUATION * LIGHT_COLOR / PI;
 	// Kajiya-Kay along the strand
 	vec3 T = normalize(v_strand);
@@ -85,8 +86,8 @@ void light() {
 	vec3 t2 = normalize(T + NORMAL * (shift - 0.22));
 	float th1 = dot(t1, H);
 	float th2 = dot(t2, H);
-	float e1 = mix(70.0, 220.0, v_wet);
-	float e2 = mix(18.0, 60.0, v_wet);
+	float e1 = mix(75.0, 220.0, v_wet);
+	float e2 = mix(20.0, 60.0, v_wet);
 	float s1 = pow(sqrt(max(0.0, 1.0 - th1 * th1)), e1);
 	float s2 = pow(sqrt(max(0.0, 1.0 - th2 * th2)), e2);
 	float vis = smoothstep(-0.1, 0.3, ndl);
@@ -94,7 +95,7 @@ void light() {
 	vec3 spec = (vec3(s1) * spec_primary * wet_boost + ALBEDO * s2 * spec_secondary) * vis;
 	SPECULAR_LIGHT += spec * ATTENUATION * LIGHT_COLOR / PI;
 	// backlit fuzz on the silhouette
-	float rim = pow(1.0 - clamp(dot(NORMAL, VIEW), 0.0, 1.0), 3.0);
+	float rim = pow(1.0 - clamp(dot(NORMAL, VIEW), 0.0, 1.0), 2.8);
 	float back = clamp(dot(-VIEW, LIGHT) * 0.5 + 0.5, 0.0, 1.0);
-	DIFFUSE_LIGHT += vec3(rim * back * back * rim_strength * (1.0 - v_wet * 0.6)) * ATTENUATION * LIGHT_COLOR / PI;
+	DIFFUSE_LIGHT += mix(vec3(1.0, 0.88, 0.72), ALBEDO * 1.35, 0.5) * (rim * back * back * rim_strength * (1.0 - v_wet * 0.6)) * ATTENUATION * LIGHT_COLOR / PI;
 }

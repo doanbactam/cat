@@ -1,0 +1,73 @@
+{
+	"id": "co_hoa",
+	"speaker": "co_hoa",
+	"start": [
+		{
+			"if": {
+				"all": [
+					{
+						"quest": "main_03_fish_market",
+						"state": "active"
+					},
+					{
+						"mouth_empty": true
+					},
+					{
+						"not_flag": "fish_charmed"
+					}
+				]
+			},
+			"node": "stall"
+		},
+		{
+			"node": "busy"
+		}
+	],
+	"nodes": {
+		"stall": {
+			"text_key": "STORY_HOA_STALL",
+			"choices": [
+				{
+					"action": "sit",
+					"text_key": "STORY_C_SIT_PRETTY",
+					"if": {
+						"attribute": "charm",
+						"gte": 3
+					},
+					"show_locked": true,
+					"next": "gift"
+				},
+				{
+					"action": "meow",
+					"next": "shoo"
+				},
+				{
+					"action": "leave"
+				}
+			]
+		},
+		"gift": {
+			"text_key": "STORY_HOA_GIFT",
+			"anim": "give",
+			"effects": [
+				{
+					"give_item": "fish"
+				},
+				{
+					"set_flag": "fish_charmed"
+				},
+				{
+					"add_rep": "humans",
+					"amount": 3
+				}
+			]
+		},
+		"shoo": {
+			"text_key": "STORY_HOA_SHOO",
+			"anim": "shoo"
+		},
+		"busy": {
+			"text_key": "STORY_HOA_BUSY"
+		}
+	}
+}

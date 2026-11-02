@@ -7,8 +7,10 @@ from __future__ import annotations
 import math
 import os
 
-import bmesh
-import bpy
+try: import bmesh
+except ImportError: bmesh = None
+try: import bpy
+except ImportError: bpy = None
 import numpy as np
 
 import cat_anatomy as A
@@ -99,7 +101,7 @@ def build_ear(name: str, side: int, col=None) -> bpy.types.Object:
     for i, hv in enumerate(h):
         vg.add([i], float(1.0 - 0.45 * hv), "REPLACE")
     sol = ob.modifiers.new("Solidify", "SOLIDIFY")
-    sol.thickness = 0.0020
+    sol.thickness = 0.0027
     sol.offset = -1.0
     sol.use_even_offset = True
     sol.use_rim = True

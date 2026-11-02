@@ -29,6 +29,10 @@ static func compute_bounds(scene: Node) -> Rect2:
 	if scene == null:
 		return DEFAULT_BOUNDS
 	var meta: Variant = scene.get_meta(&"map_bounds") if scene.has_meta(&"map_bounds") else null
+	if not (meta is Rect2) and scene.is_inside_tree():
+		var city_node := scene.get_tree().get_first_node_in_group(&"city")
+		if city_node != null and city_node.has_meta(&"map_bounds"):
+			meta = city_node.get_meta(&"map_bounds")
 	if meta is Rect2:
 		return meta
 	var have := false
@@ -58,7 +62,11 @@ static func compute_bounds(scene: Node) -> Rect2:
 ## Awaitable. Returns {} in headless mode or when there is no 3D world.
 static func capture(host: Node, resolution: int = 2048) -> Dictionary:
 	var tree := host.get_tree()
-	var scene := tree.current_scene
+	var scene: Node = tree.current_scene
+	if scene == null:
+		scene = tree.get_first_node_in_group(&"city")
+	if scene == null:
+		scene = host.owner if host.owner != null else tree.root
 	var cached := get_cached(scene)
 	if not cached.is_empty():
 		return cached
@@ -103,8 +111,20 @@ static func capture(host: Node, resolution: int = 2048) -> Dictionary:
 	host.add_child(sv)
 	cam.global_transform = Transform3D(Basis.from_euler(Vector3(-PI * 0.5, 0.0, 0.0)), Vector3(square.get_center().x, 250.0, square.get_center().y))
 	cam.current = true
+	var saved_vis: Array = []
+	for n in scene.find_children("*", "GeometryInstance3D", true, false):
+		var gi := n as GeometryInstance3D
+		if gi != null and gi.visibility_range_end > 0.0:
+			saved_vis.append([gi, gi.visibility_range_end, gi.visibility_range_end_margin])
+			gi.visibility_range_end = 0.0
+			gi.visibility_range_end_margin = 0.0
 	for i in 3:
 		await RenderingServer.frame_post_draw
+	for item: Array in saved_vis:
+		var gi := item[0] as GeometryInstance3D
+		if is_instance_valid(gi):
+			gi.visibility_range_end = float(item[1])
+			gi.visibility_range_end_margin = float(item[2])
 	var img := sv.get_texture().get_image()
 	sv.queue_free()
 	if img == null or img.is_empty():

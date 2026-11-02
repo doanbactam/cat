@@ -1,0 +1,185 @@
+{
+	"id": "ba_tu",
+	"speaker": "ba_tu",
+	"speakers": {
+		"ba_tu": {
+			"name_key": "NPC_BA_TU",
+			"portrait": "res://assets/ui/portraits/ba_tu.png"
+		}
+	},
+	"start": [
+		{
+			"if": {
+				"quest": "main_05_festival_night",
+				"state": "completed"
+			},
+			"node": "finale"
+		},
+		{
+			"if": {
+				"objective": "greet_grandma",
+				"quest": "main_01_morning",
+				"done": false
+			},
+			"node": "morning"
+		},
+		{
+			"if": {
+				"flag": "figurine_missing"
+			},
+			"node": "worried"
+		},
+		{
+			"node": "idle"
+		}
+	],
+	"nodes": {
+		"morning": {
+			"text_key": "STORY_BATU_MORNING",
+			"anim": "talk",
+			"next": "offer"
+		},
+		"offer": {
+			"text_key": "STORY_BATU_OFFER",
+			"choices": [
+				{
+					"action": "meow",
+					"text_key": "STORY_C_MEOW_BREAKFAST",
+					"next": "fed"
+				},
+				{
+					"action": "headbutt",
+					"effects": [
+						{
+							"add_rep": "humans",
+							"amount": 2
+						}
+					],
+					"next": "fed"
+				},
+				{
+					"action": "slow_blink",
+					"if": {
+						"attribute": "charm",
+						"gte": 3
+					},
+					"show_locked": true,
+					"effects": [
+						{
+							"add_rep": "humans",
+							"amount": 4
+						}
+					],
+					"next": "fed"
+				},
+				{
+					"action": "ignore",
+					"next": "sulk"
+				}
+			]
+		},
+		"fed": {
+			"text_key": "STORY_BATU_FED",
+			"anim": "pet_cat",
+			"effects": [
+				{
+					"eat": 35
+				},
+				{
+					"set_flag": "fed_breakfast"
+				}
+			],
+			"next": "missing"
+		},
+		"sulk": {
+			"text_key": "STORY_BATU_SULK",
+			"next": "missing"
+		},
+		"missing": {
+			"text_key": "STORY_BATU_MISSING",
+			"anim": "sad"
+		},
+		"worried": {
+			"text_key": "STORY_BATU_WORRIED",
+			"once": true,
+			"else": "worried_again",
+			"choices": [
+				{
+					"action": "rub",
+					"effects": [
+						{
+							"add_rep": "humans",
+							"amount": 1
+						}
+					]
+				},
+				{
+					"action": "purr",
+					"if": {
+						"skill": "ru_ru"
+					},
+					"effects": [
+						{
+							"modify_stat": "health",
+							"amount": 5
+						}
+					]
+				}
+			]
+		},
+		"worried_again": {
+			"text_key": "STORY_BATU_WORRIED_AGAIN"
+		},
+		"idle": {
+			"text_key": "STORY_BATU_IDLE",
+			"choices": [
+				{
+					"action": "meow",
+					"if": {
+						"stat": "hunger",
+						"lte": 40
+					},
+					"effects": [
+						{
+							"eat": 20
+						}
+					],
+					"next": "snack"
+				},
+				{
+					"action": "knead"
+				},
+				{
+					"action": "leave"
+				}
+			]
+		},
+		"snack": {
+			"text_key": "STORY_BATU_SNACK",
+			"anim": "pet_cat"
+		},
+		"finale": {
+			"text_key": "STORY_BATU_FINALE",
+			"once": true,
+			"else": "idle",
+			"anim": "hug_cat",
+			"effects": [
+				{
+					"set_flag": "finale_seen"
+				}
+			],
+			"next": "finale2"
+		},
+		"finale2": {
+			"text_key": "STORY_BATU_FINALE2",
+			"choices": [
+				{
+					"action": "purr"
+				},
+				{
+					"action": "knead"
+				}
+			]
+		}
+	}
+}

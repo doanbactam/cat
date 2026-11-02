@@ -71,6 +71,8 @@ func _apply_visibility_ranges() -> void:
 
 func _ready() -> void:
 	add_to_group(&"city")
+	if not has_meta(&"map_bounds"):
+		set_meta(&"map_bounds", Rect2(-124.0, -98.0, 248.0, 212.0))
 	weather = get_node_or_null(^"WeatherSystem")
 	environment_ctrl = get_node_or_null(^"WorldEnvironment")
 	night_lights = get_node_or_null(^"NightLights")

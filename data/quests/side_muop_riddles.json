@@ -1,0 +1,52 @@
+{
+	"id": "side_muop_riddles",
+	"category": "side",
+	"giver": "ong_muop",
+	"prerequisites": {
+		"quests": [
+			"main_02_rumours"
+		]
+	},
+	"objectives": [
+		{
+			"id": "visit_muop",
+			"type": "talk_to",
+			"npc": "ong_muop"
+		},
+		{
+			"id": "riddle_bridge",
+			"type": "reach_location",
+			"target": "riddle_bridge",
+			"radius": 2.0
+		},
+		{
+			"id": "riddle_bell",
+			"type": "reach_location",
+			"target": "riddle_bell",
+			"radius": 2.0
+		},
+		{
+			"id": "riddle_sun",
+			"type": "reach_location",
+			"target": "riddle_sun",
+			"radius": 2.0,
+			"time_window": {
+				"from": 6,
+				"to": 10
+			}
+		},
+		{
+			"id": "best_nap",
+			"type": "nap",
+			"spot": "muop_secret_nap",
+			"min_hours": 1.0
+		}
+	],
+	"rewards": {
+		"xp": 120,
+		"skill_points": 1,
+		"flags": {
+			"best_nap_found": true
+		}
+	}
+}

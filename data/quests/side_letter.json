@@ -1,0 +1,39 @@
+{
+	"id": "side_letter",
+	"category": "side",
+	"giver": "ba_tu",
+	"auto_start": true,
+	"prerequisites": {
+		"quests": [
+			"main_02_rumours"
+		]
+	},
+	"objectives": [
+		{
+			"id": "find_letter",
+			"type": "collect_item",
+			"item": "letter",
+			"target_id": "postman_bag"
+		},
+		{
+			"id": "carry_letter",
+			"type": "deliver_item",
+			"item": "letter",
+			"to": "ba_tu"
+		}
+	],
+	"rewards": {
+		"xp": 70,
+		"reputation": {
+			"humans": 10
+		},
+		"items": {
+			"memory_08": 1
+		},
+		"effects": [
+			{
+				"mark_collectible": "memory_08"
+			}
+		]
+	}
+}

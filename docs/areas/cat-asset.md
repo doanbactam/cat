@@ -73,3 +73,15 @@ pose_sleep|pose_run|pose_meow` for stills via `tools/screenshot.sh`).
   `target`/camera tweaks in `render_hero.py` and ~10 min of Cycles CPU.
 - The assets/models/cat/cat_cat_*.{jpg,png} files next to the GLB are Godot's extracted embedded
   textures (import side effect), not separate sources.
+
+## Tripo3D reference generation (`tools/tripo/tripo_cat.py`)
+Calls the Tripo3D v3 API (text-to-model / image-to-model, H3.1 `v3.1-20260211`, PBR, detailed) to
+produce a stylised "AAA + funny" cat as a *design reference* in `qa/out/tripo/<tag>/model.glb`.
+```bash
+export TRIPO_API_KEY=tsk_...                                   # https://platform.tripo3d.ai → API keys
+py -3 tools/tripo/tripo_cat.py --seed 7                       # text prompt (default: cheeky orange tabby)
+py -3 tools/tripo/tripo_cat.py --image docs/gallery/cat-asset_hero.jpg   # keep Cam's look, restyle
+py -3 tools/tripo/tripo_cat.py --dry-run                      # inspect payload, no credits
+```
+The Tripo mesh is NOT a drop-in for `cat.glb`: it has no contract rig/clips. Use it as the sculpt
+reference (shape proportions, face) and feed changes back into `cat_anatomy.py` / `cat_sdf.py`.

@@ -2,6 +2,7 @@
 	"id": "side_letter",
 	"category": "side",
 	"giver": "ba_tu",
+	"auto_start": true,
 	"prerequisites": {
 		"quests": [
 			"main_02_rumours"

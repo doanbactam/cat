@@ -5,8 +5,14 @@ from __future__ import annotations
 import heapq
 import time
 
-import bmesh
-import bpy
+try:
+    import bmesh
+except ImportError:
+    bmesh = None
+try:
+    import bpy
+except ImportError:
+    bpy = None
 import numpy as np
 
 

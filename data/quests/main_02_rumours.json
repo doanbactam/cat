@@ -1,0 +1,35 @@
+{
+	"id": "main_02_rumours",
+	"category": "main",
+	"giver": "ba_tu",
+	"prerequisites": {
+		"quests": [
+			"main_01_morning"
+		]
+	},
+	"objectives": [
+		{
+			"id": "ask_bong",
+			"type": "talk_to",
+			"npc": "bong"
+		},
+		{
+			"id": "find_banyan",
+			"type": "reach_location",
+			"target": "banyan",
+			"radius": 4.0
+		},
+		{
+			"id": "meet_crow",
+			"type": "talk_to",
+			"npc": "lao_qua"
+		}
+	],
+	"rewards": {
+		"xp": 80,
+		"reputation": {
+			"birds": 2
+		}
+	},
+	"next": "main_03_fish_market"
+}

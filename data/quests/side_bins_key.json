@@ -1,0 +1,43 @@
+{
+	"id": "side_bins_key",
+	"category": "side",
+	"giver": "bin",
+	"prerequisites": {
+		"quests": [
+			"main_01_morning"
+		]
+	},
+	"objectives": [
+		{
+			"id": "meet_bin",
+			"type": "talk_to",
+			"npc": "bin"
+		},
+		{
+			"id": "find_key",
+			"type": "collect_item",
+			"item": "key",
+			"target_id": "bins_key_spot"
+		},
+		{
+			"id": "return_key",
+			"type": "deliver_item",
+			"item": "key",
+			"to": "bin",
+			"time_window": {
+				"from": 7,
+				"to": 21
+			}
+		}
+	],
+	"rewards": {
+		"xp": 60,
+		"caps": 5,
+		"reputation": {
+			"humans": 8
+		},
+		"items": {
+			"toy_mouse": 1
+		}
+	}
+}

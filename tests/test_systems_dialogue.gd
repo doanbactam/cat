@@ -25,7 +25,7 @@ func test_full_conversation_flow_and_signals() -> void:
 	assert_eq(events_named(&"dialogue_started")[0][2], &"ba_tu")
 	var line := DialogueManager.get_current_line()
 	assert_eq(line["node_id"], "greet")
-	assert_eq(line["speaker_name"], "NPC_BA_TU")
+	assert_eq(line["speaker_name"], tr("NPC_BA_TU"))
 	assert_true(line["can_advance"])
 	assert_true(bool(GameState.get_flag(&"fx_greeted")), "node effects")
 	assert_false(DialogueManager.choose(0), "no choices on this node")
@@ -188,7 +188,7 @@ func test_conditions_module() -> void:
 	assert_true(C.validate({"flag": "a", "colour": "red"}).size() == 1)
 	assert_true(C.validate({"value": 3}).size() == 1, "no primary key")
 	var desc := C.describe([{"attribute": "charm", "gte": 3}, {"caps": 10}, {"flag": "secret"}])
-	assert_true(desc.contains("REQ_ATTRIBUTE") and desc.contains("REQ_CAPS"), desc)
+	assert_true(desc.contains(tr("REQ_ATTRIBUTE").format({"attribute": tr("ATTR_CHARM"), "value": 3})) and desc.contains(tr("REQ_CAPS").format({"count": 10})), desc)
 
 
 func test_effects_module() -> void:

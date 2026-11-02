@@ -197,7 +197,7 @@ def iris_texture(size: int = 1024, seed: int = 7, palette: str = "cam", limbus_d
     r_l = 0.5 * math.sin(math.radians(limbus_deg))
     rn = r / r_l
     pal = {
-        "cam": (hexc("a9bd3a"), hexc("eeb52c"), hexc("d98c1a"), hexc("5e3a0e")),     # green-gold -> amber
+        "cam": (hexc("cde042"), hexc("f5b92a"), hexc("db7c14"), hexc("452208")),     # luminous emerald-gold -> rich honey amber
         "green": (hexc("9db84a"), hexc("b7c25a"), hexc("8a9a36"), hexc("4a5520")),
         "copper": (hexc("d9902e"), hexc("e3a33c"), hexc("b8701f"), hexc("6a3d12")),
         "blue": (hexc("9fc3d8"), hexc("7fa9c9"), hexc("5f87ab"), hexc("2f4458")),
@@ -216,10 +216,10 @@ def iris_texture(size: int = 1024, seed: int = 7, palette: str = "cam", limbus_d
     coll = np.exp(-((rn - jag) / 0.025) ** 2)
     col = col * (1.0 + 0.35 * coll[..., None])
     # limbal ring + darkening to the edge
-    col = lerp(col, edge * 0.35, smoothstep(0.80, 1.0, t))
+    col = lerp(col, edge * 0.28, smoothstep(0.76, 1.0, t)) * (1.0 - (smoothstep(0.18, 0.44, v) * 0.34)[..., None])
     # pupil: vertical slit (lens-shaped), soft edge
     ph = 0.80 * r_l
-    pw = 0.11 * r_l
+    pw = 0.095 * r_l
     sl = np.clip(1.0 - (v / ph) ** 2, 0, 1)
     pupil_d = np.abs(u) - pw * np.sqrt(sl)
     pupil = 1.0 - smoothstep(-0.003, 0.004, pupil_d)

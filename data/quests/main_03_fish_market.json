@@ -1,0 +1,61 @@
+{
+	"id": "main_03_fish_market",
+	"category": "main",
+	"giver": "lao_qua",
+	"prerequisites": {
+		"quests": [
+			"main_02_rumours"
+		]
+	},
+	"objectives": [
+		{
+			"id": "get_fish",
+			"type": "collect_item",
+			"item": "fish",
+			"stage": 0,
+			"target_id": "co_hoa"
+		},
+		{
+			"id": "get_caps",
+			"type": "collect_item",
+			"item": "cap",
+			"count": 10,
+			"stage": 0
+		},
+		{
+			"id": "charmed",
+			"type": "flag_set",
+			"flag": "fish_charmed",
+			"optional": true,
+			"hidden": true,
+			"stage": 0,
+			"rewards": {
+				"xp": 30,
+				"reputation": {
+					"humans": 5
+				}
+			}
+		},
+		{
+			"id": "give_fish",
+			"type": "deliver_item",
+			"item": "fish",
+			"to": "lao_qua",
+			"stage": 1
+		},
+		{
+			"id": "pay_caps",
+			"type": "flag_set",
+			"flag": "crow_told_secret",
+			"stage": 2,
+			"target_id": "lao_qua"
+		}
+	],
+	"rewards": {
+		"xp": 120,
+		"reputation": {
+			"birds": 10
+		}
+	},
+	"next": "main_04_rooftop_trials"
+}

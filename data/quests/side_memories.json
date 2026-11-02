@@ -1,0 +1,50 @@
+{
+	"id": "side_memories",
+	"category": "side",
+	"auto_start": true,
+	"prerequisites": {
+		"if": {
+			"counter": "memories_found",
+			"gte": 1
+		}
+	},
+	"objectives": [
+		{
+			"id": "four",
+			"type": "condition",
+			"if": {
+				"counter": "memories_found",
+				"gte": 4
+			},
+			"rewards": {
+				"xp": 40
+			}
+		},
+		{
+			"id": "eight",
+			"type": "condition",
+			"if": {
+				"counter": "memories_found",
+				"gte": 8
+			},
+			"rewards": {
+				"xp": 60
+			}
+		},
+		{
+			"id": "twelve",
+			"type": "condition",
+			"if": {
+				"counter": "memories_found",
+				"gte": 12
+			}
+		}
+	],
+	"rewards": {
+		"xp": 150,
+		"skill_points": 1,
+		"flags": {
+			"memories_complete": true
+		}
+	}
+}

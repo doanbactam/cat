@@ -1,0 +1,189 @@
+{
+	"id": "lao_qua",
+	"speaker": "lao_qua",
+	"start": [
+		{
+			"if": {
+				"all": [
+					{
+						"quest": "main_02_rumours",
+						"state": "active"
+					},
+					{
+						"flag": "heard_crows"
+					}
+				]
+			},
+			"node": "demand"
+		},
+		{
+			"if": {
+				"all": [
+					{
+						"objective": "give_fish",
+						"quest": "main_03_fish_market",
+						"done": true
+					},
+					{
+						"not_flag": "crow_told_secret"
+					}
+				]
+			},
+			"node": "pay"
+		},
+		{
+			"if": {
+				"quest": "main_05_festival_night",
+				"state": "active"
+			},
+			"node": "nest_hint"
+		},
+		{
+			"node": "shop"
+		}
+	],
+	"nodes": {
+		"demand": {
+			"text_key": "STORY_QUA_DEMAND",
+			"choices": [
+				{
+					"action": "meow",
+					"next": "terms"
+				},
+				{
+					"action": "hiss",
+					"effects": [
+						{
+							"add_rep": "birds",
+							"amount": -3
+						}
+					],
+					"next": "terms"
+				}
+			]
+		},
+		"terms": {
+			"text_key": "STORY_QUA_TERMS"
+		},
+		"pay": {
+			"text_key": "STORY_QUA_PAY",
+			"choices": [
+				{
+					"action": "offer_item",
+					"text_key": "STORY_C_PAY_CAPS",
+					"if": {
+						"caps": 10
+					},
+					"show_locked": true,
+					"effects": [
+						{
+							"take_item": "cap",
+							"count": 10
+						},
+						{
+							"set_flag": "crow_told_secret"
+						}
+					],
+					"next": "secret"
+				},
+				{
+					"action": "leave"
+				}
+			]
+		},
+		"secret": {
+			"text_key": "STORY_QUA_SECRET"
+		},
+		"nest_hint": {
+			"text_key": "STORY_QUA_NEST_HINT"
+		},
+		"shop": {
+			"text_key": "STORY_QUA_SHOP",
+			"choices": [
+				{
+					"action": "meow",
+					"text_key": "STORY_C_BUY_COLLAR",
+					"if": {
+						"caps": 15
+					},
+					"show_locked": true,
+					"effects": [
+						{
+							"buy": "collar_red",
+							"price": 15
+						}
+					],
+					"next": "deal"
+				},
+				{
+					"action": "chirp",
+					"text_key": "STORY_C_BUY_TONIC",
+					"if": {
+						"caps": 10
+					},
+					"show_locked": true,
+					"effects": [
+						{
+							"buy": "herbal_tonic",
+							"price": 10
+						}
+					],
+					"next": "deal"
+				},
+				{
+					"action": "offer_item",
+					"text_key": "STORY_C_SELL_SHINY",
+					"if": {
+						"any": [
+							{
+								"mouth": "silver_spoon"
+							},
+							{
+								"mouth": "glass_marble"
+							},
+							{
+								"mouth": "brass_bell"
+							}
+						]
+					},
+					"effects": [
+						{
+							"if": {
+								"mouth": "silver_spoon"
+							},
+							"then": [
+								{
+									"sell": "silver_spoon"
+								}
+							],
+							"else": [
+								{
+									"if": {
+										"mouth": "glass_marble"
+									},
+									"then": [
+										{
+											"sell": "glass_marble"
+										}
+									],
+									"else": [
+										{
+											"sell": "brass_bell"
+										}
+									]
+								}
+							]
+						}
+					],
+					"next": "deal"
+				},
+				{
+					"action": "leave"
+				}
+			]
+		},
+		"deal": {
+			"text_key": "STORY_QUA_DEAL"
+		}
+	}
+}

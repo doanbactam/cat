@@ -1,0 +1,70 @@
+{
+	"id": "main_05_festival_night",
+	"category": "main",
+	"giver": "lao_qua",
+	"prerequisites": {
+		"quests": [
+			"main_04_rooftop_trials"
+		]
+	},
+	"objectives": [
+		{
+			"id": "wait_festival",
+			"type": "condition",
+			"if": {
+				"festival_night": true
+			},
+			"stage": 0
+		},
+		{
+			"id": "climb_temple",
+			"type": "reach_location",
+			"target": "temple_roof",
+			"radius": 2.0,
+			"stage": 1,
+			"when": {
+				"festival_night": true
+			}
+		},
+		{
+			"id": "take_figurine",
+			"type": "collect_item",
+			"item": "lucky_cat_figurine",
+			"stage": 2,
+			"target_id": "crow_nest"
+		},
+		{
+			"id": "borrowed_things",
+			"type": "collect_item",
+			"item": "hair_clip",
+			"optional": true,
+			"hidden": true,
+			"stage": 2,
+			"rewards": {
+				"xp": 20
+			}
+		},
+		{
+			"id": "bring_home",
+			"type": "deliver_item",
+			"item": "lucky_cat_figurine",
+			"to": "ba_tu",
+			"stage": 3
+		}
+	],
+	"rewards": {
+		"xp": 300,
+		"reputation": {
+			"humans": 20
+		},
+		"flags": {
+			"story_complete": true
+		},
+		"effects": [
+			{
+				"notify": "STORY_NOTIFY_THE_END",
+				"icon": "story"
+			}
+		]
+	}
+}
