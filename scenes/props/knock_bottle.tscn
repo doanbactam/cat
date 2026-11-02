@@ -25,7 +25,7 @@ _surfaces = [{
 height = 0.25
 radius = 0.032
 
-[node name="Knock_bottle" type="RigidBody3D" unique_id=1334491136]
+[node name="Knock_bottle" type="RigidBody3D" unique_id=679096772]
 mass = 0.35
 sleeping = true
 script = ExtResource("1_avue5")
@@ -33,11 +33,11 @@ break_height = 1.0
 metadata/mass = 0.35
 metadata/name_key = "PROP_BOTTLE"
 
-[node name="Mesh" type="MeshInstance3D" parent="." unique_id=2110794216]
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=655160453]
 visibility_range_end = 45.0
 visibility_range_end_margin = 5.0
 mesh = SubResource("ArrayMesh_udmxg")
 
-[node name="Shape" type="CollisionShape3D" parent="." unique_id=1273012930]
+[node name="Shape" type="CollisionShape3D" parent="." unique_id=1068514372]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 0)
 shape = SubResource("CylinderShape3D_w6mcu")

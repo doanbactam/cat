@@ -34,6 +34,7 @@ def import_npc(cid, clip, frame, loc, rot_z=0.0):
     roots = [o for o in new if o.parent is None]
     for r in roots:
         r.location = Vector(loc)
+        r.rotation_mode = "XYZ"
         r.rotation_euler = (0, 0, math.radians(rot_z))
     if arm is not None:
         cands = [a for a in new_acts if a.name.split(".")[0].split("|")[-1] == clip or
@@ -66,7 +67,7 @@ def main():
         for i, (cid, clip, fr) in enumerate(HUMANS):
             items.append((cid, clip, fr, ((i - (n - 1) / 2) * 0.72, 0.0, 0.0), 0))
     if WHICH in ("animals", "all"):
-        place = {"dog": (-0.75, 0.15, 0, -40), "crow": (-0.05, 0.1, 0, -30), "pigeon": (0.33, 0.05, 0, -35),
+        place = {"dog": (-0.75, 0.15, 0, -75), "crow": (-0.05, 0.1, 0, -30), "pigeon": (0.33, 0.05, 0, -35),
                  "sparrow": (0.62, 0.0, 0, -30), "mouse": (0.84, -0.05, 0, -50), "gecko": (1.02, -0.1, 0, -60),
                  "koi": (0.25, -0.45, 0.06, -75)}
         for cid, clip, fr in ANIMALS:
@@ -97,10 +98,22 @@ def main():
     xs = [it[3][0] for it in items]
     box = C.box("cat_ref", (0.13, 0.46, 0.25), (min(xs) - 0.5, -0.2 if WHICH != "animals" else 0.0, 0))
     C.assign(box, C.principled("cat_ref_mat", (0.8, 0.38, 0.1, 1), 0.7))
+    # the real player cat next to the box (read-only use of the cat-asset model), if it exists
+    cat_glb = C.asset_path("models/cat/cat.glb")
+    if os.path.exists(cat_glb):
+        before = set(bpy.data.objects)
+        bpy.ops.import_scene.gltf(filepath=cat_glb)
+        for o in [o for o in bpy.data.objects if o not in before]:
+            if o.animation_data:
+                o.animation_data.action = None
+            if o.parent is None:
+                o.location = Vector((min(xs) - 0.25, 0.45 if WHICH != "animals" else -0.55, 0))
+                o.rotation_mode = "XYZ"
+                o.rotation_euler = (0, 0, math.radians(-60))
     if WHICH == "animals":
-        tgt, dist, pitch, lens = (0.0, -0.05, 0.2), 3.2, 14, 40
+        tgt, dist, pitch, lens = (-0.25, -0.15, 0.2), 3.4, 14, 40
     elif WHICH == "humans":
-        tgt, dist, pitch, lens = (0.0, 0.0, 0.85), 10.2, 6, 50
+        tgt, dist, pitch, lens = (-0.2, 0.0, 0.85), 11.8, 6, 50
     else:
         tgt, dist, pitch, lens = (0.0, -0.4, 0.7), 9.5, 10, 50
     C.preview_render(C.qa_path(f"creatures/lineup_{WHICH}.png"), target=tgt, distance=dist, yaw_deg=0,

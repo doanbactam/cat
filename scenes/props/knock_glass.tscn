@@ -25,7 +25,7 @@ _surfaces = [{
 height = 0.1
 radius = 0.036
 
-[node name="Knock_glass" type="RigidBody3D" unique_id=232083925]
+[node name="Knock_glass" type="RigidBody3D" unique_id=2564970]
 mass = 0.16
 sleeping = true
 script = ExtResource("1_ii61i")
@@ -33,11 +33,11 @@ break_height = 0.9
 metadata/mass = 0.16
 metadata/name_key = "PROP_GLASS"
 
-[node name="Mesh" type="MeshInstance3D" parent="." unique_id=2054289641]
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=116693669]
 visibility_range_end = 45.0
 visibility_range_end_margin = 5.0
 mesh = SubResource("ArrayMesh_voapu")
 
-[node name="Shape" type="CollisionShape3D" parent="." unique_id=1694998891]
+[node name="Shape" type="CollisionShape3D" parent="." unique_id=608361033]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
 shape = SubResource("CylinderShape3D_84xlw")

@@ -24,6 +24,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."
 import common as C          # noqa: E402
 import nature_godot as G    # noqa: E402
 import vehicles_lib as V    # noqa: E402
+import vehicles_car as K    # noqa: E402
 
 OUT = "models/vehicles"
 CATALOG = C.asset_path(f"{OUT}/catalog.json")
@@ -74,7 +75,39 @@ def kickstand(x, y, z_top, material="veh_steel_dark"):
     return V.tube("stand", [(x, y, z_top), (x + 0.12, y + 0.08, 0.015)], 0.009, material, 6, 0)
 
 
+def lamp_markers(parts):
+    """LIGHT_head_<i> / LIGHT_tail_<i> empties at the centre of every head/tail lamp lens (lenses closer than
+    0.2 m are merged).  The post-import script turns them into SpotLight3D / OmniLight3D nodes."""
+    groups = {"head": [], "tail": []}
+    for p in parts:
+        if p is None or p.type != "MESH" or not p.data.materials:
+            continue
+        names = {m.name for m in p.data.materials if m}
+        for kind in ("head", "tail"):
+            if f"veh_light_{kind}" not in names:
+                continue
+            idx = [i for i, m in enumerate(p.data.materials) if m and m.name == f"veh_light_{kind}"]
+            pts = [p.matrix_world @ v.co for poly in p.data.polygons if poly.material_index in idx
+                   for v in (p.data.vertices[k] for k in poly.vertices)]
+            if not pts:
+                continue
+            c = sum(pts, Vector()) / len(pts)
+            for g in groups[kind]:
+                if (g[0] / g[1] - c).length < 0.2:
+                    g[0] += c
+                    g[1] += 1
+                    break
+            else:
+                groups[kind].append([c, 1])
+    out = []
+    for kind, gs in groups.items():
+        for i, (acc, n) in enumerate(gs):
+            out.append(V.marker(f"LIGHT_{kind}_{i}", acc / n))
+    return out
+
+
 def finish(vid, body_parts, wheels, colliders, markers, entry, preview=True, mud=0.5, view=None, wear_seed=1):
+    markers = list(markers) + lamp_markers(body_parts)
     body = V.finish_body(body_parts, f"{vid}_body")
     V.bake_wear([body], mud=mud, wheels=wheels, seed=wear_seed)
     objs = [body] + list(wheels) + list(colliders) + list(markers)
@@ -96,7 +129,10 @@ def finish(vid, body_parts, wheels, colliders, markers, entry, preview=True, mud
         "floors": 0, "style": "vehicle", "climb_points": [], "nap_spots": [], "entrances": [],
         "wheels": [{"node": w.name, "radius": round(w.get("radius", 0.3), 3),
                     "position": G.to_godot(w.location)} for w in wheels],
-        "wheel_spin_axis": "x", "tris": st["tris"], "materials": st["materials"], "dynamic": False,
+        "wheel_spin_axis": "x",
+        "lights": [{"node": m.name, "kind": m.name.split("_")[1], "position": G.to_godot(m.location)}
+                   for m in markers if m.name.startswith("LIGHT_")],
+        "tris": st["tris"], "materials": st["materials"], "dynamic": False,
         "surface": "metal",
     }
     base.update(entry)
@@ -108,6 +144,10 @@ def finish(vid, body_parts, wheels, colliders, markers, entry, preview=True, mud
         C.preview_render(C.qa_path(f"vehicles-nature/veh_{vid}.png"), target=v.get("target", (0, 0, base["height"] * 0.45)),
                          distance=v.get("distance", L * 1.9), yaw_deg=v.get("yaw", 55), pitch_deg=v.get("pitch", 12),
                          res=(640, 480), samples=24, lens=45, sun_strength=4.0, world_strength=0.9)
+        if v.get("front"):
+            C.preview_render(C.qa_path(f"vehicles-nature/veh_{vid}_front.png"), target=(0, -0.6, base["height"] * 0.4),
+                             distance=L * 1.35, yaw_deg=-25, pitch_deg=4, res=(640, 480), samples=24, lens=40,
+                             sun_strength=4.0, world_strength=0.9)
     return base
 
 
@@ -615,7 +655,8 @@ def arch_cut(body, centers, r, width=0.5):
 
 
 def arch_liner(name, c, r, width):
-    return V.lathe(name, [(r, -width / 2), (r, width / 2)], c, "X", "veh_plastic_black", 28, 40)
+    """Plastic wheel-arch liner: a U-channel arc over the top of the wheel only (never below the axle)."""
+    return fender(name, c, r, width, -12, 192, "veh_plastic_black", segs=20, thick=0.006, lip=0.0)
 
 
 def steering_wheel(c, tilt=-0.45):
@@ -633,162 +674,283 @@ def steering_wheel(c, tilt=-0.45):
 # 7. small taxi hatchback  L 3.6  W 1.6  H 1.52  WB 2.4  track 1.38
 # ---------------------------------------------------------------------------
 def taxi_hatch(preview=True, paint="white"):
+    """Small 5-door hatchback taxi.  Body = one lofted shell (vehicles_car) with window openings on edge
+    loops, painted pillars, black belt moulding; lamps/grille/handles/seams projected onto the panels."""
     new()
     P = f"veh_paint_{paint}"
     WB, TR, R = 2.4, 1.38, 0.29
     yf, yr = -WB / 2, WB / 2
-    parts = []
-    body = V.loft("lower", [(-1.8, 0, 0.56, 0.66, 0.2, 3.0), (-1.76, 0, 0.6, 0.75, 0.28, 4.0),
-                            (-1.6, 0, 0.62, 0.79, 0.33, 5.0), (-1.2, 0, 0.63, 0.8, 0.34, 6.0),
-                            (-0.7, 0, 0.64, 0.8, 0.36, 6.0), (0.4, 0, 0.64, 0.8, 0.36, 6.0),
-                            (1.3, 0, 0.65, 0.8, 0.36, 6.0), (1.62, 0, 0.67, 0.78, 0.34, 5.0),
-                            (1.76, 0, 0.69, 0.74, 0.3, 4.0), (1.8, 0, 0.7, 0.66, 0.24, 3.0)], P, 40)
-    arch_cut(body, [(0, yf, R), (0, yr, R)], R + 0.05, 2.0)
-    parts.append(body)
+    S = [
+        dict(y=-1.84, belt_trim=False, zb=0.42, zl=0.62, w=0.58, zt=0.66, wt=0.5, crown=0.0, steps=2, tuck=0.05),
+        dict(y=-1.81, belt_trim=False, zb=0.31, zl=0.70, w=0.72, zt=0.75, wt=0.63, crown=0.005, steps=2),
+        dict(y=-1.72, belt_trim=False, zb=0.27, zl=0.75, w=0.775, zt=0.80, wt=0.70, crown=0.01, steps=3),
+        dict(y=-1.42, belt_trim=False, zb=0.25, zl=0.79, w=0.795, zt=0.855, wt=0.725, crown=0.02),
+        dict(y=-0.95, zb=0.25, zl=0.835, w=0.80, zt=0.925, wt=0.72, crown=0.02, side_glass=True, top_glass=True),
+        dict(y=-0.56, zb=0.25, zl=0.855, w=0.80, zt=1.18, wt=0.695, crown=0.03, side_glass=True, top_glass=True),
+        dict(y=-0.20, zb=0.25, zl=0.87, w=0.80, zt=1.435, wt=0.66, crown=0.045, side_glass=True, steps=3),
+        dict(y=0.24, zb=0.25, zl=0.88, w=0.80, zt=1.465, wt=0.66, crown=0.05, steps=1),
+        dict(y=0.34, zb=0.25, zl=0.88, w=0.80, zt=1.468, wt=0.66, crown=0.05, side_glass=True, steps=5),
+        dict(y=1.10, zb=0.25, zl=0.895, w=0.80, zt=1.455, wt=0.65, crown=0.045, steps=2),
+        dict(y=1.40, zb=0.25, zl=0.90, w=0.795, zt=1.425, wt=0.625, crown=0.035, top_glass=True, steps=4),
+        dict(y=1.70, belt_trim=False, zb=0.26, zl=0.90, w=0.785, zt=1.05, wt=0.665, crown=0.02, steps=2),
+        dict(y=1.78, belt_trim=False, zb=0.30, zl=0.88, w=0.77, zt=0.97, wt=0.69, crown=0.01, steps=2),
+        dict(y=1.84, belt_trim=False, zb=0.40, zl=0.80, w=0.66, zt=0.88, wt=0.58, crown=0.0),
+    ]
+    body = K.shell("lower", S, P)
+    arch_cut(body, [(0, yf, R), (0, yr, R)], R + 0.055, 2.0)
+    surf = K.Surface(body)
+    parts = [body]
     for sx in (-1, 1):
         for yy in (yf, yr):
-            parts.append(arch_liner(f"liner{sx}{yy}", (sx * 0.64, yy, R), R + 0.045, 0.3))
-    glass = V.loft("greenhouse", [(-0.86, 0, 1.0, 0.75, 0.02, 4.0), (-0.55, 0, 1.12, 0.73, 0.14, 4.0),
-                                  (-0.2, 0, 1.23, 0.71, 0.25, 4.5), (0.8, 0, 1.24, 0.7, 0.26, 4.5),
-                                  (1.35, 0, 1.2, 0.68, 0.22, 4.0), (1.62, 0, 1.08, 0.66, 0.09, 3.5),
-                                  (1.68, 0, 1.0, 0.64, 0.02, 3.0)], "veh_glass", 32)
-    parts.append(glass)
-    parts.append(V.loft("roof", [(-0.22, 0, 1.475, 0.66, 0.02, 3.0), (-0.1, 0, 1.49, 0.69, 0.025, 4.0),
-                                 (1.1, 0, 1.49, 0.68, 0.025, 4.0), (1.42, 0, 1.45, 0.64, 0.03, 3.5),
-                                 (1.5, 0, 1.4, 0.6, 0.025, 3.0)], P, 24))
+            parts.append(arch_liner(f"liner{sx}{yy}", (sx * 0.66, yy, R), R + 0.05, 0.26))
+    # front: lamps with black housings, grille, fog lamps
     for sx in (-1, 1):
-        parts.append(V.tube(f"apillar{sx}", [(sx * 0.735, -0.86, 1.01), (sx * 0.69, -0.55, 1.2), (sx * 0.655, -0.2, 1.44),
-                                             (sx * 0.64, -0.1, 1.48)], 0.03, P, 8, 0.12))
-        parts.append(V.rbox(f"bpillar{sx}", (0.04, 0.09, 0.5), (sx * 0.7, 0.42, 1.23), "veh_plastic_black", 0.01))
-        parts.append(V.extrude(f"cpillar{sx}", [(1.05, 1.0), (1.66, 1.0), (1.5, 1.42), (1.15, 1.47)], 0.04, "YZ",
-                               sx * 0.685, P, 0.01))
-        parts.append(V.rbox(f"rub{sx}", (0.025, 2.2, 0.05), (sx * 0.805, 0.15, 0.62), "veh_plastic_black", 0.01))
-        parts.append(V.rbox(f"mirror{sx}", (0.16, 0.08, 0.1), (sx * 0.86, -0.62, 1.07), P, 0.03))
-        parts.append(V.rbox(f"mglass{sx}", (0.13, 0.01, 0.075), (sx * 0.87, -0.585, 1.07), "veh_mirror", 0.004))
-        for hy in (-0.15, 0.85):
-            parts.append(V.rbox(f"handle{sx}{hy}", (0.02, 0.13, 0.03), (sx * 0.805, hy, 0.95), "veh_chrome", 0.008))
-        parts.append(V.rbox(f"headlamp{sx}", (0.28, 0.06, 0.11), (sx * 0.5, -1.765, 0.8), "veh_light_head", 0.025,
-                            rot=(math.radians(-8), 0, sx * 0.18)))
-        parts.append(V.rbox(f"lampbezel{sx}", (0.3, 0.05, 0.13), (sx * 0.5, -1.75, 0.8), "veh_chrome", 0.02,
-                            rot=(math.radians(-8), 0, sx * 0.18)))
-        parts.append(V.rbox(f"taillamp{sx}", (0.12, 0.06, 0.25), (sx * 0.66, 1.76, 0.98), "veh_light_tail", 0.02))
-        parts.append(V.rbox(f"fog{sx}", (0.12, 0.03, 0.05), (sx * 0.55, -1.83, 0.45), "veh_light_amber", 0.01))
-        dec = V.decal(f"livery{sx}", "taxi_door", (sx * 0.8, 0.2, 0.84), (1.75, 0.36), "+X" if sx > 0 else "-X", offset=0.0)
-        V.conform_decal_to(dec, body)
-        parts.append(dec)
-    # bumpers, grille, plates, wipers, roof sign
-    parts.append(V.loft("bumperF", [(-1.86, 0, 0.47, 0.7, 0.1, 3.0), (-1.8, 0, 0.47, 0.8, 0.13, 4.0),
-                                    (-1.68, 0, 0.47, 0.81, 0.13, 4.0)], "veh_plastic_black", 24))
-    parts.append(V.loft("bumperR", [(1.66, 0, 0.5, 0.81, 0.13, 4.0), (1.8, 0, 0.5, 0.8, 0.13, 4.0),
-                                    (1.86, 0, 0.5, 0.7, 0.1, 3.0)], "veh_plastic_black", 24))
-    parts.append(V.rbox("grillebox", (0.6, 0.06, 0.13), (0, -1.79, 0.67), "veh_plastic_black", 0.02))
-    for k in range(4):
-        parts.append(V.rbox(f"slat{k}", (0.58, 0.012, 0.012), (0, -1.822, 0.62 + k * 0.03), "veh_chrome", 0.004))
-    parts.append(V.decal("plateF", "plate_car_a", (0, -1.875, 0.45), (0.52, 0.11), "-Y"))
-    parts.append(V.decal("plateR", "plate_car_b", (0, 1.875, 0.52), (0.52, 0.11), "+Y"))
-    for sx in (-0.3, 0.25):
-        parts.append(V.tube(f"wiper{sx}", [(sx, -0.86, 1.02), (sx + 0.45, -0.8, 1.05)], 0.008, "veh_plastic_black", 5, 0))
-    parts.append(V.rbox("roofsign", (0.46, 0.16, 0.15), (0, 0.5, 1.58), "veh_plastic_grey", 0.03))
-    parts.append(V.rbox("roofsignbase", (0.5, 0.2, 0.03), (0, 0.5, 1.5), "veh_plastic_black", 0.01))
-    parts.append(V.decal("signF", "taxi_roof", (0, 0.419, 1.58), (0.42, 0.13), "-Y"))
-    parts.append(V.decal("signR", "taxi_roof", (0, 0.581, 1.58), (0.42, 0.13), "+Y"))
-    # interior (visible through the glass)
-    parts.append(V.rbox("dash", (1.36, 0.4, 0.18), (0, -0.62, 0.98), "veh_plastic_black", 0.05))
-    parts.append(steering_wheel((-0.36, -0.42, 1.08)))
+        parts.append(K.patch(f"lamphouse{sx}", surf, "-Y", (sx * 0.5, 0, 0.705), (0.36, 0.15), "veh_plastic_black",
+                             0.0015, (10, 5), round_corners=0.55))
+        parts.append(K.patch(f"headlamp{sx}", surf, "-Y", (sx * 0.5, 0, 0.71), (0.33, 0.12), "veh_light_head",
+                             0.003, (10, 5), round_corners=0.55, thickness=0.012))
+        parts.append(K.patch(f"indicator{sx}", surf, "-Y", (sx * 0.69, 0, 0.71), (0.07, 0.1), "veh_light_amber",
+                             0.003, (3, 4), round_corners=0.5, thickness=0.008))
+        parts.append(K.patch(f"taillamp{sx}", surf, "+Y", (sx * 0.64, 0, 0.84), (0.17, 0.26), "veh_light_tail",
+                             0.003, (4, 8), round_corners=0.45, thickness=0.01))
+        parts.append(K.patch(f"tailamber{sx}", surf, "+Y", (sx * 0.64, 0, 0.66), (0.15, 0.07), "veh_light_amber",
+                             0.003, (4, 3), round_corners=0.4, thickness=0.008))
+        parts.append(K.patch(f"handleF{sx}", surf, "+X" if sx > 0 else "-X", (0, -0.12, 0.79), (0.14, 0.032),
+                             "veh_chrome", 0.002, (5, 2), round_corners=0.7, thickness=0.012))
+        parts.append(K.patch(f"handleR{sx}", surf, "+X" if sx > 0 else "-X", (0, 0.92, 0.80), (0.14, 0.032),
+                             "veh_chrome", 0.002, (5, 2), round_corners=0.7, thickness=0.012))
+        ax = "+X" if sx > 0 else "-X"
+        xs = sx * 0.81
+        for i, (y0, z1) in enumerate(((-0.93, 0.83), (0.29, 0.87), (1.13, 0.88))):
+            sl = K.seam_line(f"seam{sx}_{i}", surf, ax, [(xs, y0, 0.34), (xs, y0, z1)], steps=14)
+            if sl:
+                parts.append(sl)
+        # sill seam + bonnet shut lines
+        sl = K.seam_line(f"sill{sx}", surf, ax, [(xs, -0.93, 0.34), (xs, 1.13, 0.34)], steps=30)
+        if sl:
+            parts.append(sl)
+        sl = K.seam_line(f"bonnet{sx}", surf, "+Z", [(sx * 0.70, -1.70, 1), (sx * 0.71, -0.97, 1)], steps=20)
+        if sl:
+            parts.append(sl)
+        dec = K.decal_patch(f"livery{sx}", surf, ax, (0, 0.18, 0.64), (1.7, 0.34), "taxi_door", (16, 3))
+        if dec:
+            parts.append(dec)
+        parts.append(V.rbox(f"mirror{sx}", (0.16, 0.07, 0.1), (sx * 0.88, -0.62, 1.0), P, 0.03))
+        parts.append(V.rbox(f"mirrorfoot{sx}", (0.08, 0.1, 0.05), (sx * 0.80, -0.66, 0.96), "veh_plastic_black", 0.015))
+        parts.append(V.rbox(f"mglass{sx}", (0.13, 0.01, 0.075), (sx * 0.885, -0.583, 1.0), "veh_mirror", 0.004))
+        parts.append(V.rbox(f"rub{sx}", (0.022, 1.9, 0.045), (sx * 0.808, 0.1, 0.52), "veh_plastic_black", 0.01))
+    sl = K.seam_line("bonnetF", surf, "+Z", [(-0.70, -1.70, 1), (0.70, -1.70, 1)], steps=30)
+    if sl:
+        parts.append(sl)
+    sl = K.seam_line("hatchT", surf, "+Z", [(-0.6, 1.36, 2), (0.6, 1.36, 2)], steps=20)
+    if sl:
+        parts.append(sl)
+    parts.append(K.patch("grille", surf, "-Y", (0, 0, 0.66), (0.5, 0.09), "veh_plastic_black", 0.002, (8, 2),
+                         round_corners=0.4, thickness=0.004))
+    g = K.decal_patch("grillemesh", surf, "-Y", (0, 0, 0.66), (0.46, 0.065), "grille_mesh", (8, 2), 0.0075)
+    if g:
+        parts.append(g)
+    parts.append(K.patch("badge", surf, "-Y", (0, 0, 0.735), (0.06, 0.03), "veh_chrome", 0.003, (2, 2),
+                         round_corners=0.9, thickness=0.006))
+    parts.append(K.patch("fuelcap", surf, "+X", (0, 1.45, 0.80), (0.12, 0.1), P, 0.0012, (3, 3), round_corners=0.6))
+    sl = K.seam_line("fuelseam", surf, "+X", [(0.8, 1.39, 0.75), (0.8, 1.51, 0.75), (0.8, 1.51, 0.85),
+                                              (0.8, 1.39, 0.85), (0.8, 1.39, 0.75)], 0.004, steps=6)
+    if sl:
+        parts.append(sl)
+    # bumpers (wrap-around), plates
+    parts.append(V.loft("bumperF", [(-1.90, 0, 0.46, 0.72, 0.11, 3.0), (-1.86, 0, 0.46, 0.80, 0.14, 4.0),
+                                    (-1.72, 0, 0.46, 0.815, 0.14, 4.0), (-1.55, 0, 0.46, 0.81, 0.12, 4.0)],
+                        "veh_plastic_black", 28))
+    parts.append(V.loft("bumperR", [(1.62, 0, 0.47, 0.81, 0.12, 4.0), (1.78, 0, 0.47, 0.815, 0.14, 4.0),
+                                    (1.88, 0, 0.47, 0.80, 0.14, 4.0), (1.92, 0, 0.47, 0.72, 0.11, 3.0)],
+                        "veh_plastic_black", 28))
+    for sx in (-1, 1):
+        parts.append(V.rbox(f"fog{sx}", (0.11, 0.03, 0.05), (sx * 0.58, -1.9, 0.42), "veh_light_amber", 0.01))
+    parts.append(V.rbox("intake", (0.7, 0.03, 0.06), (0, -1.905, 0.40), "veh_steel_dark", 0.01))
+    parts.append(V.decal("plateF", "plate_car_a", (0, -1.912, 0.50), (0.52, 0.11), "-Y"))
+    parts.append(V.decal("plateR", "plate_car_b", (0, 1.935, 0.50), (0.52, 0.11), "+Y"))
+    parts.append(K.decal_patch("sticker", surf, "+Y", (-0.42, 0, 1.12), (0.13, 0.08), "sticker_a", (3, 2), 0.004))
+    # wipers resting on the cowl, antenna, roof sign
+    for sx in (-0.42, 0.2):
+        loc, _ = surf.hit((sx, -0.86, 3.0), (0, 0, -1), 4.0)
+        z = (loc.z if loc is not None else 0.95) + 0.012
+        parts.append(V.tube(f"wiper{sx}", [(sx, -0.88, z - 0.01), (sx + 0.5, -0.84, z + 0.015)], 0.007,
+                            "veh_plastic_black", 5, 0))
+    parts.append(V.tube("antenna", [(0.35, 1.2, 1.5), (0.35, 1.45, 1.66)], 0.003, "veh_plastic_black", 4, 0, r_end=0.0015))
+    parts.append(V.rbox("roofsignbase", (0.5, 0.2, 0.03), (0, 0.5, 1.525), "veh_plastic_black", 0.01))
+    parts.append(V.rbox("roofsign", (0.46, 0.16, 0.15), (0, 0.5, 1.61), "veh_plastic_grey", 0.03))
+    parts.append(V.decal("signF", "taxi_roof", (0, 0.419, 1.61), (0.42, 0.13), "-Y"))
+    parts.append(V.decal("signR", "taxi_roof", (0, 0.581, 1.61), (0.42, 0.13), "+Y"))
+    # interior (visible through the tinted glass)
+    parts.append(V.rbox("dash", (1.4, 0.4, 0.2), (0, -0.66, 0.96), "veh_plastic_black", 0.05))
+    parts.append(V.rbox("console", (0.22, 0.6, 0.25), (0, -0.2, 0.5), "veh_plastic_black", 0.04))
+    parts.append(steering_wheel((-0.36, -0.42, 1.06)))
     for sx in (-0.36, 0.36):
-        parts.append(V.rbox(f"seatF{sx}", (0.48, 0.5, 0.14), (sx, 0.15, 0.62), "veh_vinyl_black", 0.05))
-        parts.append(V.rbox(f"backF{sx}", (0.48, 0.12, 0.55), (sx, 0.42, 0.95), "veh_vinyl_black", 0.05,
+        parts.append(V.rbox(f"seatF{sx}", (0.48, 0.5, 0.14), (sx, 0.15, 0.55), "veh_vinyl_black", 0.05))
+        parts.append(V.rbox(f"backF{sx}", (0.48, 0.12, 0.6), (sx, 0.42, 0.9), "veh_vinyl_black", 0.05,
                             rot=(math.radians(-12), 0, 0)))
-    parts.append(V.rbox("seatR", (1.2, 0.48, 0.14), (0, 1.0, 0.64), "veh_vinyl_black", 0.05))
-    parts.append(V.rbox("backR", (1.2, 0.12, 0.5), (0, 1.3, 0.95), "veh_vinyl_black", 0.05, rot=(math.radians(-10), 0, 0)))
+        parts.append(V.rbox(f"headrest{sx}", (0.26, 0.1, 0.16), (sx, 0.5, 1.28), "veh_vinyl_black", 0.04))
+    parts.append(V.rbox("seatR", (1.2, 0.48, 0.14), (0, 1.0, 0.57), "veh_vinyl_black", 0.05))
+    parts.append(V.rbox("backR", (1.2, 0.12, 0.55), (0, 1.3, 0.9), "veh_vinyl_black", 0.05, rot=(math.radians(-10), 0, 0)))
+    parts.append(V.rbox("parcelshelf", (1.3, 0.35, 0.02), (0, 1.55, 0.95), "veh_plastic_black", 0.005))
     parts.append(V.rbox("floorpan", (1.4, 3.2, 0.04), (0, 0.0, 0.3), "veh_steel_dark", 0.01))
+    parts.append(V.rbox("tank", (0.8, 0.5, 0.18), (0, 1.0, 0.2), "veh_steel_dark", 0.02))
+    parts.append(V.tube("exhaust", [(0.4, -0.9, 0.17), (0.4, 1.6, 0.17), (0.45, 1.86, 0.2)], 0.022, "veh_steel_dark", 8, 0.1))
+    parts = [p for p in parts if p is not None]
     wheels = [wheel(f"wheel_{n}", (sx * TR / 2, yy, R), R, 0.165, 0.178, "steel", mirror=sx < 0)
               for n, sx, yy in (("front_L", -1, yf), ("front_R", 1, yf), ("rear_L", -1, yr), ("rear_R", 1, yr))]
-    cols = [V.box_col("col_metal_body", (0, 0.0, 0.625), (1.6, 3.6, 0.73)),
-            V.box_col("col_metal_cabin", (0, 0.5, 1.24), (1.42, 2.2, 0.5)),
-            V.box_col("col_plastic_sign", (0, 0.5, 1.59), (0.46, 0.16, 0.18))]
+    cols = [V.box_col("col_metal_body", (0, 0.0, 0.57), (1.6, 3.66, 0.62)),
+            V.box_col("col_metal_cabin", (0, 0.5, 1.1975), (1.4, 2.2, 0.635)),
+            V.box_col("col_plastic_sign", (0, 0.5, 1.61), (0.46, 0.16, 0.18))]
     mk = [V.marker("SEAT_driver", (-0.36, 0.15, 0.95)), V.marker("SEAT_front", (0.36, 0.15, 0.95)),
-          V.marker("SEAT_rear", (0.0, 1.0, 0.95)), V.marker("NAP_roof", (0.25, 1.05, 1.49)),
-          V.marker("NAP_hood", (0.0, -1.25, 0.99))]
+          V.marker("SEAT_rear", (0.0, 1.0, 0.95)), V.marker("NAP_roof", (0.25, 1.05, 1.515)),
+          V.marker("NAP_hood", (0.0, -1.3, 0.88))]
     return finish("taxi_hatch", parts, wheels, cols, mk, {
         "kind": "car", "name_key": "VEH_TAXI", "wheelbase": WB, "track": TR, "seat": [-0.36, 0.95, -0.15],
         "seats": {"driver": [-0.36, 0.95, -0.15], "front": [0.36, 0.95, -0.15], "rear": [0.0, 0.95, -1.0]},
-        "rider_pose": "car", "nap_spots": [[0.25, 1.49, -1.05], [0.0, 0.99, 1.25]], "mass": 950.0, "paint": paint,
-        "max_speed": 11.0, "climb_points": []}, preview, mud=0.35, view={"distance": 7.5}, wear_seed=7)
+        "rider_pose": "car", "nap_spots": [[0.25, 1.515, -1.05], [0.0, 0.88, 1.3]], "mass": 950.0, "paint": paint,
+        "max_speed": 11.0, "climb_points": []}, preview, mud=0.35, view={"distance": 7.5, "front": True}, wear_seed=7)
 
 
 # ---------------------------------------------------------------------------
 # 8. delivery panel van  L 4.4  W 1.7  H 1.98  WB 2.6  track 1.45
 # ---------------------------------------------------------------------------
 def delivery_van(preview=True, paint="cream"):
+    """Cab-over 1-tonne panel van: driver above the front axle, tall cargo box with a sliding side door and
+    twin rear doors.  Same shell generator as the taxi."""
     new()
     P = f"veh_paint_{paint}"
     WB, TR, R = 2.6, 1.45, 0.32
-    yf, yr = -WB / 2, WB / 2
-    parts = []
-    body = V.loft("lower", [(-2.2, 0, 0.62, 0.7, 0.22, 3.0), (-2.15, 0, 0.66, 0.8, 0.3, 4.5),
-                            (-1.9, 0, 0.68, 0.85, 0.36, 6.0), (1.0, 0, 0.68, 0.85, 0.38, 8.0),
-                            (2.15, 0, 0.68, 0.85, 0.38, 8.0), (2.2, 0, 0.68, 0.8, 0.36, 6.0)], P, 40)
-    arch_cut(body, [(0, yf, R), (0, yr, R)], R + 0.05, 2.0)
-    parts.append(body)
-    box = V.loft("cargobox", [(-0.98, 0, 1.33, 0.845, 0.63, 10.0), (-0.95, 0, 1.33, 0.855, 0.65, 12.0),
-                              (2.18, 0, 1.33, 0.855, 0.65, 12.0), (2.21, 0, 1.33, 0.83, 0.63, 10.0)], P, 48)
-    arch_cut(box, [(0, yr, R)], R + 0.05, 2.0)
-    parts.append(box)
-    parts.append(V.loft("cab", [(-1.95, 0, 1.06, 0.82, 0.04, 6.0), (-1.75, 0, 1.08, 0.83, 0.07, 6.0),
-                                (-1.55, 0, 1.1, 0.83, 0.1, 6.0)], P, 32))
-    parts.append(V.loft("windshield", [(-1.56, 0, 1.18, 0.8, 0.03, 6.0), (-1.3, 0, 1.45, 0.79, 0.3, 6.0),
-                                       (-1.0, 0, 1.5, 0.79, 0.43, 7.0)], "veh_glass", 32))
-    parts.append(V.loft("cabroof", [(-1.25, 0, 1.92, 0.78, 0.03, 6.0), (-0.96, 0, 1.96, 0.82, 0.03, 8.0)], P, 24))
+    yf, yr = -1.3, 1.3
+    nb = dict(belt_trim=False)
+    S = [
+        dict(y=-2.25, zb=0.44, zl=0.78, w=0.70, zt=0.88, wt=0.62, crown=0.0, steps=2, **nb),
+        dict(y=-2.21, zb=0.33, zl=0.86, w=0.80, zt=0.97, wt=0.73, crown=0.005, steps=2, **nb),
+        dict(y=-2.08, zb=0.29, zl=0.91, w=0.84, zt=1.03, wt=0.775, crown=0.01, steps=3, **nb),
+        dict(y=-1.82, zb=0.28, zl=0.95, w=0.85, zt=1.09, wt=0.785, crown=0.015, side_glass=True, top_glass=True),
+        dict(y=-1.55, zb=0.28, zl=0.98, w=0.85, zt=1.52, wt=0.785, crown=0.025, side_glass=True, top_glass=True),
+        dict(y=-1.33, zb=0.28, zl=1.0, w=0.85, zt=1.86, wt=0.79, crown=0.035, side_glass=True, steps=3),
+        dict(y=-0.98, zb=0.28, zl=1.0, w=0.85, zt=1.925, wt=0.80, crown=0.04, steps=1),
+        dict(y=-0.88, zb=0.28, zl=1.0, w=0.85, zt=1.93, wt=0.825, crown=0.04, step=0.012, steps=6, **nb),
+        dict(y=2.12, zb=0.28, zl=1.0, w=0.85, zt=1.93, wt=0.825, crown=0.04, step=0.012, steps=2, **nb),
+        dict(y=2.2, zb=0.32, zl=0.99, w=0.83, zt=1.91, wt=0.80, crown=0.035, step=0.012, steps=2, **nb),
+        dict(y=2.24, zb=0.4, zl=0.97, w=0.76, zt=1.86, wt=0.74, crown=0.02, step=0.012, **nb),
+    ]
+    body = K.shell("lower", S, P, sub_ring=3)
+    arch_cut(body, [(0, yf, R), (0, yr, R)], R + 0.055, 2.0)
+    surf = K.Surface(body)
+    parts = [body]
     for sx in (-1, 1):
+        ax = "+X" if sx > 0 else "-X"
+        xs = sx * 0.86
         for yy in (yf, yr):
-            parts.append(arch_liner(f"liner{sx}{yy}", (sx * 0.7, yy, R), R + 0.045, 0.3))
-        parts.append(V.rbox(f"sidewin{sx}", (0.012, 0.5, 0.42), (sx * 0.852, -1.2, 1.42), "veh_glass", 0.01))
-        parts.append(V.tube(f"apillar{sx}", [(sx * 0.785, -1.56, 1.19), (sx * 0.775, -1.3, 1.6), (sx * 0.78, -1.0, 1.9)],
-                            0.035, P, 8, 0.1))
-        parts.append(V.rbox(f"mirror{sx}", (0.08, 0.06, 0.2), (sx * 0.95, -1.45, 1.38), "veh_plastic_black", 0.02))
-        parts.append(V.tube(f"mirrorarm{sx}", [(sx * 0.85, -1.45, 1.3), (sx * 0.93, -1.45, 1.32)], 0.01, "veh_plastic_black", 6, 0))
-        parts.append(V.rbox(f"handle{sx}", (0.02, 0.14, 0.03), (sx * 0.855, -0.95, 1.08), "veh_plastic_black", 0.008))
-        parts.append(V.rbox(f"seam{sx}", (0.006, 0.006, 0.95), (sx * 0.853, -0.88, 1.18), "veh_plastic_black", 0.0))
-        parts.append(V.rbox(f"headlamp{sx}", (0.28, 0.06, 0.16), (sx * 0.56, -2.17, 0.88), "veh_light_head", 0.03))
-        parts.append(V.rbox(f"blink{sx}", (0.1, 0.05, 0.07), (sx * 0.78, -2.13, 0.88), "veh_light_amber", 0.015))
-        parts.append(V.rbox(f"taillamp{sx}", (0.1, 0.05, 0.35), (sx * 0.76, 2.2, 1.05), "veh_light_tail", 0.015))
-        parts.append(V.rbox(f"rub{sx}", (0.025, 3.6, 0.07), (sx * 0.86, 0.3, 0.7), "veh_plastic_black", 0.01))
-        dec = V.decal(f"livery{sx}", "van_side", (sx * 0.852, 0.6, 1.45), (2.6, 0.57), "+X" if sx > 0 else "-X", offset=0.003)
-        parts.append(dec)
-        parts.append(V.rbox(f"step{sx}", (0.22, 0.26, 0.04), (sx * 0.78, -0.8, 0.32), "veh_steel_dark", 0.01))
-    parts.append(V.rbox("rearseam", (0.006, 0.006, 1.3), (0, 2.205, 1.3), "veh_plastic_black", 0.0))
-    for sx in (-0.08, 0.08):
-        parts.append(V.rbox(f"rearhandle{sx}", (0.03, 0.03, 0.14), (sx, 2.215, 1.15), "veh_chrome", 0.008))
-    parts.append(V.loft("bumperF", [(-2.27, 0, 0.5, 0.78, 0.1, 3.0), (-2.2, 0, 0.5, 0.86, 0.13, 4.0),
-                                    (-2.05, 0, 0.5, 0.86, 0.13, 4.0)], "veh_plastic_black", 24))
-    parts.append(V.rbox("bumperR", (1.7, 0.12, 0.16), (0, 2.25, 0.48), "veh_steel_dark", 0.03))
-    parts.append(V.rbox("grillebox", (0.8, 0.06, 0.2), (0, -2.19, 0.74), "veh_plastic_black", 0.02))
-    for k in range(5):
-        parts.append(V.rbox(f"slat{k}", (0.78, 0.012, 0.014), (0, -2.222, 0.66 + k * 0.04), "veh_steel_dark", 0.004))
-    parts.append(V.decal("plateF", "plate_car_b", (0, -2.275, 0.5), (0.52, 0.11), "-Y"))
-    parts.append(V.decal("plateR", "plate_car_a", (0, 2.315, 0.58), (0.52, 0.11), "+Y"))
-    parts.append(V.decal("sticker", "sticker_b", (0.4, 2.203, 1.65), (0.2, 0.12), "+Y"))
-    parts.append(V.tube("wiper", [(-0.4, -1.55, 1.2), (0.1, -1.45, 1.35)], 0.008, "veh_plastic_black", 5, 0))
-    parts.append(V.rbox("dash", (1.5, 0.35, 0.2), (0, -1.38, 1.12), "veh_plastic_black", 0.05))
-    parts.append(steering_wheel((-0.4, -1.15, 1.25), -0.9))
-    for sx in (-0.4, 0.4):
-        parts.append(V.rbox(f"seat{sx}", (0.5, 0.48, 0.14), (sx, -0.85, 0.72), "veh_vinyl_black", 0.05))
-        parts.append(V.rbox(f"back{sx}", (0.5, 0.12, 0.6), (sx, -0.6, 1.05), "veh_vinyl_black", 0.05))
-    parts.append(V.rbox("bulkhead", (1.6, 0.04, 1.0), (0, -0.5, 1.3), "veh_steel_dark", 0.01))
+            parts.append(arch_liner(f"liner{sx}{yy}", (sx * 0.72, yy, R), R + 0.05, 0.26))
+        parts.append(K.patch(f"lamphouse{sx}", surf, "-Y", (sx * 0.56, 0, 0.8), (0.3, 0.19), "veh_plastic_black",
+                             0.0015, (8, 6), round_corners=0.4))
+        parts.append(K.patch(f"headlamp{sx}", surf, "-Y", (sx * 0.56, 0, 0.8), (0.27, 0.16), "veh_light_head",
+                             0.003, (8, 6), round_corners=0.4, thickness=0.012))
+        parts.append(K.patch(f"indicator{sx}", surf, "-Y", (sx * 0.76, 0, 0.8), (0.06, 0.15), "veh_light_amber",
+                             0.003, (3, 5), round_corners=0.4, thickness=0.008))
+        parts.append(K.patch(f"taillamp{sx}", surf, "+Y", (sx * 0.66, 0, 1.0), (0.12, 0.36), "veh_light_tail",
+                             0.003, (3, 10), round_corners=0.3, thickness=0.012))
+        parts.append(K.patch(f"tailamber{sx}", surf, "+Y", (sx * 0.66, 0, 0.77), (0.12, 0.08), "veh_light_amber",
+                             0.003, (3, 3), round_corners=0.3, thickness=0.01))
+        parts.append(K.patch(f"handle{sx}", surf, ax, (0, -1.08, 1.08), (0.14, 0.035), "veh_plastic_black",
+                             0.002, (5, 2), round_corners=0.7, thickness=0.014))
+        for i, (y0, y1) in enumerate(((-1.85, -0.94), )):
+            for pts in ([(xs, y0, 0.36), (xs, y0, 1.0)], [(xs, y1, 0.36), (xs, y1, 1.9)]):
+                sl = K.seam_line(f"seamcab{sx}{len(parts)}", surf, ax, pts, steps=16)
+                if sl:
+                    parts.append(sl)
+        parts.append(K.patch(f"sidemark{sx}", surf, ax, (0, -1.9, 0.62), (0.06, 0.03), "veh_light_amber", 0.003,
+                             (2, 2), round_corners=0.8, thickness=0.006))
+        dec = K.decal_patch(f"livery{sx}", surf, ax, (0, 0.62, 1.42), (2.6, 0.57), "van_side", (20, 4))
+        if dec:
+            parts.append(dec)
+        sl = K.seam_line(f"rubline{sx}", surf, ax, [(xs, -0.85, 0.62), (xs, 2.18, 0.62)], 0.05, 0.004,
+                         "veh_plastic_black", 40)
+        if sl:
+            parts.append(sl)
+        # big van mirrors on tubular arms
+        parts.append(V.rbox(f"mirror{sx}", (0.07, 0.06, 0.24), (sx * 1.0, -1.72, 1.4), "veh_plastic_black", 0.02))
+        parts.append(V.rbox(f"mglass{sx}", (0.055, 0.008, 0.2), (sx * 1.0, -1.755, 1.4), "veh_mirror", 0.003))
+        for zz in (1.3, 1.5):
+            parts.append(V.tube(f"mirrorarm{sx}{zz}", [(sx * 0.84, -1.6, zz - 0.03), (sx * 0.98, -1.7, zz)], 0.009,
+                                "veh_steel_dark", 6, 0))
+        parts.append(V.rbox(f"step{sx}", (0.24, 0.32, 0.035), (sx * 0.74, -1.62, 0.36), "veh_steel_dark", 0.01))
+    # sliding side door (kerb side, right) + rear twin doors
+    for pts in ([(0.86, -0.72, 0.36), (0.86, -0.72, 1.84)], [(0.86, 0.38, 0.36), (0.86, 0.38, 1.84)],
+                [(0.86, -0.72, 1.84), (0.86, 0.38, 1.84)]):
+        sl = K.seam_line(f"slide{len(parts)}", surf, "+X", pts, steps=24)
+        if sl:
+            parts.append(sl)
+    parts.append(V.rbox("slidetrack", (0.025, 1.6, 0.02), (0.865, 0.0, 1.62), "veh_steel_dark", 0.006))
+    parts.append(K.patch("slidehandle", surf, "+X", (0, -0.62, 1.12), (0.035, 0.16), "veh_plastic_black", 0.002,
+                         (2, 5), round_corners=0.7, thickness=0.016))
+    for pts in ([(0, 2.3, 0.4), (0, 2.3, 1.84)], [(-0.7, 2.3, 1.84), (0.7, 2.3, 1.84)]):
+        sl = K.seam_line(f"rearseam{len(parts)}", surf, "+Y", pts, steps=24)
+        if sl:
+            parts.append(sl)
+    for sx in (-0.07, 0.07):
+        parts.append(K.patch(f"rearhandle{sx}", surf, "+Y", (sx, 0, 1.12), (0.03, 0.15), "veh_chrome", 0.002, (2, 5),
+                             round_corners=0.7, thickness=0.016))
+    for sx in (-0.62, 0.62):
+        for zz in (0.62, 1.6):
+            parts.append(K.patch(f"hinge{sx}{zz}", surf, "+Y", (sx, 0, zz), (0.09, 0.05), "veh_steel_dark", 0.002,
+                                 (2, 2), thickness=0.012))
+    sl = K.seam_line("bonnet", surf, "-Y", [(-0.66, -2.3, 0.96), (0.66, -2.3, 0.96)], steps=30)
+    if sl:
+        parts.append(sl)
+    parts.append(K.patch("grille", surf, "-Y", (0, 0, 0.78), (0.64, 0.15), "veh_plastic_black", 0.002, (8, 3),
+                         round_corners=0.3, thickness=0.006))
+    g = K.decal_patch("grillemesh", surf, "-Y", (0, 0, 0.78), (0.6, 0.11), "grille_mesh", (8, 3), 0.009)
+    if g:
+        parts.append(g)
+    parts.append(K.patch("badge", surf, "-Y", (0, 0, 0.9), (0.09, 0.035), "veh_chrome", 0.003, (2, 2),
+                         round_corners=0.9, thickness=0.006))
+    parts.append(V.loft("bumperF", [(-2.31, 0, 0.47, 0.76, 0.1, 3.0), (-2.27, 0, 0.47, 0.86, 0.13, 4.0),
+                                    (-2.12, 0, 0.47, 0.87, 0.13, 4.0), (-2.0, 0, 0.47, 0.86, 0.11, 4.0)],
+                        "veh_plastic_black", 28))
+    parts.append(V.rbox("bumperR", (1.72, 0.14, 0.15), (0, 2.31, 0.45), "veh_steel_dark", 0.03))
+    parts.append(V.rbox("towbar", (0.08, 0.12, 0.08), (0, 2.36, 0.36), "veh_steel_dark", 0.02))
+    parts.append(V.decal("plateF", "plate_car_b", (0, -2.322, 0.5), (0.52, 0.11), "-Y"))
+    parts.append(V.decal("plateR", "plate_car_a", (0, 2.385, 0.45), (0.52, 0.11), "+Y"))
+    parts.append(V.decal("sticker", "sticker_b", (0.4, 2.30, 1.62), (0.2, 0.12), "+Y", offset=0.006))
+    for sx in (-0.42, 0.18):
+        loc, _ = surf.hit((sx, -1.8, 3.0), (0, 0, -1), 4.0)
+        z = (loc.z if loc is not None else 1.1) + 0.015
+        parts.append(V.tube(f"wiper{sx}", [(sx, -1.83, z), (sx + 0.48, -1.80, z + 0.06)], 0.007, "veh_plastic_black", 5, 0))
+    for sx in (-0.7, 0.7):
+        parts.append(V.tube(f"rackrail{sx}", [(sx, -0.75, 1.97), (sx, -0.7, 2.03), (sx, 1.85, 2.03), (sx, 1.9, 1.97)],
+                            0.012, "veh_steel_dark", 8, 0.04))
+    for yy in (-0.4, 0.4, 1.6):
+        parts.append(V.rbox(f"rackbar{yy}", (1.42, 0.03, 0.025), (0, yy, 2.03), "veh_steel_dark", 0.008))
+    # cab interior
+    parts.append(V.rbox("dash", (1.5, 0.2, 0.18), (0, -1.58, 1.15), "veh_plastic_black", 0.05))
+    parts.append(steering_wheel((-0.42, -1.55, 1.36), -1.1))
+    for sx in (-0.42, 0.42):
+        parts.append(V.rbox(f"seat{sx}", (0.5, 0.46, 0.14), (sx, -1.22, 0.95), "veh_vinyl_black", 0.05))
+        parts.append(V.rbox(f"back{sx}", (0.5, 0.12, 0.62), (sx, -1.0, 1.3), "veh_vinyl_black", 0.05,
+                            rot=(math.radians(-8), 0, 0)))
+    parts.append(V.rbox("bulkhead", (1.62, 0.04, 1.5), (0, -0.92, 1.18), "veh_steel_dark", 0.01))
+    parts.append(V.rbox("engcover", (0.5, 0.5, 0.3), (0, -1.25, 0.95), "veh_vinyl_black", 0.06))
+    parts.append(V.rbox("chassisL", (0.08, 4.0, 0.12), (-0.45, 0.2, 0.26), "veh_steel_dark", 0.01))
+    parts.append(V.rbox("chassisR", (0.08, 4.0, 0.12), (0.45, 0.2, 0.26), "veh_steel_dark", 0.01))
+    parts.append(V.tube("exhaust", [(-0.5, -0.8, 0.2), (-0.5, 2.0, 0.2), (-0.55, 2.25, 0.22)], 0.025, "veh_steel_dark", 8, 0.1))
+    parts = [p for p in parts if p is not None]
     wheels = [wheel(f"wheel_{n}", (sx * TR / 2, yy, R), R, 0.185, 0.19, "steel", mirror=sx < 0)
               for n, sx, yy in (("front_L", -1, yf), ("front_R", 1, yf), ("rear_L", -1, yr), ("rear_R", 1, yr))]
-    cols = [V.box_col("col_metal_body", (0, 0.0, 0.68), (1.7, 4.4, 0.76)),
-            V.box_col("col_metal_cargo", (0, 0.62, 1.5), (1.7, 3.16, 0.96)),
-            V.box_col("col_metal_cab", (0, -1.27, 1.45), (1.62, 0.6, 1.0)),
-            V.box_col("col_metal_bumper", (0, 2.25, 0.48), (1.7, 0.14, 0.16))]
-    mk = [V.marker("SEAT_driver", (-0.4, -0.85, 1.05)), V.marker("SEAT_front", (0.4, -0.85, 1.05)),
-          V.marker("NAP_roof", (0.0, 1.0, 1.98)), V.marker("NAP_bumper", (0.4, 2.25, 0.56))]
+    cols = [V.box_col("col_metal_body", (0, 0.0, 0.6), (1.72, 4.5, 0.64)),
+            V.box_col("col_metal_cargo", (0, 0.62, 1.455), (1.72, 3.2, 1.07)),
+            V.box_col("col_metal_cab", (0, -1.35, 1.32), (1.66, 0.74, 0.8)),
+            V.box_col("col_metal_bumper", (0, 2.31, 0.45), (1.72, 0.14, 0.15))]
+    mk = [V.marker("SEAT_driver", (-0.42, -1.22, 1.05)), V.marker("SEAT_front", (0.42, -1.22, 1.05)),
+          V.marker("NAP_roof", (0.0, 1.0, 1.99)), V.marker("NAP_bumper", (0.4, 2.31, 0.525))]
     return finish("delivery_van", parts, wheels, cols, mk, {
-        "kind": "van", "name_key": "VEH_VAN", "wheelbase": WB, "track": TR, "seat": [-0.4, 1.05, 0.85],
-        "seats": {"driver": [-0.4, 1.05, 0.85], "front": [0.4, 1.05, 0.85]}, "rider_pose": "car",
-        "nap_spots": [[0.0, 1.98, -1.0], [0.4, 0.56, -2.25]], "mass": 1450.0, "paint": paint,
-        "max_speed": 10.0}, preview, mud=0.45, view={"distance": 9.0}, wear_seed=8)
+        "kind": "van", "name_key": "VEH_VAN", "wheelbase": WB, "track": TR, "seat": [-0.42, 1.05, 1.22],
+        "seats": {"driver": [-0.42, 1.05, 1.22], "front": [0.42, 1.05, 1.22]}, "rider_pose": "car",
+        "nap_spots": [[0.0, 1.99, -1.0], [0.4, 0.525, -2.31]], "mass": 1450.0, "paint": paint,
+        "max_speed": 10.0}, preview, mud=0.45, view={"distance": 9.0, "front": True}, wear_seed=8)
 
 
 # ---------------------------------------------------------------------------

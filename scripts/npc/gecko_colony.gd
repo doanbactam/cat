@@ -59,7 +59,11 @@ func _try_place(around: Vector3) -> void:
 	var world := get_world_3d()
 	var origin := around + Vector3.UP * _rng.randf_range(1.2, 3.2)
 	# prefer near lights
-	var lights := get_tree().get_nodes_in_group(&"street_light")
+	var lights: Array[Node] = []
+	for g: StringName in [&"street_light", &"street_lamp"]:
+		for l: Node in get_tree().get_nodes_in_group(g):
+			if l is Node3D and (l as Node3D).global_position.distance_to(around) < 16.0 and not lights.has(l):
+				lights.append(l)
 	if lights.is_empty():
 		var root := get_tree().current_scene if get_tree().current_scene != null else get_tree().root
 		for l: Node in root.find_children("*", "OmniLight3D", true, false):

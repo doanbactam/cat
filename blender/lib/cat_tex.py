@@ -272,7 +272,7 @@ def whisker_atlas(w: int = 256, h: int = 1024, seed: int = 3, tint=(0.93, 0.91, 
         upd = s_ > acc
         shade = np.where(upd, rng.uniform(0.80, 1.0), shade)
         acc = np.maximum(acc, s_)
-    acc *= 0.75 + 0.25 * smoothstep(0.0, 0.15, v)
+    acc *= (0.75 + 0.25 * smoothstep(0.0, 0.15, v)) * 0.45    # soft, see-through wisps
     tuft_col = srgb_to_lin(np.array([0.90, 0.84, 0.74]))
     right = ~left
     img[..., :3] = np.where(right[..., None], tuft_col * (0.80 + 0.20 * v[..., None]) * shade[..., None]

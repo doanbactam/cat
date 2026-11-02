@@ -105,7 +105,7 @@ func _make_nav() -> void:
 	nav.name = "Nav"
 	nav.radius = maxf(body_radius, 0.12)
 	nav.height = body_height
-	nav.path_desired_distance = 0.45
+	nav.path_desired_distance = 0.7     # absorbs the navmesh's height above the floor (see _next_waypoint)
 	nav.target_desired_distance = arrive_radius
 	nav.max_speed = run_speed * 1.2
 	nav.avoidance_enabled = true
@@ -186,7 +186,7 @@ func _move(delta: float) -> void:
 				nav.target_position = move_target
 				_last_nav_target = move_target
 			if not nav.is_navigation_finished():
-				next = nav.get_next_path_position()
+				next = _next_waypoint(pos)
 		var to := NpcUtil.flat(next - pos)
 		var dist_goal := NpcUtil.flat_dist(pos, move_target)
 		if dist_goal > arrive_radius and to.length() > 0.001:
@@ -235,6 +235,28 @@ func _move(delta: float) -> void:
 			_on_stuck()
 	else:
 		_stuck_t = maxf(_stuck_t - delta, 0.0)
+
+
+## Next path corner, judged on the XZ plane. The agent advances waypoints by 3D distance, and
+## baked navmeshes sit up to ~0.5 m (cell-height rounding) above the real floor, so an agent standing
+## on the floor can stay "short" of a corner forever and would turn back to it. Skip corners we are
+## already over, and the stale start point once we have moved past it.
+func _next_waypoint(pos: Vector3) -> Vector3:
+	var path := nav.get_current_navigation_path()
+	var idx := nav.get_current_navigation_path_index()
+	if path.is_empty():
+		return nav.get_next_path_position()
+	while idx < path.size():
+		var here := NpcUtil.flat_dist(path[idx], pos)
+		if here <= 0.3:
+			idx += 1
+			continue
+		# the path's first point is where we stood when it was queried: never walk back to it
+		if idx == 0 and path.size() > 1 and NpcUtil.flat_dist(pos, path[1]) < NpcUtil.flat_dist(path[0], path[1]) + 0.05:
+			idx += 1
+			continue
+		break
+	return path[idx] if idx < path.size() else move_target
 
 
 func _update_facing(delta: float, hv: Vector3) -> void:

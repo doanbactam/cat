@@ -34,6 +34,7 @@ F_SERIF = "/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf"
 F_PLAY = os.path.join(ROOT, "assets", "fonts", "PlayfairDisplay-700.ttf")
 F_PLAY_I = os.path.join(ROOT, "assets", "fonts", "PlayfairDisplay-400i.ttf")
 F_LORA_I = os.path.join(ROOT, "assets", "fonts", "Lora-400i.ttf")
+F_LORA6 = os.path.join(ROOT, "assets", "fonts", "Lora-600.ttf")
 F_BVP = os.path.join(ROOT, "assets", "fonts", "BeVietnamPro-700.ttf")
 F_BVP5 = os.path.join(ROOT, "assets", "fonts", "BeVietnamPro-500.ttf")
 F_HAND = "/usr/share/fonts/truetype/freefont/FreeSansBold.ttf"
@@ -319,7 +320,9 @@ def plaque() -> tuple[Image.Image, np.ndarray]:
     for x in (70, w - 70):
         cloud_motif(d, x, h / 2 - 10, 34, 1 if x < w / 2 else -1, 6)
     tl = Image.new("RGBA", (w, h), (0, 0, 0, 0))
-    GA.draw_text_condensed(tl, (w / 2, h / 2 + 4), "ĐÌNH HÀNG MÂY", F_SERIF, 760, 120, (255, 255, 255, 255))
+    # Lora 600 + a 2 px stroke: its Vietnamese tone marks survive mip-mapping at street distance
+    GA.draw_text_condensed(tl, (w / 2, h / 2 + 2), "ĐÌNH HÀNG MÂY", F_LORA6, 760, 140, (255, 255, 255, 255),
+                           stroke=2, stroke_fill=(255, 255, 255, 255))
     ta = np.asarray(tl, np.float32)[..., 3] / 255
     a = np.maximum(np.asarray(m.filter(ImageFilter.GaussianBlur(1.2)), np.float32) / 255, ta)
     nz = noise_img(w, h, 77, 2, 100)

@@ -22,9 +22,11 @@ void vertex() {
 
 void fragment() {
 	float r = length(UV - 0.5) * 2.0;
-	float a = smoothstep(1.0, 0.35, r);
+	float a = smoothstep(1.0, 0.55, r);
+	float core = smoothstep(0.75, 0.35, r);
 	float ends = smoothstep(0.0, 0.18, v_t) * smoothstep(1.0, 0.8, v_t);
-	ALBEDO = color.rgb;
+	ALBEDO = mix(vec3(0.08, 0.05, 0.03), color.rgb, core / max(a, 0.001));
+	a = max(core, a * 0.5);
 	// never put blobs right in front of the lens (first person)
 	float near_fade = smoothstep(0.35, 0.8, v_cam_d);
 	ALPHA = a * opacity * ends * near_fade;

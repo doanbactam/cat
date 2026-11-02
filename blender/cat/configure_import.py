@@ -1,5 +1,6 @@
 """Configure Godot import options for the cat asset (run with system python3 after an
 initial tools/godot_import.sh, then re-run the import):
+  * cat.glb: animation/fps = 120 (the key rate; Godot otherwise re-bakes at 30 Hz)
   * cat.glb: loop_mode=LINEAR on looping clips (so gameplay code need not set it)
   * cat.glb: the body material CatFur is replaced by assets/models/cat/cat_fur_fallback.tres
     (same textures + wrap diffuse, velvet rim and a stronger strand micro-normal) so the cat
@@ -14,6 +15,7 @@ import sys
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 CAT = os.path.join(ROOT, "assets", "models", "cat")
 sys.path.insert(0, os.path.join(ROOT, "blender", "lib"))
+KEY_FPS = 120   # == cat_anim.KEY_FPS (kept literal: cat_anim imports bpy)
 LOOPING = ["idle", "idle_look", "walk", "trot", "run", "sneak", "sneak_idle", "fall", "sit_idle", "sleep", "groom",
            "scratch", "climb", "drink", "eat", "knead", "balance_walk"]
 
@@ -39,6 +41,9 @@ def glb():
             '"use_external/path": "res://assets/models/cat/cat_fur_fallback.tres"\n}\n}')
     sub = '{\n"animations": {\n' + ",\n".join(entries) + "\n},\n" + mats + "\n}"
     s = open(p).read()
+    # Godot re-samples every glTF track at animation/fps; the clips are keyed at 120 Hz
+    # (cat_anim.KEY_FPS) and must not be decimated (fast gaits dip paws through the floor)
+    s = re.sub(r"^animation/fps=.*$", f"animation/fps={KEY_FPS}", s, flags=re.M)
     s = re.sub(r"^_subresources=\{.*?^\}$|^_subresources=\{\}$", "_subresources=" + sub, s, flags=re.M | re.S)
     open(p, "w").write(s)
 

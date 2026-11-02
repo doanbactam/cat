@@ -163,7 +163,7 @@ def fields(P: np.ndarray, N: np.ndarray, part: np.ndarray, seed: int = 1) -> dic
     crown = (1 - smoothstep(0.0005, 0.0012, dc)) * top * smoothstep(0.205, 0.195, hf) * smoothstep(0.125, 0.145, hf)
     crown *= 0.6 + 0.4 * smoothstep(-0.3, 0.3, fbm3(P * 45.0, 2, seed=seed + 7))
     # eyes: liner + pale ring, mascara line, cheek swirl
-    c, g, u, v = S.eye_frame(1)
+    c, g, u, v = S.aperture_frame(1)
     q = phm - c
     am = S.almond2d(q @ u, q @ v, A.EYE_APERTURE_W, A.EYE_APERTURE_H)
     near_eye = (np.linalg.norm(q, axis=1) < A.EYE_RADIUS + 0.007) & ((q @ g) > -0.003)
@@ -242,6 +242,17 @@ def fields(P: np.ndarray, N: np.ndarray, part: np.ndarray, seed: int = 1) -> dic
              lips=lips, socket=socket, pad=pad, ear=is_ear.astype(float), inner_ear=inner_ear, ear_h=ear_h, ear_u=ear_u,
              teeth=is_teeth.astype(float), tongue=is_tongue.astype(float), liner=liner * head_w, pale=pale * head_w,
              chin=chin, muzzle=muzzle, belly=belly, toes=toes, tail_tip=tip * tail_w, follicle=_follicles(phm) * head_w)
+    # lip margins: mouth surface within ~2.5 mm of the uncarved head surface (what shows of the
+    # closed mouth: the lip edges and the commissures) is dark pigmented skin like a real cat's,
+    # not red gum -- the closed mouth then reads as a fine dark line, not an open human lip slit
+    lm = np.zeros(M)
+    im = np.nonzero(mouth > 0)[0]                      # evaluate only on the (few) mouth texels
+    if len(im):
+        lm[im] = mouth[im] * smoothstep(0.0060, 0.0025, -S.head_sdf(ph[im]))
+    F["lip_margin"] = lm
+    # towards the commissures the closed lip line is tucked under the whisker-pad fur: paint the
+    # visible margin there as (shaded) muzzle fur so the mouth line does not curl up into a grin
+    F["lip_side"] = lm * smoothstep(0.0040, 0.0070, np.abs(ph[:, 0]))
     F["palate"] = mouth * smoothstep(0.3, 0.7, -N @ np.asarray(A.head_dir_to_world((0, 0, 1)))) * \
         (0.5 + 0.5 * np.cos(2 * math.pi * hf / 0.0028))
     # ---------------- fur flow (object space) ----------------
@@ -378,6 +389,8 @@ def albedo(F: dict, P: np.ndarray, pal_name: str = "cam", seed: int = 1) -> np.n
     col = TX.lerp(col, pal["lips"], F["lips"])
     mouth_col = TX.lerp(srgb_to_lin(hexc("8e3a40")), srgb_to_lin(hexc("b85a62")), F["palate"])
     col = TX.lerp(col, mouth_col, F["mouth"])
+    col = TX.lerp(col, pal["lips"] * 0.45, F["lip_margin"])
+    col = TX.lerp(col, pal["white"] * 0.62, F["lip_side"])
     pad_col = pal["pad"] * (1 + 0.10 * n_fine)[:, None]
     col = TX.lerp(col, pad_col, F["pad"])
     col = TX.lerp(col, srgb_to_lin(hexc("3a201c")), F["socket"])

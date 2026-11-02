@@ -5,6 +5,8 @@ extends Node
 ##   night_factor threshold so lamps come on staggered at dusk). Their lamp-head emissive material
 ##   (meta `lamp_material` on the light) follows. Only the `max_shadowed` lamps nearest the camera
 ##   cast shadows.
+## * Landmark kit lights (group "landmark_night_light", meta night_energy) behave like street lamps.
+##   All of them are also put in group "street_light" (world-life geckos).
 ## * Shop lights from the city kit (group "city_shop_light") brighten at night.
 ## * Kit materials named lit_* with meta `night_emission_energy` (lit signs, lit windows) are scaled
 ##   by night_factor; windows switch per-material so the quarter lights up gradually.
@@ -39,6 +41,18 @@ func refresh_nodes() -> void:
 			_lamps.append(n)
 			if not n.has_meta(&"base_energy"):
 				n.set_meta(&"base_energy", (n as Light3D).light_energy)
+	# city-landmarks kit lights (temple lanterns, market bulbs, tea stall bulb, café, promenade globes):
+	# energy 0 by day, meta night_energy
+	for n in get_tree().get_nodes_in_group(&"landmark_night_light"):
+		if n is Light3D and not _lamps.has(n):
+			_lamps.append(n)
+			if not n.has_meta(&"base_energy"):
+				n.set_meta(&"base_energy", float(n.get_meta(&"night_energy", 1.5)))
+			if not n.has_meta(&"switch_at"):
+				n.set_meta(&"switch_at", 0.25 + float(absi(hash(n.get_path())) % 100) / 100.0 * 0.2)
+	for l in _lamps:
+		if not l.is_in_group(&"street_light"):
+			l.add_to_group(&"street_light")      # world-life: geckos gather at lamps
 	_shop_lights.clear()
 	for n in get_tree().get_nodes_in_group(&"city_shop_light"):
 		if n is Light3D:
@@ -127,7 +141,7 @@ func _apply(force: bool) -> void:
 		var on := smoothstep(thr, thr + 0.08, night)
 		l.light_energy = float(l.get_meta(&"base_energy", 1.0)) * on
 		l.visible = on > 0.01
-		var lm: Variant = l.get_meta(&"lamp_material", null)
+		var lm: Variant = l.get_meta(&"lamp_material") if l.has_meta(&"lamp_material") else null
 		if lm is StandardMaterial3D:
 			(lm as StandardMaterial3D).emission_energy_multiplier = 4.0 * on
 	for l in _shop_lights:

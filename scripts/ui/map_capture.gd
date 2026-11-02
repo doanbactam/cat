@@ -28,7 +28,7 @@ static func get_cached(scene: Node) -> Dictionary:
 static func compute_bounds(scene: Node) -> Rect2:
 	if scene == null:
 		return DEFAULT_BOUNDS
-	var meta: Variant = scene.get_meta(&"map_bounds", null)
+	var meta: Variant = scene.get_meta(&"map_bounds") if scene.has_meta(&"map_bounds") else null
 	if meta is Rect2:
 		return meta
 	var have := false

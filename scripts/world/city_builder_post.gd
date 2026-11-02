@@ -38,6 +38,7 @@ func run() -> Dictionary:
 	var after := _net_coverage()
 	_add_decorative_cables()
 	_add_mun_patrol()
+	_snap_to_surfaces()
 	report["rows_in_main_network"] = _row_membership()
 	report["net_coverage_before"] = before
 	report["net_coverage_after"] = after
@@ -45,6 +46,27 @@ func run() -> Dictionary:
 
 
 # --- measurement ---------------------------------------------------------------------------------
+
+## Interactables/knockables tagged with meta `snap_from` (ray start y) are dropped onto the first
+## world (layer 1) surface below them, so cups land on the kit's real tables and wall copings.
+func _snap_to_surfaces() -> void:
+	var g := b.call(&"grp", "Interactables") as Node3D
+	var n := 0
+	var miss := 0
+	for c in g.get_children():
+		if not c is Node3D or not c.has_meta(&"snap_from"):
+			continue
+		var nd := c as Node3D
+		var p := nd.position
+		var hit := _ray_down(p.x, p.z, float(nd.get_meta(&"snap_from")), -1.0)
+		if hit.is_empty():
+			miss += 1
+		else:
+			nd.position = Vector3(p.x, (hit["position"] as Vector3).y + 0.005, p.z)
+			n += 1
+		nd.remove_meta(&"snap_from")
+	report["snapped"] = n
+	report["snap_misses"] = miss
 
 func _ray_down(x: float, z: float, from_y: float = 45.0, to_y: float = 2.0) -> Dictionary:
 	var q := PhysicsRayQueryParameters3D.create(Vector3(x, from_y, z), Vector3(x, to_y, z), 1)
@@ -451,7 +473,7 @@ func _bridge_components() -> void:
 					var q: Vector3 = samples[j]["p"]
 					var hd := Vector2(p.x - q.x, p.z - q.z).length()
 					var dy := absf(p.y - q.y)
-					if hd < 1.0 or hd > 26.0 or dy > 4.0:
+					if hd < 0.3 or hd > 26.0 or (dy > 4.0 and hd > 1.6):
 						continue
 					cands.append([hd + dy * 2.0, i, j, hd, dy])
 			cands.sort_custom(func(a: Array, c: Array) -> bool: return float(a[0]) < float(c[0]))
@@ -462,6 +484,12 @@ func _bridge_components() -> void:
 					break
 				var i: int = c[1]
 				var j: int = c[2]
+				if float(c[3]) <= 1.6 and float(c[4]) > MAX_STEP:
+					# adjacent but a big height step: crate stair (≤ 4.2 m) or climbable drainpipe
+					_vertical_link(i, j)
+					bridged += 1
+					progress = true
+					break
 				if float(c[3]) <= 4.5 and float(c[4]) <= minf(MAX_STEP, float(c[3]) * 0.55):
 					var p: Vector3 = samples[i]["p"]
 					var q: Vector3 = samples[j]["p"]
@@ -481,6 +509,29 @@ func _bridge_components() -> void:
 		if not progress:
 			break
 	report["island_bridges"] = bridged
+
+
+## Stair or drainpipe from the lower sample up to the higher one (used to join roof islands).
+func _vertical_link(a: int, c: int) -> void:
+	var rng: RandomNumberGenerator = b.get(&"rng")
+	var pa: Vector3 = samples[a]["p"]
+	var pc: Vector3 = samples[c]["p"]
+	var lo := pa if pa.y < pc.y else pc
+	var hi := pc if pa.y < pc.y else pa
+	var dy := hi.y - lo.y
+	var toward := Vector3(hi.x - lo.x, 0, hi.z - lo.z)
+	toward = toward.normalized() if toward.length() > 0.05 else Vector3.FORWARD
+	var parent_node := b.call(&"grp", "Connectors") as Node3D
+	if dy <= 4.2:
+		var stair := CS.make_crate_stair(dy - 0.4, rng)
+		stair.transform = Transform3D(Basis.looking_at(toward, Vector3.UP, true), lo)
+		parent_node.add_child(stair)
+	else:
+		var pipe := CS.make_drainpipe(dy + 0.1)
+		var at := hi - toward * 0.25
+		pipe.transform = Transform3D(Basis.looking_at(-toward, Vector3.UP, true), Vector3(at.x, lo.y, at.z) - toward * 0.25)
+		parent_node.add_child(pipe)
+	_union(a, c)
 
 
 func _add_tower_access() -> void:

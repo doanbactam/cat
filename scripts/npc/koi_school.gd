@@ -72,7 +72,7 @@ func setup(marker: Node3D, n: int) -> void:
 ## marker placed anywhere in the lake (surface or mid-water) yields a valid swim volume.
 func _fit_to_water(marker: Node3D) -> void:
 	var p := marker.global_position
-	for a: Node in get_tree().get_nodes_in_group(&"water"):
+	for a: Node in NpcUtil.nodes_in(get_tree(), &"water"):
 		if a is Node3D and a.has_meta(&"water_level"):
 			var wy := float(a.get_meta(&"water_level"))
 			if absf(wy - p.y) < 3.0:

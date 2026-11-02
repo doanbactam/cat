@@ -66,7 +66,7 @@ def _shrine_house(ctx: K.LCtx, cx, cy_back, z, w=0.56, d=0.4, h=0.5, roof=True):
     ctx.mark_pt("LIGHT_ALTAR", (cx, yf + 0.15, z + 0.25))
     if roof:
         r = K.HipRoof(cx, (yb + yf) / 2, w / 2 + 0.12, d / 2 + 0.12, z + h + 0.03, 0.2, p=1.1, U=0.08, L=0.12)
-        r.build(ctx, collide=False, nt=4, du=0.08, thick=0.03)
+        r.build(ctx, collide=False, nt=6, du=0.05, thick=0.03, tile_m=0.7)
         K.roof_ornaments(ctx, r, ridge_h=0.05, ridge_w=0.05, curl=0.12, centre="none", walkable=False)
     ctx.col((x0 - 0.03, yf - 0.03, z), (x1 + 0.03, yb, z + h + 0.25), "wood")
 
@@ -345,12 +345,17 @@ def build_tea_stall(spec):
         ctx.col((px - 0.035, 0.22, 0.0), (px + 0.035, 0.32, 2.05), "wood", ("climb",))
         ctx.climb.append(V((px, 0.15, 0.9)))
     K.sag_cloth(cl, (-2.15, 0.15, 2.05), (2.15, 0.15, 2.05), (-2.15, WB - 0.04, 2.42), (2.15, WB - 0.04, 2.42),
-                "lm:tarp_blue", WHITE, nu=12, nv=8, sag=0.14, seed=7)
+                "lm:tarp_blue", WHITE, nu=24, nv=14, sag=0.2, seed=7, wrinkle=0.04)
     # an older striped tarp layered over one side + a hanging flap at the front
     K.sag_cloth(cl, (0.3, 0.6, 2.13), (2.2, 0.6, 2.12), (0.3, WB - 0.04, 2.47), (2.2, WB - 0.04, 2.47), "lm:tarp_stripe",
-                WHITE, nu=8, nv=6, sag=0.1, seed=8)
-    K.sag_cloth(cl, (-2.15, 0.14, 2.04), (2.15, 0.14, 2.04), (-2.15, 0.12, 1.82), (2.15, 0.12, 1.82), "lm:tarp_blue",
-                (0.9, 0.9, 0.9, 1), nu=12, nv=2, sag=0.0, seed=9)
+                WHITE, nu=14, nv=10, sag=0.13, seed=8, wrinkle=0.035)
+    # front valance: tied at both poles and at the sign, the hem droops in between and ripples
+    K.sag_cloth(cl, (-2.15, 0.14, 2.04), (2.15, 0.14, 2.04), (-2.15, 0.12, 1.84), (2.15, 0.12, 1.84), "lm:tarp_blue",
+                (0.9, 0.9, 0.9, 1), nu=48, nv=5, sag=0.0, seed=9, wrinkle=0.0, hem_droop=0.1,
+                hem_ties=(0.0, 0.045, 0.27, 0.5, 0.73, 0.955, 1.0))
+    # a torn corner of the old striped tarp hanging off the right edge
+    K.sag_cloth(cl, (2.2, 0.62, 2.12), (2.2, 1.3, 2.2), (2.24, 0.66, 1.78), (2.24, 1.25, 1.9), "lm:tarp_stripe",
+                (0.85, 0.85, 0.85, 1), nu=6, nv=5, sag=0.0, seed=10, wrinkle=0.0, hem_droop=0.05, hem_ties=(0.0, 1.0))
     K.col_slab(ctx, V((0, 0.15, 2.05)), V((0, WB - 0.04, 2.42)), 2.15, 0.06, "fabric")
     ctx.zone("SHELTER", (-2.1, 0.15, 0.0), (2.1, WB, 2.0))
     ctx.nap.append(V((0.9, 1.4, 2.27)))       # sunny tarp hammock spot (sags under a cat)

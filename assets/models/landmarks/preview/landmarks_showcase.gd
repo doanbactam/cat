@@ -183,6 +183,8 @@ func _add_scale_reference() -> void:
 	if not ResourceLoader.exists(CAT):
 		return
 	var ps := load(CAT) as PackedScene
+	if ps == null:   # cat asset mid-rebuild (other area) — the scale reference is optional
+		return
 	for p: Vector3 in [Vector3(9.4, 0.0, 54.6), Vector3(0.6, 0.0, 46.0), Vector3(-43.6, 1.56, 31.2)]:
 		var c := ps.instantiate() as Node3D
 		add_child(c)
@@ -247,3 +249,59 @@ func _light_up() -> void:
 			var m := mesh.surface_get_material(i) as StandardMaterial3D
 			if m and m.has_meta(&"night_emission_energy"):
 				m.emission_energy_multiplier = float(m.get_meta(&"night_emission_energy"))
+
+
+# --- camera tour for batch QA captures -------------------------------------------------------------
+## One Godot launch, many views: `tools/screenshot.sh scene=<this> call=start_tour frames=40 shots=N step=S
+## out=/abs/tour.png` writes tour_0.png … tour_<N-1>.png, one per pose in TOUR (in order).
+const TOUR: Array = [
+	["temple_gate", Vector3(7.0, 3.2, 58.0), Vector3(0.0, 3.6, 44.0)],
+	["temple_court", Vector3(-6.0, 2.6, 38.0), Vector3(1.0, 4.0, 18.0)],
+	["temple_roof", Vector3(6.0, 11.5, 22.5), Vector3(0.0, 9.6, 16.0)],
+	["tea_stall", Vector3(10.6, 1.35, 58.2), Vector3(8.7, 0.9, 53.2)],
+	["tea_stall_cat", Vector3(9.9, 0.32, 56.4), Vector3(8.8, 0.35, 53.4)],
+	["cafe", Vector3(19.5, 2.0, 63.0), Vector3(17.5, 3.0, 53.0)],
+	["market_in", Vector3(36.5, 1.6, 30.5), Vector3(46.0, 2.0, 21.0)],
+	["market_lane", Vector3(50.0, 1.7, 46.0), Vector3(48.0, 1.0, 38.0)],
+	["lake_bridge", Vector3(-30.0, 2.4, 44.0), Vector3(-44.0, 0.2, 29.0)],
+	["islet", Vector3(-38.0, 1.6, 26.0), Vector3(-44.0, 1.0, 19.6)],
+]
+
+var _tour_cam: Camera3D
+var _tour_frame := 0
+var _tour_first := 40
+var _tour_step := 30
+
+
+func start_tour() -> void:
+	for a in OS.get_cmdline_user_args():
+		var kv := a.split("=", true, 1)
+		if kv.size() == 2 and kv[0] == "frames":
+			_tour_first = int(kv[1])
+		elif kv.size() == 2 and kv[0] == "step":
+			_tour_step = int(kv[1])
+	_tour_cam = Camera3D.new()
+	_tour_cam.fov = 62.0
+	_tour_cam.far = 800.0
+	add_child(_tour_cam)
+	_tour_cam.make_current()
+	_tour_pose(0)
+	set_process(true)
+
+
+func _tour_pose(i: int) -> void:
+	var p: Array = TOUR[clampi(i, 0, TOUR.size() - 1)]
+	_tour_cam.global_position = p[1]
+	_tour_cam.look_at(p[2], Vector3.UP)
+	print("TOUR pose %d %s" % [i, p[0]])
+
+
+func _process(_dt: float) -> void:
+	if _tour_cam == null:
+		return
+	_tour_frame += 1
+	var idx := floori(float(_tour_frame - _tour_first + _tour_step - 4) / float(_tour_step))
+	idx = clampi(idx, 0, TOUR.size() - 1)
+	if idx != int(_tour_cam.get_meta(&"pose", -1)):
+		_tour_cam.set_meta(&"pose", idx)
+		_tour_pose(idx)

@@ -88,7 +88,7 @@ func _status_text() -> String:
 		var gs := get_node_or_null(^"/root/GameState")
 		if gs != null and gs.has_method("get_weather"):
 			w = String(gs.call("get_weather"))
-	return tr("PAUSE_STATUS").format({"day": day, "time": UIStyle.fmt_hour(hour), "weather": tr("WEATHER_" + w.to_upper())})
+	return tr("PAUSE_STATUS").format({"day": day, "time": UIStyle.fmt_hour(hour), "weather": tr("PAUSE_WEATHER_" + w.to_upper())})
 
 
 func _build_card() -> void:

@@ -153,8 +153,21 @@ def eye_frame(side: int = 1):
     return c, g, u2, v2
 
 
-def almond2d(qu, qv, w, h, up_frac=0.56):
+def aperture_frame(side: int = 1):
+    """Eye frame of the lid opening: the gaze frame yawed outwards by EYE_APERTURE_OUT_DEG about
+    the aperture's up axis (a cat's palpebral fissure faces more laterally than its visual
+    axis, so the lateral lid sits further back and the cornea shows in profile)."""
+    c, g, u, v = eye_frame(side)
+    R = rot_axis(v, A.EYE_APERTURE_OUT_DEG)
+    if (R @ g)[0] * side < g[0] * side:
+        R = rot_axis(v, -A.EYE_APERTURE_OUT_DEG)
+    return c, R @ g, R @ u, v
+
+
+def almond2d(qu, qv, w, h, up_frac=None):
     """2D SDF-ish of an almond aperture centred at 0 (corners at +-w/2, 0)."""
+    if up_frac is None:
+        up_frac = A.EYE_APERTURE_UP_FRAC
     a = w * 0.5
     bu = h * up_frac
     bl = h * (1.0 - up_frac)
@@ -222,24 +235,24 @@ def neck(p):
 def head_upper(p, pm):
     """Skull, face and upper lip (p, pm in head design space)."""
     cran = union([
-        ellipsoid(p, F(0, 0.170, 0.2520), (0.0305, 0.0365, 0.0250)),      # cranium (narrower, flatter)
+        ellipsoid(p, F(0, 0.170, 0.2515), (0.0305, 0.0365, 0.0236)),      # cranium (narrower, flatter dome)
         ellipsoid(p, F(0, 0.150, 0.2440), (0.0262, 0.0250, 0.0255)),      # occiput
         ellipsoid(p, F(0, 0.1925, 0.2600), (0.0200, 0.0185, 0.0115)),     # forehead
         ellipsoid(p, F(0, 0.1940, 0.2455), (0.0265, 0.0170, 0.0180)),     # orbital plate (eyes sit in it)
     ], 0.012)
     face = union([
-        ellipsoid(pm, F(0.0152, 0.2058, 0.2592), (0.0092, 0.0072, 0.0048)),  # brow ridge over the upper lid
+        ellipsoid(pm, F(0.0150, 0.2052, 0.2588), (0.0098, 0.0074, 0.0050)),  # brow ridge over the upper lid
         ellipsoid(pm, F(0.0242, 0.1940, 0.2390), (0.0108, 0.0175, 0.0098)),  # zygomatic arch
         ellipsoid(pm, F(0.0160, 0.2030, 0.2385), (0.0078, 0.0085, 0.0055)),  # infra-orbital (lower lid support)
-        ellipsoid(pm, F(0.0240, 0.1730, 0.2300), (0.0120, 0.0215, 0.0150)),  # cheek / jowl ruff
+        ellipsoid(pm, F(0.0236, 0.1730, 0.2300), (0.0108, 0.0215, 0.0145)),  # cheek / jowl ruff
         round_cone(p, F(0, 0.2070, 0.2525), F(0, 0.2180, 0.2405), 0.0082, 0.0066),  # nose bridge
         ellipsoid(p, F(0, 0.2045, 0.2310), (0.0128, 0.0125, 0.0118)),       # muzzle core
     ], 0.008)
     d = smin(cran, face, 0.010)
     pads = ellipsoid(pm, A.WHISKER_PAD_L, (0.0078, 0.0066, 0.0062))         # whisker pads
-    flews = ellipsoid(pm, F(0.0108, 0.2045, 0.2220), (0.0056, 0.0092, 0.0049))  # upper lip flews over the jaw
+    flews = ellipsoid(pm, F(0.0108, 0.2045, 0.2212), (0.0056, 0.0092, 0.0053))  # upper lip flews over the jaw
     corner = ellipsoid(pm, F(0.0128, 0.1935, 0.2200), (0.0048, 0.0060, 0.0048))  # lip commissure tissue
-    curtain = ellipsoid(pm, F(0.0022, 0.2166, 0.2196), (0.0058, 0.0034, 0.0044))  # midline upper lip (covers the lower lip)
+    curtain = ellipsoid(pm, F(0.0022, 0.2166, 0.2188), (0.0058, 0.0036, 0.0046))  # midline upper lip (covers the lower lip)
     lip = smin(smin(smin(flews, curtain, 0.003), corner, 0.004), pads, 0.0050)
     d = smin(d, lip, 0.0065)
     nose = union([
@@ -255,9 +268,9 @@ def head_jaw(p):
     pjm = pj.copy()
     pjm[:, 0] = np.abs(pjm[:, 0])
     return union([
-        round_cone(pjm, F(0.0215, 0.166, 0.2150), F(0.0052, 0.1965, 0.2110), 0.0076, 0.0056),  # mandible
-        ellipsoid(pj, F(0, 0.2042, 0.2114), (0.0076, 0.0070, 0.0054)),        # chin
-        ellipsoid(pj, F(0, 0.1810, 0.2092), (0.0150, 0.0195, 0.0068)),        # jaw underside
+        round_cone(pjm, F(0.0215, 0.166, 0.2150), F(0.0052, 0.1985, 0.2125), 0.0076, 0.0054),  # mandible
+        ellipsoid(pj, F(0, 0.2066, 0.2132), (0.0070, 0.0066, 0.0050)),        # chin (small, forward)
+        ellipsoid(pj, F(0, 0.1815, 0.2112), (0.0146, 0.0200, 0.0062)),        # jaw underside
         round_cone(pjm, F(0.0098, 0.1965, 0.2160), F(0.0, 0.2096, 0.2158), 0.0023, 0.0026),  # lower lip
     ], 0.006)
 
@@ -281,24 +294,40 @@ def mouth_carve(p):
     cavity = ellipsoid(p, F(0, 0.1885, 0.2182), (0.0088, 0.0200, 0.0044))
     pm = p.copy()
     pm[:, 0] = np.abs(pm[:, 0])
-    vestibule = ellipsoid(pm, F(0.0076, 0.2055, 0.2182), (0.0028, 0.0042, 0.0034))   # room for the canines behind the flews
+    vestibule = ellipsoid(pm, F(0.0074, 0.2050, 0.2192), (0.0022, 0.0036, 0.0026))   # room for the canines behind the flews
     return smin(smin(gap, cavity, 0.0015), vestibule, 0.0012)
 
 
 def eye_carve(pm):
-    c, g, u, v = eye_frame(1)
+    c, g, u, v = aperture_frame(1)
     q = pm - c
     s = q @ g
     qu, qv = q @ u, q @ v
     prism = almond2d(qu, qv, A.EYE_APERTURE_W, A.EYE_APERTURE_H)
     front = smax(prism, -s, 0.0008)
-    socket = sphere(pm, c, A.EYE_RADIUS + 0.00035)
+    # thin clearance shell between eyeball and lids, only just behind the lid margins (the lid
+    # margin sits at s ~ 0.6 R at the canthi, ~0.85-0.9 R top/bottom): a deep 0.35 mm slit cannot be resolved by the ~1.5 mm game
+    # mesh and folded into flaps at the canthi once the eye was sunk into the orbit
+    socket = smax(sphere(pm, c, A.EYE_RADIUS + 0.00035), A.EYE_RADIUS * 0.72 - s, 0.0008)
     return smin(front, socket, 0.0006)
 
 
+# Periorbital fill (design metres): an ellipsoid centred behind the eyeball, in the eye frame,
+# whose front surface lies just over the eyeball at the aperture rim.  It fills the dish that a
+# bare lid sphere leaves between eyeball, brow, cheek and nose bridge, so the eye reads as an
+# almond opening in the face (lids overlapping the cornea) instead of a globe in a ring.
+PERIORB_BACK = 0.0030       # centre behind the eyeball centre along -gaze
+PERIORB_U = 0.0110          # half-extent along the aperture axis (corner to corner)
+PERIORB_V = 0.0098          # half-extent up/down
+PERIORB_FRONT = -0.0004     # front pole ahead of the eyeball surface (inside the aperture, carved)
+
+
 def lid_shell(pm):
-    c, _, _, _ = eye_frame(1)
-    return sphere(pm, c, A.EYE_RADIUS + 0.0011)
+    c, g, u, v = eye_frame(1)
+    shell = sphere(pm, c, A.EYE_RADIUS + 0.0011)
+    R = np.stack([u, v, g], axis=1)
+    fill = ellipsoid(pm, c - g * PERIORB_BACK, (PERIORB_U, PERIORB_V, PERIORB_BACK + A.EYE_RADIUS + PERIORB_FRONT), R)
+    return smin(shell, fill, 0.0030)
 
 
 def head_sdf(ph):
@@ -306,7 +335,7 @@ def head_sdf(ph):
     phm = ph.copy()
     phm[:, 0] = np.abs(phm[:, 0])
     d = smin(head_upper(ph, phm), head_jaw(ph), 0.006)
-    d = smin(d, lid_shell(phm), 0.0030)
+    d = smin(d, lid_shell(phm), 0.0045)
     return d
 
 
@@ -318,7 +347,7 @@ def head_carve(ph, d):
     nostril = ellipsoid(phm, F(0.0038, 0.2236, 0.2330), (0.0014, 0.0012, 0.0008),
                         rot_axis((0, 1, 0), 35.0))
     d = smax(d, -nostril, 0.0006)
-    philtrum = round_cone(ph, F(0, 0.2232, 0.2310), F(0, 0.2180, 0.2165), 0.0006, 0.0008)
+    philtrum = round_cone(ph, F(0, 0.2232, 0.2310), F(0, 0.2182, 0.2175), 0.0004, 0.0005)
     d = smax(d, -philtrum, 0.0005)
     return d
 

@@ -30,6 +30,17 @@ func _ready() -> void:
 		if ANIMALS[i] == "koi":
 			pos.y = 0.05
 		_spawn(ANIMALS[i], pos)
+	# the real player cat (read-only use of the cat-asset model) next to the reference box
+	var cat_path := "res://assets/models/cat/cat.glb"
+	if ResourceLoader.exists(cat_path):
+		var cat_scene := load(cat_path) as PackedScene
+		if cat_scene != null:
+			var cat := cat_scene.instantiate() as Node3D
+			cat.name = "CamCat"
+			add_child(cat)
+			cat.position = Vector3(a0 - animal_spacing * 1.3, 0.0, 1.3)
+			cat.rotation.y = deg_to_rad(35.0)
+			_actors["cam_cat"] = cat
 	show_idle()
 
 

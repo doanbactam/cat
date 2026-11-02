@@ -309,12 +309,12 @@
   "id": "flame_tree",
   "file": "res://assets/models/nature/flame_tree.glb",
   "kind": "tree",
-  "width": 10.9,
-  "depth": 10.69,
-  "height": 8.55,
+  "width": 11.32,
+  "depth": 11.11,
+  "height": 8.74,
   "footprint": [
-   10.9,
-   10.69
+   11.32,
+   11.11
   ],
   "floors": 0,
   "style": "nature",
@@ -381,31 +381,31 @@
   "id": "frangipani",
   "file": "res://assets/models/nature/frangipani.glb",
   "kind": "tree",
-  "width": 3.19,
-  "depth": 2.8,
-  "height": 3.29,
+  "width": 4.53,
+  "depth": 4.33,
+  "height": 3.56,
   "footprint": [
-   3.19,
-   2.8
+   4.53,
+   4.33
   ],
   "floors": 0,
   "style": "nature",
   "climb_points": [
    [
     0.011,
-    0.365,
-    0.101
+    0.398,
+    0.106
    ]
   ],
   "nap_spots": [
    [
-    0.017,
-    1.097,
-    -0.081
+    0.018,
+    0.996,
+    -0.08
    ]
   ],
   "entrances": [],
-  "tris": 2500,
+  "tris": 5638,
   "materials": [
    "nbark_bark_smooth",
    "nfol_leaf_frangipani"
@@ -770,12 +770,12 @@
   "id": "weeping_willow",
   "file": "res://assets/models/nature/weeping_willow.glb",
   "kind": "tree",
-  "width": 7.04,
-  "depth": 7.48,
-  "height": 6.86,
+  "width": 7.45,
+  "depth": 7.46,
+  "height": 6.96,
   "footprint": [
-   7.04,
-   7.48
+   7.45,
+   7.46
   ],
   "floors": 0,
   "style": "nature",
@@ -804,7 +804,7 @@
    ]
   ],
   "entrances": [],
-  "tris": 13028,
+  "tris": 14829,
   "materials": [
    "nbark_bark_furrowed",
    "nfol_leaf_willow"

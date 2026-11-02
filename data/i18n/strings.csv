@@ -103,11 +103,11 @@ PAUSE_MAIN_MENU,Main menu,Màn hình chính
 PAUSE_QUIT,Quit game,Thoát game
 PAUSE_STATUS,Day {day} · {time} · {weather},Ngày {day} · {time} · {weather}
 PAUSE_SKILL_POINTS,{n} unspent skill points,Còn {n} điểm kỹ năng
-WEATHER_CLEAR,clear sky,trời quang
-WEATHER_CLOUDY,cloudy,nhiều mây
-WEATHER_RAIN,rain,mưa
-WEATHER_STORM,storm,giông bão
-WEATHER_FOG,fog,sương mù
+PAUSE_WEATHER_CLEAR,clear sky,trời quang
+PAUSE_WEATHER_CLOUDY,cloudy,nhiều mây
+PAUSE_WEATHER_RAIN,rain,mưa
+PAUSE_WEATHER_STORM,storm,giông bão
+PAUSE_WEATHER_FOG,fog,sương mù
 INV_TITLE,Belongings,Đồ đạc
 INV_SUBTITLE,What Cam keeps in his den under the tea counter,Những thứ Cam cất trong ổ dưới quầy trà
 INV_TAB_ALL,All,Tất cả
@@ -481,6 +481,82 @@ GYM_CLIMB,"climb (brick, drainpipe)","leo (tường gạch, ống thoát nước
 GYM_AC_ROOF,AC units → roof 3.6 m,"cục nóng điều hòa → mái 3,6 m"
 GYM_POOL,pool,bể nước
 GYM_CRAWL,crawl under (0.17 m),"chui gầm (0,17 m)"
+PROP_AC_UNIT,Air-conditioner unit,Cục nóng điều hòa
+PROP_ALTAR_BOX,Earth-god altar,Bàn thờ ông Địa
+PROP_BANH_MI_CART,Bánh mì cart,Xe bánh mì
+PROP_BANNER_STANDING,Standing banner,Băng rôn đứng
+PROP_BASIN_PLASTIC,Plastic basin,Chậu nhựa
+PROP_BICYCLE_RACK,Bicycle rack,Giá để xe đạp
+PROP_BIRD_CAGE,Bird cage,Lồng chim
+PROP_BOOK_SINGLE,Book,Cuốn sách
+PROP_BOOK_STACK,Stack of books,Chồng sách
+PROP_BOTTLE_CRATE,Bottle crate,Két chai
+PROP_BOTTLE_FISH_SAUCE,Fish-sauce bottle,Chai nước mắm
+PROP_BOTTLE_SOY,Soy-sauce bottle,Chai xì dầu
+PROP_BOTTLE_WATER,Water bottle,Chai nước suối
+PROP_BROOM_BAMBOO,Bamboo broom,Chổi tre
+PROP_BROOM_SOFT,Soft broom,Chổi chít
+PROP_BUCKET_PLASTIC,Plastic bucket,Xô nhựa
+PROP_CABLE_COIL_LARGE,Tangle of cables,Búi dây điện
+PROP_CABLE_COIL_SMALL,Coil of cable,Cuộn dây điện
+PROP_CABLE_DRUM,Cable drum,Lô cuốn cáp
+PROP_CACTUS_POT,Little cactus,Chậu xương rồng
+PROP_CAN_CONDENSED_MILK,Tin of condensed milk,Lon sữa đặc
+PROP_CARDBOARD_BOX_CLOSED,Cardboard box,Thùng các-tông
+PROP_CARDBOARD_BOX_OPEN,Open cardboard box,Hộp các-tông mở
+PROP_CARDBOARD_FLAT_PILE,Pile of flattened boxes,Chồng bìa các-tông
+PROP_CARP_LANTERN,Carp lantern,Đèn cá chép
+PROP_CONSTRUCTION_BARRIER,Construction barrier,Rào chắn công trình
+PROP_CUP_CERAMIC,Porcelain cup,Tách sứ
+PROP_DRAIN_GRATE,Drain grate,Song chắn rác cống
+PROP_ELECTRIC_POLE_CONCRETE,Concrete power pole,Cột điện bê tông
+PROP_FIRE_HYDRANT,Fire hydrant,Trụ cứu hỏa
+PROP_FISH_BASIN,Fish basin,Chậu cá
+PROP_FLOWER_BUCKET,Flower bucket,Xô hoa
+PROP_FOOD_BOWL,Food bowl,Bát cơm mèo
+PROP_FOOD_CART_XOI,Sticky-rice cart,Xe xôi
+PROP_FRUIT_BASKET,Fruit basket,Mẹt hoa quả
+PROP_GAS_CYLINDER,Gas cylinder,Bình ga
+PROP_GLASS_TRA_DA,Glass of iced tea,Cốc trà đá
+PROP_LAMP_POST_COLONIAL,Cast-iron lamp post,Cột đèn gang cổ
+PROP_LAMP_POST_MODERN,Street light,Cột đèn đường
+PROP_LANTERN_STRING,String of lanterns,Dây đèn lồng
+PROP_LAUNDRY_RACK,Laundry rack,Giá phơi đồ
+PROP_MAILBOX,Post box,Hòm thư
+PROP_MANHOLE_COVER,Manhole cover,Nắp cống
+PROP_MUG_ENAMEL,Enamel mug,Ca tráng men
+PROP_PHONE,Phone,Điện thoại
+PROP_PHO_POT_STOVE,Phở stock pot,Nồi nước dùng phở
+PROP_PLASTIC_CRATE_BLUE,Plastic crate,Sọt nhựa
+PROP_PLASTIC_CRATE_RED,Plastic crate,Sọt nhựa
+PROP_POT_ALOE,Aloe,Chậu nha đam
+PROP_POT_BONSAI,Bonsai,Chậu cây cảnh
+PROP_POT_CHILI,Chili plant,Chậu ớt
+PROP_POT_SNAKE_PLANT,Snake plant,Chậu lưỡi hổ
+PROP_RECYCLING_SACK,Recycling sack,Bao ve chai
+PROP_RICE_SACK,Rice sack,Bao gạo
+PROP_SANDALS_HONEYCOMB,Plastic sandals,Dép nhựa
+PROP_SHOES_CANVAS_PAIR,Canvas shoes,Giày vải
+PROP_SIGN_AFRAME_CAFE,Café chalkboard,Bảng phấn quán cà phê
+PROP_SIGN_AFRAME_COM,Rice-shop sign,Biển quán cơm tấm
+PROP_SIGN_LIGHTBOX,Light-box sign,Biển hộp đèn
+PROP_SILK_LANTERN_OVAL,Silk lantern,Đèn lồng lụa
+PROP_SILK_LANTERN_ROUND,Silk lantern,Đèn lồng lụa
+PROP_SLIPPERS_PAIR,Flip-flops,Dép tổ ong
+PROP_STAR_LANTERN,Star lantern,Đèn ông sao
+PROP_STOOL_PLASTIC,Plastic stool,Ghế nhựa
+PROP_STYROFOAM_BOX,Foam cool box,Thùng xốp
+PROP_TABLE_PLASTIC_LOW,Low plastic table,Bàn nhựa thấp
+PROP_TEA_SET,Tea set,Bộ ấm chén
+PROP_TRAFFIC_CONE,Traffic cone,Cọc tiêu giao thông
+PROP_TRASH_BIN_HOUSEHOLD,Pedal bin,Thùng rác đạp chân
+PROP_TRASH_BIN_MUNICIPAL,Green wheelie bin,Thùng rác xanh
+PROP_TV_REMOTE,TV remote,Điều khiển TV
+PROP_UMBRELLA_TARP,Vendor umbrella,Ô che hàng
+PROP_VASE_FLOWER,Flower vase,Lọ hoa
+PROP_WATER_BOWL,Water bowl,Bát nước
+PROP_WIND_CHIME,Wind chime,Chuông gió
+PROP_WOODEN_CRATE,Wooden crate,Thùng gỗ
 STAT_HEALTH,Health,Sức khỏe
 STAT_HUNGER,Hunger,No bụng
 STAT_ENERGY,Energy,Năng lượng
@@ -894,3 +970,44 @@ STORY_XAM_THANKS,Coo-coo! A cat helping a pigeon. Wait till the flock hears.,Gù
 STORY_BIN_CRYING,Mum's going to kill me… I lost the key. Do cats find keys? Probably not.,Mẹ sẽ mắng chết mất… tớ làm mất chìa khóa rồi. Mèo có tìm được chìa khóa không nhỉ? Chắc là không.
 STORY_BIN_HOPE,Did you find it? It's got a red string and a star!,Cậu tìm thấy chưa? Nó có dây đỏ với ngôi sao đấy!
 STORY_BIN_PLAY,You found it! You're the best cat in the whole world. Want to play?,Cậu tìm thấy thật này! Cậu là con mèo giỏi nhất thế giới. Chơi với tớ không?
+NATURE_BANYAN,Banyan tree,Cây đa
+NATURE_FLAME_TREE,Flame tree,Cây phượng vĩ
+NATURE_SAO,Sao tree,Cây sao đen
+NATURE_FRANGIPANI,Frangipani,Cây hoa sứ
+NATURE_COCONUT,Coconut palm,Cây dừa
+NATURE_ARECA,Areca palm,Cây cau
+NATURE_WILLOW,Weeping willow,Cây liễu rủ
+NATURE_BAMBOO,Bamboo clump,Bụi tre
+NATURE_IXORA,Ixora bush,Bụi hoa mẫu đơn đỏ
+NATURE_HEDGE,Hedge,Hàng rào cây
+NATURE_BOUGAINVILLEA,Bougainvillea,Hoa giấy
+NATURE_FERN,Fern,Cây dương xỉ
+NATURE_GRASS,Grass,Cỏ
+NATURE_WEEDS,Weeds,Cỏ dại
+NATURE_MOSS,Moss,Rêu
+NATURE_LITTER,Fallen leaves,Lá rụng
+NATURE_LOTUS,Lotus,Hoa sen
+NATURE_HYACINTH,Water hyacinth,Lục bình
+VEH_SCOOTER,Scooter,Xe tay ga
+VEH_UNDERBONE,Step-through motorbike,Xe số
+VEH_MANUAL_BIKE,Old motorbike,Xe máy cũ
+VEH_BICYCLE,Bicycle,Xe đạp
+VEH_CYCLO,Cyclo,Xích lô
+VEH_CARGO_TRIKE,Cargo tricycle,Xe ba gác
+VEH_TAXI,Taxi,Xe taxi
+VEH_VAN,Delivery van,Xe tải giao hàng
+VEH_HELMET_HALF,Half helmet,Mũ bảo hiểm nửa đầu
+VEH_HELMET_OPEN,Open-face helmet,Mũ bảo hiểm ba phần tư
+LOC_BELL_PAVILION,Bell pavilion,Gác chuông
+LOC_SUN_STEPS,Sunrise steps,Bậc đón nắng
+PROP_TEA_CUP,tea cup,chén trà
+PROP_GLASS,glass,cốc thủy tinh
+PROP_CAN,can,lon nước
+PROP_BOWL,bowl,cái bát
+PROP_FLOWER_POT,flower pot,chậu hoa
+PROP_BOTTLE,bottle,cái chai
+WEATHER_CLEAR,Clear,Trời quang
+WEATHER_CLOUDY,Cloudy,Nhiều mây
+WEATHER_RAIN,Rain,Mưa
+WEATHER_STORM,Storm,Giông bão
+WEATHER_FOG,Fog,Sương mù

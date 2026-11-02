@@ -246,12 +246,12 @@ def _coil(seed, radius, n, junction):
     return {"parts": parts, "markers": [G.marker("HANG_01", (0, 0, 0))], "meta": {"origin": "hang_point"}}
 
 
-@prop("cable_coil_small", category="utility", surface="fabric", mass=4.0, grounded=False, tags=["cables", "hanging"])
+@prop("cable_coil_small", category="utility", surface="fabric", material_kind="soft", mass=4.0, grounded=False, tags=["cables", "hanging"])
 def cable_coil_small():
     return _coil(3, 0.17, 6, False)
 
 
-@prop("cable_coil_large", category="utility", surface="fabric", mass=9.0, grounded=False, tags=["cables", "hanging"])
+@prop("cable_coil_large", category="utility", surface="fabric", material_kind="soft", mass=9.0, grounded=False, tags=["cables", "hanging"])
 def cable_coil_large():
     return _coil(9, 0.27, 11, True)
 

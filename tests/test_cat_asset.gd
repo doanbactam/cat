@@ -119,3 +119,18 @@ func test_textures_exist() -> void:
 		assert_not_null(tex, path)
 		if tex != null:
 			assert_true(tex.get_width() >= 1024, "%s resolution" % t)
+
+
+func test_key_rate() -> void:
+	# Fast gaits need dense keys: Godot re-bakes glTF tracks at the import option animation/fps
+	# (configure_import.py sets 120); at the default 30 the gallop's planted paws sink ~2 cm.
+	var ap := _anim_player()
+	if ap == null or not ap.has_animation(&"run"):
+		assert_true(false, "run animation")
+		return
+	var run := ap.get_animation(&"run")
+	var best := 0
+	for ti in run.get_track_count():
+		if run.track_get_type(ti) == Animation.TYPE_ROTATION_3D:
+			best = maxi(best, run.track_get_key_count(ti))
+	assert_true(best >= int(run.length * 110.0), "run keyed at >= 110 Hz (got %d keys over %.2f s)" % [best, run.length])

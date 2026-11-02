@@ -102,6 +102,10 @@ add_child(fur)
 fur.attach_to_model(cat_instance, npc_body)
 ```
 
+### Jump reticle legibility
+Warm-white ring + dotted arc drawn over a faint dark halo (ring quad 0.36 m, opacity 0.75) so the
+landing mark reads on sun-bleached pale stone as well as on dark tiles; still unlit/subtle.
+
 ### Cat-sense
 `cat_sense` action → `GameEvents.cat_sense_toggled(true)` (GameState charges energy), global
 `cat_sense` eases 0→1: full-screen post quad (desaturate, whisker-edge detection, vignette, warm
@@ -113,7 +117,10 @@ motes from Cam toward `QuestManager.get_tracked_target_position()` (nav path whe
 Contract: `set_input_enabled(bool)`, `teleport(Transform3D)`, `get_camera_rig()`, `get_camera()`,
 `get_mouth_attachment()`, `get_state()`, `is_first_person()`, `set_camera_mode(&"first_person"|&"third_person")`.
 Extra: `toggle_camera()`, `play_action(name)`, `meow(kind)`, `swipe()`, `drop_mouth_item()`,
-`face_point(p)`, `get_planar_speed()`, `get_speed_along_facing()`, `is_airborne()`, `is_sneaking()`,
+`face_point(p)`, `apply_knockback(impulse: Vector3)` (m/s velocity change: small planar shoves
+slide the cat and decay with ground friction; > 3.2 m/s planar or > 1.2 m/s upward knocks it into a
+short free-ballistic tumble that lands normally; interrupts rest/actions/charging; ignored while
+climbing/scrambling; drifts the cat while swimming), `get_planar_speed()`, `get_speed_along_facing()`, `is_airborne()`, `is_sneaking()`,
 `is_crawling()`, `is_balancing()`, `get_mode()`, `get_charge()`, `get_jump_target()`, `get_surface()`,
 `get_water_level()`, `get_animator()`, `get_model()`, `get_visual()`, `get_look_target()`,
 `get_gait_phase()`, `get_eye_transform_interpolated()`. Signals: `state_changed`, `landed`, `leapt`.
@@ -126,7 +133,7 @@ footsteps via `AudioManager.play_footstep` 4× per gait cycle.
 Everything is code; no baked assets.
 ```bash
 SKIP_IMPORT=1 tools/validate.sh "" /player/ ; SKIP_IMPORT=1 tools/validate.sh "" /camera/
-tools/run_tests.sh player                       # 47 tests: locomotion, jump, context, interact, camera, anim
+tools/run_tests.sh player                       # 48 tests: locomotion, jump, context, interact, camera, anim
 tools/screenshot.sh scene=res://scenes/player/test_gym.tscn out=$PWD/qa/out/player/x.png frames=40 size=960x540 call=demo_portrait
 #   hooks: demo_tpp demo_close demo_fpp demo_fpp_down demo_aim demo_portrait demo_sense demo_wet demo_beam
 tools/screenshot.sh scene=res://scenes/player/fur_lab.tscn out=$PWD/qa/out/player/f.png call=view_close

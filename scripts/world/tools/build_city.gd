@@ -47,6 +47,7 @@ func _run() -> void:
 		post_report["nav_polygons"] = nm.get_polygon_count()
 		print("BUILD nav baked: %d polygons (%d ms)" % [nm.get_polygon_count(), Time.get_ticks_msec() - t0])
 	_save_generated(city)
+	_persist_groups(city)
 	var ps := PackedScene.new()
 	var err := ps.pack(city)
 	if err != OK:
@@ -107,6 +108,24 @@ func _own_subtree(n: Node, owner_root: Node) -> void:
 		_owned[c] = true
 		if c.scene_file_path == "":
 			_own_subtree(c, owner_root)
+
+
+## add_to_group() defaults to non-persistent groups, which PackedScene.pack() drops. Re-add every
+## group of every saved node as persistent so markers / shelters / water keep their groups.
+func _persist_groups(city: Node3D) -> void:
+	var n_groups := 0
+	var nodes: Array[Node] = [city]
+	for n: Node in city.find_children("*", "", true, true):
+		if n.owner == city:
+			nodes.append(n)
+	for n: Node in nodes:
+		for g: StringName in n.get_groups():
+			if String(g).begins_with("_") or String(g).begins_with("root_canvas"):
+				continue
+			n.remove_from_group(g)
+			n.add_to_group(g, true)
+			n_groups += 1
+	print("BUILD persisted %d group memberships" % n_groups)
 
 
 func _save_generated(city: Node3D) -> void:

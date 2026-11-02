@@ -25,6 +25,8 @@ const SPECS := {
 enum Lod { NEAR, MID, FAR, ASLEEP }
 
 var kind: StringName = &"motorbike"
+## Lane sub-kind this vehicle was spawned for (scooter, cyclo, taxi …) — picks the catalog GLB.
+var variant: StringName = &""
 var lane: Path3D = null
 var lane_length := 1.0
 var lane_closed := false
@@ -53,10 +55,13 @@ var _loop: AudioStreamPlayer3D = null
 var _light: SpotLight3D = null
 var _personal := 1.0
 var _rng := RandomNumberGenerator.new()
+var _lamp_mats: Array = []       # [[BaseMaterial3D, night_energy]]
+var _lamps_on := false
 
 
-func setup(p_kind: StringName, seed_value: int) -> void:
+func setup(p_kind: StringName, seed_value: int, p_variant: StringName = &"") -> void:
 	kind = p_kind if SPECS.has(p_kind) else &"motorbike"
+	variant = p_variant if p_variant != &"" else kind
 	_spec = SPECS[kind]
 	_rng.seed = seed_value
 	length = float(_spec["length"])
@@ -99,7 +104,11 @@ func setup(p_kind: StringName, seed_value: int) -> void:
 
 static var _catalog: Array = []
 
-const CATALOG_KINDS := {&"motorbike": ["scooter", "motorbike"], &"bicycle": ["bicycle"], &"car": ["car", "van"]}
+const CATALOG_KINDS := {&"motorbike": ["scooter", "motorbike"], &"bicycle": ["bicycle", "cyclo", "tricycle"],
+	&"car": ["car", "van"]}
+## Preferred catalog kinds per lane sub-kind (falls back to CATALOG_KINDS of the base kind).
+const VARIANT_CATALOG := {&"scooter": ["scooter"], &"cyclo": ["cyclo"], &"tricycle": ["tricycle"], &"cargo_trike": ["tricycle"],
+	&"taxi": ["car"], &"van": ["van"], &"bicycle": ["bicycle"], &"car": ["car", "van"], &"underbone": ["motorbike"]}
 
 
 func _pick_catalog_entry() -> Dictionary:
@@ -112,10 +121,13 @@ func _pick_catalog_entry() -> Dictionary:
 			elif data is Dictionary:
 				_catalog = (data as Dictionary).get("vehicles", [])
 	var options: Array = []
-	for e: Variant in _catalog:
-		if e is Dictionary and str((e as Dictionary).get("kind", "")) in CATALOG_KINDS[kind] \
-				and ResourceLoader.exists(str((e as Dictionary).get("file", ""))):
-			options.append(e)
+	for want: Variant in [VARIANT_CATALOG.get(variant, []), CATALOG_KINDS[kind]]:
+		for e: Variant in _catalog:
+			if e is Dictionary and str((e as Dictionary).get("kind", "")) in (want as Array) \
+					and ResourceLoader.exists(str((e as Dictionary).get("file", ""))):
+				options.append(e)
+		if not options.is_empty():
+			break
 	if options.is_empty():
 		return {}
 	return options[_rng.randi() % options.size()]
@@ -124,6 +136,11 @@ func _pick_catalog_entry() -> Dictionary:
 ## Real vehicle GLB: wheel nodes/radii from the catalog and a seated human rider.
 func _setup_glb(entry: Dictionary) -> void:
 	var model := visual.get(&"model") as Node3D
+	# the GLB's own static colliders would be teleported every frame; this body's box replaces them
+	for co: Node in model.find_children("*", "CollisionObject3D", true, false):
+		co.get_parent().remove_child(co)
+		co.queue_free()
+	_collect_lamp_materials(model)
 	var wheels: Array = []
 	for w: Variant in entry.get("wheels", []):
 		var wd := w as Dictionary
@@ -142,9 +159,39 @@ func _setup_glb(entry: Dictionary) -> void:
 		return
 	var seat := Vector3(float(seat_arr[0]), float(seat_arr[1]), float(seat_arr[2]))
 	_add_glb_rider("Rider", seat, &"cycle" if kind == &"bicycle" else &"ride")
-	var pil: Variant = seats.get("pillion", null)
-	if pil is Array and _rng.randf() < 0.3:
+	var pil: Variant = seats.get("pillion", seats.get("passenger", null))
+	if pil is Array and _rng.randf() < (0.6 if seats.has("passenger") else 0.3):
 		_add_glb_rider("Passenger", Vector3(float(pil[0]), float(pil[1]), float(pil[2])), &"passenger")
+
+
+## Lamp surfaces (meta `vehicle_lights`, materials veh_light_head/tail): unique copies whose
+## emission is raised at night (vehicles-nature hand-off).
+func _collect_lamp_materials(model: Node3D) -> void:
+	for n: Node in model.find_children("*", "MeshInstance3D", true, false):
+		var mi := n as MeshInstance3D
+		if mi.mesh == null:
+			continue
+		for i in mi.mesh.get_surface_count():
+			var m := mi.get_active_material(i) as BaseMaterial3D
+			if m == null:
+				continue
+			var nm := m.resource_name.to_lower()
+			var head := "light_head" in nm
+			var tail := "light_tail" in nm
+			if not (head or tail) and not (mi.has_meta(&"vehicle_lights") and m.emission_enabled):
+				continue
+			var dup := m.duplicate() as BaseMaterial3D
+			dup.emission_enabled = true
+			mi.set_surface_override_material(i, dup)
+			_lamp_mats.append([dup, 5.0 if head else 2.5])
+
+
+func _set_lamps(on: bool) -> void:
+	if on == _lamps_on:
+		return
+	_lamps_on = on
+	for e: Array in _lamp_mats:
+		(e[0] as BaseMaterial3D).emission_energy_multiplier = float(e[1]) if on else 0.0
 
 
 func _add_glb_rider(n: String, seat: Vector3, pose: StringName) -> void:
@@ -346,6 +393,7 @@ func _update_audio() -> void:
 		_loop.pitch_scale = clampf(0.75 + speed / 14.0, 0.7, 1.5)
 		_loop.volume_db = -14.0 + clampf(speed / v0, 0.0, 1.0) * 8.0
 	# headlight at night for close vehicles
+	_set_lamps(NpcUtil.night_factor() > 0.4 and lod <= Lod.MID)
 	var night := NpcUtil.night_factor() > 0.5 and lod == Lod.NEAR
 	if night and _light == null:
 		_light = SpotLight3D.new()

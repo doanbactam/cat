@@ -31,6 +31,7 @@ def _nrm(v):
 EAR_H = 0.0425          # design space (x1.10 -> ~0.047 m)
 EAR_W = 0.0345
 EAR_NU, EAR_NV = 12, 11
+EAR_TUFTS = 5           # soft furnishing cards per ear (more read as a white comb)
 
 
 def ear_frame(side: int = 1):
@@ -427,14 +428,14 @@ def build_whiskers(col=None, seed: int = 11):
         # ear width (faces out of the cavity), so from the front it reads as a fan of fine hairs
         # instead of an edge-on white line.
         base, a, n, b = ear_frame(sx)
-        for k in range(9):
-            vv = 0.05 + 0.045 * k
-            uu = -0.70 + 0.10 * k + 0.06 * rng.normal()
+        for k in range(EAR_TUFTS):
+            vv = 0.05 + 0.035 * k              # lower cavity only (furnishings are densest low down)
+            uu = -0.55 + 0.22 * k + 0.08 * rng.normal()
             w = 0.5 * EAR_W * (1 - vv) ** 0.8
             sag = w * (0.58 - 0.32 * vv)
             root_h = base + a * (EAR_H * vv) + b * (w * uu) - n * (sag * (1 - uu * uu)) + n * 0.0008
             dir_h = _nrm(a * 0.85 + n * 0.30 + b * (-0.15 + 0.10 * uu))
-            L = (0.011 + 0.005 * rng.random()) * A.HEAD_SCALE
+            L = (0.009 + 0.004 * rng.random()) * A.HEAD_SCALE
             ts = np.linspace(0, 1, 5)
             pts_h = np.array([root_h + dir_h * L * t - n * (0.0035 * t * t) + b * (0.002 * sx * t * t * 0) for t in ts])
             pts = head_to_world_np(pts_h)

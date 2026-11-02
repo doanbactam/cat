@@ -339,11 +339,11 @@ func _build_ground() -> void:
 	grect(&"concrete", -121.0, -63.0, -61.0, 55.0, 0.0)          # west maze (alleys + light wells)
 	grect(&"concrete", 56.0, -63.0, 122.0, 55.0, 0.0)            # market quarter
 	grect(&"concrete", -122.0, -100.0, 122.0, -77.0, 0.0)        # behind the north row
-	grect(&"concrete", -122.0, 69.0, -34.0, 100.0, 0.0)          # behind temple-street south rows
-	grect(&"concrete", 34.0, 69.0, 122.0, 100.0, 0.0)
-	grect(&"brick", -34.0, 69.0, 34.0, 100.0, 0.0)               # temple courtyard
+	grect(&"concrete", -122.0, 69.0, -34.0, 112.0, 0.0)          # behind temple-street south rows
+	grect(&"concrete", 34.0, 69.0, 122.0, 112.0, 0.0)
+	grect(&"brick", -34.0, 69.0, 34.0, 112.0, 0.0)               # temple garden (the kit has its own courtyard)
 	# market plaza: terrazzo-ish concrete under the hall is the same concrete; stall lanes get brick
-	grect(&"brick", 60.0, 2.0, 116.0, 14.0, 0.005)               # fish lane paving
+	grect(&"brick", 56.0, 3.5, 118.0, 12.5, 0.005)               # fish lane paving
 	# lake park lawn handled in _build_lake (needs the ellipse hole)
 
 
@@ -521,7 +521,7 @@ func _build_lake() -> void:
 		if not is_nan(run_start):
 			grect(&"grass", x, run_start, x + step, park.end.y, 0.0)
 		x += step
-	# promenade ring (brick) from the wall coping outward, slightly above the lawn
+	# promenade ring (brick) from the water edge outward, just under the kit paving (which covers 3 m)
 	var st := gst(&"brick")
 	for i in segs:
 		var t0 := TAU * i / segs
@@ -530,54 +530,18 @@ func _build_lake() -> void:
 		var a1 := _ell(t1, 1.0)
 		var b0 := cen + (a0 - cen).normalized() * ((a0 - cen).length() + pw)
 		var b1 := cen + (a1 - cen).normalized() * ((a1 - cen).length() + pw)
-		var A := Vector3(a0.x, 0.01, a0.y)
-		var B := Vector3(a1.x, 0.01, a1.y)
-		var C := Vector3(b1.x, 0.01, b1.y)
-		var D := Vector3(b0.x, 0.01, b0.y)
+		var A := Vector3(a0.x, -0.005, a0.y)
+		var B := Vector3(a1.x, -0.005, a1.y)
+		var C := Vector3(b1.x, -0.005, b1.y)
+		var D := Vector3(b0.x, -0.005, b0.y)
 		var tile := WM.tile_of(&"brick")
 		var uvs: Array[Vector2] = [Vector2(A.x, A.z) / tile, Vector2(D.x, D.z) / tile, Vector2(C.x, C.z) / tile, Vector2(B.x, B.z) / tile]
 		MU.quad(st, A, D, C, B, Vector3.UP, uvs)
-	# embankment: inner wall face (stone), coping (granite), collision boxes
-	var wall_top := 0.12
-	var bed_edge := wy - 0.55
-	var est := gst(&"embankment")
-	var cst := gst(&"granite")
-	var ebody := StaticBody3D.new()
-	ebody.name = "Embankment"
-	ebody.collision_layer = 1
-	ebody.set_meta(&"surface", &"concrete")
-	grp("Water").add_child(ebody)
-	for i in segs:
-		var t0 := TAU * i / segs
-		var t1 := TAU * (i + 1) / segs
-		var p0 := _ell(t0)
-		var p1 := _ell(t1)
-		var top0 := Vector3(p0.x, wall_top, p0.y)
-		var top1 := Vector3(p1.x, wall_top, p1.y)
-		var bot0 := Vector3(p0.x, bed_edge - 0.3, p0.y)
-		var bot1 := Vector3(p1.x, bed_edge - 0.3, p1.y)
-		var inward := Vector3(cen.x - (p0.x + p1.x) * 0.5, 0, cen.y - (p0.y + p1.y) * 0.5).normalized()
-		var seg_len := p0.distance_to(p1)
-		var uvs: Array[Vector2] = [Vector2(0, 0), Vector2(seg_len / 2.0, 0), Vector2(seg_len / 2.0, (wall_top - bed_edge + 0.3) / 2.0), Vector2(0, (wall_top - bed_edge + 0.3) / 2.0)]
-		uvs = [Vector2(i * seg_len / 2.0, 0), Vector2((i + 1) * seg_len / 2.0, 0), Vector2((i + 1) * seg_len / 2.0, 0.9), Vector2(i * seg_len / 2.0, 0.9)]
-		# wall faces the water (inward). Order so the face is visible from inside.
-		MU.quad(est, top1, top0, bot0, bot1, inward, uvs)
-		# coping: 0.45 wide slab from the wall outward, 0.12 above the promenade
-		var out0 := top0 - inward * 0.45
-		var out1 := top1 - inward * 0.45
-		var cuv: Array[Vector2] = [Vector2(0, 0), Vector2(seg_len, 0), Vector2(seg_len, 0.45), Vector2(0, 0.45)]
-		MU.quad(cst, top0, top1, out1, out0, Vector3.UP, [Vector2(i * seg_len, 0), Vector2((i + 1) * seg_len, 0), Vector2((i + 1) * seg_len, 0.45), Vector2(i * seg_len, 0.45)])
-		# coping outer lip down to the promenade
-		var o0d := Vector3(out0.x, 0.0, out0.z)
-		var o1d := Vector3(out1.x, 0.0, out1.z)
-		MU.quad(cst, out0, out1, o1d, o0d, -inward, [Vector2(0, 0), Vector2(seg_len, 0), Vector2(seg_len, 0.12), Vector2(0, 0.12)])
-		var mid := (top0 + top1) * 0.5 - inward * 0.2
-		var cs := CollisionShape3D.new()
-		var bs := BoxShape3D.new()
-		bs.size = Vector3(seg_len + 0.06, wall_top - bed_edge + 0.5, 0.45)
-		cs.shape = bs
-		cs.transform = Transform3D(Basis.looking_at(inward, Vector3.UP), Vector3(mid.x, (wall_top + bed_edge - 0.5) * 0.5, mid.z))
-		ebody.add_child(cs)
+	if cat_by_id("landmarks", "ho_embank_straight_4m").is_empty():
+		placeholder("Lake embankment (procedural, city_builder._procedural_embankment)", "no ho_embank_* in the landmarks catalog")
+		_procedural_embankment(segs)
+	else:
+		_kit_embankment()
 	# lake bed (bowl)
 	var bst := MU.new_st()
 	var rings := 10
@@ -591,7 +555,7 @@ func _build_lake() -> void:
 			for c: Array in [[t0, s1], [t1, s1], [t1, s0], [t0, s0]]:
 				var q := _ell(float(c[0]), maxf(float(c[1]), 0.001) * 1.0 + 0.0)
 				var dd: float = float(c[1])
-				var y := wy - 0.55 - L.LAKE_DEPTH * (1.0 - dd * dd)
+				var y: float = L.LAKE_BED_EDGE_Y - L.LAKE_DEPTH * (1.0 - dd * dd)
 				pts.append(Vector3(q.x, y, q.y))
 			MU.quad(bst, pts[0], pts[1], pts[2], pts[3], Vector3.UP, [Vector2(pts[0].x, pts[0].z) / 4.0, Vector2(pts[1].x, pts[1].z) / 4.0, Vector2(pts[2].x, pts[2].z) / 4.0, Vector2(pts[3].x, pts[3].z) / 4.0])
 	bst.generate_normals()
@@ -658,15 +622,159 @@ func _build_lake() -> void:
 	acs.position = Vector3(cen.x, wy - 1.5, cen.y)
 	area.add_child(acs)
 	grp("Water").add_child(area)
-	# water steps (bến) at two places: north-east & south-west
-	for t: float in [-0.9, 2.3]:
+	# lotus & water hyacinth patches (nature kit; origin = water surface)
+	var lotus_e := cat_by_id("nature", "lotus_cluster")
+	var hyac_e := cat_by_id("nature", "water_hyacinth")
+	for lp: Array in [[Vector2(-24, -8), 7.0, 140], [Vector2(-10, 24), 5.0, 80], [Vector2(6, -18), 4.0, 50], [Vector2(-28, 16), 3.5, 40]]:
+		var c2: Vector2 = lp[0]
+		if lotus_e.is_empty():
+			var lotus := TG.make_lotus_patch(lp[1], lp[2], int(c2.x * 13 + c2.y))
+			lotus.position = Vector3(c2.x, wy, c2.y)
+			grp("Water").add_child(lotus)
+			continue
+		var r: float = lp[1]
+		var count := int(r * r * 0.55)
+		for k in count:
+			var ang := rng.randf() * TAU
+			var rr := sqrt(rng.randf()) * r
+			var q := c2 + Vector2(cos(ang), sin(ang)) * Vector2(rr, rr * 0.7)
+			if not _in_ellipse(q, cen, rad, -1.2) or _in_ellipse(q, L.ISLET_CENTER, L.ISLET_RADII, 1.0):
+				continue
+			var use_h := not hyac_e.is_empty() and k % 4 == 3
+			var n := instance(str((hyac_e if use_h else lotus_e)["file"]))
+			n.position = Vector3(q.x, wy, q.y)
+			n.rotation.y = rng.randf() * TAU
+			var sc := rng.randf_range(0.75, 1.25)
+			n.scale = Vector3(sc, sc, sc)
+			grp("Water").add_child(n)
+	_place_islet_and_bridge()
+
+
+## Islet + red bridge to the east shore. Kit: bridge midpoint at walkway level spanning local Z ±8.8,
+## islet centre 11.6 m from the bridge midpoint along the bridge axis (islet landing = its +Z side).
+func _place_islet_and_bridge() -> void:
+	var ic: Vector2 = L.ISLET_CENTER
+	var mid := Vector3(ic.x + 11.6, 0.0, ic.y)
+	islet = lm("ho_islet_shrine", Vector3(ic.x, 0.0, ic.y), PI * 0.5, "IsletShrine")
+	if islet == null:
+		_build_islet()
+		islet = _landmark(["mieu"], func() -> Node3D: return CS.make_shrine(), Vector3(ic.x + 1.0, 0.25, ic.y + 1.0), -PI * 0.5, "IsletShrine")
+	bridge = lm("ho_bridge", mid, PI * 0.5, "Bridge")
+	if bridge == null:
+		var x0 := ic.x + L.ISLET_RADII.x - 0.6
+		var x1 := mid.x + 8.0
+		var blen := x1 - x0
+		bridge = _landmark(["cau_bridge"], func() -> Node3D: return CS.make_bridge(blen, 2.4, 1.1), Vector3((x0 + x1) * 0.5, 0, ic.y), 0.0, "Bridge")
+	report["counts"]["bridge_length"] = 17.6
+
+
+## Hồ Gương embankment from the city-landmarks kit: ~52 straight 4 m chords around the ellipse
+## (water side = local +Z toward the lake), water steps at L.LAKE_STEPS_T, railings on the coping
+## except at steps and the bridge landing, promenade lamps & benches behind the coping.
+func _kit_embankment() -> void:
+	var cen: Vector2 = L.LAKE_CENTER
+	# arc-length parametrisation of the ellipse
+	var fine := 2048
+	var cum: Array[float] = [0.0]
+	var prev := _ell(0.0)
+	for i in range(1, fine + 1):
+		var q := _ell(TAU * i / fine)
+		cum.append(cum[i - 1] + prev.distance_to(q))
+		prev = q
+	var total: float = cum[fine]
+	var n := int(round(total / 4.0))
+	var ts: Array[float] = []
+	var j := 0
+	for k in n:
+		var target := total * k / n
+		while j < fine and cum[j + 1] < target:
+			j += 1
+		var f := (target - cum[j]) / maxf(cum[j + 1] - cum[j], 0.0001)
+		ts.append(TAU * (j + f) / fine)
+	# chords whose middle is closest to each requested step param
+	var step_chords: Dictionary = {}
+	for st_t: float in L.LAKE_STEPS_T:
+		var best := -1
+		var bd := INF
+		for k in n:
+			var tm := ts[k] + (TAU / n) * 0.5
+			var d := absf(wrapf(tm - fposmod(st_t, TAU), -PI, PI))
+			if d < bd:
+				bd = d
+				best = k
+		step_chords[best] = true
+	var bridge_pt := Vector2(L.ISLET_CENTER.x + 11.6 + 7.4, L.ISLET_CENTER.y)
+	var lamp_i := 0
+	for k in n:
+		var p0 := _ell(ts[k])
+		var p1 := _ell(ts[(k + 1) % n])
+		var mid := (p0 + p1) * 0.5
+		var along := (p1 - p0).normalized()
+		var inward := Vector2(-along.y, along.x)
+		if inward.dot(cen - mid) < 0.0:
+			inward = -inward
+		var yaw := atan2(inward.x, inward.y)
+		var pos := Vector3(mid.x, 0.0, mid.y)
+		var is_steps := step_chords.has(k)
+		var piece := lm("ho_embank_steps_4m" if is_steps else "ho_embank_straight_4m", pos, yaw, "Embank_%02d" % k, grp("Water"))
+		if is_steps and piece != null:
+			lake_steps.append(piece)
+			continue
+		# distance of the bridge axis point to this chord
+		var near_bridge := Geometry2D.get_closest_point_to_segment(bridge_pt, p0, p1).distance_to(bridge_pt) < 2.6
+		if near_bridge:
+			continue
+		lm("ho_railing_4m", pos, yaw, "Railing_%02d" % k, grp("Water"))
+		var basis := Basis(Vector3.UP, yaw)
+		if k % 5 == 2:
+			lm("ho_lamp_post", pos - basis.z * 2.55 + basis.x * 1.0, yaw, "PromenadeLamp_%02d" % lamp_i, grp("Water"))
+			lamp_i += 1
+		elif k % 5 == 4 or k % 5 == 0:
+			var bpos := pos - basis.z * 2.25 + basis.x * (0.6 if k % 2 == 0 else -0.6)
+			if lm("ho_bench", bpos, yaw, "PromenadeBench_%02d" % k, grp("StreetFurniture")) == null:
+				var bn := CS.make_bench(1.8)
+				bn.position = bpos
+				bn.rotation.y = yaw
+				grp("StreetFurniture").add_child(bn)
+	report["counts"]["embankment_pieces"] = n
+
+
+func _procedural_embankment(segs: int) -> void:
+	var cen: Vector2 = L.LAKE_CENTER
+	var wall_top := 0.0
+	var bed_edge: float = L.LAKE_BED_EDGE_Y + 0.25
+	var est := gst(&"embankment")
+	var cst := gst(&"granite")
+	var ebody := StaticBody3D.new()
+	ebody.name = "Embankment"
+	ebody.collision_layer = 1
+	ebody.set_meta(&"surface", &"concrete")
+	grp("Water").add_child(ebody)
+	for i in segs:
+		var t0 := TAU * i / segs
+		var t1 := TAU * (i + 1) / segs
+		var p0 := _ell(t0)
+		var p1 := _ell(t1)
+		var top0 := Vector3(p0.x, wall_top, p0.y)
+		var top1 := Vector3(p1.x, wall_top, p1.y)
+		var bot0 := Vector3(p0.x, bed_edge - 0.3, p0.y)
+		var bot1 := Vector3(p1.x, bed_edge - 0.3, p1.y)
+		var inward := Vector3(cen.x - (p0.x + p1.x) * 0.5, 0, cen.y - (p0.y + p1.y) * 0.5).normalized()
+		var seg_len := p0.distance_to(p1)
+		var uvs: Array[Vector2] = [Vector2(i * seg_len / 2.0, 0), Vector2((i + 1) * seg_len / 2.0, 0), Vector2((i + 1) * seg_len / 2.0, 0.9), Vector2(i * seg_len / 2.0, 0.9)]
+		MU.quad(est, top1, top0, bot0, bot1, inward, uvs)
+		var out0 := top0 - inward * 0.45
+		var out1 := top1 - inward * 0.45
+		MU.quad(cst, top0 + Vector3.UP * 0.12, top1 + Vector3.UP * 0.12, out1 + Vector3.UP * 0.12, out0 + Vector3.UP * 0.12, Vector3.UP, [Vector2(i * seg_len, 0), Vector2((i + 1) * seg_len, 0), Vector2((i + 1) * seg_len, 0.45), Vector2(i * seg_len, 0.45)])
+		var mid := (top0 + top1) * 0.5 - inward * 0.2
+		var cs := CollisionShape3D.new()
+		var bs := BoxShape3D.new()
+		bs.size = Vector3(seg_len + 0.06, wall_top - bed_edge + 0.62, 0.45)
+		cs.shape = bs
+		cs.transform = Transform3D(Basis.looking_at(inward, Vector3.UP), Vector3(mid.x, (wall_top + 0.12 + bed_edge - 0.5) * 0.5, mid.z))
+		ebody.add_child(cs)
+	for t: float in L.LAKE_STEPS_T:
 		_lake_steps(t)
-	# lotus patches
-	for lp: Array in [[Vector2(-24, -8), 7.0, 140], [Vector2(-10, 24), 5.0, 80], [Vector2(6, -18), 4.0, 50]]:
-		var lotus := TG.make_lotus_patch(lp[1], lp[2], int(lp[0].x * 13 + lp[0].y))
-		lotus.position = Vector3(lp[0].x, wy, lp[0].y)
-		grp("Water").add_child(lotus)
-	_build_islet()
 
 
 func _lake_steps(t: float) -> void:
@@ -780,6 +888,20 @@ func _fill_row(row: Array) -> void:
 	var basis := _row_basis(facing)
 	var along := basis.x
 	var origin := Vector3(start.x, 0.0, start.y)
+	# landmark modules forced into this row (e.g. Bông's café) become gaps the filler skips
+	gaps = gaps.duplicate()
+	for rv: Array in L.ROW_RESERVED.get(name, []):
+		var re := cat_by_id("landmarks", str(rv[0]))
+		if re.is_empty():
+			continue
+		var a0 := float(rv[1])
+		var rw := float(re["width"])
+		var node := lm(str(rv[0]), origin + along * (a0 + rw * 0.5), atan2(facing.x, facing.y), str(rv[0]).to_pascal_case(), grp("Buildings"))
+		if str(rv[0]) == "cafe_bong":
+			cafe = node
+		gaps.append([a0, a0 + rw])
+		if a0 + rw >= length - 0.01:
+			corner_end = false
 	var pool := _module_pool(max_depth, styles)
 	if pool.is_empty():
 		report["warnings"].append("row %s: no modules for styles %s" % [name, styles.keys()])
@@ -937,8 +1059,15 @@ func _wall_run(wr: Array) -> void:
 # landmarks (catalog first, procedural stand-ins otherwise)
 # =================================================================================================
 
-var temple_hall: Node3D
+var temple_hall: Node3D          # dinh_hang_may complex (or the procedural stand-in)
 var water_tower: Node3D
+var market_hall: Node3D
+var tea_stall: Node3D
+var cafe: Node3D
+var islet: Node3D
+var bridge: Node3D
+var lake_steps: Array[Node3D] = []
+var _lm_entries: Dictionary = {}      # landmark node -> catalog entry
 
 
 func _landmark(keywords: Array, fallback: Callable, pos: Vector3, yaw: float, label: String) -> Node3D:
@@ -948,6 +1077,7 @@ func _landmark(keywords: Array, fallback: Callable, pos: Vector3, yaw: float, la
 		n = instance(str(e["file"]))
 		n.name = label
 		n.set_meta(&"catalog_id", str(e["id"]))
+		_lm_entries[n] = e
 	else:
 		n = fallback.call()
 		n.name = label
@@ -958,90 +1088,215 @@ func _landmark(keywords: Array, fallback: Callable, pos: Vector3, yaw: float, la
 	return n
 
 
+## Instance a landmark by exact catalog id (null when the kit does not provide it).
+func lm(id: String, pos: Vector3, yaw: float, label: String = "", parent: Node3D = null) -> Node3D:
+	var e := cat_by_id("landmarks", id)
+	if e.is_empty():
+		return null
+	var n := instance(str(e["file"]))
+	if n == null:
+		return null
+	n.name = label if label != "" else id
+	n.set_meta(&"catalog_id", id)
+	n.position = pos
+	n.rotation.y = yaw
+	_lm_entries[n] = e
+	(parent if parent != null else grp("Landmarks")).add_child(n)
+	return n
+
+
+## World position of a catalog marker (`markers[name][idx]`, Godot space relative to the module).
+func lm_point(n: Node3D, marker: String, fallback: Vector3, idx: int = 0) -> Vector3:
+	if n == null or not _lm_entries.has(n):
+		return fallback
+	var mk: Dictionary = (_lm_entries[n] as Dictionary).get("markers", {})
+	if not mk.has(marker) or (mk[marker] as Array).size() <= idx:
+		return fallback
+	var a: Array = mk[marker][idx]
+	return n.transform * Vector3(float(a[0]), float(a[1]), float(a[2]))
+
+
+## World positions of a catalog point list (nap_spots / climb_points / entrances) of a landmark.
+func lm_points(n: Node3D, key: String) -> Array:
+	var out: Array = []
+	if n == null or not _lm_entries.has(n):
+		return out
+	for a: Variant in (_lm_entries[n] as Dictionary).get(key, []):
+		var arr := a as Array
+		out.append(n.transform * Vector3(float(arr[0]), float(arr[1]), float(arr[2])))
+	return out
+
+
 func _build_landmarks() -> void:
 	var tr: Rect2 = L.TEMPLE_RECT
-	# temple hall faces north (toward the street & lake): yaw PI turns +Z front to -Z
-	temple_hall = _landmark(["dinh", "temple_hall", "temple"], func() -> Node3D: return CS.make_temple_hall(), Vector3(L.TEMPLE_HALL_CENTER.x, 0, L.TEMPLE_HALL_CENTER.y), PI, "TempleHall")
-	_landmark(["temple_gate", "tam_quan", "gate"], func() -> Node3D: return CS.make_temple_gate(), Vector3(0, 0, tr.position.y + 0.8), PI, "TempleGate")
-	_landmark(["bell"], func() -> Node3D: return CS.make_bell_pavilion(), Vector3(L.BELL_PAVILION.x, 0, L.BELL_PAVILION.y), PI, "BellPavilion")
-	_landmark(["incense", "burner"], func() -> Node3D: return CS.make_incense_burner(), Vector3(0, 0, 80.0), 0.0, "IncenseBurner")
-	# compound walls (leave the gate opening)
+	# --- Đình Hàng Mây: kit complex (gate on Phố Đình, +Z front turned to face the street at -Z) ---
+	temple_hall = lm("dinh_hang_may", Vector3(L.TEMPLE_GATE.x, 0, L.TEMPLE_GATE.y), PI, "DinhHangMay")
+	var gate_half := 13.0
+	if temple_hall == null:
+		temple_hall = _landmark(["temple_hall"], func() -> Node3D: return CS.make_temple_hall(), Vector3(L.TEMPLE_HALL_CENTER.x, 0, L.TEMPLE_HALL_CENTER.y), PI, "TempleHall")
+		_landmark(["tam_quan"], func() -> Node3D: return CS.make_temple_gate(), Vector3(0, 0, tr.position.y + 0.8), PI, "TempleGate")
+		_landmark(["bell_pavilion"], func() -> Node3D: return CS.make_bell_pavilion(), Vector3(L.BELL_PAVILION.x, 0, L.BELL_PAVILION.y), PI, "BellPavilion")
+		_landmark(["incense_burner"], func() -> Node3D: return CS.make_incense_burner(), Vector3(0, 0, 80.0), 0.0, "IncenseBurner")
+		gate_half = 6.4
+	# outer garden walls around the complex (leave the complex frontage open; the kit has its own walls)
+	var fz := tr.position.y + 0.8
 	var walls := [
-		[Vector3(tr.position.x, 0, tr.position.y + 0.8), Vector3(-6.4, 0, tr.position.y + 0.8)],
-		[Vector3(6.4, 0, tr.position.y + 0.8), Vector3(tr.end.x, 0, tr.position.y + 0.8)],
-		[Vector3(tr.position.x, 0, tr.position.y + 0.8), Vector3(tr.position.x, 0, tr.end.y - 0.5)],
-		[Vector3(tr.end.x, 0, tr.position.y + 0.8), Vector3(tr.end.x, 0, tr.end.y - 0.5)],
+		[Vector3(tr.position.x, 0, fz), Vector3(-gate_half, 0, fz)],
+		[Vector3(gate_half, 0, fz), Vector3(tr.end.x, 0, fz)],
+		[Vector3(tr.position.x, 0, fz), Vector3(tr.position.x, 0, tr.end.y - 0.5)],
+		[Vector3(tr.end.x, 0, fz), Vector3(tr.end.x, 0, tr.end.y - 0.5)],
 		[Vector3(tr.position.x, 0, tr.end.y - 0.5), Vector3(tr.end.x, 0, tr.end.y - 0.5)],
 	]
 	for w: Array in walls:
-		var wn := CS.make_wall(w[0], w[1])
-		grp("Landmarks").add_child(wn)
-	# market hall + stalls
-	var mh: Rect2 = L.MARKET_HALL
-	_landmark(["market_hall", "cho", "market"], func() -> Node3D: return CS.make_market_hall(mh.size.x, mh.size.y),
-		Vector3(mh.get_center().x, 0, mh.get_center().y), 0.0, "MarketHall")
+		grp("Landmarks").add_child(CS.make_wall(w[0], w[1]))
+	# --- market: covered hall facing Phố Chợ (west), open-air stall lanes, gate arch on the fish lane ---
+	var mf: Vector2 = L.MARKET_HALL_FRONT
+	market_hall = lm("cho_market_hall", Vector3(mf.x, 0, mf.y), -PI * 0.5, "ChoMarketHall")
+	if market_hall == null:
+		var mh: Rect2 = L.MARKET_HALL
+		market_hall = _landmark(["market_hall"], func() -> Node3D: return CS.make_market_hall(mh.size.x, mh.size.y),
+			Vector3(mh.get_center().x, 0, mh.get_center().y), 0.0, "MarketHall")
+	lm("cho_gate_arch", Vector3(57.2, 0, L.FISH_LANE_Z), PI * 0.5, "ChoGateArch")
 	_build_market_stalls()
-	# water tower
+	# --- water tower (no kit asset: procedural steel tower) ---
 	var wt: Vector2 = L.WATER_TOWER_POS
-	water_tower = _landmark(["water_tower", "thap_nuoc", "tower"], func() -> Node3D: return CS.make_water_tower(), Vector3(wt.x, 0, wt.y), 0.0, "WaterTower")
-	# bridge + islet shrine
-	var ic: Vector2 = L.ISLET_CENTER
-	var x0 := ic.x + L.ISLET_RADII.x - 0.6
-	var x1 := L.LAKE_CENTER.x + L.LAKE_RADII.x * sqrt(1.0 - pow((ic.y - L.LAKE_CENTER.y) / L.LAKE_RADII.y, 2.0)) + 1.2
-	var blen := x1 - x0
-	_landmark(["bridge"], func() -> Node3D: return CS.make_bridge(blen, 2.4, 1.1), Vector3((x0 + x1) * 0.5, 0, ic.y), 0.0, "Bridge")
-	_landmark(["shrine", "mieu"], func() -> Node3D: return CS.make_shrine(), Vector3(ic.x + 2.5, 0.25, ic.y + 1.5), -PI * 0.5, "IsletShrine")
-	report["counts"]["bridge_length"] = blen
+	water_tower = _landmark(["water_tower", "thap_nuoc"], func() -> Node3D: return CS.make_water_tower(), Vector3(wt.x, 0, wt.y), 0.0, "WaterTower")
+	# --- Grandma Tư's tea stall + Bông's café are placed by the street furniture / row passes ---
+	# --- small shrines: tree shrine at the hẻm A / hẻm B crossing, wall box shrines in alleys ---
+	lm("shrine_tree", Vector3(-90.6, 0, -6.7), PI * 0.5, "ShrineTree_HemCross")
+	lm("shrine_tree", Vector3(-31.0, 0, 50.5), PI, "ShrineTree_LakeSW")
+	lm("shrine_wall_box", Vector3(-91.05, 1.5, 22.0), PI * 0.5, "ShrineBox_HemA")
+	lm("shrine_wall_box", Vector3(114.0, 1.6, -63.05), PI, "ShrineBox_Market")
 
 
 func _build_market_stalls() -> void:
-	var mh: Rect2 = L.MARKET_HALL
-	var kinds := ["veg", "fruit", "dry", "flowers", "veg", "fruit"]
 	var n := 0
-	# under the hall: 4 rows
-	for row in 4:
-		var z := mh.position.y + 5.0 + row * 7.5
-		var x := mh.position.x + 3.0
-		while x < mh.end.x - 3.0:
-			var s := CS.make_stall(kinds[(row + int(x)) % kinds.size()], rng, false)
-			s.position = Vector3(x, 0, z)
-			s.rotation.y = 0.0 if row % 2 == 0 else PI
-			grp("Landmarks").add_child(s)
-			x += 3.2
+	for sl: Array in L.STALL_LANES:
+		if lm("cho_stall_lane", Vector3(float(sl[0]), 0, float(sl[1])), float(sl[2]), "StallLane_%02d" % n) != null:
 			n += 1
-	# fish lane (open air, tarps) — cô Hoa's stall is the first one
-	var fx := 62.0
-	var idx := 0
-	while fx < 112.0:
-		var s := CS.make_stall("fish" if idx % 3 != 2 else "veg", rng, true)
-		s.position = Vector3(fx, 0, L.FISH_LANE_Z - 3.2)
-		s.rotation.y = 0.0
-		if idx == 0:
-			s.name = "FishStall_CoHoa"
-			s.set_meta(&"stall", "co_hoa")
-		grp("Landmarks").add_child(s)
-		var s2 := CS.make_stall(["fruit", "flowers", "dry"][idx % 3], rng, true)
-		s2.position = Vector3(fx + 1.5, 0, L.FISH_LANE_Z + 3.2)
-		s2.rotation.y = PI
-		grp("Landmarks").add_child(s2)
-		fx += 4.2
-		idx += 1
-		n += 2
+	if n == 0:
+		# stand-in stalls only when the landmark kit has no stall lane
+		placeholder("Market stalls (procedural CS.make_stall)", "no cho_stall_lane in the landmarks catalog")
+		for sl: Array in L.STALL_LANES:
+			for k in 3:
+				var s := CS.make_stall(["veg", "fruit", "fish", "dry", "flowers"][(n + k) % 5], rng, true)
+				var b := Basis(Vector3.UP, float(sl[2]))
+				s.transform = Transform3D(b, Vector3(float(sl[0]), 0, float(sl[1])) + b.x * (k - 1) * 3.6)
+				grp("Landmarks").add_child(s)
+				n += 1
 	report["counts"]["market_stalls"] = n
+	_build_market_clutter()
+
+
+## Life around the stalls: crate stacks, sacks, basins, umbrellas (with shelter areas), parked
+## scooters along the hall, scattered cardboard — all catalog props, deterministic.
+func _build_market_clutter() -> void:
+	var lg := grp("StreetFurniture")
+	var small := ["wooden_crate", "plastic_crate_blue", "plastic_crate_red", "styrofoam_box", "rice_sack", "basin_plastic",
+		"fruit_basket", "bucket_plastic", "cardboard_box_closed", "recycling_sack"]
+	var placed_n := 0
+	for sl: Array in L.STALL_LANES:
+		var b := Basis(Vector3.UP, float(sl[2]))
+		var front := Vector3(float(sl[0]), 0.0, float(sl[1]))
+		# behind the stalls (service side): stacked crates and sacks
+		for k in 5:
+			var along := rng.randf_range(-5.5, 5.5)
+			var p := front - b.z * rng.randf_range(3.5, 4.1) + b.x * along
+			var id: String = small[rng.randi_range(0, 4)]
+			var base := _prop(id, p, rng.randf_range(-0.3, 0.3) + float(sl[2]), lg)
+			if base != null:
+				placed_n += 1
+				if id.contains("crate") and rng.randf() < 0.6:
+					_prop(id, p + Vector3(0, 0.28, 0), rng.randf_range(-0.2, 0.2) + float(sl[2]), lg)
+		# in front (aisle side): a basin or basket at the kerb of the stall
+		if rng.randf() < 0.8:
+			_prop(["basin_plastic", "fruit_basket", "fish_basin"][rng.randi_range(0, 2)], front + b.z * 0.45 + b.x * rng.randf_range(-4.5, 4.5), rng.randf() * TAU, lg)
+	# umbrella vendors on the open plaza east of the hall + shelter areas under them
+	var umb := 0
+	for p2: Vector2 in [Vector2(86.0, -46.0), Vector2(105.0, -46.0), Vector2(114.0, -12.0), Vector2(88.0, 18.0), Vector2(104.0, 18.0), Vector2(70.0, 20.0)]:
+		var up := Vector3(p2.x, 0.0, p2.y)
+		if _prop("umbrella_tarp", up, rng.randf() * TAU, lg) == null:
+			continue
+		umb += 1
+		_prop("table_plastic_low", up + Vector3(0.3, 0, 0.2), rng.randf() * TAU, lg)
+		_prop(["fruit_basket", "flower_bucket", "fish_basin"][umb % 3], up + Vector3(-0.5, 0, 0.6), rng.randf() * TAU, lg)
+		_prop("stool_plastic_red" if umb % 2 == 0 else "stool_plastic_blue", up + Vector3(0.9, 0, -0.5), rng.randf() * TAU, lg)
+		var a := Area3D.new()
+		a.name = "Shelter_Umbrella_%d" % umb
+		a.add_to_group(&"shelter")
+		a.collision_layer = 1 << 9
+		a.collision_mask = 0
+		a.monitoring = false
+		var cs := CollisionShape3D.new()
+		var bs := BoxShape3D.new()
+		bs.size = Vector3(2.4, 2.2, 2.4)
+		cs.shape = bs
+		a.add_child(cs)
+		a.position = up + Vector3(0, 1.1, 0)
+		grp("Zones").add_child(a)
+	# scooters parked in a row along the hall's north and south sides
+	var bikes := cat_find("vehicles", func(e: Dictionary) -> bool: return str(e.get("id", "")) in ["scooter_auto", "underbone_step", "manual_classic", "bicycle_city"])
+	if not bikes.is_empty():
+		for side: float in [-1.0, 1.0]:
+			var z := L.MARKET_HALL_FRONT.y + side * 13.6
+			var x := 71.0
+			while x < 80.5:
+				var e: Dictionary = bikes[rng.randi_range(0, bikes.size() - 1)]
+				var bk := instance(str(e["file"]))
+				bk.position = Vector3(x, 0.0, z)
+				bk.rotation.y = side * PI * 0.5 + rng.randf_range(-0.15, 0.15) + PI * 0.5
+				lg.add_child(bk)
+				x += rng.randf_range(0.85, 1.3)
+	report["counts"]["market_clutter"] = placed_n + umb
+	# exposed party walls along the market entrance: bougainvillea, posters, a wall shrine
+	for wd: Array in [[Vector3(64.5, 0.0, -38.0), Vector3(0, 0, 1)], [Vector3(64.5, 0.0, -12.0), Vector3(0, 0, -1)]]:
+		_wall_dressing(wd[0], wd[1])
+
+
+## Dress a blank side wall (base point on the wall face, outward normal): climbing bougainvillea,
+## two pasted posters (decals) and a red wall shrine box.
+func _wall_dressing(p: Vector3, n: Vector3) -> void:
+	var yaw := atan2(n.x, n.z)
+	var b := Basis(Vector3.UP, yaw)
+	_plant("bougainvillea_wall", p + n * 0.05 - b.x * 3.0, yaw)
+	var dec_basis := Basis(b.x, n, b.x.cross(n))
+	var posters := ["poster_rent", "poster_lessons", "poster_lost_cat", "poster_festival"]
+	for k in 2:
+		var d := _decal(posters[rng.randi_range(0, posters.size() - 1)], p + n * 0.05 + b.x * (1.0 + k * 0.9) + Vector3(0, 1.55 + k * 0.12, 0),
+			Vector3(0.6, 0.3, 0.8), dec_basis.rotated(n, rng.randf_range(-0.06, 0.06)))
+		d.cull_mask = 1
+	lm("shrine_wall_box", p + n * 0.02 + b.x * 3.6 + Vector3(0, 1.45, 0), yaw, "ShrineBox_Wall")
 
 
 # =================================================================================================
 # nature: street trees, park trees, banyans
 # =================================================================================================
 
+## Tree from the nature catalog by role, varied deterministically per seed; procedural fallback.
+const TREE_IDS := {
+	&"banyan": ["banyan"],
+	&"street": ["sao_tree", "flame_tree", "sao_tree"],
+	&"park": ["flame_tree", "sao_tree", "flame_tree", "areca_palm", "sao_tree", "coconut_palm"],
+	&"shore": ["weeping_willow"],
+	&"small": ["frangipani", "areca_palm", "shrub_ixora"],
+}
+
+
 func _tree(kind: StringName, pos: Vector3, yaw: float, seed_i: int) -> Node3D:
-	var keywords: Array = {&"banyan": ["banyan", "da_"], &"street": ["street_tree", "sau", "xa_cu", "tree"], &"small": ["small_tree", "shrub", "frangipani"], &"park": ["park_tree", "tree"]}.get(kind, ["tree"])
-	var e := cat_keyword(["nature"], keywords)
+	var ids: Array = TREE_IDS.get(kind, ["flame_tree"])
+	var e := cat_by_id("nature", str(ids[absi(seed_i) % ids.size()]))
+	if e.is_empty():
+		for id: String in ids:
+			e = cat_by_id("nature", id)
+			if not e.is_empty():
+				break
 	var n: Node3D
 	if not e.is_empty():
 		n = instance(str(e["file"]))
+		var sc := 0.88 + float(absi(seed_i * 7919) % 100) / 400.0
+		n.scale = Vector3(sc, sc, sc)
 	else:
-		n = TG.make_tree(kind, seed_i)
+		n = TG.make_tree(&"park" if kind == &"shore" else kind, seed_i)
 		_tree_count += 1
 	n.position = pos
 	n.rotation.y = yaw
@@ -1049,18 +1304,77 @@ func _tree(kind: StringName, pos: Vector3, yaw: float, seed_i: int) -> Node3D:
 	return n
 
 
+## Nature kit scene by id at a transform (null when missing).
+func _plant(id: String, pos: Vector3, yaw: float, sc: float = 1.0, parent: Node3D = null) -> Node3D:
+	var e := cat_by_id("nature", id)
+	if e.is_empty():
+		return null
+	var n := instance(str(e["file"]))
+	n.position = pos
+	n.rotation.y = yaw
+	n.scale = Vector3(sc, sc, sc)
+	(parent if parent != null else grp("Nature")).add_child(n)
+	return n
+
+
+## Scatter a small nature asset as one MultiMeshInstance3D per mesh surface set (weeds, moss, litter).
+func _scatter_mm(id: String, xfs: Array[Transform3D], vis_end: float = 45.0) -> int:
+	var e := cat_by_id("nature", id)
+	if e.is_empty() or xfs.is_empty():
+		return 0
+	var inst := instance(str(e["file"]))
+	if inst == null:
+		return 0
+	var meshes: Array = []
+	var stack: Array[Node] = [inst]
+	while not stack.is_empty():
+		var nd: Node = stack.pop_back()
+		if nd is MeshInstance3D and (nd as MeshInstance3D).mesh != null:
+			meshes.append([(nd as MeshInstance3D).mesh, _rel_xform(inst, nd as Node3D)])
+		for c in nd.get_children():
+			stack.append(c)
+	for mm_data: Array in meshes:
+		var mm := MultiMesh.new()
+		mm.transform_format = MultiMesh.TRANSFORM_3D
+		mm.mesh = mm_data[0]
+		mm.instance_count = xfs.size()
+		var local: Transform3D = mm_data[1]
+		for i in xfs.size():
+			mm.set_instance_transform(i, xfs[i] * local)
+		var mmi := MultiMeshInstance3D.new()
+		mmi.name = "MM_" + id
+		mmi.multimesh = mm
+		mmi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		mmi.visibility_range_end = vis_end
+		mmi.visibility_range_end_margin = 8.0
+		mmi.visibility_range_fade_mode = GeometryInstance3D.VISIBILITY_RANGE_FADE_SELF
+		grp("Nature").add_child(mmi)
+	inst.free()
+	return xfs.size()
+
+
+func _rel_xform(root_n: Node3D, nd: Node3D) -> Transform3D:
+	var xf := Transform3D.IDENTITY
+	var cur: Node = nd
+	while cur != null and cur != root_n:
+		if cur is Node3D:
+			xf = (cur as Node3D).transform * xf
+		cur = cur.get_parent()
+	return xf
+
+
 var temple_banyan: Node3D
 var lake_banyan: Node3D
 
 
 func _build_nature() -> void:
-	if cat_keyword(["nature"], ["tree"]).is_empty():
+	if cat_by_id("nature", "flame_tree").is_empty() and cat_by_id("nature", "sao_tree").is_empty():
 		placeholder("Trees & banyans (procedural, scripts/world/tree_gen.gd)", "no assets/models/nature catalog yet")
 	var i := 0
 	for p: Vector3 in tree_pits:
 		_tree(&"street", p, rng.randf() * TAU, 1000 + i)
 		i += 1
-	# park ring trees between promenade and streets
+	# park ring trees between promenade and streets; willows lean over the water at the shore
 	for k in 34:
 		var t := TAU * k / 34.0 + rng.randf_range(-0.05, 0.05)
 		var q := _ell(t, 1.0)
@@ -1068,13 +1382,115 @@ func _build_nature() -> void:
 		var p := q + dir * (L.PROMENADE_W + rng.randf_range(2.0, 5.0))
 		if p.x < -47.0 or p.x > 42.0 or p.y < -47.5 or p.y > 53.0:
 			continue
-		_tree(&"park" if k % 3 != 0 else &"street", Vector3(p.x, 0, p.y), rng.randf() * TAU, 2000 + k)
-	temple_banyan = _tree(&"banyan", Vector3(L.TEMPLE_BANYAN.x, 0, L.TEMPLE_BANYAN.y), 0.6, 77)
-	lake_banyan = _tree(&"banyan", Vector3(L.ISLET_CENTER.x - 2.0, 0.25, L.ISLET_CENTER.y - 0.5), 2.1, 4242)
-	# small ornamental trees in the temple courtyard & market corners
-	for p: Vector2 in [Vector2(24, 88), Vector2(-26, 92), Vector2(14, 74), Vector2(108, 30), Vector2(64, 36)]:
-		_tree(&"small", Vector3(p.x, 0, p.y), rng.randf() * TAU, int(p.x * 7 + p.y))
+		if p.distance_to(L.LAKE_BANYAN) < 9.0:
+			continue
+		_tree(&"park", Vector3(p.x, 0, p.y), rng.randf() * TAU, 2000 + k)
+	for k in 9:
+		var t := TAU * (k + 0.37) / 9.0
+		var q := _ell(t, 1.0)
+		var dir := (q - L.LAKE_CENTER).normalized()
+		var p := q + dir * (L.PROMENADE_W + 0.9)
+		if p.distance_to(Vector2(L.ISLET_CENTER.x + 18.0, L.ISLET_CENTER.y)) < 6.0:
+			continue
+		_tree(&"shore", Vector3(p.x, 0, p.y), atan2(-dir.x, -dir.y), 3000 + k)
+	# temple courtyard banyan in the kit's planter
+	var tb := lm_point(temple_hall, "MARKER_banyan", Vector3(L.TEMPLE_BANYAN.x, 0.0, L.TEMPLE_BANYAN.y))
+	temple_banyan = _tree(&"banyan", tb, 0.6, 77)
+	temple_banyan.name = "TempleBanyan"
+	lake_banyan = _tree(&"banyan", Vector3(L.LAKE_BANYAN.x, 0.0, L.LAKE_BANYAN.y), 2.1, 4242)
+	lake_banyan.name = "LakeBanyan"
+	lake_banyan.scale = Vector3(1.12, 1.12, 1.12)
+	# temple garden (outside the kit complex): frangipani, areca, coconut, bamboo, hedges
+	var garden := [["frangipani", Vector2(-24, 78)], ["frangipani", Vector2(24, 78)], ["areca_palm", Vector2(-20, 90)],
+		["areca_palm", Vector2(-27, 96)], ["coconut_palm", Vector2(22, 92)], ["coconut_palm", Vector2(28, 102)],
+		["bamboo_clump", Vector2(-30, 106)], ["bamboo_clump", Vector2(30, 84)], ["frangipani", Vector2(-18, 104)],
+		["shrub_ixora", Vector2(-17, 74)], ["shrub_ixora", Vector2(17, 74)], ["fern_clump", Vector2(-15.5, 80)]]
+	for g: Array in garden:
+		var v: Vector2 = g[1]
+		_plant(str(g[0]), Vector3(v.x, 0, v.y), rng.randf() * TAU, rng.randf_range(0.9, 1.1))
+	for hx: float in [-30.0, -25.0, 25.0, 30.0]:
+		_plant("hedge_trimmed", Vector3(hx, 0, 71.6), 0.0)
+	# courtyards & market corners
+	for g: Array in [["bamboo_clump", Vector2(-116.5, -46.0)], ["areca_palm", Vector2(-106.0, -22.5)], ["frangipani", Vector2(108, 30)],
+			["areca_palm", Vector2(64, 36)], ["shrub_ixora", Vector2(-99.0, -24.0)], ["fern_clump", Vector2(-91.6, 12.0)],
+			["fern_clump", Vector2(-88.4, 30.0)]]:
+		var v: Vector2 = g[1]
+		_plant(str(g[0]), Vector3(v.x, 0, v.y), rng.randf() * TAU)
+	# bougainvillea on alley and garden walls (front +Z = away from the wall)
+	for g: Array in [[Vector3(-91.1, 0, 8.0), PI * 0.5], [Vector3(-88.9, 0, -30.0), -PI * 0.5], [Vector3(-33.5, 0, 88.0), PI * 0.5],
+			[Vector3(33.5, 0, 98.0), -PI * 0.5], [Vector3(-104.75, 0, -40.0), -PI * 0.5], [Vector3(-110.0, 0, -48.6), 0.0]]:
+		_plant("bougainvillea_wall", g[0], g[1])
+	_scatter_ground_cover()
 	report["counts"]["procedural_trees"] = _tree_count
+
+
+## Weeds in kerb cracks / wall feet, moss in alleys, grass tufts at the lawn edge, leaf litter under trees
+## — MultiMeshes, faded out with distance.
+func _scatter_ground_cover() -> void:
+	var weeds: Array[Transform3D] = []
+	var weeds_b: Array[Transform3D] = []
+	var moss: Array[Transform3D] = []
+	var tufts: Array[Transform3D] = []
+	var tufts_b: Array[Transform3D] = []
+	var litter: Array[Transform3D] = []
+	var rnd := func(p: Vector3, sc: float) -> Transform3D:
+		return Transform3D(Basis(Vector3.UP, rng.randf() * TAU).scaled(Vector3.ONE * sc * rng.randf_range(0.7, 1.3)), p)
+	for s: Array in L.STREETS:
+		var axis: String = s[1]
+		var c: float = s[2]
+		var hw := float(s[5]) * 0.5
+		var sw := float(s[6])
+		var t := float(s[3]) + 2.0
+		while t < float(s[4]) - 2.0:
+			var sd := -1.0 if rng.randf() < 0.5 else 1.0
+			var r := rng.randf()
+			var off := c + sd * (hw + 0.17) if r < 0.6 else c + sd * (hw + sw - 0.12)   # kerb joint or wall foot
+			var p := Vector3(t, 0.0, off) if axis == "x" else Vector3(off, 0.0, t)
+			if absf(p.x) < 120.0 and absf(p.z) < 108.0:
+				(weeds if rng.randf() < 0.6 else weeds_b).append(rnd.call(p, 1.0))
+			t += rng.randf_range(1.5, 4.5)
+	# alleys: moss + weeds along both walls of hẻm A / B and ngõ C
+	for rc: Rect2 in [L.HEM_A, L.HEM_B, L.NGO_C]:
+		var long_x := rc.size.x > rc.size.y
+		var length := rc.size.x if long_x else rc.size.y
+		var d := 0.0
+		while d < length:
+			for side: float in [0.0, 1.0]:
+				if rng.randf() < 0.55:
+					var p := Vector3(rc.position.x + d, 0.0, rc.position.y + side * rc.size.y + (0.12 if side == 0.0 else -0.12)) if long_x \
+						else Vector3(rc.position.x + side * rc.size.x + (0.12 if side == 0.0 else -0.12), 0.0, rc.position.y + d)
+					moss.append(rnd.call(p, 1.2))
+					if rng.randf() < 0.4:
+						weeds.append(rnd.call(p, 0.9))
+			d += rng.randf_range(0.6, 1.6)
+	# lawn edge tufts around the lake park
+	for k in 260:
+		var tt := rng.randf() * TAU
+		var q := _ell(tt, 1.0)
+		var dir := (q - L.LAKE_CENTER).normalized()
+		var p := q + dir * (L.PROMENADE_W + rng.randf_range(-0.3, 6.0))
+		if p.x < -48.0 or p.x > 43.0 or p.y < -48.0 or p.y > 54.0:
+			continue
+		(tufts if k % 2 == 0 else tufts_b).append(rnd.call(Vector3(p.x, 0.0, p.y), 1.0))
+	# leaf litter under the street & park trees
+	for tn: Node in grp("Nature").get_children():
+		if not tn is Node3D or tn is MultiMeshInstance3D:
+			continue
+		var tp := (tn as Node3D).position
+		if tp.y > 0.5:
+			continue
+		for k in 3:
+			var a := rng.randf() * TAU
+			var r := rng.randf_range(0.5, 3.0)
+			litter.append(rnd.call(tp + Vector3(cos(a) * r, 0.01, sin(a) * r), 1.0))
+	var n := 0
+	n += _scatter_mm("weeds_crack_a", weeds)
+	n += _scatter_mm("weeds_crack_b", weeds_b)
+	n += _scatter_mm("moss_patch", moss, 35.0)
+	n += _scatter_mm("grass_tuft_a", tufts, 40.0)
+	n += _scatter_mm("grass_tuft_b", tufts_b, 40.0)
+	n += _scatter_mm("leaf_litter", litter, 50.0)
+	report["counts"]["ground_cover_instances"] = n
 
 
 # =================================================================================================
@@ -1166,34 +1582,39 @@ func _build_street_furniture() -> void:
 	_prop("traffic_cone", Vector3(-54.0, ROAD_Y, 18.6), 0.0)
 	_prop("traffic_cone", Vector3(-54.6, ROAD_Y, 21.6), 0.4)
 	_prop("cable_drum", Vector3(-50.3, 0, 23.0), 0.3)
-	# lake benches
-	for k in 14:
-		var tt := TAU * (k + 0.5) / 14.0
-		var q := _ell(tt, 1.0)
-		var dir := (q - L.LAKE_CENTER).normalized()
-		var p := q + dir * (L.PROMENADE_W - 0.6)
-		var b := CS.make_bench(1.8)
-		b.position = Vector3(p.x, 0.01, p.y)
-		b.rotation.y = atan2(-dir.x, -dir.y)
-		sf.add_child(b)
-	# Grandma Tư's tea stall at hẻm A's north mouth (on the main-street south sidewalk)
-	var stall := CS.make_tea_stall()
-	stall.name = "TeaStall"
-	stall.position = Vector3(-87.4, 0.0, -64.3)
-	stall.rotation.y = PI
-	sf.add_child(stall)
-	# chú Sáu's bánh mì cart on Phố Hàng Mây (north sidewalk)
-	var cart := CS.make_banh_mi_cart()
-	cart.position = Vector3(18.0, 0.0, -75.3)
-	cart.rotation.y = 0.0
-	sf.add_child(cart)
-	# Bông's café terrace (rattan chairs) at the corner café (Phố Chợ × Hàng Mây)
-	for k in 6:
-		var ch := CS.make_rattan_chair()
-		ch.name = "CafeChair_%d" % k
-		ch.position = Vector3(58.5 + (k % 3) * 1.1, 0, -64.6 - (k / 3) * 1.0)
-		ch.rotation.y = rng.randf_range(-0.6, 0.6) + (PI if k / 3 == 1 else 0.0)
-		sf.add_child(ch)
+	# (lake benches & promenade lamps come with the embankment kit — _kit_embankment)
+	# Grandma Tư's tea stall at hẻm A's north mouth (on the main-street south sidewalk, back on the facade)
+	tea_stall = lm("quan_tra_ba_tu", Vector3(L.TEA_STALL.x, 0.0, L.TEA_STALL.y), PI, "TeaStall", sf)
+	if tea_stall == null:
+		placeholder("Tea stall (procedural CS.make_tea_stall)", "no quan_tra_ba_tu in the landmarks catalog")
+		tea_stall = CS.make_tea_stall()
+		tea_stall.name = "TeaStall"
+		tea_stall.position = Vector3(L.TEA_STALL.x - 0.6, 0.0, L.TEA_STALL.y + 1.5)
+		tea_stall.rotation.y = PI
+		sf.add_child(tea_stall)
+	# chú Sáu's bánh mì cart on Phố Hàng Mây (north sidewalk) + stools
+	if _prop("banh_mi_cart", Vector3(18.0, 0.0, -75.3), 0.0) == null:
+		var cart := CS.make_banh_mi_cart()
+		cart.position = Vector3(18.0, 0.0, -75.3)
+		sf.add_child(cart)
+	for k in 3:
+		_prop(["stool_plastic_red", "stool_plastic_blue", "stool_plastic_green"][k], Vector3(16.2 + k * 0.7, 0.0, -74.2 + (k % 2) * 0.3), rng.randf() * TAU)
+	# street food & market clutter on the sidewalks (xôi cart, phở stove, crates, flowers)
+	_prop("food_cart_xoi", Vector3(-40.0, 0.0, -64.4), PI)
+	_prop("pho_pot_stove", Vector3(-12.0, 0.0, -75.6), 0.3)
+	_prop("table_plastic_low", Vector3(-11.0, 0.0, -74.6), 0.1)
+	for k in 4:
+		_prop(["stool_plastic_red", "stool_plastic_blue"][k % 2], Vector3(-11.8 + (k % 2) * 1.6, 0.0, -74.0 - (k / 2) * 1.2), rng.randf() * TAU)
+	_prop("flower_bucket", Vector3(46.0, 0.0, -64.3), 0.0)
+	_prop("flower_bucket", Vector3(46.7, 0.0, -64.4), 1.0)
+	# Bông's café (row module) gets potted plants by its terrace; the kit has its own furniture
+	if cafe == null:
+		for k in 6:
+			var ch := CS.make_rattan_chair()
+			ch.name = "CafeChair_%d" % k
+			ch.position = Vector3(58.5 + (k % 3) * 1.1, 0, -64.6 - (k / 3) * 1.0)
+			ch.rotation.y = rng.randf_range(-0.6, 0.6) + (PI if k / 3 == 1 else 0.0)
+			sf.add_child(ch)
 	# parked scooters / bicycles from the vehicles catalog (if any)
 	var bikes := cat_find("vehicles", func(e: Dictionary) -> bool: return str(e.get("id", "")).contains("scooter") or str(e.get("id", "")).contains("bike") or str(e.get("kind", "")) in ["scooter", "bicycle", "motorbike"])
 	if not bikes.is_empty():
@@ -1265,9 +1686,12 @@ func _build_festival() -> void:
 			spans += 1
 			x += rng.randf_range(7.0, 10.0)
 	# lantern strings across the temple courtyard
-	for k in 5:
-		var z := 72.0 + k * 3.5
-		fg.add_child(CS.make_lantern_string(Vector3(-30, 4.2, z), Vector3(30, 4.2, z + 1.0), 18, rng))
+	# lantern strings across the temple garden on both sides of the kit complex
+	for k in 6:
+		var z := 73.0 + k * 5.5
+		fg.add_child(CS.make_lantern_string(Vector3(-33.5, 3.4, z), Vector3(-14.0, 3.6, z + 1.0), 8, rng))
+		fg.add_child(CS.make_lantern_string(Vector3(14.0, 3.6, z + 0.5), Vector3(33.5, 3.4, z), 8, rng))
+
 	report["counts"]["lantern_spans"] = spans
 
 
@@ -1421,26 +1845,43 @@ func _build_markers() -> void:
 		var pos := Vector3(float(l[2]), float(l[3]), float(l[4]))
 		if l[0] == "water_tower" and water_tower != null:
 			pos = water_tower.position + Vector3(0, float(water_tower.get_meta(&"catwalk_y", 13.6)) + 0.1, 3.5)
-		if l[0] == "temple_roof" and temple_hall != null:
-			pos = temple_hall.position + Vector3(0, float(temple_hall.get_meta(&"roof_ridge_y", 9.7)), 0)
+		if l[0] == "temple_roof":
+			pos = hall_roof_pos()
+		elif l[0] == "riddle_bell":
+			pos = lm_point(temple_hall, "MARKER_bell", pos)
+		elif l[0] == "tea_stall":
+			pos = lm_point(tea_stall, "MARKER_tea_stall", pos)
+		elif l[0] == "cafe_bong":
+			pos = lm_point(cafe, "MARKER_cafe", pos)
+		elif l[0] == "riddle_bridge":
+			pos = lm_point(bridge, "MARKER_riddle_bridge", pos)
+		elif l[0] == "islet_shrine":
+			pos = lm_point(islet, "MARKER_islet_shrine", pos)
+		elif l[0] == "cho_hang_may":
+			pos = lm_point(market_hall, "MARKER_market_hall", pos)
+		elif l[0] == "dinh_hang_may":
+			pos = lm_point(temple_hall, "MARKER_burner", pos)
 		_marker("Loc_" + str(l[0]), pos, &"location", {"location_id": str(l[0]), "display_name_key": str(l[1]), "radius": float(l[5])})
 	# --- npc spawns ---
 	var npcs := [
-		["ba_tu", "vendor", Vector3(-87.4, 0, -63.6), PI],
+		["ba_tu", "vendor", lm_point(tea_stall, "MARKER_grandma", Vector3(-87.4, 0, -63.6)), PI],
 		["mun", "cat", cam_nap_pos + Vector3(14.0, 0.0, 0.0), 0.0],
-		["bong", "cat", Vector3(57.6, 0, -62.4), PI],
-		["ong_muop", "cat", Vector3(4.0, 0.8, 82.5), PI],
-		["lao_qua", "crow", lake_banyan.position + Vector3(0, 4.5, 0) if lake_banyan != null else Vector3(14, 4, 2), 0.0],
-		["ven", "dog", Vector3(80.0, 0, -4.0), 0.0],
-		["co_hoa", "vendor", Vector3(62.0, 0, L.FISH_LANE_Z - 4.4), 0.0],
+		["bong", "cat", lm_point(cafe, "MARKER_bong_spot", Vector3(57.6, 0, -62.4)), PI],
+		["muop", "cat", _temple_nap(9, Vector3(3.0, 0.76, 97.4)), PI],
+		["lao_qua", "crow", lake_banyan.position + Vector3(0, 4.8, 0) if lake_banyan != null else Vector3(14, 4, 2), 0.0],
+		["ven", "dog", Vector3(84.0, 0, -8.0), 0.0],
+		["co_hoa", "vendor", lm_point(market_hall, "MARKER_fish_stall", Vector3(62.0, 0, L.FISH_LANE_Z - 4.4)), PI * 0.5],
 		["chu_sau", "vendor", Vector3(18.0, 0, -76.1), 0.0],
 		["bin", "pedestrian", Vector3(-89.8, 0, 18.0), PI * 0.5],
-		["xam", "pigeon_flock", Vector3(-2.0, 0.0, -27.5), 0.0],
+		["xam", "pigeon_flock", lm_point(islet, "MARKER_pigeons", Vector3(-2.0, 0.0, -27.5)), 0.0],
 	]
 	for n: Array in npcs:
 		var meta := {"npc_kind": str(n[1]), "npc_id": str(n[0])}
-		if n[0] == "ong_muop":
-			meta["npc_alias"] = "muop"
+		if n[0] == "muop":
+			meta["dialogue_id"] = "ong_muop"
+		if n[0] == "xam":
+			meta["count"] = 9
+			meta["radius"] = 2.5
 		_marker("NPC_" + str(n[0]), n[2], &"npc_spawn", meta, n[3])
 	# generic spawns: pedestrians, pigeons, koi, mice, cats, crows
 	var generic := [
@@ -1449,15 +1890,29 @@ func _build_markers() -> void:
 	for g: Array in generic:
 		for i in int(g[1]):
 			var pos := _generic_spawn(str(g[0]), i)
-			_marker("Spawn_%s_%02d" % [g[0], i], pos, &"npc_spawn", {"npc_kind": str(g[0]), "npc_id": ""}, rng.randf() * TAU)
+			var gm := {"npc_kind": str(g[0]), "npc_id": ""}
+			match str(g[0]):
+				"koi":
+					gm["volume_size"] = Vector3(9.0, 1.0, 9.0)
+					gm["count"] = 5
+				"crow":
+					gm["snap_to_surface"] = true
+				"pigeon_flock":
+					gm["count"] = 8
+					gm["radius"] = 3.0
+				"mouse":
+					gm["day_active"] = false
+				"cat":
+					gm["roam_radius"] = 10.0
+			_marker("Spawn_%s_%02d" % [g[0], i], pos, &"npc_spawn", gm, rng.randf() * TAU)
 	# --- Vện's patrol through the market ---
 	var patrol := Path3D.new()
 	patrol.name = "Patrol_ven"
 	patrol.add_to_group(&"patrol_path")
 	patrol.set_meta(&"npc_id", "ven")
 	var curve := Curve3D.new()
-	for p: Vector3 in [Vector3(80, 0, -4), Vector3(100, 0, -4), Vector3(104, 0, 6), Vector3(108, 0, 8), Vector3(62, 0, 8),
-			Vector3(60, 0, -10), Vector3(66, 0, -46), Vector3(98, 0, -46), Vector3(102, 0, -20), Vector3(80, 0, -4)]:
+	for p: Vector3 in [Vector3(84, 0, -8), Vector3(96, 0, -10), Vector3(96, 0, -44), Vector3(86, 0, -44), Vector3(86, 0, -10),
+			Vector3(106, 0, -8), Vector3(106, 0, 8), Vector3(75, 0, 8), Vector3(75, 0, -6), Vector3(84, 0, -8)]:
 		curve.add_point(p)
 	patrol.curve = curve
 	mk.add_child(patrol)
@@ -1501,20 +1956,32 @@ func _build_markers() -> void:
 	]
 	for i in pois.size():
 		_marker("POI_%02d_%s" % [i, pois[i][0]], pois[i][1], &"pedestrian_poi", {"activity": str(pois[i][0])})
-	# --- quest targets ---
-	var hall_roof := temple_hall.position + Vector3(0, float(temple_hall.get_meta(&"roof_ridge_y", 9.7)) + 0.35, 0) if temple_hall != null else Vector3(0, 10, 90)
+	# --- quest targets (ids not already provided by interactables / kit QUEST_* markers) ---
+	var hall_roof := hall_roof_pos()
 	var qts := [
-		["tea_stall", Vector3(-87.4, 0.9, -64.3)], ["stall_counter", Vector3(-87.4, 0.95, -64.3)],
-		["crow_nest", hall_roof + Vector3(5.0, 0.2, 0.0)], ["temple_roof", hall_roof],
-		["fish_stall", Vector3(62.0, 0.85, L.FISH_LANE_Z - 3.2)],
+		["tea_stall", lm_point(tea_stall, "MARKER_tea_stall", Vector3(-86.8, 0.0, -65.0))],
+		["temple_roof", hall_roof],
 		["water_tower", water_tower.position + Vector3(0, float(water_tower.get_meta(&"catwalk_y", 13.6)) + 0.1, 3.5) if water_tower != null else Vector3(-112, 14, -30)],
-		["bins_key_spot", Vector3(-104.5, 0.05, -10.0)], ["leg_band_spot", Vector3(12.0, 0.3, 75.0)],
-		["postman_bag", Vector3(34.6, 0.05, -76.0)], ["race_start", cam_nap_pos + Vector3(6.0, 0, 0)],
-		["race_finish", hall_roof + Vector3(-6.0, 0, 0)], ["banyan", lake_banyan.position + Vector3(0, 0.1, 1.6) if lake_banyan != null else Vector3(14, 0.3, 3)],
-		["cafe", Vector3(57.6, 0.0, -62.0)], ["market", Vector3(82.0, 0, -25.0)],
+		["race_finish", hall_roof + Vector3(-6.0, 0, 0)],
+		["banyan", lake_banyan.position + Vector3(0, 0.1, 2.2) if lake_banyan != null else Vector3(-14, 0, 44)],
+		["cafe", lm_point(cafe, "MARKER_cafe", Vector3(57.6, 0.0, -62.0))],
+		["market", lm_point(market_hall, "MARKER_market_hall", Vector3(72.0, 0, -25.0))],
+		["fish_street", Vector3(88.0, 0.0, L.FISH_LANE_Z)],
+		["islet_shrine", lm_point(islet, "MARKER_islet_shrine", Vector3(L.ISLET_CENTER.x, 0.05, L.ISLET_CENTER.y))],
+		["bell", lm_point(temple_hall, "MARKER_bell", Vector3(L.BELL_PAVILION.x, 0.25, L.BELL_PAVILION.y))],
 	]
+	if not _lm_entries.has(temple_hall):
+		qts.append(["crow_nest", hall_roof + Vector3(5.0, 0.2, 0.0)])
+	if not _lm_entries.has(market_hall):
+		qts.append(["fish_stall", Vector3(62.0, 0.85, L.FISH_LANE_Z - 3.2)])
 	for q: Array in qts:
 		_marker("QT_" + str(q[0]), q[1], &"quest_target", {"target_id": str(q[0])})
+
+
+## Nap spot `idx` of the temple kit in world space (fallback when the kit is missing).
+func _temple_nap(idx: int, fallback: Vector3) -> Vector3:
+	var pts := lm_points(temple_hall, "nap_spots")
+	return pts[idx] if pts.size() > idx else fallback
 
 
 func _generic_spawn(kind: String, i: int) -> Vector3:
@@ -1524,14 +1991,15 @@ func _generic_spawn(kind: String, i: int) -> Vector3:
 		"pigeon_flock":
 			return [Vector3(0, 0, -28), Vector3(0, 0, 74), Vector3(-30, 0, 30), Vector3(84, 0, -1), Vector3(-60, 0, -72)][i % 5]
 		"koi":
-			var q := _ell(TAU * i / 6.0, 0.6)
-			return Vector3(q.x, L.LAKE_WATER_Y - 0.4, q.y)
+			var q := _ell(TAU * (i + 0.3) / 6.0, 0.55)
+			return Vector3(q.x, L.LAKE_WATER_Y, q.y)
 		"mouse":
 			return [Vector3(-90.2, 0, -40), Vector3(-110, 0, -12), Vector3(-90.4, 0, 30), Vector3(70, 0, 6.0), Vector3(96, 0, -44), Vector3(-108, 0, -40)][i % 6]
 		"cat":
-			return [Vector3(-90, 0, 0), Vector3(-40, 0, -70.5), Vector3(100, 0, 64), Vector3(-25, 0, 90)][i % 4]
+			return [Vector3(-90, 0, 0), Vector3(-40, 0, -64.5), Vector3(100, 0, 67.5), Vector3(-25, 0, 90)][i % 4]
 		"crow":
-			return [Vector3(0, 11, 90), Vector3(-19, 9, 81), Vector3(14, 8, 2)][i % 3]
+			var tb := temple_banyan.position if temple_banyan != null else Vector3(7.5, 0, 78.8)
+			return [hall_roof_pos() + Vector3(-5.0, 2.0, 0.0), tb + Vector3(0.5, 7.0, 0.5), Vector3(-30.0, 14.0, -82.0)][i % 3]
 	return Vector3.ZERO
 
 
@@ -1552,6 +2020,15 @@ func _ia(script_path: String, name: String, pos: Vector3, props: Dictionary, par
 	return n
 
 
+## Deterministic Fisher–Yates shuffle with the builder's seeded rng (Array.shuffle() is unseeded).
+func _shuffle(a: Array) -> void:
+	for i in range(a.size() - 1, 0, -1):
+		var j := rng.randi_range(0, i)
+		var t: Variant = a[i]
+		a[i] = a[j]
+		a[j] = t
+
+
 func _roof_points(rows: Array, min_y: float = 5.0) -> Array:
 	var out: Array = []
 	for m: Dictionary in placed:
@@ -1568,12 +2045,12 @@ func _build_interactables() -> void:
 	# ---- nap spots (8) ----
 	var naps := [
 		["cam_rooftop", cam_nap_pos, {"sleep_hours": 2.0, "comfort": 1.2}],
-		["tea_stall_cushion", Vector3(-87.4, 0.17, -64.3), {"sleep_hours": 2.0, "comfort": 1.4, "warmth_bonus": 10.0}],
-		["temple_veranda", Vector3(-6.0, 0.8, 84.6), {"sleep_hours": 3.0}],
-		["banyan_roots", lake_banyan.position + Vector3(1.2, 0.05, 1.0) if lake_banyan != null else Vector3(15, 0.3, 3), {"sleep_hours": 2.0, "sheltered": true}],
-		["market_rice_sacks", Vector3(66.0, 0.85, -40.0), {"sleep_hours": 2.0, "sheltered": true}],
-		["cafe_window", Vector3(59.6, 0.05, -65.4), {"sleep_hours": 1.5, "comfort": 1.3}],
-		["muop_secret_nap", Vector3(L.BELL_PAVILION.x, 3.6, L.BELL_PAVILION.y), {"sleep_hours": 3.0, "comfort": 1.6, "sheltered": true}],
+		["tea_stall_cushion", lm_point(tea_stall, "MARKER_cam_bed", Vector3(-87.4, 0.17, -64.3)), {"sleep_hours": 2.0, "comfort": 1.4, "warmth_bonus": 10.0}],
+		["temple_veranda", _temple_nap(11, Vector3(6.0, 0.76, 92.0)), {"sleep_hours": 3.0}],
+		["banyan_roots", lake_banyan.position + Vector3(1.6, 0.05, 1.4) if lake_banyan != null else Vector3(-12, 0.05, 44), {"sleep_hours": 2.0, "sheltered": true}],
+		["market_rice_sacks", _lm_nap(market_hall, 9, Vector3(66.0, 0.85, -40.0)), {"sleep_hours": 2.0, "sheltered": true}],
+		["cafe_window", lm_point(cafe, "MARKER_bong_spot", Vector3(59.6, 0.05, -65.4)), {"sleep_hours": 1.5, "comfort": 1.3}],
+		["muop_secret_nap", _temple_nap(10, Vector3(L.BELL_PAVILION.x, 3.6, L.BELL_PAVILION.y)), {"sleep_hours": 3.0, "comfort": 1.6, "sheltered": true}],
 	]
 	var roof_naps := _roof_points(["hem_a_w_n", "hem_a_e_s", "pho_ho_w", "main_north"], 6.0)
 	if not roof_naps.is_empty():
@@ -1585,12 +2062,12 @@ func _build_interactables() -> void:
 	# ---- territory spots (10) ----
 	var terr: Array = []
 	var roof_all := _roof_points(["main_south_w", "main_north", "hem_a_w_n", "hem_a_w_s", "hem_a_e_n", "hem_a_e_s", "pho_ho_w", "dinh_north_w"], 6.0)
-	roof_all.shuffle()
+	_shuffle(roof_all)
 	for i in mini(5, roof_all.size()):
 		terr.append(["roof_%02d" % (i + 1), roof_all[i]])
 	terr.append(["alley_corner", Vector3(-90.0, 0.0, -5.0)])
 	terr.append(["tower_base", Vector3(L.WATER_TOWER_POS.x + 2.8, 0.0, L.WATER_TOWER_POS.y)])
-	terr.append(["temple_wall", Vector3(-33.8, 2.4, 80.0)])
+	terr.append(["temple_wall", Vector3(-34.0, 2.35, 80.0)])
 	terr.append(["market_crates", Vector3(101.5, 0.0, -44.0)])
 	terr.append(["lake_bench", Vector3(_ell(1.0).x + 3.0, 0.0, _ell(1.0).y + 3.0)])
 	for t: Array in terr:
@@ -1598,9 +2075,11 @@ func _build_interactables() -> void:
 	report["counts"]["territory_spots"] = terr.size()
 	# ---- memories (12 old photographs) ----
 	var mem_spots := [
-		Vector3(-87.9, 0.13, -64.4), Vector3(-112.0, 0.05, -30.5), Vector3(-90.3, 0.05, 35.0), Vector3(-4.0, 0.8, 85.0),
-		Vector3(L.ISLET_CENTER.x + 2.5, 0.75, L.ISLET_CENTER.y + 2.5), Vector3(-30.0, 0.45, 70.3), Vector3(76.0, 0.83, -37.0),
-		Vector3(110.0, 0.05, 50.0), Vector3(30.0, 0.05, -48.0), Vector3(-58.8, 0.05, -10.0), Vector3(118.0, 0.05, -50.0),
+		lm_point(tea_stall, "MARKER_cam_bed", Vector3(-87.9, 0.13, -64.4)) + Vector3(0.25, 0.0, 0.0), Vector3(-112.0, 0.05, -30.5),
+		Vector3(-90.3, 0.05, 35.0), _temple_nap(4, Vector3(-4.0, 0.8, 85.0)),
+		_lm_nap(islet, 0, Vector3(L.ISLET_CENTER.x + 2.5, 0.75, L.ISLET_CENTER.y + 2.5)), Vector3(-30.0, 0.05, 72.5),
+		_lm_nap(market_hall, 1, Vector3(76.0, 0.83, -37.0)),
+		Vector3(112.0, 0.05, 36.0), Vector3(30.0, 0.05, -47.0), Vector3(-58.8, 0.05, -10.0), Vector3(118.0, 0.05, -46.0),
 	]
 	if not roof_naps.is_empty():
 		mem_spots.append(roof_naps[roof_naps.size() / 2])
@@ -1614,10 +2093,10 @@ func _build_interactables() -> void:
 	for i in 18:
 		caps.append(_ground_spot(false) + Vector3(0, 0.03, 0))
 	var roofs := _roof_points([], 5.0)
-	roofs.shuffle()
+	_shuffle(roofs)
 	for i in mini(8, roofs.size()):
 		caps.append(roofs[i] + Vector3(0.3, 0.02, 0.2))
-	for p: Vector3 in [Vector3(-90.0, 0.03, -50.0), Vector3(-105.0, 0.03, -5.0), Vector3(84.0, 0.03, 4.0), Vector3(-12.0, 0.03, 74.0)]:
+	for p: Vector3 in [Vector3(-90.0, 0.03, -50.0), Vector3(-105.0, 0.03, -5.0), Vector3(84.0, 0.03, 0.5), Vector3(-12.0, 0.03, 74.0)]:
 		caps.append(p)
 	while caps.size() < 30:
 		caps.append(_ground_spot(false) + Vector3(0, 0.03, 0))
@@ -1626,10 +2105,10 @@ func _build_interactables() -> void:
 			"amount": 1 + (i % 3), "auto_collect_on_touch": true})
 	report["counts"]["cap_stashes"] = caps.size()
 	# ---- food & water ----
-	_ia(S + "food_source.gd", "Food_GrandmaBowl", Vector3(-86.6, 0.02, -63.4), {"source_id": &"grandma_bowl", "food_amount": 40.0, "servings": 2, "refill_hours": 8.0, "owner_npc_id": &"ba_tu"})
-	_ia(S + "food_source.gd", "Food_FishStall", Vector3(62.0, 0.85, L.FISH_LANE_Z - 3.2), {"source_id": &"fish_stall", "gives_item": &"fish", "is_stealing": true, "owner_npc_id": &"co_hoa", "food_amount": 30.0})
+	_ia(S + "food_source.gd", "Food_GrandmaBowl", lm_point(tea_stall, "MARKER_bowl", Vector3(-86.6, 0.02, -63.4)), {"source_id": &"grandma_bowl", "food_amount": 40.0, "servings": 2, "refill_hours": 8.0, "owner_npc_id": &"ba_tu"})
+	_ia(S + "food_source.gd", "Food_FishStall", lm_point(market_hall, "QUEST_fish_stall", Vector3(62.0, 0.85, L.FISH_LANE_Z - 3.2)), {"source_id": &"fish_stall", "gives_item": &"fish", "is_stealing": true, "owner_npc_id": &"co_hoa", "food_amount": 30.0})
 	_ia(S + "food_source.gd", "Food_BanhMi", Vector3(18.0, 0.02, -74.6), {"source_id": &"banh_mi_crumbs", "food_amount": 15.0, "servings": 3, "refill_hours": 6.0, "owner_npc_id": &"chu_sau"})
-	var lake_drink := _lake_step_pos(-0.9)
+	var lake_drink := lm_point(lake_steps[0], "MARKER_water_access", _lake_step_pos(-0.9)) if not lake_steps.is_empty() else _lake_step_pos(-0.9)
 	_ia(S + "food_source.gd", "Water_Lake", lake_drink, {"source_id": &"lake_water", "is_water": true, "food_amount": 0.0, "servings": 99, "verb": &"drink"})
 	_ia(S + "food_source.gd", "Water_TempleBasin", Vector3(-8.0, 0.0, 77.0), {"source_id": &"temple_basin", "is_water": true, "food_amount": 0.0, "servings": 99, "verb": &"drink"})
 	_ia(S + "food_source.gd", "Food_MarketScraps", Vector3(98.0, 0.02, -46.5), {"source_id": &"market_scraps", "food_amount": 20.0, "servings": 2, "refill_hours": 12.0})
@@ -1638,21 +2117,22 @@ func _build_interactables() -> void:
 		_ia(S + "scratch_post.gd", "Scratch_TempleBanyan", temple_banyan.position + Vector3(0, 0.3, 1.25), {"post_id": &"temple_banyan", "marks_territory": true})
 	if lake_banyan != null:
 		_ia(S + "scratch_post.gd", "Scratch_LakeBanyan", lake_banyan.position + Vector3(0, 0.3, 1.25), {"post_id": &"lake_banyan"})
-	_ia(S + "scratch_post.gd", "Scratch_CafeChair", Vector3(58.5, 0.15, -64.6), {"post_id": &"cafe_rattan"})
-	_ia(S + "scratch_post.gd", "Scratch_StallLeg", Vector3(-86.8, 0.15, -64.1), {"post_id": &"tea_stall_leg"})
+	_ia(S + "scratch_post.gd", "Scratch_CafeChair", _lm_nap(cafe, 1, Vector3(58.5, 0.6, -64.6)) - Vector3(0, 0.45, 0), {"post_id": &"cafe_rattan"})
+	_ia(S + "scratch_post.gd", "Scratch_StallLeg", tea_stall.transform * Vector3(1.9, 0.15, -0.3) if tea_stall != null else Vector3(-86.8, 0.15, -64.1), {"post_id": &"tea_stall_leg"})
 	# ---- story interactables ----
-	_ia(S + "interactable.gd", "Sniff_StallCounter", Vector3(-87.4, 0.95, -64.3), {"verb": &"sniff", "target_id": &"stall_counter", "interact_distance": 1.4})
-	var nest := hall_roof_pos() + Vector3(5.0, 0.2, 0.0)
-	var nest_node := Node3D.new()
-	nest_node.name = "CrowNest"
-	nest_node.position = nest
-	grp("Landmarks").add_child(nest_node)
-	_crow_nest_visual(nest_node)
+	_ia(S + "interactable.gd", "Sniff_StallCounter", lm_point(tea_stall, "MARKER_stall_counter", Vector3(-87.4, 0.1, -64.3)) + Vector3(0, 0.6, 0), {"verb": &"sniff", "target_id": &"stall_counter", "interact_distance": 1.4})
+	var nest := lm_point(temple_hall, "QUEST_crow_nest", hall_roof_pos() + Vector3(5.0, 0.2, 0.0))
+	if not _lm_entries.has(temple_hall):
+		var nest_node := Node3D.new()
+		nest_node.name = "CrowNest"
+		nest_node.position = nest
+		grp("Landmarks").add_child(nest_node)
+		_crow_nest_visual(nest_node)
 	var fest := {"quest": "main_05_festival_night", "state": "active"}
 	_ia(S + "pickup_item.gd", "Pickup_Figurine", nest + Vector3(0, 0.12, 0), {"item_id": &"lucky_cat_figurine", "requirement": fest, "show_when_locked": false, "target_id": &"crow_nest"})
 	_ia(S + "pickup_item.gd", "Pickup_HairClip", nest + Vector3(0.25, 0.1, 0.15), {"item_id": &"hair_clip", "requirement": fest, "show_when_locked": false})
 	_ia(S + "pickup_item.gd", "Pickup_BinsKey", Vector3(-104.5, 0.05, -10.0), {"item_id": &"key", "target_id": &"bins_key_spot"})
-	_ia(S + "pickup_item.gd", "Pickup_LegBand", Vector3(12.0, 0.3, 75.0), {"item_id": &"leg_band", "target_id": &"leg_band_spot"})
+	_ia(S + "pickup_item.gd", "Pickup_LegBand", Vector3(10.5, 0.6, 74.0), {"item_id": &"leg_band", "target_id": &"leg_band_spot"}).set_meta(&"snap_from", 0.8)
 	_ia(S + "pickup_item.gd", "Pickup_Letter", Vector3(34.6, 0.05, -76.0), {"item_id": &"letter", "target_id": &"postman_bag"})
 	_ia(S + "quest_trigger.gd", "Trigger_RaceStart", cam_nap_pos + Vector3(6.0, 0.0, 0.0), {"event": &"reach_location", "location_id": &"race_start", "target_id": &"race_start", "discover_location": false})
 	_ia(S + "quest_trigger.gd", "Trigger_TempleRoof", hall_roof_pos(), {"event": &"reach_location", "location_id": &"temple_roof", "box_size": Vector3(10.0, 3.0, 4.0)})
@@ -1660,7 +2140,15 @@ func _build_interactables() -> void:
 	_build_knockables()
 
 
+## World nap spot `idx` of a landmark (fallback when missing).
+func _lm_nap(n: Node3D, idx: int, fallback: Vector3) -> Vector3:
+	var pts := lm_points(n, "nap_spots")
+	return pts[idx] if pts.size() > idx else fallback
+
+
 func hall_roof_pos() -> Vector3:
+	if _lm_entries.has(temple_hall):
+		return lm_point(temple_hall, "MARKER_temple_roof", Vector3(0, 9.3, 97.75)) + Vector3(0, 0.15, 0)
 	if temple_hall != null:
 		return temple_hall.position + Vector3(0, float(temple_hall.get_meta(&"roof_ridge_y", 9.7)) + 0.5, 0)
 	return Vector3(0, 10, 90)
@@ -1691,22 +2179,27 @@ func _crow_nest_visual(parent: Node3D) -> void:
 
 func _build_knockables() -> void:
 	var spots: Array = []
-	# tea stall table & counter
-	spots.append(["cup", Vector3(-87.2, 0.44, -65.25), "ceramic"])
-	spots.append(["cup", Vector3(-87.55, 0.44, -65.2), "ceramic"])
-	spots.append(["glass", Vector3(-87.0, 0.945, -64.15), "glass"])
-	# café terrace tables & window sill
-	spots.append(["cup", Vector3(59.0, 0.32, -64.6), "ceramic"])
-	spots.append(["glass", Vector3(60.1, 0.32, -64.6), "glass"])
-	# market stall tables
-	for i in 4:
-		spots.append(["can", Vector3(67.0 + i * 6.4, 0.81, L.MARKET_HALL.position.y + 5.3), "metal"])
-	# temple: incense pot & offering bowls on the altar wall ledge / wall coping
-	spots.append(["bowl", Vector3(-33.8, 2.42, 76.0), "ceramic"])
-	spots.append(["pot", Vector3(33.8, 2.42, 84.0), "ceramic"])
+	# Every spot is snapped onto the surface below it by the post pass (meta snap_from = ray start y).
+	# tea stall counter & tables (kit-relative)
+	var ts := tea_stall
+	if ts != null:
+		spots.append(["glass", ts.transform * Vector3(-0.9, 1.5, -1.75), "glass"])
+		spots.append(["cup", ts.transform * Vector3(-0.3, 1.5, -1.8), "ceramic"])
+		spots.append(["cup", ts.transform * Vector3(1.2, 1.5, -0.6), "ceramic"])
+	# café terrace tables
+	if cafe != null:
+		spots.append(["cup", cafe.transform * Vector3(-1.6, 1.4, 1.3), "ceramic"])
+		spots.append(["glass", cafe.transform * Vector3(1.6, 1.4, 1.3), "glass"])
+	# market produce platforms (kit nap spots sit on them)
+	var mpts := lm_points(market_hall, "nap_spots")
+	for i in mini(4, mpts.size()):
+		spots.append(["can", (mpts[i] as Vector3) + Vector3(0.4, 0.8, 0.0), "metal"])
+	# temple garden wall coping: offering bowl & pot
+	spots.append(["bowl", Vector3(-34.0, 3.4, 76.0), "ceramic"])
+	spots.append(["pot", Vector3(34.0, 3.4, 84.0), "ceramic"])
 	# flower pots on rooftop parapets (from module nap spots high up)
 	var roofs := _roof_points(["main_south_w", "main_north", "hem_a_w_n", "hem_a_e_s", "pho_ho_w"], 6.0)
-	roofs.shuffle()
+	_shuffle(roofs)
 	for i in mini(10, roofs.size()):
 		spots.append(["pot", roofs[i] + Vector3(-0.35, 0.0, 0.0), "ceramic"])
 	# bins & bottles on the street
@@ -1718,6 +2211,7 @@ func _build_knockables() -> void:
 		if node == null:
 			continue
 		node.position = s[1]
+		node.set_meta(&"snap_from", (s[1] as Vector3).y + 0.2)
 		grp("Interactables").add_child(node)
 		n += 1
 	# household bins (catalog prop) stand in the alleys
@@ -1768,7 +2262,7 @@ func _build_zones() -> void:
 	_zone("hem_maze", Vector3(-90, 4, -4), Vector3(58, 8, 116), "Alley", 0.45)
 	_zone("ho_guong", Vector3(-2, 4, 4), Vector3(92, 8, 100))
 	_zone("cho_hang_may", Vector3(88, 4, -4), Vector3(62, 8, 116), "Market", 0.4)
-	_zone("dinh_hang_may", Vector3(0, 6, 84.5), Vector3(68, 12, 31), "Temple", 0.5)
+	_zone("dinh_hang_may", Vector3(0, 6, 89.5), Vector3(68, 12, 41), "Temple", 0.35)
 	_zone("mai_nha_rooftops", Vector3(0, 20, 0), Vector3(250, 16, 210), "", 0.0)
 	# shelters under awnings: one per shop module (front strip, ~1.2 m deep, below 3.2 m)
 	var sg := grp("Zones")
@@ -1791,6 +2285,24 @@ func _build_zones() -> void:
 		a.transform = Transform3D(xf.basis, xf.origin + xf.basis.z * 0.5 + Vector3(0, 1.5, 0))
 		sg.add_child(a)
 		count += 1
+	# dry under the big banyan crowns (vehicles-nature request)
+	for t: Node3D in [temple_banyan, lake_banyan]:
+		if t == null:
+			continue
+		var a := Area3D.new()
+		a.name = "Shelter_" + String(t.name)
+		a.add_to_group(&"shelter")
+		a.collision_layer = 1 << 9
+		a.collision_mask = 0
+		a.monitoring = false
+		var cs := CollisionShape3D.new()
+		var bs := BoxShape3D.new()
+		bs.size = Vector3(7.0, 5.0, 7.0)
+		cs.shape = bs
+		a.add_child(cs)
+		a.position = t.position + Vector3(0, 2.5, 0)
+		sg.add_child(a)
+		count += 1
 	report["counts"]["shelters"] = count
 
 
@@ -1803,7 +2315,7 @@ func _build_probes_and_occluders() -> void:
 	var probes := [
 		["MainStreetW", Vector3(-70, 4, -70), Vector3(60, 14, 16)], ["MainStreetE", Vector3(40, 4, -70), Vector3(80, 14, 16)],
 		["HemA", Vector3(-90, 4, -4), Vector3(8, 12, 110)], ["Lake", Vector3(-2, 3, 4), Vector3(90, 14, 80)],
-		["Market", Vector3(82, 4, -25), Vector3(40, 10, 40)], ["Temple", Vector3(0, 5, 84), Vector3(66, 14, 30)],
+		["Market", Vector3(80, 4, -22), Vector3(44, 10, 44)], ["Temple", Vector3(0, 5, 89), Vector3(66, 14, 40)],
 		["TempleStreet", Vector3(0, 4, 62), Vector3(200, 14, 16)],
 	]
 	for p: Array in probes:

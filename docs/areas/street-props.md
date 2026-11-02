@@ -4,7 +4,7 @@ Owner area: `street-props`. Everything is generated procedurally by Blender Pyth
 geometry, no downloaded assets): one `.glb` per prop under `assets/models/props/`, its baked texture set
 under `assets/textures/props/`, and one entry per prop in `assets/models/props/catalog.json`.
 
-## What is built (106 props)
+## What is built (108 props)
 
 | Category | Props |
 |---|---|
@@ -14,7 +14,7 @@ under `assets/textures/props/`, and one entry per prop in `assets/models/props/c
 | container | `cardboard_box_open` (NAP/SIT spot inside, towel), `cardboard_box_closed` (knockable), `cardboard_flat_pile`, `styrofoam_box`, `plastic_crate_blue/red`, `wooden_crate`, `recycling_sack`, `bucket_plastic`, `basin_plastic`, `rice_sack`, `bottle_crate` |
 | stall | `food_cart_xoi` & `banh_mi_cart` (glass display case, trays of food, bicycle wheels, printed skirt), `pho_pot_stove` (stock pot on a charcoal stove, ember light), `umbrella_tarp`, `tea_set` (knockable), `fruit_basket` (mango, dragon fruit, banana, rambutan), `flower_bucket`, `fish_basin` (live fish, `water_level` meta) |
 | furniture | `stool_plastic_red/blue/green` (knockable, SIT/NAP), `table_plastic_low` (chopsticks, tissue box, chili jar) |
-| home / plant | brooms (2), slippers, honeycomb sandals, canvas shoes, `bird_cage`, `wind_chime`, `altar_box` (ông Địa altar, candle glow), `laundry_rack`, `food_bowl`, `water_bowl`; plants `pot_snake_plant`, `pot_chili`, `pot_bonsai`, `pot_aloe` |
+| home / plant | handheld rain `umbrella` + `umbrella_red` (for pedestrians, origin = grip, shaft +Y, no colliders, `GRIP_01` marker), brooms (2), slippers, honeycomb sandals, canvas shoes, `bird_cage`, `wind_chime`, `altar_box` (ông Địa altar, candle glow), `laundry_rack`, `food_bowl`, `water_bowl`; plants `pot_snake_plant`, `pot_chili`, `pot_bonsai`, `pot_aloe` |
 | festival | `star_lantern_red/yellow/multi` (cellophane on bamboo, paper fringes), `silk_lantern_round/oval` (Hội An), `carp_lantern`, `lantern_string` (3.2 m, ATTACH_01/02 ends) — all skins are `__lit` (emissive at night) + omni light markers |
 | clutter (knockable) | `cup_ceramic` (blue-white), `mug_enamel`, `glass_tra_da` (glass + iced tea), `vase_flower` (chrysanthemums), `cactus_pot`, `bottle_fish_sauce`, `bottle_soy`, `bottle_water`, `phone`, `tv_remote`, `book_single`, `book_stack`, `can_condensed_milk` |
 | item (26 files) | `item_<id>.glb` for every `mesh` in `data/items/items.json`: fish, dried_fish (anchovy bundle), shrimp, gio_lua, pate_crust, quail_egg, mooncake_crumb, cap, lucky_cat_figurine (original design), letter, key, leg_band, toy_mouse, yarn, silver_spoon, hair_clip, glass_marble, brass_bell, pigeon_feather, memory_photo (shared by memory_01..12), collar_red / collar_bell / collar_jade, catnip, herbal_tonic, skill_tonic |
@@ -91,14 +91,20 @@ Code layout:
   instance. MultiMesh scattering is up to `world`.
 - `item_memory_photo` is shared by `memory_01..12` (same print). The brass bell is a jingle bell rather than
   a temple wind-bell clapper.
-- Weaker models (would get another pass with more time): `item_pate_crust` reads more like a pointed bread roll
-  than a torn bánh mì end; the `pho_pot_stove` lid ends up hidden, so the pot reads as open; the anchovy tails in
-  `item_dried_fish` are a bit spiky; `shoes_canvas_pair` is chunky; `wind_chime` is thin and hard to see in the
-  Blender preview (it looks fine in-engine at close range).
+- Weaker models: `shoes_canvas_pair` was slimmed (lower vamp, flatter toe caps) but still reads a bit boxy at
+  the heel; `wind_chime` is thin and hard to see in the Blender preview (fine in-engine at close range);
+  dried anchovies read pale/creamy under the bright preview light.
+- `umbrella` / `umbrella_red` are open only (no closed/folded variant, no rig): world-life attaches them to a hand.
 - `bottle_crate` print sits on the back long side only in practice (front print faint).
 - Blender preview renders take most of the build time (bakes are 5–60 s); `--preview` is optional.
 
 ## Iterations done (visual QA)
+0. Resume pass (after the usage-limit pause): added the handheld `umbrella` (+ red variant) requested by
+   world-life; remodelled `item_pate_crust` (oval, flat-bottomed blistered crust with scored ear, ragged torn
+   crumb face + pâté smear — it used to read as a carrot), `item_dried_fish` (9 anchovies fanned from a tight
+   fibre tie instead of spiky fins + oversized hoop), `pho_pot_stove` (the polished lid was invisible against the
+   grey preview sky and dents punched holes through the thin pot wall — lid is now sooty and rests on the rim,
+   dents push along a fixed direction), `shoes_canvas_pair` (lower sloping vamp, flatter toe caps).
 1. Blender contact sheets per category (`qa/out/street-props/sheet_*.png`): fixed cylindrical labels never
    applying on long lathe faces (new `lathe(max_seg=…)` densification → bottle/tonic/hydrant/gas/lamp prints now
    show), open-box flaps folding inward + missing print, hanging props rendering under the preview floor,

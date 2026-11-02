@@ -414,7 +414,7 @@
   "origin": "front facade bottom-centre at ground level",
   "category": "market",
   "colliders": 103,
-  "tris": 51548
+  "tris": 53276
  },
  {
   "id": "cho_stall_lane",
@@ -505,7 +505,7 @@
   "origin": "front facade bottom-centre at ground level",
   "category": "market",
   "colliders": 13,
-  "tris": 12882
+  "tris": 17570
  },
  {
   "id": "cho_gate_arch",
@@ -911,7 +911,7 @@
   "origin": "bottom-back centre (mount on a wall face, front = +Z)",
   "category": "shrine",
   "colliders": 1,
-  "tris": 5352
+  "tris": 6192
  },
  {
   "id": "shrine_tree",
@@ -951,7 +951,7 @@
   "origin": "post base centre",
   "category": "shrine",
   "colliders": 3,
-  "tris": 3908
+  "tris": 4712
  },
  {
   "id": "cafe_bong",
@@ -1189,6 +1189,6 @@
   "origin": "front-centre on the sidewalk; the stall leans against a wall at +2.8 m behind (Godot -Z)",
   "category": "shop",
   "colliders": 19,
-  "tris": 10202
+  "tris": 12514
  }
 ]

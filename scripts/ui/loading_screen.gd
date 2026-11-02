@@ -63,6 +63,26 @@ func _build() -> void:
 	_sky.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_sky)
 
+	# Night-street shade under the tip and status so lit windows never sit behind the text.
+	var shade := TextureRect.new()
+	var sg := Gradient.new()
+	sg.offsets = PackedFloat32Array([0.0, 0.55, 1.0])
+	sg.colors = PackedColorArray([Color(0.03, 0.02, 0.03, 0.0), Color(0.03, 0.02, 0.03, 0.72), Color(0.03, 0.02, 0.03, 0.9)])
+	var sgt := GradientTexture2D.new()
+	sgt.gradient = sg
+	sgt.fill_from = Vector2(0.5, 0.0)
+	sgt.fill_to = Vector2(0.5, 1.0)
+	sgt.width = 8
+	sgt.height = 128
+	shade.texture = sgt
+	shade.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
+	shade.offset_top = -250
+	shade.offset_bottom = 0
+	shade.stretch_mode = TextureRect.STRETCH_SCALE
+	shade.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	shade.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(shade)
+
 	var bottom := VBoxContainer.new()
 	bottom.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
 	bottom.anchor_left = 0.15

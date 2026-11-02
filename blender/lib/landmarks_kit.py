@@ -179,7 +179,7 @@ def cloud_curl(mb: MB, c, size: float, mat: str, tint=WHITE, plane="xz", flip=1,
 
 
 def sag_cloth(mb: MB, p00, p10, p01, p11, mat: str, tint=WHITE, nu=10, nv=6, sag=0.08, seed=0, double=True,
-              uv_scale=1.0):
+              uv_scale=1.0, wrinkle=0.015, hem_droop=0.0, hem_ties=()):
     """Tarp / awning cloth patch between 4 corners with a centre sag and wrinkle noise.
     Box-free UVs: u along p00->p10 (m), v along p00->p01 (m), scaled by uv_scale/tile."""
     A, B, Cc, D = V(p00), V(p10), V(p01), V(p11)
@@ -197,7 +197,21 @@ def sag_cloth(mb: MB, p00, p10, p01, p11, mat: str, tint=WHITE, nu=10, nv=6, sag
             p = A.lerp(B, u).lerp(Cc.lerp(D, u), v)
             s = 4 * u * (1 - u) * 4 * v * (1 - v)
             p.z -= sag * s
-            p.z += noise.noise(p * 2.3 + off) * 0.015 * s
+            p.z += noise.noise(p * 2.3 + off) * wrinkle * s
+            if hem_droop > 0.0 and hem_ties:
+                # a free hanging hem: droops between tie points (catenary-ish), with a soft ripple;
+                # the droop grows toward the v=1 edge (the hem) and is zero along the tied v=0 edge
+                tu = sorted(hem_ties)
+                k = 0
+                while k < len(tu) - 1 and u > tu[k + 1]:
+                    k += 1
+                a0, a1 = tu[k], tu[min(k + 1, len(tu) - 1)]
+                t = 0.0 if a1 <= a0 else (u - a0) / (a1 - a0)
+                span = max(a1 - a0, 1e-3) * lu
+                d = hem_droop * min(1.0, span / 1.0) * 4.0 * t * (1.0 - t)
+                d += 0.012 * math.sin(u * lu * 9.0 + seed) + noise.noise(p * 4.0 + off) * 0.01
+                p.z -= d * v * v
+                p.y += 0.03 * v * math.sin(u * lu * 7.0 + seed * 0.7) * (0.6 + 0.4 * math.sin(u * lu * 1.3 + seed))
             row.append(bm.verts.new(p))
         grid.append(row)
     for j in range(nv):
@@ -291,7 +305,7 @@ def tea_glass(mb: MB, x, y, z, tea=True, h=0.075, r=0.028, ice=False):
     lathe(mb, (x, y, z), [(r * 0.8, 0), (r, h)], "glass_jar", WHITE, sides=10, cap_top=False)
     if tea:
         lathe(mb, (x, y, z + 0.004), [(r * 0.78, 0), (r * 0.93, h * 0.75)], "plastic",
-              (0.55, 0.38, 0.12, 1) if not ice else (0.62, 0.48, 0.2, 1), sides=10)
+              (0.30, 0.13, 0.03, 1) if not ice else (0.42, 0.21, 0.05, 1), sides=10)
         if ice:
             for k in range(3):
                 mb.box((x - 0.01 + k * 0.006, y - 0.008, z + h * 0.6), (x + 0.004 + k * 0.006, y + 0.008,
@@ -468,9 +482,10 @@ class HipRoof:
         return V((x, y, self.z_at(x, y)))
 
     def build(self, ctx: LCtx, mat="roof_tile_old", tint=WHITE, soffit_mat="lm:wood_aged", nt=16, du=0.32,
-              thick=0.22, mb=None, collide=True, sides=("front", "back", "left", "right"), surface="roof_tile"):
+              thick=0.22, mb=None, collide=True, sides=("front", "back", "left", "right"), surface="roof_tile",
+              tile_m=2.0):
         mb = mb or ctx.shell
-        tm = 2.0
+        tm = tile_m   # metres per texture repeat (miniature shrines use smaller "model" tiles)
         for side in sides:
             span = 2 * (self.a if side in ("front", "back") else self.b)
             nu = max(4, int(math.ceil(span / du)))
@@ -518,7 +533,7 @@ class HipRoof:
                 f.normal_update()
                 if f.normal.z > 0:
                     f.normal_flip()
-            mb.add_bm(bm2, soffit_mat, (0.55, 0.5, 0.48, 1), "box", smooth=True)
+            mb.add_bm(bm2, soffit_mat, (0.85, 0.78, 0.72, 1), "box", smooth=True)
             # fascia band along the eave (t = 0)
             for i in range(nu):
                 a0, a1 = grid[0][i], grid[0][i + 1]

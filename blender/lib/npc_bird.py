@@ -285,16 +285,24 @@ def plumage(kind, L, s):
             # house crow: glossy black with a dusty grey nape/neck collar; old bird -> faded, ragged
             blk = col("#16161a")
             a = blk[None] * (0.9 + 0.25 * s2[:, None])
-            collar = np.exp(-np.sum(((P - (head + np.array([0, 0.03, -0.04]) * s)) / (np.array([0.045, 0.05, 0.045]) * s))
-                                    ** 2, 1))
-            collar *= (1 - np.exp(-np.sum(((P - (head + np.array([0, -0.012, 0.0]) * s)) / (0.02 * s)) ** 2, 1)))
-            a = mix(a, col("#55555a")[None] * (0.85 + 0.3 * s1[:, None]), np.clip(collar * 1.6, 0, 1) * 0.9)
+            # grey-brown shawl: nape, neck sides, upper mantle and upper breast; crown, face and throat stay black
+            collar = np.exp(-np.sum(((P - (head + np.array([0, 0.016, -0.042]) * s)) /
+                                     (np.array([0.042, 0.042, 0.036]) * s)) ** 2, 1))
+            collar *= sstep(head[2] - 0.10 * s, head[2] - 0.07 * s, P[:, 2])
+            face = np.exp(-np.sum(((P - (head + np.array([0, -0.018, 0.022]) * s)) / (np.array([0.03, 0.03, 0.024]) * s))
+                                  ** 2, 1))
+            throat = np.exp(-np.sum(((P - (head + np.array([0, -0.03, -0.008]) * s)) /
+                                     (np.array([0.014, 0.016, 0.02]) * s)) ** 2, 1))
+            collar = np.clip(collar * 1.7 - face * 2.5 - throat * 1.6, 0, 1)
+            collar *= 0.75 + 0.5 * sstep(0.3, 0.7, X.aniso(P, fl, 300.0 / s, 30.0 / s, 23))
             gloss = col("#262c3e")
             a = mix(a, gloss[None], sstep(0.2, 0.8, s1) * 0.35)
             faded = sstep(0.3, 0.9, X.fbm(P, 30.0 / s, 3, 17)) * 0.35
             a = mix(a, col("#3c3832")[None], faded)
             a = mix(a, a * 0.65, (1 - edge) * 0.4)
-            rough = 0.42 + 0.15 * s1 + 0.2 * faded
+            grey = col("#8a857e")[None] * (0.8 + 0.3 * s1[:, None]) * (0.75 + 0.25 * edge[:, None])
+            a = mix(a, grey, np.clip(collar, 0, 1) * 0.95)
+            rough = 0.42 + 0.15 * s1 + 0.2 * faded + 0.15 * collar
             legc, beakc = "#141414", "#121212"
         else:   # sparrow (Eurasian tree sparrow: chestnut cap, black cheek spot, white collar)
             brown = col("#8a5c38")

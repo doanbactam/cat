@@ -221,20 +221,23 @@ def pho_pot_stove():
     zp = 0.32
     pot = shell_lathe("pot", [(0.22, 0.0), (0.235, 0.012), (0.24, 0.42), (0.245, 0.43)], 0.004, 56, alu)
     G.place(pot, (0, 0, zp))
-    G.dent(pot, (0.18, -0.17, zp + 0.25), 0.06, 0.008)
-    G.dent(pot, (-0.2, 0.12, zp + 0.1), 0.05, 0.006)
+    G.dent(pot, (0.17, -0.17, zp + 0.25), 0.07, 0.005, direction=(-1, 1, 0))
+    G.dent(pot, (-0.2, 0.12, zp + 0.1), 0.06, 0.004, direction=(1, -0.6, 0))
     surface = G.lathe("broth", [(0.0, zp + 0.37), (0.236, zp + 0.37)], 40, mat=broth)
     parts += [pot, surface]
     for s in (-1, 1):
         parts.append(G.tube("handle", [(s * 0.235, -0.05, zp + 0.36), (s * 0.28, -0.04, zp + 0.37),
                                        (s * 0.28, 0.04, zp + 0.37), (s * 0.235, 0.05, zp + 0.36)], 0.009, 8, mat=alu))
-    # lid ajar, resting half over the pot
-    lid = G.lathe("lid", [(0.0, 0.035), (0.08, 0.03), (0.24, 0.006), (0.25, 0.0), (0.24, 0.002), (0.0, 0.03)], 48,
-                  mat=alu)
-    knob = G.lathe("knob", [(0.0, 0.03), (0.025, 0.03), (0.03, 0.05), (0.0, 0.055)], 16, mat=wood)
+    # lid pushed back on the rim (pot ~60 % covered) so the ladle can go in; sooty, dull from years of use
+    lid_m = PN.metal("lid", "aluminium", dirt=0.9, wear=0.7, soot=0.9, dents=0.7, ground=0.0)
+    lid = G.lathe("lid", [(0.0, 0.04), (0.06, 0.037), (0.2, 0.014), (0.248, 0.004), (0.252, 0.0), (0.244, 0.0),
+                          (0.2, 0.01), (0.06, 0.033), (0.0, 0.036)], 48, mat=lid_m)
+    knob = G.lathe("knob", [(0.0, 0.036), (0.016, 0.036), (0.013, 0.05), (0.03, 0.058), (0.03, 0.068),
+                            (0.0, 0.07)], 16, mat=wood)
+    G.dent(lid, (0.12, 0.1, 0.03), 0.05, 0.003, direction=(0, 0, -1))
     for p in (lid, knob):
-        G.place(p, (0, 0, 0), (-14, 0, 0))
-        G.place(p, (0.0, 0.17, zp + 0.47))
+        G.place(p, (0, 0, 0), (-1.5, 0, 0))
+        G.place(p, (0.0, 0.165, zp + 0.434))
     ladle_bowl = shell_lathe("ladle", [(0.03, 0.0), (0.045, 0.03)], 0.002, 20, alu)
     G.place(ladle_bowl, (0.1, -0.08, zp + 0.33))
     lh = G.tube("ladle_h", [(0.14, -0.08, zp + 0.36), (0.2, -0.12, zp + 0.55), (0.24, -0.14, zp + 0.72)], 0.008, 8,

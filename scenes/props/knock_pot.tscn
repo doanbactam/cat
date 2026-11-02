@@ -49,7 +49,7 @@ _surfaces = [{
 height = 0.17
 radius = 0.095
 
-[node name="Knock_pot" type="RigidBody3D" unique_id=1746919624]
+[node name="Knock_pot" type="RigidBody3D" unique_id=737301122]
 mass = 1.1
 sleeping = true
 script = ExtResource("1_250nr")
@@ -57,11 +57,11 @@ break_height = 1.5
 metadata/mass = 1.1
 metadata/name_key = "PROP_FLOWER_POT"
 
-[node name="Mesh" type="MeshInstance3D" parent="." unique_id=813831950]
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=925982270]
 visibility_range_end = 45.0
 visibility_range_end_margin = 5.0
 mesh = SubResource("ArrayMesh_f1s4n")
 
-[node name="Shape" type="CollisionShape3D" parent="." unique_id=2058108197]
+[node name="Shape" type="CollisionShape3D" parent="." unique_id=325680267]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.085, 0)
 shape = SubResource("CylinderShape3D_jnnvx")

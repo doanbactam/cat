@@ -259,11 +259,13 @@ static func hurt_player(player: Node, amount: float, source: StringName, push: V
 	if gs != null and gs.has_method(&"get_stat"):
 		var hp := float(gs.call(&"get_stat", &"health"))
 		var dmg := amount if allow_faint else minf(amount, maxf(hp - 1.0, 0.0))
-		if dmg > 0.0:
-			gs.call(&"modify_stat", &"health", -dmg)
+		# GameState applies `player_damaged` to health itself (systems contract); only subtract here
+		# when nothing listening did (e.g. a stripped-down test GameState).
 		var ge := _autoload("GameEvents")
 		if ge != null:
 			ge.emit_signal(&"player_damaged", dmg, source)
+		if dmg > 0.0 and is_equal_approx(float(gs.call(&"get_stat", &"health")), hp):
+			gs.call(&"modify_stat", &"health", -dmg)
 	if player.has_method(&"apply_knockback"):
 		player.call(&"apply_knockback", push)
 	elif player is CharacterBody3D:
@@ -298,3 +300,58 @@ static func random_nav_point(world: World3D, center: Vector3, radius: float) -> 
 static func nav_ready(world: World3D) -> bool:
 	return world != null and NavigationServer3D.map_get_iteration_id(world.navigation_map) > 0 \
 		and NavigationServer3D.map_get_regions(world.navigation_map).size() > 0
+
+
+## Nodes of a marker-convention group. Scenes saved with non-persistent groups (`add_to_group(g)`
+## without `persistent = true`) lose their groups on save, so when a group is empty the marker is
+## recognised by its metadata / name instead (CLAUDE.md marker conventions). Cached per tree frame.
+static var _infer_cache: Dictionary = {}
+static var _infer_frame := -1
+
+static func nodes_in(tree: SceneTree, group: StringName) -> Array[Node]:
+	var out: Array[Node] = []
+	if tree == null:
+		return out
+	out.assign(tree.get_nodes_in_group(group))
+	if not out.is_empty():
+		return out
+	var frame := Engine.get_physics_frames()
+	if frame != _infer_frame:
+		_infer_cache.clear()
+		_infer_frame = frame
+	if _infer_cache.has(group):
+		out.assign(_infer_cache[group])
+		return out
+	var stack: Array[Node] = [tree.root]
+	while not stack.is_empty():
+		var n: Node = stack.pop_back()
+		for c: Node in n.get_children():
+			stack.append(c)
+		if _infer_matches(n, group):
+			out.append(n)
+	_infer_cache[group] = out.duplicate()
+	return out
+
+
+static func _infer_matches(n: Node, group: StringName) -> bool:
+	var nm := String(n.name).to_lower()
+	match group:
+		&"npc_spawn":
+			return n is Node3D and not n is Path3D and n.has_meta(&"npc_kind")
+		&"traffic_lane":
+			return n is Path3D and n.has_meta(&"vehicle_kinds")
+		&"patrol_path":
+			return n is Path3D and n.has_meta(&"npc_id") and not n.has_meta(&"vehicle_kinds")
+		&"pedestrian_poi":
+			return n is Marker3D and n.has_meta(&"activity")
+		&"shelter":
+			return n is Area3D and (nm.begins_with("shelter") or n.has_meta(&"shelter"))
+		&"water":
+			return n is Area3D and (nm.begins_with("water") or n.has_meta(&"water_level"))
+		&"street_light", &"street_lamp":
+			return n is Light3D and not n is DirectionalLight3D and ("lamp" in nm or "street" in nm)
+		&"sun":
+			return n is DirectionalLight3D and nm == "sun"
+		&"nav_region":
+			return n is NavigationRegion3D
+	return false

@@ -17,10 +17,56 @@ func _enter_tree() -> void:
 	if merged_bodies > 0:
 		return
 	var cm: GDScript = load("res://scripts/world/collider_merge.gd")
-	for g in ["Buildings", "Landmarks", "StreetFurniture", "Nature"]:
+	for g in ["Buildings", "Landmarks", "StreetFurniture", "Nature", "Water"]:
 		var n := get_node_or_null(g)
 		if n != null:
 			merged_bodies += int(cm.call(&"merge_under", n))
+	_apply_visibility_ranges()
+
+
+## Size-based draw distances for everything instanced from asset scenes (GLB sub-meshes cannot be
+## edited in the saved scene). Small clutter pops out first; facades and roofs stay for vistas.
+## Values scale with graphics/quality (low 0.6 … ultra 1.5).
+var visibility_ranged := 0
+
+func _apply_visibility_ranges() -> void:
+	var mult := 1.0
+	var s: Node = get_node_or_null(^"/root/Settings")
+	if s != null:
+		mult = {"low": 0.6, "medium": 0.8, "high": 1.0, "ultra": 1.5}.get(str(s.call(&"get_value", "graphics", "quality", "high")), 1.0)
+	for g in ["Buildings", "Landmarks", "StreetFurniture", "Nature", "Water", "Festival", "Interactables", "Connectors", "Cables"]:
+		var root_n := get_node_or_null(g)
+		if root_n == null:
+			continue
+		var stack: Array[Node] = [root_n]
+		while not stack.is_empty():
+			var n: Node = stack.pop_back()
+			for c in n.get_children():
+				stack.append(c)
+			var gi := n as GeometryInstance3D
+			if gi == null or gi is MultiMeshInstance3D or gi.visibility_range_end > 0.0:
+				continue
+			var size := gi.get_aabb().size
+			var sc := 1.0
+			var p: Node = gi
+			while p != null and p != self:
+				if p is Node3D:
+					sc *= (p as Node3D).scale.x
+				p = p.get_parent()
+			var extent := maxf(size.x, maxf(size.y, size.z)) * absf(sc)
+			var end := 0.0
+			if extent < 0.6:
+				end = 32.0
+			elif extent < 1.6:
+				end = 55.0
+			elif extent < 4.0:
+				end = 95.0
+			elif extent < 9.0 and g != "Buildings":
+				end = 170.0
+			if end > 0.0:
+				gi.visibility_range_end = end * mult
+				gi.visibility_range_end_margin = end * mult * 0.1
+				visibility_ranged += 1
 
 
 func _ready() -> void:

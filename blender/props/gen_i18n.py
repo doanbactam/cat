@@ -63,6 +63,8 @@ NAMES = {
     "sandals_honeycomb": ("Plastic sandals", "Dép nhựa"),
     "shoes_canvas_pair": ("Canvas shoes", "Giày vải"),
     "food_bowl": ("Food bowl", "Bát cơm mèo"),
+    "umbrella": ("Umbrella", "Ô che mưa"),
+    "umbrella_red": ("Umbrella", "Ô che mưa"),
     "water_bowl": ("Water bowl", "Bát nước"),
     "star_lantern_red": ("Star lantern", "Đèn ông sao"),
     "silk_lantern_round": ("Silk lantern", "Đèn lồng lụa"),

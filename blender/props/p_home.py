@@ -1085,18 +1085,23 @@ def shoes_canvas_pair():
         for i in range(n + 1):
             t = i / n
             x = -Ls / 2 + 0.01 + (Ls - 0.02) * t
-            hw = 0.046 * (0.78 + 0.22 * math.sin(math.pi * (0.15 + 0.85 * t))) * (1 if t < 0.85 else (1 - (t - 0.85) * 2.4))
-            hh = (0.075 if t < 0.35 else 0.075 - (t - 0.35) * 0.09) * (1 if t < 0.9 else (1 - (t - 0.9) * 6))
+            # plan width: narrow heel, widest at the ball (t~0.7), rounded toe
+            hw = 0.044 * (0.8 + 0.2 * math.sin(math.pi * min(1.0, 0.1 + 0.9 * t))) * \
+                (1 if t < 0.86 else math.sqrt(max(0.0, 1 - ((t - 0.86) / 0.14) ** 2)) * 0.8 + 0.2)
+            # height: 64 mm collar at the heel, dipping at the ankle, sloping down to a low 30 mm toe box
+            hh = 0.062 - 0.012 * math.exp(-((t - 0.22) / 0.1) ** 2) if t < 0.42 else \
+                0.06 - (t - 0.42) * 0.045 - max(0.0, t - 0.62) * 0.09
+            hh *= 1 if t < 0.92 else max(0.25, 1 - (t - 0.92) * 9)
             hh = max(hh, 0.012)
             row = []
             for j in range(m + 1):
                 u = j / m
                 a = math.pi * u
-                yy = -math.cos(a) * hw
-                zz = 0.024 + math.sin(a) ** 0.8 * hh
+                yy = -math.cos(a) * hw * (1 - 0.08 * math.sin(a))
+                zz = 0.022 + (math.sin(a) ** 0.55) * hh
                 # collar opening at the back half: lower the top
-                if t < 0.45 and 0.25 < u < 0.75:
-                    zz = 0.024 + hh * 0.85
+                if t < 0.42 and 0.28 < u < 0.72:
+                    zz = 0.022 + hh * 0.9
                 row.append(bm.verts.new((x, yy, zz)))
             rows.append(row)
         for i in range(n):
@@ -1105,18 +1110,22 @@ def shoes_canvas_pair():
         up = G.obj_from_bm("upper", bm, canvas)
         G.solidify(up, 0.003, offset=1.0)
         G.wobble(up, 0.002, 30, seed=int(dy * 100))
-        toe = G.lathe("toecap", [(0.0, 0.0), (0.05, 0.0), (0.052, 0.02), (0.035, 0.04), (0.0, 0.045)], 20, mat=rub)
-        for v in toe.data.vertices:
-            v.co.y *= 0.95
-            v.co.x *= 0.9
-        G.place(toe, (Ls / 2 - 0.05, 0, 0.022))
+        toe = G.lathe("toecap", [(0.0, 0.0), (0.045, 0.0), (0.046, 0.01), (0.039, 0.02), (0.022, 0.026),
+                                 (0.0, 0.027)], 24, mat=rub)
+        for v in toe.data.vertices:      # half-dome rubber toe cap hugging the front of the toe box
+            v.co.y *= 0.84
+            v.co.x *= 1.0
+            if v.co.x < 0:
+                v.co.x *= 0.25
+        G.place(toe, (Ls / 2 - 0.052, 0, 0.02))
         lacing = []
         for k in range(5):
-            x = -0.02 + k * 0.022
-            lacing.append(G.tube("lace", [(x, -0.022, 0.085 - k * 0.006), (x + 0.011, 0.0, 0.088 - k * 0.006),
-                                          (x, 0.022, 0.085 - k * 0.006)], 0.0018, 4, mat=lace))
-        lacing.append(G.tube("lace", [(-0.03, 0.0, 0.09), (-0.06, 0.03, 0.07), (-0.07, 0.05, 0.03), (-0.09, 0.08, 0.002)],
-                             0.0018, 4, mat=lace))
+            x = -0.012 + k * 0.019
+            zl = 0.079 - k * 0.0055
+            lacing.append(G.tube("lace", [(x, -0.019, zl), (x + 0.009, 0.0, zl + 0.0035),
+                                          (x, 0.019, zl)], 0.0016, 4, mat=lace))
+        lacing.append(G.tube("lace", [(-0.02, 0.0, 0.083), (-0.05, 0.03, 0.066), (-0.062, 0.05, 0.03),
+                                      (-0.08, 0.075, 0.002)], 0.0016, 4, mat=lace))
         objs = [sole, band, up, toe] + lacing
         for o in objs:
             if mir:
@@ -1175,3 +1184,106 @@ def water_bowl():
                                                                                        alpha=0.35, rough=0.02))
     cols = [G.col_cyl("metal", 0.088, 0.05, segs=12)]
     return {"parts": parts, "glass": [water], "colliders": cols}
+
+
+# ---------------------------------------------------------------------------
+# Handheld rain umbrella (ô / dù cầm tay) for pedestrians — requested by world-life.
+# Origin = the hand grip centre; shaft along +Z (Godot +Y). Open, 8 panels, Ø ~1.0 m.
+# ---------------------------------------------------------------------------
+def umbrella_handheld(color, grip_col):
+    cloth = PN.fabric("ucloth", color, weave_scale=1800, rough=0.6, fade=0.12, dirt=0.15, dust=0.08, role="2s",
+                      wrinkle=0.12)
+    steel = PN.metal("urib", "chrome", dirt=0.35, wear=0.3, rust=0.25)
+    tipm = PN.plastic("utips", "#1c1c1c", rough=0.35, fade=0.1, scratch=0.6, dirt=0.4)
+    grip = PN.plastic("ugrip", grip_col, rough=0.5, fade=0.15, scratch=0.7, dirt=0.55, textured=0.6, stress=0.2)
+    n = 8                    # panels / ribs
+    R = 0.5                  # open radius (rib tips)
+    Z0, ZA, D = 0.0, 0.80, 0.26   # grip centre, canopy apex, canopy depth
+    parts = []
+    # grip: slightly barrel-shaped moulded handle with finger ridges, end cap, wrist strap loop
+    gp = [(0.0, -0.075), (0.012, -0.075), (0.0155, -0.068)]
+    for i in range(13):
+        z = -0.06 + 0.11 * i / 12
+        gp.append((0.0155 + 0.0012 * math.sin(math.pi * (i / 12)) - (0.0008 if i % 3 == 1 else 0.0), z))
+    gp += [(0.012, 0.058), (0.0065, 0.064), (0.0, 0.064)]
+    parts.append(G.lathe("grip", gp, 20, mat=grip))
+    strap = G.tube("strap", [(0.0, 0.0, -0.075), (0.012, 0.0, -0.1), (0.02, 0.0, -0.14), (0.0, 0.0, -0.165),
+                             (-0.02, 0.0, -0.14), (-0.012, 0.0, -0.1), (0.0, 0.0, -0.075)], 0.0022, 6, mat=tipm)
+    G.place(strap, (0, 0, 0), (0, 0, 30))
+    parts.append(strap)
+    # shaft (two telescoping sections) + top ferrule
+    parts.append(G.tube("shaft", [(0, 0, 0.06), (0, 0, 0.42)], 0.0062, 12, mat=steel))
+    parts.append(G.tube("shaft2", [(0, 0, 0.42), (0, 0, ZA + 0.01)], 0.0052, 12, mat=steel))
+    parts.append(G.lathe("collar", [(0.0, 0.415), (0.0075, 0.415), (0.0075, 0.43), (0.0, 0.43)], 12, mat=steel))
+    parts.append(G.lathe("ferrule", [(0.0, ZA - 0.01), (0.009, ZA - 0.005), (0.0075, ZA + 0.03), (0.004, ZA + 0.06),
+                                     (0.0, ZA + 0.065)], 12, mat=tipm))
+    # rib curve: z(r) for the rib line from apex to tip (dome)
+    def rib_z(r):
+        k = r / R
+        return ZA - D * (k ** 1.7)
+    # canopy: polar grid with ribs as ridges and panels relaxed between them, scalloped hem
+    segs_a, rings = n * 8, 14
+    bm = bmesh.new()
+    vrows = []
+    for i in range(rings + 1):
+        k = i / rings
+        row = []
+        for j in range(segs_a):
+            a = 2 * math.pi * j / segs_a
+            a8 = (a + math.pi / n) % (2 * math.pi / n) - math.pi / n      # 0 at a rib
+            u = abs(a8) / (math.pi / n)                                     # 0 rib .. 1 panel centre
+            r = R * k
+            # panels pull inward toward the chord between ribs (scallop), more at the hem
+            r *= 1.0 - 0.075 * (k ** 2.2) * (1 - math.cos(u * math.pi)) * 0.5
+            z = rib_z(R * k) - 0.012 * math.sin(math.pi * min(1.0, k * 1.05)) * (1 - math.cos(u * math.pi)) * 0.5
+            row.append(bm.verts.new((math.cos(a) * r, math.sin(a) * r, z + 0.003)))
+        vrows.append(row)
+    top = bm.verts.new((0, 0, ZA + 0.006))
+    for j in range(segs_a):
+        bm.faces.new((top, vrows[0][j], vrows[0][(j + 1) % segs_a]))
+    for i in range(rings):
+        for j in range(segs_a):
+            j1 = (j + 1) % segs_a
+            bm.faces.new((vrows[i][j], vrows[i + 1][j], vrows[i + 1][j1], vrows[i][j1]))
+    can = G.obj_from_bm("canopy", bm, cloth)
+    G.solidify(can, 0.0012, offset=1.0)
+    G.wobble(can, 0.002, 6, seed=5)
+    for p in can.data.polygons:
+        p.use_smooth = True
+    parts.append(can)
+    # ribs, stretchers, runner, tip caps
+    runner_z = 0.56
+    parts.append(G.lathe("runner", [(0.0, runner_z - 0.03), (0.0105, runner_z - 0.03), (0.012, runner_z - 0.01),
+                                    (0.0105, runner_z + 0.02), (0.0, runner_z + 0.02)], 16, mat=tipm))
+    parts.append(G.lathe("notch", [(0.0, ZA - 0.03), (0.011, ZA - 0.025), (0.011, ZA - 0.005), (0.0, ZA)], 16,
+                         mat=tipm))
+    for i in range(n):
+        a = 2 * math.pi * i / n
+        ca, sa = math.cos(a), math.sin(a)
+        pts = []
+        for s in range(11):
+            r = 0.012 + (R - 0.012) * s / 10
+            pts.append((ca * r, sa * r, rib_z(r) - 0.004))
+        parts.append(G.tube("rib", pts, 0.0019, 5, mat=steel))
+        rs = R * 0.48
+        parts.append(G.tube("stretcher", [(ca * 0.012, sa * 0.012, runner_z), (ca * rs, sa * rs, rib_z(rs) - 0.006)],
+                            0.0015, 5, mat=steel))
+        tip = G.lathe("tip", [(0.0, -0.002), (0.0035, 0.0), (0.0028, 0.012), (0.0, 0.016)], 8, mat=tipm)
+        G.place(tip, (0, 0, 0), (0, 90 + math.degrees(math.atan(D * 1.7 / R)), 0))
+        G.place(tip, (0, 0, 0), (0, 0, math.degrees(a)))
+        G.place(tip, (ca * (R - 0.004), sa * (R - 0.004), rib_z(R) - 0.004))
+        parts.append(tip)
+    for p in parts:
+        G.uv_weight(p, 1.0)
+    G.uv_weight(can, 2.0)
+    marks = [G.marker("GRIP_01", (0, 0, 0))]
+    return {"parts": parts, "colliders": [], "markers": marks,
+            "meta": {"origin": "grip", "open_radius": R, "canopy_top": ZA}}
+
+
+register("umbrella", lambda: umbrella_handheld("#1f2b48", "#2a2522"), category="home", kind="handheld",
+         surface="fabric", material_kind="soft", mass=0.45, grounded=False, density=1024.0, max_tex=2048,
+         tags=["handheld", "rain", "npc", "umbrella"])
+register("umbrella_red", lambda: umbrella_handheld("#8e1d26", "#5b3a24"), category="home",
+         kind="handheld", surface="fabric", material_kind="soft", mass=0.45, grounded=False, density=1024.0,
+         max_tex=2048, tags=["handheld", "rain", "npc", "umbrella"], variant_of="umbrella", name_key="PROP_UMBRELLA")

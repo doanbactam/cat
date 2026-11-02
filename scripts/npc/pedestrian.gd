@@ -216,6 +216,15 @@ func _think(dt: float) -> void:
 func _enter(s: S) -> void:
 	state = s
 	state_t = 0.0
+	if s != S.ACTIVITY:
+		_set_seat_lift(0.0)
+
+
+## Human `sit` clips are authored for a 0.25 m plastic stool; POIs on benches/steps carry meta
+## `seat_height` and the visual is raised (or lowered) by the difference.
+func _set_seat_lift(lift: float) -> void:
+	if visual != null:
+		visual.position.y = lift
 
 
 func _resume() -> void:
@@ -312,6 +321,7 @@ func _arrive_at_poi() -> void:
 		&"sit":
 			face_point = global_position + poi.global_basis.z
 			_yaw = poi.global_rotation.y
+			_set_seat_lift(float(NpcUtil.meta_or(poi, &"seat_height", 0.25)) - 0.25)
 		&"shop", &"look":
 			face_point = poi.global_position
 		&"chat":

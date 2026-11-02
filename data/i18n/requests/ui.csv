@@ -103,11 +103,11 @@ PAUSE_MAIN_MENU,Main menu,Màn hình chính
 PAUSE_QUIT,Quit game,Thoát game
 PAUSE_STATUS,Day {day} · {time} · {weather},Ngày {day} · {time} · {weather}
 PAUSE_SKILL_POINTS,{n} unspent skill points,Còn {n} điểm kỹ năng
-WEATHER_CLEAR,clear sky,trời quang
-WEATHER_CLOUDY,cloudy,nhiều mây
-WEATHER_RAIN,rain,mưa
-WEATHER_STORM,storm,giông bão
-WEATHER_FOG,fog,sương mù
+PAUSE_WEATHER_CLEAR,clear sky,trời quang
+PAUSE_WEATHER_CLOUDY,cloudy,nhiều mây
+PAUSE_WEATHER_RAIN,rain,mưa
+PAUSE_WEATHER_STORM,storm,giông bão
+PAUSE_WEATHER_FOG,fog,sương mù
 INV_TITLE,Belongings,Đồ đạc
 INV_SUBTITLE,What Cam keeps in his den under the tea counter,Những thứ Cam cất trong ổ dưới quầy trà
 INV_TAB_ALL,All,Tất cả

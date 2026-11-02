@@ -14,7 +14,7 @@ Stages (each saves qa/out/cat-asset/cache/stage_<name>.blend):
   weights  skinning
   tex      baked position/normal maps -> numpy tabby albedo, normal, roughness,
            fur mask, fur flow, NPC variant albedos, eye + whisker textures
-  anim     all contract clips (in-place, authored at 30 fps, keyed at 60 Hz)
+  anim     all contract clips (in-place, authored at 30 fps, keyed at 120 Hz)
   export   materials + glb export + source .blend
 """
 from __future__ import annotations
@@ -65,7 +65,7 @@ def save_stage(name: str) -> None:
 def load_stage(name: str) -> None:
     bpy.ops.wm.open_mainfile(filepath=stage_path(name))
     import cat_anim as AN
-    # actions are keyed at AN.KEY_FPS (60 Hz) from the anim stage on
+    # actions are keyed at AN.KEY_FPS (120 Hz) from the anim stage on
     bpy.context.scene.render.fps = AN.KEY_FPS if name in ("anim", "export") else 30
 
 
@@ -206,7 +206,7 @@ def _part_attribute(body):
     a.data.foreach_set("color", col.ravel())
 
 
-def _eval_fields(maps, chunk=1_500_000, want=("albedo",), palettes=("cam",)):
+def _eval_fields(maps, chunk=800_000, want=("albedo",), palettes=("cam",)):
     """Evaluate coat fields on covered texels in chunks. Returns dict name -> (H,W,C) arrays."""
     import cat_coat as CO
     pos, nrm, part = maps["pos"], maps["nrm"], maps["part"]

@@ -508,7 +508,11 @@ def place_cards(sp: Species, branches: list, mb: MeshBuilder, rng: random.Random
             outv = out.normalized() if out.length > 1e-3 else _rand_unit(rng)
             if mode == "top" or sp.card_hang:
                 axis = DOWN.copy()
-                normal = (outv + _rand_unit(rng) * 0.6).normalized()
+                if sp.card_hang:
+                    # hanging strands (willow): mostly random facing so curtains never form solid sheets
+                    normal = (outv * 0.3 + _rand_unit(rng)).normalized()
+                else:
+                    normal = (outv + _rand_unit(rng) * 0.6).normalized()
                 normal.z = 0
                 if normal.length < 1e-3:
                     normal = Vector((1, 0, 0))

@@ -42,6 +42,8 @@ Footsteps: `AudioManager.play_footstep(surface, pos, intensity)` 4× per gait cy
 (intensity 0.08–1, ×0.35 when sneaking).
 
 ## world-life
+- Done: `CatPlayer.apply_knockback(impulse: Vector3)` exists (see docs/areas/player.md) — please
+  call it instead of writing to `velocity` (the ground controller rebuilds velocity every frame).
 - NPC cats: reuse the fur with a variant albedo —
   `var fur := FurShells.new(); fur.albedo_override = load("res://assets/models/cat/textures/cat_albedo_black.png"); fur.use_game_state_wetness = false; fur.enable_lod = true; add_child(fur); fur.attach_to_model(cat_instance, npc_body)`.
 - Swipeable NPCs/prey: implement `on_swiped(by: Node)`; the player's paw swipe (0.16 m sphere

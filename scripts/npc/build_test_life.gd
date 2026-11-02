@@ -7,6 +7,7 @@ extends SceneTree
 const OUT := "res://scenes/npc/test_life.tscn"
 const CITY := "res://assets/models/city/"
 const PROPS := "res://assets/models/props/"
+const LANDMARKS := "res://assets/models/landmarks/"
 const GROUND_TEX := "res://assets/textures/ground/"
 const ARCH_TEX := "res://assets/textures/architecture/"
 
@@ -318,6 +319,9 @@ func _buildings() -> void:
 
 
 func _stool(parent: Node3D, pos: Vector3, c: Color) -> void:
+	var colour := "red" if c.r > c.g and c.r > c.b else ("blue" if c.b > c.g else "green")
+	if _glb(parent, PROPS + "stool_plastic_%s.glb" % colour, pos, randf_range(-20.0, 20.0), "Stool") != null:
+		return
 	var plastic := _col(c, 0.45)
 	_mesh(parent, "StoolSeat", _cyl(0.15, 0.13, 0.03, 16), plastic, pos + Vector3(0, 0.27, 0))
 	_mesh(parent, "StoolBody", _cyl(0.13, 0.16, 0.26, 12), plastic, pos + Vector3(0, 0.13, 0))
@@ -339,12 +343,15 @@ func _stalls_and_props() -> void:
 	for lx: float in [-0.4, 0.4]:
 		for lz: float in [-0.22, 0.22]:
 			_mesh(tea, "Leg", _cyl(0.02, 0.02, 0.2, 6), wood, Vector3(lx, 0.1, lz))
-	_mesh(tea, "Teapot", _cyl(0.05, 0.07, 0.12, 12), _col(Color(0.85, 0.85, 0.8), 0.2), Vector3(0.15, 0.31, 0.05))
-	for i in 5:
-		_mesh(tea, "Cup", _cyl(0.025, 0.02, 0.05, 8), _col(Color(0.9, 0.9, 0.85), 0.15), Vector3(-0.3 + i * 0.09, 0.275, -0.1))
-	var awning_pole := _cyl(0.025, 0.025, 2.3, 8)
-	_mesh(tea, "AwningPole", awning_pole, steel, Vector3(0.0, 1.15, 0.9))
-	_mesh(tea, "Awning", _cyl(0.02, 1.4, 0.35, 8), canvas, Vector3(0.0, 2.2, 0.9))
+	if _glb(tea, PROPS + "tea_set.glb", Vector3(0.1, 0.25, 0.0), 15.0, "TeaSet") == null:
+		_mesh(tea, "Teapot", _cyl(0.05, 0.07, 0.12, 12), _col(Color(0.85, 0.85, 0.8), 0.2), Vector3(0.15, 0.31, 0.05))
+	for i in 3:
+		_glb(tea, PROPS + "glass_tra_da.glb", Vector3(-0.32 + i * 0.12, 0.25, -0.16), 0.0, "TraDa%d" % i)
+	_glb(tea, PROPS + "styrofoam_box.glb", Vector3(0.75, 0.0, 0.95), 10.0, "IceBox")
+	_glb(tea, PROPS + "plastic_crate_red.glb", Vector3(-0.9, 0.0, 1.0), -8.0, "Crate")
+	if _glb(tea, PROPS + "umbrella_tarp.glb", Vector3(0.0, 0.0, 0.95), 0.0, "Awning") == null:
+		_mesh(tea, "AwningPole", _cyl(0.025, 0.025, 2.3, 8), steel, Vector3(0.0, 1.15, 0.9))
+		_mesh(tea, "Awning", _cyl(0.02, 1.4, 0.35, 8), canvas, Vector3(0.0, 2.2, 0.9))
 	# --- Cô Hoa's fish stall (north sidewalk, x≈-20)
 	var fish := Node3D.new()
 	fish.name = "FishStall"
@@ -352,16 +359,33 @@ func _stalls_and_props() -> void:
 	p.add_child(fish)
 	_box(fish, "FishTable", Vector3(0, 0.38, 0), Vector3(1.6, 0.08, 0.8), wood, true, "wood")
 	_box(fish, "FishTableBase", Vector3(0, 0.17, 0), Vector3(1.5, 0.34, 0.7), _col(Color(0.3, 0.3, 0.32), 0.7), true, "wood")
-	for i in 3:
-		_mesh(fish, "Basin", _cyl(0.24, 0.18, 0.12, 20), _col(Color(0.15, 0.35, 0.6), 0.35), Vector3(-0.5 + i * 0.5, 0.48, 0.0))
-		_mesh(fish, "Fish", _cyl(0.2, 0.2, 0.03, 16), _col(Color(0.62, 0.66, 0.7), 0.15, 0.5), Vector3(-0.5 + i * 0.5, 0.53, 0.0))
-	_mesh(fish, "Umbrella", _cyl(0.02, 1.3, 0.4, 10), _tex_mat(ARCH_TEX, "fabric_canvas", 2.0, Color(0.7, 0.15, 0.1), Color(1.0, 0.6, 0.55)), Vector3(0, 2.3, 0.2))
-	_mesh(fish, "UmbrellaPole", _cyl(0.025, 0.025, 2.2, 8), steel, Vector3(0.7, 1.1, 0.2))
+	if _glb(fish, PROPS + "fish_basin.glb", Vector3(-0.25, 0.42, 0.0), 0.0, "FishBasin") == null:
+		for i in 3:
+			_mesh(fish, "Basin", _cyl(0.24, 0.18, 0.12, 20), _col(Color(0.15, 0.35, 0.6), 0.35), Vector3(-0.5 + i * 0.5, 0.48, 0.0))
+			_mesh(fish, "Fish", _cyl(0.2, 0.2, 0.03, 16), _col(Color(0.62, 0.66, 0.7), 0.15, 0.5), Vector3(-0.5 + i * 0.5, 0.53, 0.0))
+	_glb(fish, PROPS + "basin_plastic.glb", Vector3(0.55, 0.42, 0.05), 0.0, "Basin")
+	_glb(fish, PROPS + "bucket_plastic.glb", Vector3(1.05, 0.0, -0.3), 0.0, "Bucket")
+	_glb(fish, PROPS + "styrofoam_box.glb", Vector3(-1.1, 0.0, -0.25), 80.0, "IceBox")
+	if _glb(fish, PROPS + "umbrella_tarp.glb", Vector3(0.0, 0.0, 0.35), 25.0, "Umbrella") == null:
+		_mesh(fish, "Umbrella", _cyl(0.02, 1.3, 0.4, 10), _tex_mat(ARCH_TEX, "fabric_canvas", 2.0, Color(0.7, 0.15, 0.1), Color(1.0, 0.6, 0.55)), Vector3(0, 2.3, 0.2))
+		_mesh(fish, "UmbrellaPole", _cyl(0.025, 0.025, 2.2, 8), steel, Vector3(0.7, 1.1, 0.2))
 	# --- Chú Sáu's bánh mì cart (north sidewalk, x≈0)
 	var cart := Node3D.new()
 	cart.name = "BanhMiCart"
 	cart.position = Vector3(0.5, 0.15, -5.0)
 	p.add_child(cart)
+	if _glb(cart, PROPS + "banh_mi_cart.glb", Vector3.ZERO, 180.0, "Cart") != null:
+		_glb(cart, PROPS + "stool_plastic_blue.glb", Vector3(-0.2, 0.0, 0.85), 20.0, "VendorStool")
+	else:
+		_banh_mi_standin(cart)
+	_stool(tea, Vector3(0.0, 0, 0.75), Color(0.15, 0.45, 0.25))   # Bà Tư's own stool
+	# stools at the tea stall (sit POIs are right on them)
+	for i in 3:
+		_stool(tea, Vector3(-0.55 + i * 0.55, 0, 0.5 if i != 1 else -0.55), [Color(0.75, 0.1, 0.1), Color(0.1, 0.3, 0.7), Color(0.75, 0.1, 0.1)][i])
+	_street_furniture(p)
+
+
+func _banh_mi_standin(cart: Node3D) -> void:
 	_box(cart, "CartBody", Vector3(0, 0.55, 0), Vector3(1.3, 0.7, 0.6), _col(Color(0.85, 0.82, 0.75), 0.4, 0.3), true, "metal")
 	var glass := _col(Color(0.8, 0.9, 0.95), 0.05, 0.0)
 	glass.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
@@ -371,10 +395,10 @@ func _stalls_and_props() -> void:
 		_mesh(cart, "Loaf", _cyl(0.035, 0.035, 0.26, 8), _col(Color(0.82, 0.58, 0.28), 0.6), Vector3(-0.4 + i * 0.16, 0.98, 0.0), Vector3(90, 0, 0))
 	for wx: float in [-0.5, 0.5]:
 		_mesh(cart, "Wheel", _cyl(0.2, 0.2, 0.05, 16), _col(Color(0.1, 0.1, 0.1), 0.8), Vector3(wx, 0.2, 0.32), Vector3(90, 0, 0))
-	_stool(tea, Vector3(0.0, 0, 0.75), Color(0.15, 0.45, 0.25))   # Bà Tư's own stool
-	# stools at the tea stall (sit POIs are right on them)
-	for i in 3:
-		_stool(tea, Vector3(-0.55 + i * 0.55, 0, 0.5 if i != 1 else -0.55), [Color(0.75, 0.1, 0.1), Color(0.1, 0.3, 0.7), Color(0.75, 0.1, 0.1)][i])
+
+
+func _street_furniture(p: Node3D) -> void:
+	var canvas := _tex_mat(ARCH_TEX, "fabric_canvas", 2.0, Color(0.2, 0.4, 0.55))
 	# lamp posts (props) + lights
 	var lamp_path := PROPS + "lamp_post_colonial.glb"
 	for lx: float in [-25.0, -12.0, 1.0, 14.0, 27.0]:
@@ -494,7 +518,9 @@ func _lake_park() -> void:
 		_banyan_standin(park)
 	_box(park, "ParkWall", Vector3(4.5, 0.75, 16.0), Vector3(0.35, 1.2, 6.0), _tex_mat(ARCH_TEX, "brick_exposed", 1.0, Color(0.6, 0.35, 0.25)), true, "concrete")
 	for bz: float in [10.2, 27.0]:
-		_box(park, "Bench", Vector3(14.0, 0.6, bz), Vector3(1.8, 0.08, 0.45), _tex_mat(ARCH_TEX, "wood_green", 1.0, Color(0.25, 0.4, 0.3)), true, "wood")
+		# landmarks' lake bench: origin front-centre, seat toward +Z (Godot)
+		if _glb(park, LANDMARKS + "ho_bench.glb", Vector3(14.0, 0.15, 10.85 if bz < 20.0 else 26.35), 0.0 if bz < 20.0 else 180.0, "Bench") == null:
+			_box(park, "Bench", Vector3(14.0, 0.6, bz), Vector3(1.8, 0.08, 0.45), _tex_mat(ARCH_TEX, "wood_green", 1.0, Color(0.25, 0.4, 0.3)), true, "wood")
 
 
 func _banyan_standin(park: Node3D) -> void:
@@ -577,8 +603,8 @@ func _markers() -> void:
 	for i in 3:
 		var sp := Vector3(-10.55 + i * 0.55, 0.15, 6.1 if i != 1 else 5.05)
 		M.call("PoiTeaStool%d" % i, "pedestrian_poi", sp, 0.0 if i != 1 else 180.0, {"activity": "sit", "capacity": 1})
-	M.call("PoiBench0", "pedestrian_poi", Vector3(14.0, 0.15, 10.6), 0.0, {"activity": "sit", "capacity": 2})
-	M.call("PoiBench1", "pedestrian_poi", Vector3(14.0, 0.15, 26.6), 180.0, {"activity": "sit", "capacity": 2})
+	M.call("PoiBench0", "pedestrian_poi", Vector3(14.0, 0.15, 10.6), 0.0, {"activity": "sit", "capacity": 2, "seat_height": 0.44})
+	M.call("PoiBench1", "pedestrian_poi", Vector3(14.0, 0.15, 26.6), 180.0, {"activity": "sit", "capacity": 2, "seat_height": 0.44})
 	M.call("PoiFishShop", "pedestrian_poi", Vector3(-20.0, 0.15, -4.6), 180.0, {"activity": "shop"})
 	M.call("PoiBanhMi", "pedestrian_poi", Vector3(0.5, 0.15, -4.4), 180.0, {"activity": "shop"})
 	M.call("PoiShopfront", "pedestrian_poi", Vector3(-27.0, 0.15, -6.2), 180.0, {"activity": "look"})

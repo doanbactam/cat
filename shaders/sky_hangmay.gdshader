@@ -112,7 +112,9 @@ void sky() {
 	col += vec3(0.75, 0.8, 1.0) * storm_flash * (0.4 + c_over) * 3.0;
 
 	// humid haze & below-horizon ground
-	vec3 haze_col = mix(hor, vec3(0.8, 0.78, 0.72) * (0.2 + 0.8 * day), 0.5) + sunset_color.rgb * golden * 0.3;
+	// by night the haze carries the city's sodium/neon light pollution (warm, dim)
+	vec3 haze_col = mix(hor, vec3(0.8, 0.78, 0.72) * (0.04 + 0.96 * day), 0.5) + sunset_color.rgb * golden * 0.3
+		+ vec3(0.05, 0.032, 0.018) * (1.0 - day) * (0.6 + overcast);
 	col = mix(col, haze_col, haze * pow(1.0 - abs(h), 10.0));
 	if (h < 0.0) {
 		col = mix(haze_col, ground_color.rgb * (0.08 + 0.9 * day), smoothstep(0.0, 0.25, -h));

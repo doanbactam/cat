@@ -15,7 +15,7 @@ const KELVIN_SUN_NOON := 5900.0
 ## Base humid haze (volumetric fog density) on a clear day.
 @export var base_fog_density := 0.0045
 @export var day_exposure := 1.0
-@export var night_exposure := 1.9
+@export var night_exposure := 1.35
 
 var sun: DirectionalLight3D
 var moon: DirectionalLight3D
@@ -194,7 +194,7 @@ func update_lighting() -> void:
 	if environment != null:
 		var env := environment
 		var golden := clampf(1.0 - absf(elev - 4.0) / 14.0, 0.0, 1.0) * (1.0 - night)
-		env.ambient_light_energy = lerpf(1.0, 0.55, night) * lerpf(1.0, 0.85, overcast) + flash * 2.0
+		env.ambient_light_energy = lerpf(1.0, 0.32, night) * lerpf(1.0, 0.85, overcast) + flash * 2.0
 		env.tonemap_exposure = lerpf(day_exposure, night_exposure, night) * lerpf(1.0, 1.15, overcast)
 		var fog_day := Color(0.78, 0.80, 0.80)
 		var fog_gold := Color(0.95, 0.72, 0.52)

@@ -79,7 +79,7 @@ DEFAULT = {
     "neck_lift": 0.0,                 # deg, + raises the neck (head keeps its world target)
     "head": (0.0, 0.0, 0.0),          # world-relative head pitch(+ up) / yaw(+ left) / roll(+ left ear down)
     "head_follow": 0.0,               # 0 = head target is world-relative, 1 = relative to chest
-    "jaw": -1.2, "tongue": 0.0, "tongue_curl": 0.0,   # jaw 0 = lips touching; -1.2 presses them closed
+    "jaw": -3.0, "tongue": 0.0, "tongue_curl": 0.0,   # jaw 0 = lips touching; -3 tucks the lower lip behind the upper lip (closed mouth, no slit)
     "earL": (0.0, 0.0, 0.0), "earR": (0.0, 0.0, 0.0),   # back, swivel(out/back +), flatten
     "blink": (0.0, 0.0), "lower_lid": None, "eyes": (0.0, 0.0), "whisk": 0.0,
     "tail": {"lift": 0.0, "curve": 0.0, "yaw": 0.0, "amp": 0.0, "phase": 0.0, "wl": 1.4, "tip": 0.0,
@@ -407,10 +407,12 @@ LOC_BONES = {"pelvis", "scapula_L", "scapula_R", "tongue_01"}
 
 
 # Clips are AUTHORED in 30 fps frames (clip functions take 30 fps frame numbers) but KEYED at
-# KEY_RATE x 30 = 60 Hz: the exporter writes one glTF key per scene frame and Godot interpolates
-# bone rotations linearly, so at 30 Hz fast clips (run: 2-frame stances) dipped paws through
-# the floor between keys.  The scene fps is set to KEY_FPS; durations in seconds are unchanged.
-KEY_RATE = 2
+# KEY_RATE x 30 = 120 Hz: the exporter writes one glTF key per scene frame and Godot interpolates
+# bone rotations linearly (and re-bakes at the import option animation/fps, set to KEY_FPS by
+# configure_import.py).  At 30 Hz the gallop's planted paws sagged ~22 mm through the floor and
+# slid between keys, at 60 Hz still ~7 mm; at 120 Hz the chord error is ~1-2 mm.  The scene fps
+# is set to KEY_FPS; clip durations in seconds are unchanged.
+KEY_RATE = 4
 KEY_FPS = FPS * KEY_RATE
 
 

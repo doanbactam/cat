@@ -80,10 +80,26 @@ Koi: `root head jaw spine_01..06 tail_fin dorsal anal pectoral_L/R pelvic_L/R`.
 ## Verification
 * `tools/run_tests.sh test_creatures` — every GLB loads, skeleton + bones, skinned mesh, clip names, loop
   flags, real-world height range, catalog completeness, walk clip stays in place.
-* Preview scene `assets/models/npc/preview/lineup.tscn` (all models next to a cat-sized 0.46 × 0.25 m box).
-* Gallery: `docs/gallery/creatures_*.jpg`.
+* Preview scene `assets/models/npc/preview/lineup.tscn` (all models next to a cat-sized 0.46 × 0.25 m box and,
+  when present, the real player cat `assets/models/cat/cat.glb` for scale).
+* Gallery: `docs/gallery/creatures_humans.jpg` (all 10 humans + cat box + Cam), `creatures_animals.jpg`
+  (Vện, Lão Quạ, pigeon, koi, sparrow, mouse, gecko next to Cam and the cat box), `creatures_named.jpg`
+  (named NPC faces + full bodies). Regenerate with `tools/blender_run.sh blender/npc/render_lineup.py -- humans|animals [samples] [WxH]`.
+
+## Revision log
+* Pass 2 (resume after usage-limit cut-off): faces got a mouth line with tucked corners, wider/fuller lips,
+  upper-lid crease sockets, larger ears with a concha hollow and a slightly narrower jaw; Vện got a heavier
+  build (deeper chest, thicker neck/legs, bigger skull), smaller almond eyes, sturdier ears and a rewritten
+  brindle (irregular dorso-ventral tiger streaks + ticking instead of contour-like rings); Lão Quạ's grey
+  house-crow shawl (nape/neck/upper breast) is now clearly readable. All GLBs rebuilt, tests re-run.
 
 ## Known gaps (honest)
+* Faces still read slightly heavy in the cheeks/jaw and lips are subtle; the lip texture's vermilion fades
+  to skin before the (widened) geometric mouth corners. Cô Hoa shows a small dark-red spot at a mouth
+  corner in close-ups, Chú Sáu's cap brim edge is slightly jagged and Cô Hoa's hair has a pale hair-clip disc
+  under the nón lá. Needs one more face pass + rebuild (≈35 min for all humans).
+* Vện still stands with a fairly upright neck and long legs (lean village-dog look rather than stocky); ears
+  are thin. Brindle reads well side-on; on end-on surfaces it fades into grizzle by design.
 * Faces are deliberately soft / simplified (no facial rig beyond the jaw, eyes don't blink; eyelids are
   sculpted). Up close they read as stylised-realistic, not photoreal. Hair is a sculpted shell with a strand
   texture, not hair cards.

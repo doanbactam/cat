@@ -108,42 +108,78 @@ static func _draw_leg(ci: CanvasItem, xf: Transform2D, hip: Vector2, ph: float, 
 
 static func _draw_sit(ci: CanvasItem, foot: Vector2, s: float, facing: float, color: Color, t: float) -> void:
 	var xf := Transform2D(0.0, Vector2(facing * s, s), 0.0, foot)
-	var breathe := sin(t * 1.9) * 1.2
-	# haunch + chest as a pear shape
+	var breathe := sin(t * 1.9) * 1.0
+	# One smooth outline: haunch, arched back, neck, chest and the straight front legs (faces +x).
+	var key := [
+		Vector2(34, 0), Vector2(8, 0), Vector2(-20, 0), Vector2(-38, -4), Vector2(-47, -18),
+		Vector2(-48, -36), Vector2(-42, -54), Vector2(-30, -72 - breathe), Vector2(-16, -88 - breathe),
+		Vector2(-4, -100 - breathe), Vector2(10, -102 - breathe), Vector2(22, -92 - breathe),
+		Vector2(27, -76 - breathe * 0.6), Vector2(25, -58), Vector2(22, -40), Vector2(22, -18),
+		Vector2(25, -6), Vector2(31, -3)]
+	var outline := _smooth_closed(key, 5)
 	var body := PackedVector2Array()
-	var n := 32
-	for i in n:
-		var a := TAU * float(i) / float(n)
-		var r := 30.0 + 12.0 * maxf(0.0, sin(a)) + breathe * 0.3
-		var x := cos(a) * r * 0.95
-		var y := sin(a) * 40.0
-		body.append(xf * Vector2(x - 4, y - 42))
+	for v in outline:
+		body.append(xf * v)
 	ci.draw_colored_polygon(body, color)
-	ci.draw_circle(xf * Vector2(10, -80 - breathe * 0.5), 20.0 * s, color)
-	# front legs
-	ci.draw_line(xf * Vector2(14, -60), xf * Vector2(16, -2), color, 9.0 * s, true)
-	ci.draw_line(xf * Vector2(24, -60), xf * Vector2(26, -2), color.darkened(0.2), 8.0 * s, true)
-	# head
-	var hc := Vector2(18, -104 - breathe * 0.6)
-	ci.draw_circle(xf * hc, 15.0 * s, color)
+	# head: rounded skull + muzzle, ears with a twitch
+	var hc := Vector2(12, -112 - breathe)
+	var head := PackedVector2Array()
+	for i in 24:
+		var a := TAU * float(i) / 24.0
+		var r := 15.0 + 2.5 * maxf(0.0, cos(a)) * maxf(0.0, sin(a) + 0.3)
+		head.append(xf * (hc + Vector2(cos(a) * r * 1.08, sin(a) * r * 0.92)))
+	ci.draw_colored_polygon(head, color)
+	var muzzle := PackedVector2Array()
+	for i in 14:
+		var a := TAU * float(i) / 14.0
+		muzzle.append(xf * (hc + Vector2(13, 5) + Vector2(cos(a) * 7.5, sin(a) * 5.5)))
+	ci.draw_colored_polygon(muzzle, color)
 	var twitch := 0.0
 	var tt := fmod(t, 4.3)
 	if tt < 0.18:
 		twitch = sin(tt / 0.18 * PI) * 5.0
-	ci.draw_colored_polygon(PackedVector2Array([xf * (hc + Vector2(-11, -6)), xf * (hc + Vector2(-9 - twitch, -26)),
-		xf * (hc + Vector2(0, -12))]), color)
-	ci.draw_colored_polygon(PackedVector2Array([xf * (hc + Vector2(2, -13)), xf * (hc + Vector2(9, -27)),
-		xf * (hc + Vector2(13, -5))]), color)
-	# tail curled around the paws
-	var sway := sin(t * 1.1) * 5.0
+	ci.draw_colored_polygon(PackedVector2Array([xf * (hc + Vector2(-12, -6)), xf * (hc + Vector2(-10 - twitch, -28)),
+		xf * (hc + Vector2(-1, -13))]), color)
+	ci.draw_colored_polygon(PackedVector2Array([xf * (hc + Vector2(1, -14)), xf * (hc + Vector2(8, -29)),
+		xf * (hc + Vector2(13, -8))]), color)
+	# whiskers
+	var wc := Color(color, 0.5)
+	for k in 3:
+		ci.draw_line(xf * (hc + Vector2(17, 7)), xf * (hc + Vector2(35, 2 + k * 5)), wc, maxf(1.0, 1.0 * s), true)
+	# a faint lighter rim suggests the thigh so the haunch reads as its own mass
+	var rim := PackedVector2Array()
+	for i in 13:
+		var a := lerpf(PI * 0.95, PI * 1.75, float(i) / 12.0)
+		rim.append(xf * (Vector2(-18, -26) + Vector2(cos(a) * 24.0, sin(a) * 22.0)))
+	ci.draw_polyline(rim, Color(color.lightened(0.25), 0.35), maxf(1.0, 1.4 * s), true)
+	# tail curled around the paws, tip lifting
+	var sway := sin(t * 1.1) * 4.0
 	var pts: PackedVector2Array = []
-	for i in 18:
-		var u := float(i) / 17.0
-		pts.append(_bezier(Vector2(-30, -8), Vector2(-50, 6), Vector2(10 + sway, 10), Vector2(40 + sway, -4 - sway * 0.4), u))
+	for i in 20:
+		var u := float(i) / 19.0
+		pts.append(_bezier(Vector2(-40, -6), Vector2(-56, 4), Vector2(6 + sway, 8), Vector2(44 + sway, -6 - sway * 0.5), u))
 	for i in pts.size() - 1:
-		var w := lerpf(10.0, 5.0, float(i) / 17.0)
+		var w := lerpf(10.0, 5.5, float(i) / 19.0)
 		ci.draw_line(xf * pts[i], xf * pts[i + 1], color, w * s, true)
 		ci.draw_circle(xf * pts[i + 1], w * 0.5 * s, color)
+
+
+## Closed Catmull-Rom through `key`, `sub` samples per span.
+static func _smooth_closed(key: Array, sub: int) -> PackedVector2Array:
+	var out := PackedVector2Array()
+	var n := key.size()
+	for i in n:
+		var p0: Vector2 = key[(i - 1 + n) % n]
+		var p1: Vector2 = key[i]
+		var p2: Vector2 = key[(i + 1) % n]
+		var p3: Vector2 = key[(i + 2) % n]
+		for k in sub:
+			var u := float(k) / float(sub)
+			var u2 := u * u
+			var u3 := u2 * u
+			out.append(0.5 * ((2.0 * p1) + (-p0 + p2) * u + (2.0 * p0 - 5.0 * p1 + 4.0 * p2 - p3) * u2
+				+ (-p0 + 3.0 * p1 - 3.0 * p2 + p3) * u3))
+	return out
 
 
 static func _bezier(p0: Vector2, p1: Vector2, p2: Vector2, p3: Vector2, u: float) -> Vector2:

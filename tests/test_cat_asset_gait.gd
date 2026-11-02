@@ -5,7 +5,8 @@ extends "res://tests/test_base.gd"
 ##   stance" while within 4 mm of its lowest height; stance slip = |forward speed + gait speed|
 ##   (clips are in place, a planted paw must move backwards at exactly the gait speed);
 ## * the skinned paw vertices (CPU skinning of the real mesh) never go below the ground.
-## Prints a table (also used for docs/areas/cat-asset.md).
+## Prints a table (also used for docs/areas/cat-asset.md).  Requires the import option
+## animation/fps = 120 (blender/cat/configure_import.py): Godot re-bakes glTF tracks at that rate.
 
 const CAT_PATH := "res://assets/models/cat/cat.glb"
 const GAITS := {"walk": 0.7, "trot": 1.6, "run": 4.5, "sneak": 0.45, "balance_walk": 0.4}
@@ -13,7 +14,7 @@ const BALLS: Array[String] = ["finger_L", "finger_R", "toe_L", "toe_R"]
 const SAMPLES := 240
 ## max allowed mean stance slip (m/s) and duty range per gait
 const LIMITS := {
-	"walk": [0.06, 0.50, 0.75], "trot": [0.10, 0.38, 0.60], "run": [0.18, 0.22, 0.45],
+	"walk": [0.05, 0.50, 0.75], "trot": [0.06, 0.40, 0.60], "run": [0.16, 0.22, 0.45],
 	"sneak": [0.05, 0.60, 0.85], "balance_walk": [0.05, 0.55, 0.80],
 }
 

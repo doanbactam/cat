@@ -196,6 +196,7 @@ var _face_active := false
 var _refuse_t := 0.0
 var _shelter_t := 0.0
 var _sheltered := false
+var _knock_vel := Vector3.ZERO         # planar shove from apply_knockback, decays on the ground
 
 # --- visual state -------------------------------------------------------------------------
 var _vis_pitch := 0.0
@@ -369,6 +370,7 @@ func teleport(xform: Transform3D) -> void:
 	_yaw = atan2(fwd.x, fwd.z) if fwd.length_squared() > 0.0001 else 0.0
 	global_transform = Transform3D(Basis(Vector3.UP, _yaw), xform.origin)
 	velocity = Vector3.ZERO
+	_knock_vel = Vector3.ZERO
 	_speed = 0.0
 	_step_offset = 0.0
 	_vis_offset_y = 0.0
@@ -381,6 +383,39 @@ func teleport(xform: Transform3D) -> void:
 	if _camera_rig != null:
 		_camera_rig.yaw = _yaw + PI
 		_camera_rig.call(&"snap_to_target")
+
+
+## External shove (vehicle bump, dog nip, ...). `impulse` is a velocity change in m/s (the cat's
+## mass is folded in by the caller). Small planar shoves slide the cat and decay with ground
+## friction; strong or upward ones knock it into the air (free ballistic, lands normally).
+## Interrupts sitting / sleeping / actions / jump charge; ignored while climbing or scrambling.
+func apply_knockback(impulse: Vector3) -> void:
+	if not impulse.is_finite() or impulse.length() < 0.01:
+		return
+	if mode == Mode.CLIMB or mode == Mode.SCRAMBLE:
+		return
+	if mode == Mode.REST or mode == Mode.ACTION or mode == Mode.TURN or mode == Mode.CROUCH:
+		_charge = 0.0
+		_target = {}
+		_hide_reticle()
+		_enter_ground()
+	_idle_t = 0.0
+	var planar := Vector3(impulse.x, 0.0, impulse.z)
+	if mode == Mode.SWIM:
+		_knock_vel += planar * 0.5
+		return
+	if mode == Mode.AIR:
+		_air_targeted = false
+		velocity += impulse
+		return
+	if impulse.y > 1.2 or planar.length() > 3.2:
+		# knocked off its feet: a short tumble through the air
+		_speed = 0.0
+		velocity = Vector3(planar.x, maxf(impulse.y, 1.6), planar.z)
+		_enter_air(false)
+		GameEvents.player_noise.emit(global_position, 0.6)
+		return
+	_knock_vel += planar
 
 
 func get_camera_rig() -> Node3D:
@@ -727,6 +762,9 @@ func _physics_ground(delta: float) -> void:
 	# --- probes that keep the long body honest -------------------------------------------
 	hv = _apply_nose_probe(hv, delta)
 	hv = _apply_edge_guard(hv, delta)
+	if _knock_vel.length_squared() > 0.0001:
+		hv += _knock_vel
+		_knock_vel = _knock_vel.move_toward(Vector3.ZERO, 7.0 * delta)
 	velocity.x = hv.x
 	velocity.z = hv.z
 	velocity.y = minf(velocity.y, 0.0) - gravity * delta * 0.25
@@ -1739,8 +1777,9 @@ func _physics_swim(delta: float) -> void:
 				_yaw_rate = angle_difference(prev2, _yaw) / maxf(delta, 0.0001)
 				_apply_yaw()
 	var fwd := _forward()
-	velocity.x = fwd.x * _speed
-	velocity.z = fwd.z * _speed
+	velocity.x = fwd.x * _speed + _knock_vel.x
+	velocity.z = fwd.z * _speed + _knock_vel.z
+	_knock_vel = _knock_vel.move_toward(Vector3.ZERO, 2.5 * delta)
 	move_and_slide()
 	if _swim_t - floorf(_swim_t / 0.45) * 0.45 < delta and _fx != null:
 		_fx.call(&"ripple", Vector3(global_position.x, _water_level, global_position.z), 0.6)
@@ -2145,7 +2184,9 @@ func _update_look_target() -> void:
 	if _interaction != null:
 		var poi: Vector3 = _interaction.call(&"get_focus_point")
 		if poi != Vector3.INF and not is_first_person():
-			goal = poi
+			# look at the object, not down at its base: keep the gaze from drooping below ~20°
+			var lift := maxf(0.0, (head.y - poi.y) - 0.35 * Vector2(poi.x - head.x, poi.z - head.z).length())
+			goal = poi + Vector3.UP * minf(lift, 0.25)
 	if not _target.is_empty() and mode == Mode.CROUCH:
 		goal = _target["point"]
 	_look_target.global_position = _look_target.global_position.lerp(goal, 0.2) if _look_target.global_position.distance_to(goal) < 4.0 else goal

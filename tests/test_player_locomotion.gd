@@ -204,3 +204,24 @@ func test_teleport() -> void:
 	await step(2)
 	assert_true(p.global_position.distance_to(Vector3(3, 0, -2)) < 0.03, "teleported")
 	assert_true(p.global_transform.basis.z.dot(Vector3.RIGHT) > 0.95, "facing +X")
+
+
+func test_knockback_shoves_and_tumbles() -> void:
+	ground(40.0)
+	var p := spawn_player(Vector3.ZERO)
+	await settle()
+	assert_true(p.has_method(&"apply_knockback"), "API apply_knockback")
+	# small planar shove: slides sideways, decays, stays grounded
+	p.call(&"apply_knockback", Vector3(2.0, 0.0, 0.0))
+	await seconds(0.8)
+	assert_true(p.global_position.x > 0.15, "shoved sideways (%.2f m)" % p.global_position.x)
+	assert_true(float(p.call(&"get_planar_speed")) < 0.1, "shove decays")
+	assert_false(bool(p.call(&"is_airborne")), "still on the ground")
+	# strong bump: knocked into the air, then lands
+	var x0 := p.global_position.x
+	p.call(&"apply_knockback", Vector3(4.0, 2.0, 0.0))
+	await step(4)
+	assert_true(bool(p.call(&"is_airborne")), "knocked off its feet")
+	await seconds(1.2)
+	assert_false(bool(p.call(&"is_airborne")), "landed again")
+	assert_true(p.global_position.x - x0 > 0.6, "tumbled away (%.2f m)" % (p.global_position.x - x0))

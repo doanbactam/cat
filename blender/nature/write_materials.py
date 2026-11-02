@@ -16,7 +16,8 @@ BARK = "res://assets/models/nature/shaders/nature_bark.gdshader"
 FOLIAGE = {
     "leaf_banyan": dict(backlight_color=(0.45, 0.6, 0.18), backlight_strength=0.7, specular_level=0.35, sway_amp=0.8,
                         tint=(1.3, 1.3, 1.05)),
-    "leaf_flame": dict(backlight_color=(0.6, 0.7, 0.25), backlight_strength=1.0, specular_level=0.3, flutter_amp=1.4),
+    "leaf_flame": dict(backlight_color=(0.6, 0.7, 0.25), backlight_strength=1.0, specular_level=0.3, flutter_amp=1.4,
+                       tint=(1.15, 1.2, 1.0), alpha_cut=0.3),  # thin pinnae: keep coverage in the mips
     "leaf_sao": dict(backlight_color=(0.45, 0.6, 0.2), backlight_strength=0.8, specular_level=0.35,
                      tint=(1.25, 1.25, 1.05)),
     "leaf_frangipani": dict(backlight_color=(0.55, 0.68, 0.25), backlight_strength=0.8, specular_level=0.4,

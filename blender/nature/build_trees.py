@@ -63,7 +63,7 @@ BANYAN = Species(
 FLAME = Species(
     "flame_tree", trunk_height=3.4, trunk_radius=0.36, trunk_lean=0.08, trunk_wander=0.06, trunk_grav=0.0,
     trunk_seg=0.35, trunk_tip_ratio=0.55, bark="bark_smooth", atlas="leaf_flame",
-    cards=[("frond_a", 2), ("frond_b", 2), ("flowers", 3), ("frond_flowers", 4)], card_scale=(1.3, 1.8),
+    cards=[("frond_a", 2), ("frond_b", 2), ("flowers", 3), ("frond_flowers", 4)], card_scale=(1.5, 2.1),
     card_levels=(2, 3), card_spacing=0.15, card_span=(0.15, 1.0), card_bend=0.12, card_up=0.75,
     sides_max=20, buttress=0.3, buttress_lobes=6, buttress_height=0.6, lumpy=0.05,
     levels=[
@@ -76,34 +76,36 @@ FLAME = Species(
     ])
 
 FRANGIPANI = Species(
-    "frangipani", trunk_height=1.1, trunk_radius=0.15, trunk_lean=0.1, trunk_wander=0.05, trunk_grav=0.0,
+    "frangipani", trunk_height=1.0, trunk_radius=0.16, trunk_lean=0.1, trunk_wander=0.05, trunk_grav=0.0,
     trunk_seg=0.2, trunk_tip_ratio=0.85, bark="bark_smooth", atlas="leaf_frangipani",
-    cards=[], card_scale=(0.85, 1.15), card_levels=(3,),
+    cards=[], card_scale=(0.7, 0.95), card_levels=(4,),
     card_spacing=5.0, card_span=(1.0, 1.0), card_bend=0.25, card_up=0.8, sides_max=14, lumpy=0.04,
-    tip_cards=[("rosette_flowers", 1, 0, 0), ("leaf_side", 4, 35, 0.8), ("rosette", 1, 0, 0),
-               ("flower_cluster", 1, 10, 0.9)],
+    tip_cards=[("rosette_flowers", 1, 0, 0), ("leaf_side", 3, 40, 0.8), ("flower_cluster", 2, 18, 0.85)],
     levels=[
-        Level(count=(3, 4), span=(0.9, 1.0), angle=(28, 45), length=(0.9, 1.3), abs_len=True, len_taper=0.0,
-              radius_ratio=0.72, grav=0.45, wander=0.08, photo=0.15, seg=0.18, tip_ratio=0.72),
-        Level(count=(2, 3), span=(0.92, 1.0), angle=(25, 45), length=(0.6, 0.85), radius_ratio=0.8, grav=0.55,
-              wander=0.1, photo=0.2, seg=0.16, tip_ratio=0.78),
-        Level(count=(2, 3), span=(0.92, 1.0), angle=(22, 42), length=(0.5, 0.8), radius_ratio=0.82, grav=0.6,
-              wander=0.1, photo=0.2, seg=0.15, tip_ratio=0.8),
+        # candelabra: every fork happens at the blunt tip of the previous succulent branch
+        Level(count=(3, 4), span=(0.9, 1.0), angle=(32, 50), length=(0.75, 1.0), abs_len=True, len_taper=0.0,
+              radius_ratio=0.74, grav=0.3, wander=0.08, photo=0.35, seg=0.16, tip_ratio=0.75),
+        Level(count=(2, 3), span=(0.93, 1.0), angle=(28, 46), length=(0.55, 0.75), abs_len=True, len_taper=0.0, radius_ratio=0.8, grav=0.35,
+              wander=0.1, photo=0.35, seg=0.15, tip_ratio=0.8),
+        Level(count=(2, 3), span=(0.93, 1.0), angle=(25, 42), length=(0.45, 0.62), abs_len=True, len_taper=0.0, radius_ratio=0.82, grav=0.4,
+              wander=0.1, photo=0.3, seg=0.14, tip_ratio=0.82),
+        Level(count=(1, 2), span=(0.93, 1.0), angle=(18, 36), length=(0.32, 0.48), abs_len=True, len_taper=0.0, radius_ratio=0.85, grav=0.45,
+              wander=0.1, photo=0.2, seg=0.12, tip_ratio=0.85),
     ])
 
 WILLOW = Species(
     "weeping_willow", trunk_height=2.8, trunk_radius=0.3, trunk_lean=0.22, trunk_wander=0.08, trunk_grav=0.05,
     trunk_seg=0.3, trunk_tip_ratio=0.55, bark="bark_furrowed", atlas="leaf_willow",
-    cards=[("strand_a", 1), ("strand_b", 1), ("strand_c", 1), ("strand_d", 1)], card_scale=(0.9, 1.5),
-    card_levels=(2, 3), card_spacing=0.26, card_span=(0.3, 1.0), card_bend=0.0, card_hang=True,
+    cards=[("strand_a", 1), ("strand_b", 1), ("strand_c", 1), ("strand_d", 1)], card_scale=(1.2, 2.1),
+    card_levels=(2, 3), card_spacing=0.34, card_span=(0.3, 1.0), card_bend=0.0, card_hang=True,
     sides_max=18, buttress=0.15, buttress_height=0.4, lumpy=0.06, normal_blend=0.45,
     levels=[
         Level(count=(6, 7), span=(0.6, 1.0), angle=(25, 50), length=(3.2, 4.6), abs_len=True, len_taper=0.1,
               radius_ratio=0.55, grav=0.12, wander=0.12, photo=0.1, seg=0.4, tip_ratio=0.3),
         Level(count=(5, 7), span=(0.3, 1.0), angle=(35, 60), length=(0.5, 0.75), radius_ratio=0.6, grav=-0.55,
               wander=0.15, photo=0.25, seg=0.3, tip_ratio=0.35),
-        Level(count=(3, 4), span=(0.3, 1.0), angle=(20, 40), length=(0.5, 0.7), radius_ratio=0.7, grav=-1.1,
-              wander=0.1, photo=0.1, seg=0.25, tip_ratio=0.4, min_radius=0.005),
+        Level(count=(4, 6), span=(0.2, 1.0), angle=(25, 50), length=(0.45, 0.7), radius_ratio=0.7, grav=-1.1,
+              wander=0.12, photo=0.15, seg=0.25, tip_ratio=0.4, min_radius=0.005),
     ])
 
 

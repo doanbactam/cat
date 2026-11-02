@@ -22,6 +22,13 @@
    headlights at night duplicate the material on that instance (`set_surface_override_material`) and raise
    `emission_energy_multiplier` (~3–6), optionally add a SpotLight3D.
 3. Parked scooters with `NAP_seat` are good cat nap spots (catalog `nap_spots`).
+4. Real lamp lights now ship inside the GLBs (phase-1 update): `LIGHT_head_<i>` / `LIGHT_tail_<i>` mounts with a
+   hidden `HeadLight` (SpotLight3D, along +Z) / `TailLight` (OmniLight3D) child, group `vehicle_light`, meta
+   `night_energy`. At night (or `GameEvents.phase_of_day_changed` → evening/night) set `visible = true` and
+   `light_energy = get_meta(&"night_energy")` — ideally only for the nearest ~6 moving vehicles (shadows stay off).
+5. Catalog `kind` values used: `scooter`, `motorbike`, `bicycle`, `cyclo`, `tricycle`, `car`, `van`, `helmet`
+   (your `CATALOG_KINDS` already matches scooter/motorbike/bicycle/car/van). Wheel nodes are `wheel_*`, not `Wheel*`,
+   but `vehicle.gd::_setup_glb` reads the catalog `wheels[].node`, so no change is needed.
 
 ## To `ui`
 Strings appended in `data/i18n/requests/vehicles-nature.csv` (catalog `name_key`s).

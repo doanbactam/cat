@@ -5,7 +5,7 @@ extends RefCounted
 
 const ROAD_Y := -0.15
 const MAP_MIN := Vector2(-120.0, -100.0)
-const MAP_MAX := Vector2(120.0, 100.0)
+const MAP_MAX := Vector2(120.0, 110.0)
 
 ## Streets: axis "x" runs east-west (center = z), axis "z" runs north-south (center = x).
 ## [id, axis, center, from, to, road_width, sidewalk_width, speed_limit, kinds]
@@ -16,14 +16,21 @@ const STREETS := [
 	["pho_cho", "z", 50.0, -66.0, 58.0, 6.0, 3.0, 5.0, ["scooter", "bicycle"]],
 ]
 
-## Lake Hồ Gương.
+## Lake Hồ Gương. The embankment is the city-landmarks kit (ho_embank_*: walkway y 0, water y -1.0,
+## bed at the wall foot y -1.6) laid as 4 m chords around the ellipse.
 const LAKE_CENTER := Vector2(-2.0, 4.0)
 const LAKE_RADII := Vector2(36.0, 30.0)
-const LAKE_WATER_Y := -0.35
-const LAKE_DEPTH := 2.0
+const LAKE_WATER_Y := -1.0
+const LAKE_BED_EDGE_Y := -1.6
+const LAKE_DEPTH := 1.1              # extra depth at the centre below the bed edge
 const PROMENADE_W := 5.0
-const ISLET_CENTER := Vector2(16.0, 2.0)
-const ISLET_RADII := Vector2(6.5, 5.0)
+## Islet (ho_islet_shrine, 9 × 7 m) + red bridge (ho_bridge, spans local Z ±8.8) toward the east shore.
+const ISLET_CENTER := Vector2(14.8, 2.0)
+const ISLET_RADII := Vector2(4.5, 3.5)
+## Embankment chords (param t on the ellipse) that get the water steps instead of a straight piece.
+const LAKE_STEPS_T := [-0.9, 2.3, 1.45]
+## Old banyan on the south shore lawn (Lão Quạ's meeting tree).
+const LAKE_BANYAN := Vector2(-14.0, 42.5)
 
 ## Alleys (rects x0, z0, x1, z1) in the west maze.
 const HEM_A := Rect2(-91.1, -63.0, 2.2, 118.0)       # main N-S hẻm, tea stall at its north mouth
@@ -32,16 +39,36 @@ const NGO_C := Rect2(-110.6, -19.0, 1.2, 13.0)       # 1.2 m ngõ into the water
 const TOWER_COURT := Rect2(-119.0, -49.0, 15.0, 30.0)
 const WATER_TOWER_POS := Vector2(-112.0, -34.0)
 
-## Temple compound (Đình Hàng Mây) on the south side of Phố Đình.
-const TEMPLE_RECT := Rect2(-34.0, 69.0, 68.0, 31.0)
-const TEMPLE_HALL_CENTER := Vector2(0.0, 90.0)
-const TEMPLE_BANYAN := Vector2(-19.0, 81.0)
-const BELL_PAVILION := Vector2(20.0, 79.0)
+## Temple compound on the south side of Phố Đình: the dinh_hang_may complex (26 × 37.2 m, origin =
+## street-front centre of its tam quan gate, extends away from the street) inside a wider walled garden.
+const TEMPLE_RECT := Rect2(-34.0, 69.0, 68.0, 41.0)
+const TEMPLE_GATE := Vector2(0.0, 69.8)
+const TEMPLE_HALL_CENTER := Vector2(0.0, 97.75)
+const TEMPLE_BANYAN := Vector2(7.5, 78.8)          # = MARKER_banyan of the kit (fallback only)
+const BELL_PAVILION := Vector2(-8.0, 78.8)         # = MARKER_bell of the kit (fallback only)
 
 ## Market (Chợ Hàng Mây) inside the east block.
 const MARKET_RECT := Rect2(58.0, -48.0, 60.0, 88.0)
-const MARKET_HALL := Rect2(64.0, -42.0, 36.0, 34.0)
+const MARKET_HALL := Rect2(62.5, -37.3, 18.6, 24.6)     # cho_market_hall footprint (front faces west)
+const MARKET_HALL_FRONT := Vector2(62.5, -25.0)
 const FISH_LANE_Z := 8.0
+## Open-air stall lanes (cho_stall_lane, 12 × 3.2): [front-centre x, z, yaw]
+const STALL_LANES := [
+	[94.0, -36.0, PI * 0.5], [94.0, -22.0, PI * 0.5], [98.0, -36.0, -PI * 0.5], [98.0, -22.0, -PI * 0.5],
+	[110.0, -36.0, PI * 0.5], [110.0, -22.0, PI * 0.5],
+	[68.0, 6.7, 0.0], [81.0, 6.7, 0.0], [94.0, 6.7, 0.0], [107.0, 6.7, 0.0],
+	[74.0, 9.3, PI], [87.0, 9.3, PI], [100.0, 9.3, PI], [113.0, 9.3, PI],
+	[78.0, 24.0, 0.0], [92.0, 24.0, 0.0], [78.0, 30.0, PI], [92.0, 30.0, PI],
+]
+
+## Grandma Tư's tea stall (quan_tra_ba_tu): front-centre on the main-street south sidewalk just east
+## of hẻm A's mouth; its back leans on the facade line z = -63.
+const TEA_STALL := Vector2(-86.8, -65.8)
+
+## Landmark modules forced into building rows: row name -> [[landmark id, along-row start]]
+const ROW_RESERVED := {
+	"main_south_market": [["cafe_bong", 58.0]],
+}
 
 ## Building rows: [name, start(x,z) = local −X end of the front line, facing(x,z), length,
 ##   max_depth, style weights {style: w}, gaps [[from,to] along row], corner_at_end, rooftop_net]
@@ -64,7 +91,7 @@ const ROWS := [
 		{"tube90s": 3.0, "colonial": 1.5, "old_tile": 1.0}, [[49.0, 51.0]], false, true],
 	# Phố Chợ east side (market west edge), facing west: local +X = north. Gap = market entrance + fish lane.
 	["pho_cho_e", Vector2(56.0, -49.0), Vector2(-1, 0), 104.0, 14.0,
-		{"tube90s": 2.0, "colonial": 2.0, "modern": 1.0}, [[11.0, 37.0], [55.0, 59.0]], false, false],
+		{"tube90s": 2.0, "colonial": 2.0, "modern": 1.0}, [[11.0, 37.0], [52.5, 61.5]], false, false],
 	# Phố Đình north side, maze segment (facing south): corner at Phố Hồ end
 	["dinh_north_w", Vector2(-120.0, 55.0), Vector2(0, 1), 59.0, 14.0,
 		{"old_tile": 1.5, "colonial": 2.0, "tube90s": 2.0}, [[28.9, 31.1]], true, true],
@@ -98,21 +125,21 @@ const WALL_RUNS := [
 
 ## Location markers: [location_id, display_name_key, x, y, z, radius]
 const LOCATIONS := [
-	["tea_stall", "LOC_TEA_STALL", -87.0, 0.0, -64.6, 4.0],
+	["tea_stall", "LOC_TEA_STALL", -86.8, 0.0, -65.0, 4.0],
 	["pho_hang_may", "LOC_MAIN_STREET", -20.0, 0.0, -70.0, 14.0],
 	["cafe_bong", "LOC_CAFE", 58.0, 0.0, -61.0, 6.0],
 	["hem_maze", "LOC_WEST_ALLEYS", -90.0, 0.0, -20.0, 10.0],
 	["rooftops", "LOC_ROOFTOPS", -70.0, 12.0, -88.0, 12.0],
 	["water_tower", "LOC_WATER_TOWER", -112.0, 15.0, -34.0, 4.0],
 	["ho_guong", "LOC_LAKE", -2.0, 0.0, -30.0, 12.0],
-	["banyan", "LOC_BANYAN", 13.0, 0.3, 2.0, 6.0],
-	["riddle_bridge", "LOC_BRIDGE", 28.5, 1.0, 2.0, 3.0],
-	["islet_shrine", "LOC_ISLET_SHRINE", 18.5, 0.3, 4.5, 4.0],
-	["cho_hang_may", "LOC_MARKET", 82.0, 0.0, -25.0, 16.0],
+	["banyan", "LOC_BANYAN", -14.0, 0.0, 42.5, 7.0],
+	["riddle_bridge", "LOC_BRIDGE", 26.4, 1.55, 2.0, 3.0],
+	["islet_shrine", "LOC_ISLET_SHRINE", 14.8, 0.05, 2.0, 4.0],
+	["cho_hang_may", "LOC_MARKET", 72.0, 0.0, -25.0, 16.0],
 	["fish_street", "LOC_FISH_STREET", 80.0, 0.0, 8.0, 8.0],
 	["pho_dinh", "LOC_TEMPLE_STREET", 0.0, 0.0, 62.0, 14.0],
 	["dinh_hang_may", "LOC_TEMPLE", 0.0, 0.0, 78.0, 12.0],
-	["temple_roof", "LOC_TEMPLE_ROOF", 0.0, 9.0, 90.0, 4.0],
-	["riddle_bell", "LOC_BELL_PAVILION", 20.0, 0.0, 79.0, 3.0],
+	["temple_roof", "LOC_TEMPLE_ROOF", 0.0, 9.3, 97.75, 4.0],
+	["riddle_bell", "LOC_BELL_PAVILION", -8.0, 0.25, 78.8, 3.0],
 	["riddle_sun", "LOC_SUN_STEPS", 33.0, 0.0, 22.0, 3.0],
 ]

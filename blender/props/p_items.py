@@ -142,35 +142,64 @@ def item_fish():
 
 @item("dried_fish", mass=0.04, surface="fabric", material_kind="soft", tags=["food", "mouth"])
 def item_dried_fish():
-    """Cá cơm khô: a little bundle of ~14 sun-dried anchovies tied with a strip of banana fibre."""
-    skin = PN.fish_skin("anch", back="#6f6c62", belly="#d9d2bc", stripe="#c8c6bc", dorsal="Z", centre=0.0, span=0.5,
-                        wet=False, dried=False)
-    tie = PN.fabric("fibre", "#a88c5a", weave_scale=2200, rough=0.9, role="base", wrinkle=0.0)
+    """Cá cơm khô: a little bundle of nine sun-dried anchovies, tied at the tails with a twist of banana fibre;
+    heads fan out, bodies slightly curled and twisted from drying."""
+    skin = PN.organic("anch", [(0.0, "#3f3a30"), (0.3, "#6a604b"), (0.6, "#8f8466"), (0.85, "#b3a986"),
+                               (1.0, "#c9c6b8")], scale=70, rough=0.5, detail_scale=420, h_amp=0.5, cav_dark=0.55,
+                      spec_spots=(160, 0.1, "#e9ecef"))
+    stripe = PN.metal("anch_stripe", "tin", dirt=0.2, wear=0.2)
+    eye_m = PN.glass_opaque("anch_eye", "#15130f", rough=0.15, dirt=0.0)
+    tie = PN.fabric("fibre", "#a3854f", weave_scale=2600, rough=0.92, role="base", wrinkle=0.0, dirt=0.3)
     rng = random.Random(14)
     parts = []
-    for k in range(14):
-        Lf = rng.uniform(0.075, 0.095)
-        body = fish_body("anchovy", Lf, 0.012, 0.007, skin, segs=10, on_side=False)
-        tail = fin("tail", [(-Lf / 2 + 0.002, 0.0), (-Lf / 2 - 0.009, 0.005), (-Lf / 2 - 0.006, 0.0),
-                            (-Lf / 2 - 0.009, -0.005)], skin, 0.0008)
-        G.place(tail, (0, 0, 0), (90, 0, 0))
-        eye = G.sphere("eye", 0.0014, loc=(Lf / 2 - 0.006, -0.0032, 0.001), mat=skin, segs=6, rings=4)
-        grp = [body, tail, eye]
-        for v in body.data.vertices:          # dried: slightly curved & twisted
-            v.co.z += 0.03 * (v.co.x / Lf) ** 2 * rng.uniform(-1, 1)
-        row, col = divmod(k, 5)
+    nfish = 9
+    tie_x = -0.018
+    for k in range(nfish):
+        Lf = rng.uniform(0.062, 0.074)
+        Hf, Wf = 0.0105, 0.0046
+        body = fish_body("anchovy", Lf, Hf, Wf, skin, segs=12, on_side=True)
+        # silver lateral stripe: thin ribbon along the flank (upper side, +Z)
+        st = G.tube("stripe", [(-Lf * 0.36, 0.0, Wf * 0.42), (0.0, 0.0004, Wf * 0.5), (Lf * 0.33, 0.0, Wf * 0.4)],
+                    0.0009, 5, mat=stripe)
+        G.place(st, (0, 0, 0), (0, 0, 0), (1, 1.6, 0.35))
+        G.place(st, (0, 0, Wf * 0.28))
+        tail = fin("tail", [(-Lf / 2 + 0.003, 0.0), (-Lf / 2 - 0.007, 0.0048), (-Lf / 2 - 0.0085, 0.0036),
+                            (-Lf / 2 - 0.0045, 0.0), (-Lf / 2 - 0.0085, -0.0036), (-Lf / 2 - 0.007, -0.0048)],
+                   skin, 0.0007)
+        eye = G.sphere("eye", 0.0012, loc=(Lf / 2 - 0.0045, 0.0009, Wf * 0.38), mat=eye_m, segs=8, rings=5,
+                       scale=(1, 1, 0.6))
+        grp = [body, st, tail, eye]
+        # drying deformation: gentle curl along the length + a little twist
+        curl = rng.uniform(-0.12, 0.12)
         for g in grp:
-            G.place(g, (0, 0, 0), (rng.uniform(-25, 25), 0, rng.uniform(-8, 8)))
-            G.place(g, (rng.uniform(-0.006, 0.006), (col - 2) * 0.0085 + rng.uniform(-0.002, 0.002),
-                        0.006 + row * 0.008))
+            for v in g.data.vertices:
+                t = v.co.x / Lf
+                v.co.y += curl * Lf * t * t
+                v.co.z += 0.0018 * math.sin(t * 3.0) * (k % 2 * 2 - 1)
+        # fan: tails converge at the tie, heads spread; two layers
+        layer = k % 2
+        spread = (k - (nfish - 1) / 2) / ((nfish - 1) / 2)
+        ang = spread * 22 + rng.uniform(-3, 3)
+        roll = rng.uniform(-10, 10) + (8 if layer else -8)
+        for g in grp:
+            G.place(g, (Lf / 2 - 0.006, 0, 0))            # pivot = just ahead of the tail fin (the tie)
+            G.place(g, (0, 0, 0), (roll, 0, 0))
+            G.place(g, (0, 0, 0), (0, 0, ang))
+            G.place(g, (tie_x, spread * 0.003, 0.003 + layer * 0.0045))
         parts += grp
-    band = G.lathe("tie", [(0.026, -0.003), (0.0275, 0.0), (0.026, 0.003)], 24, mat=tie)
-    G.place(band, (0, 0, 0), (0, 90, 0), (1.0, 1.0, 0.75))
-    G.place(band, (0.004, 0, 0.014))
-    parts.append(band)
+    # banana-fibre tie: a flattened ring around the tails + a short knotted tag
+    band = G.lathe("tie", [(0.0105, -0.0028), (0.0118, 0.0), (0.0105, 0.0028)], 20, mat=tie)
+    G.place(band, (0, 0, 0), (0, 90, 0))
+    G.place(band, scale=(1.0, 1.0, 0.55))
+    G.place(band, (tie_x, 0.0, 0.0062))
+    knot = G.tube("knot", [(tie_x, -0.004, 0.0115), (tie_x - 0.006, -0.009, 0.012),
+                           (tie_x - 0.012, -0.012, 0.009)], 0.0013, 5, mat=tie, rfunc=lambda t: 1.0 - 0.5 * t)
+    parts += [band, knot]
     _drop(parts)
     _centre_xy(parts)
-    return {"parts": parts, "colliders": [G.col_box("fabric", (0.11, 0.05, 0.03))]}
+    mn, mx = G.bounds(parts)
+    sz = mx - mn
+    return {"parts": parts, "colliders": [G.col_box("fabric", (sz.x, sz.y, max(0.012, sz.z)))]}
 
 
 @item("shrimp", mass=0.015, surface="fabric", material_kind="soft", tags=["food", "mouth"])
@@ -264,43 +293,103 @@ def item_gio_lua():
 
 @item("pate_crust", mass=0.03, surface="fabric", material_kind="soft", tags=["food", "mouth"])
 def item_pate_crust():
-    """The pointed end of a Hanoi bánh mì, torn off, with a smear of pâté on the crumb."""
-    crust = PN.organic("crust", [(0.0, "#8a4f1e"), (0.35, "#b9732e"), (0.7, "#d6a056"), (1.0, "#e8c486")], scale=18,
-                       rough=0.55, detail_scale=220, h_amp=0.6)
-    crumb = PN.organic("crumb", [(0.0, "#d9c39a"), (0.6, "#efe2c4"), (1.0, "#f8f0dc")], scale=90, rough=0.8,
-                       detail_scale=500, h_amp=1.0, cav_dark=0.6)
-    pate = PN.organic("pate", [(0.0, "#6a4630"), (0.6, "#8a5f42"), (1.0, "#a77a58")], scale=40, rough=0.35, sss=0.1)
-    Lb, R = 0.13, 0.024
-    prof = [(0.0, 0.0)]
-    for i in range(1, 13):
-        t = i / 12
-        prof.append((R * (math.sin(t * math.pi / 2) ** 0.7), t * Lb))
-    shell = G.lathe("crust", prof, 28, mat=crust, smooth_angle=None,
-                    rfunc=lambda r, z, a: r * (1 + 0.04 * math.sin(a * 3 + z * 50)) * (0.8 if math.cos(a) < -0.3 else 1.0)
-                    * (1 - 0.06 * max(0.0, math.cos(a)) * (0.5 + 0.5 * math.sin(z * 140))))
-    # signature bánh-mì score (raised ear) along the top
-    ear = G.tube("ear", [(0.0, -0.006, 0.035), (0.004, 0.0, 0.075), (0.0, 0.006, 0.122)], 0.004, 8, mat=crust,
-                 rfunc=lambda t: 0.5 + 0.5 * math.sin(math.pi * t))
-    G.place(ear, (R * 0.9, 0, 0))
-    # torn end: crumb disc with lumps + pâté smear
-    tear = G.grid("crumb", 2 * R, 2 * R, 12, 12, mat=crumb,
-                  fn=lambda x, y: 0.004 * noise.noise(Vector((x * 120, y * 120, 1))) - 0.002)
-    for v in tear.data.vertices:
-        r = math.hypot(v.co.x, v.co.y)
-        if r > R * 0.97:
-            k = R * 0.97 / r
-            v.co.x *= k
-            v.co.y *= k
-    G.place(tear, (0, 0, Lb))
-    smear = G.grid("pate", R * 1.1, R * 0.9, 8, 6, mat=pate, fn=lambda x, y: 0.0015 + 0.001 * math.cos(x * 80))
-    G.place(smear, (0.002, 0.003, Lb + 0.001))
-    parts = [shell, tear, smear]
-    G.delete(ear)
+    """The pointed end of a Hanoi bánh mì (~10 cm), torn off: blistered golden crust split open along the
+    scored 'ear', airy crumb at the torn face with a smear of pâté."""
+    crust = PN.organic("crust", [(0.0, "#8d5520"), (0.3, "#b8772f"), (0.62, "#d7a457"), (0.85, "#e6c486"),
+                                 (1.0, "#efd9a8")], scale=34, rough=0.5, detail_scale=380, h_amp=0.9,
+                       spec_spots=(90, 0.12, "#f2dfb4"), cav_dark=0.5, bump=0.0006)
+    crumb = PN.organic("crumb", [(0.0, "#cdb487"), (0.55, "#ead9b4"), (1.0, "#f7eed8")], scale=140, rough=0.85,
+                       detail_scale=700, h_amp=1.4, cav_dark=0.75, bump=0.0008)
+    pate = PN.organic("pate", [(0.0, "#5e3b26"), (0.55, "#80553a"), (1.0, "#a2775a")], scale=50, rough=0.3,
+                      sss=0.1, detail_scale=300, h_amp=0.3)
+    Lb, R = 0.10, 0.026
+    tear_z = Lb
+    rows, segs = 22, 32
+    rng = random.Random(7)
+
+    def radius(t):        # t: 0 tip .. 1 torn end
+        return R * (0.13 + 0.87 * math.sin(min(1.0, t * 1.25) * math.pi / 2) ** 0.85)
+
+    import bmesh
+    bm = bmesh.new()
+    vr = []
+    for i in range(rows + 1):
+        t = i / rows
+        row = []
+        for j in range(segs):
+            a = 2 * math.pi * j / segs
+            ca, sa = math.cos(a), math.sin(a)
+            r = radius(t)
+            # cross-section: wide oval, flat bottom (ca<0 is down after the final rotation), domed top
+            rr = r * (0.74 if ca > 0 else 0.62 - 0.1 * (-ca) ** 3)
+            ry = r * 1.08
+            x = ca * rr
+            y = sa * ry
+            # the scored ear: a raised, split lip along the top-centre, offset to one side
+            ear = math.exp(-((a - 0.25) / 0.22) ** 2) * 0.0045 * math.sin(math.pi * min(1.0, t * 1.15)) if ca > 0 else 0.0
+            x += ear
+            # blistered, uneven crust
+            x += 0.0007 * noise.noise(Vector((t * 9, a * 1.7, 3.1)))
+            z = t * Lb
+            if i == rows:       # ragged torn edge
+                z += 0.004 * noise.noise(Vector((a * 2.3, 0.5, 7.0))) + rng.uniform(-0.0012, 0.0012)
+            row.append(bm.verts.new((x, y, z)))
+        vr.append(row)
+    tip = bm.verts.new((0.0, 0.0, -0.004))
+    for j in range(segs):
+        bm.faces.new((tip, vr[0][(j + 1) % segs], vr[0][j]))
+    for i in range(rows):
+        for j in range(segs):
+            j1 = (j + 1) % segs
+            bm.faces.new((vr[i][j], vr[i][j1], vr[i + 1][j1], vr[i + 1][j]))
+    shell = G.obj_from_bm("crust", bm, crust)
+    G.solidify(shell, 0.0025, offset=-1.0)
+    for p in shell.data.polygons:
+        p.use_smooth = True
+    # torn face: crumb cap following the ragged rim, bulging out with torn lumps
+    bm = bmesh.new()
+    ring_pts = []
+    for j in range(segs):
+        a = 2 * math.pi * j / segs
+        ca, sa = math.cos(a), math.sin(a)
+        r = radius(1.0) - 0.0022
+        rr = r * (0.74 if ca > 0 else 0.62 - 0.1 * (-ca) ** 3)
+        ring_pts.append((ca * rr, sa * r * 1.08, a))
+    centre = bm.verts.new((0.0, 0.0, tear_z + 0.006))
+    rings_c = []
+    for k in (1.0, 0.66, 0.33):
+        row = []
+        for (x, y, a) in ring_pts:
+            z = tear_z + 0.004 * noise.noise(Vector((a * 2.3, 0.5, 7.0))) * (k ** 2) + 0.006 * (1 - k ** 2) \
+                + 0.0025 * noise.noise(Vector((x * 300, y * 300, k * 5)))
+            row.append(bm.verts.new((x * k, y * k, z)))
+        rings_c.append(row)
+    for i in range(2):
+        for j in range(segs):
+            j1 = (j + 1) % segs
+            bm.faces.new((rings_c[i][j], rings_c[i][j1], rings_c[i + 1][j1], rings_c[i + 1][j]))
+    for j in range(segs):
+        bm.faces.new((rings_c[2][j], rings_c[2][(j + 1) % segs], centre))
+    cap = G.obj_from_bm("crumb", bm, crumb)
+    G.subsurf(cap, 1)
+    for v in cap.data.vertices:   # torn crumb lumps
+        v.co.z += 0.0018 * max(0.0, noise.noise(Vector((v.co.x * 260, v.co.y * 260, 2.0))))
+    # pâté smear: a thin irregular patch across the crumb, slightly off-centre
+    smear = G.grid("pate", R * 1.0, R * 1.1, 10, 10, mat=pate,
+                   fn=lambda x, y: 0.0012 + 0.0007 * noise.noise(Vector((x * 150, y * 150, 4.0))))
+    for v in smear.data.vertices:
+        d = math.hypot(v.co.x / (R * 0.55), v.co.y / (R * 0.6))
+        if d > 0.85:
+            v.co.z -= 0.004 * (d - 0.85)
+    G.place(smear, (0.002, -0.002, tear_z + 0.0055))
+    parts = [shell, cap, smear]
+    # lay it down: bread axis along X, flat bottom on the ground, slight roll
     for p in parts:
         G.place(p, (0, 0, 0), (0, -90, 0))
+        G.place(p, (0, 0, 0), (6, 0, 0))
     _drop(parts)
     _centre_xy(parts)
-    return {"parts": parts, "colliders": [G.col_box("fabric", (Lb, 2 * R, 2 * R))]}
+    return {"parts": parts, "colliders": [G.col_box("fabric", (Lb + 0.01, 2.2 * R, 1.5 * R))]}
 
 
 @item("quail_egg", mass=0.011, surface="fabric", material_kind="ceramic", tags=["food", "mouth"])

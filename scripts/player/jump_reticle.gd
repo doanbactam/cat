@@ -25,7 +25,7 @@ func _ready() -> void:
 	_ring_mat.shader = RING_SHADER
 	_ring_mat.render_priority = 30
 	var q := QuadMesh.new()
-	q.size = Vector2(0.3, 0.3)
+	q.size = Vector2(0.36, 0.36)
 	q.orientation = PlaneMesh.FACE_Y
 	_ring = MeshInstance3D.new()
 	_ring.name = "Ring"
@@ -38,7 +38,7 @@ func _ready() -> void:
 	_arc_mat.shader = ARC_SHADER
 	_arc_mat.render_priority = 29
 	var dot := QuadMesh.new()
-	dot.size = Vector2(0.035, 0.035)
+	dot.size = Vector2(0.04, 0.04)
 	var mm := MultiMesh.new()
 	mm.transform_format = MultiMesh.TRANSFORM_3D
 	mm.use_custom_data = true
@@ -109,7 +109,7 @@ func _process(delta: float) -> void:
 func _apply_alpha() -> void:
 	_ring.visible = _alpha > 0.01
 	_arc.visible = _arc.visible and _alpha > 0.01
-	_ring_mat.set_shader_parameter(&"opacity", 0.6 * _alpha)
-	_arc_mat.set_shader_parameter(&"opacity", 0.45 * _alpha)
+	_ring_mat.set_shader_parameter(&"opacity", 0.75 * _alpha)
+	_arc_mat.set_shader_parameter(&"opacity", 0.6 * _alpha)
 	if _alpha <= 0.01:
 		_has_pos = false

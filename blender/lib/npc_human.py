@@ -283,7 +283,7 @@ class Body:
         E(h(0, -0.046, 1.514), [0.056, 0.032, 0.036], k=0.025, name="forehead")
         for sd in (1, -1):
             E(h(0.036 * sd, -0.052, 1.454), np.array([0.024, 0.022, 0.022]) * cheek, k=0.035, name="cheek")
-            add(S.f_round_cone(h(0.052 * sd * jw, -0.004, 1.432), h(0.016 * sd * jw, -0.064, 1.392), 0.016 * hs * jw,
+            add(S.f_round_cone(h(0.0495 * sd * jw, -0.004, 1.432), h(0.016 * sd * jw, -0.064, 1.392), 0.016 * hs * jw,
                                0.011 * hs), [h(0.052 * sd, -0.004, 1.432), h(0.016 * sd, -0.064, 1.392)],
                 {J: 0.8, H: 0.2}, "skin", 0.045, 0.01, "jaw", pad=0.02)
         E(h(0, -0.063, 1.396), [0.018 * jw, 0.014 * chin_f, 0.016], J, k=0.03, name="chin")
@@ -297,20 +297,32 @@ class Body:
         for sd in (1, -1):
             E(h(0.0128 * sd * nose_w, -0.083, 1.442), [0.0078 * nose_w, 0.0078, 0.0068], k=0.008, name="ala")
         # lips
-        E(h(0, -0.0828, 1.4215), [0.0190 * lip, 0.0072, 0.0050 * lip], H, "lips", k=0.006, name="lip_up")
-        E(h(0, -0.0805, 1.4090), [0.0170 * lip, 0.0075, 0.0054 * lip], J, "lips", k=0.006, name="lip_low")
+        E(h(0, -0.0832, 1.4215), [0.0235 * lip, 0.0082, 0.0058 * lip], H, "lips", k=0.006, name="lip_up")
+        E(h(0, -0.0812, 1.4085), [0.0210 * lip, 0.0086, 0.0064 * lip], J, "lips", k=0.006, name="lip_low")
         E(h(0, -0.080, 1.431), [0.012, 0.006, 0.007], H, "skin", k=0.008, name="philtrum")
         # ears
         for sd in (1, -1):
             R = S.rot((0, 0, 1), 18 * sd) @ S.rot((1, 0, 0), -12)
-            E(h(0.0705 * sd, 0.012, 1.474), [0.009, 0.019, 0.031], k=0.006, R=R, name="ear")
+            E(h(0.0725 * sd, 0.012, 1.474), [0.0105, 0.020, 0.032], k=0.006, R=R, name="ear")
+            ec = h(0.0800 * sd, 0.008, 1.472)
+            M.carve(S.f_ellipsoid(ec, np.array([0.006, 0.010, 0.016]) * hs), [ec], k=0.003, pad=0.02)
         # eyelids: shell around each eyeball, with an almond aperture carved through
         r = self.eye_r
         for sd, nm in ((1, "L"), (-1, "R")):
             c = self.L[f"eye_{nm}"]
             add(S.f_sphere(c, r + 0.0016 * hs), [c], H, "skin", 0.006, 0.008, "lid", pad=r + 0.002)
             M.carve(self._aperture(c, sd), [c], k=0.0015, pad=0.03)
+            # upper-lid crease / soft socket under the brow so the eye sits in the face, not on it
+            cc = c + np.array([0.002 * sd, -0.0105, 0.0118]) * hs
+            M.carve(S.f_ellipsoid(cc, np.array([0.0150, 0.0050, 0.0036]) * hs, S.rot((0, 1, 0), 5 * sd)), [cc],
+                    k=0.0035, pad=0.02)
             # socket under the brow so the lid is not a bump
+        # mouth line between the lips (a closed mouth reads as a soft crease, corners tucked in)
+        mc = h(0, -0.0905, 1.4152)
+        M.carve(S.f_ellipsoid(mc, np.array([0.0225 * lip, 0.0085, 0.00095]) * hs), [mc], k=0.0012, pad=0.03)
+        for sd in (1, -1):
+            cc = h(0.0240 * sd * lip, -0.0800, 1.4150)
+            M.carve(S.f_sphere(cc, 0.0028 * hs), [cc], k=0.003, pad=0.01)
         # neck/jaw underside fill
         E(h(0, -0.025, 1.395), [0.048, 0.045, 0.03], {J: 0.4, "neck": 0.3, H: 0.3}, k=0.035, name="submandible")
 

@@ -33,6 +33,14 @@ Front +Z (Blender −Y), origin at ground contact (birds: feet), real scale. Ani
   pedestrians in the rain (stand-in canopy otherwise).
 
 ## world (scenes/world/city.tscn)
+- **Groups are missing from the saved city.tscn** (checked 2026-11-02): `city_builder.gd` uses
+  `add_to_group(g)` whose default `persistent = false`, so `PackedScene.pack()` drops them — no `npc_spawn`,
+  `traffic_lane`, `patrol_path`, `pedestrian_poi`, `shelter`, `player_spawn`, `location`, `quest_target`, `nav_region`
+  in the file. Please use `add_to_group(g, true)` in the builder. (LifeDirector now falls back to recognising
+  markers by metadata/name — `npc_kind`, `vehicle_kinds`, `activity`, `Shelter*`, `Water_*` — so the AI already
+  works, but other systems such as QuestManager/PlayerSpawn rely on the groups.)
+- Lane `vehicle_kinds` sub-kinds understood: `motorbike scooter underbone bicycle cyclo tricycle cargo_trike car taxi van`.
+- Street lamps: group `street_lamp` (your night_lights) or `street_light` are both used by the geckos.
 LifeDirector consumes exactly the CLAUDE.md marker conventions, plus these optional extras:
 - `npc_spawn` kinds also accepted: `vendor` (same as pedestrian with npc_id), `sparrows` (meta `wire_end`
   Vector3 marker-local end of the wire, `sag` m, `count`), `pigeon` (= pigeon_flock).

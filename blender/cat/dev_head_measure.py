@@ -52,8 +52,8 @@ def measure() -> dict:
     m["chin_behind_nose"] = float(chin_f[1] - nose[1])
     apex = R + 0.0011 * sc
     lids = {}
-    for nm, off in (("top", vw * (A.EYE_APERTURE_H * 0.56 * sc + 0.0012)),
-                    ("bottom", -vw * (A.EYE_APERTURE_H * 0.44 * sc + 0.0012)),
+    for nm, off in (("top", vw * (A.EYE_APERTURE_H * A.EYE_APERTURE_UP_FRAC * sc + 0.0012)),
+                    ("bottom", -vw * (A.EYE_APERTURE_H * (1 - A.EYE_APERTURE_UP_FRAC) * sc + 0.0012)),
                     ("medial", -uw * (A.EYE_APERTURE_W * 0.5 * sc + 0.0012)),
                     ("lateral", uw * (A.EYE_APERTURE_W * 0.5 * sc + 0.0012))):
         p = march(cw + off + gw * 0.03, -gw, 0.05)

@@ -94,7 +94,7 @@ func _draw() -> void:
 		var x0 := w * float(i) / steps
 		var x1 := w * float(i + 1) / steps
 		var u := absf((x0 + x1) * 0.5 / w - 0.5) * 2.0
-		var a := 0.42 * clampf(1.0 - pow(u, 3.0), 0.0, 1.0)
+		var a := 0.55 * clampf(1.0 - pow(u, 3.0), 0.0, 1.0)
 		draw_rect(Rect2(x0, cy - 15, x1 - x0 + 0.5, 30), Color(0.05, 0.035, 0.025, a))
 	draw_line(Vector2(w * 0.08, cy + 15), Vector2(w * 0.92, cy + 15), Color(UIStyle.GOLD, 0.35), 1.0, true)
 	# ticks + letters
@@ -109,22 +109,27 @@ func _draw() -> void:
 		if letters.has(deg):
 			var main := deg % 90 == 0
 			var t := tr(String(letters[deg]))
-			var fs := 22 if main else 15
+			var fs := 22 if main else 16
 			var f := _font_b if main else _font
 			var ts := f.get_string_size(t, HORIZONTAL_ALIGNMENT_LEFT, -1, fs)
-			var col := (UIStyle.LANTERN_GLOW if deg == 0 else UIStyle.TEXT) if main else UIStyle.TEXT_DIM
+			var col := (UIStyle.LANTERN_GLOW if deg == 0 else UIStyle.TEXT) if main else Color(UIStyle.TEXT, 0.78)
 			col.a *= fade
-			draw_string_outline(f, Vector2(x - ts.x * 0.5, cy + fs * 0.36), t, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, 4, Color(0, 0, 0, 0.55 * fade))
+			draw_string_outline(f, Vector2(x - ts.x * 0.5, cy + fs * 0.36), t, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, 5, Color(0, 0, 0, 0.7 * fade))
 			draw_string(f, Vector2(x - ts.x * 0.5, cy + fs * 0.36), t, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, col)
 		else:
 			draw_line(Vector2(x, cy - 5), Vector2(x, cy + 5), Color(UIStyle.TEXT, 0.45 * fade), 1.5, true)
 	# centre notch
 	draw_colored_polygon(PackedVector2Array([Vector2(w * 0.5 - 7, cy - 21), Vector2(w * 0.5 + 7, cy - 21), Vector2(w * 0.5, cy - 13)]), UIStyle.GOLD_LIGHT)
-	# location markers
+	# location markers (a pin under the tracked-quest marker is skipped: the distance label goes there)
+	var quest_x := NAN
+	if quest_target != Vector3.INF:
+		quest_x = x_for_bearing(bearing_to(quest_target))
 	for l: Dictionary in _locations:
 		var b := bearing_to(l["pos"])
 		var x := x_for_bearing(b)
 		if is_nan(x):
+			continue
+		if not is_nan(quest_x) and absf(x - quest_x) < 30.0:
 			continue
 		var icon := _home_icon if bool(l["home"]) else _loc_icon
 		var sz := 24.0 if bool(l["home"]) else 20.0
@@ -158,8 +163,8 @@ func _draw() -> void:
 			draw_colored_polygon(PackedVector2Array([Vector2(x + dir * 20, cy - 6), Vector2(x + dir * 28, cy), Vector2(x + dir * 20, cy + 6)]), col)
 		var dist := Vector2(quest_target.x - _player_pos.x, quest_target.z - _player_pos.z).length()
 		var dt := tr("HUD_DISTANCE").format({"m": int(round(dist))})
-		var ts := _font.get_string_size(dt, HORIZONTAL_ALIGNMENT_LEFT, -1, 16)
-		var dy := cy + 34.0
+		var ts := _font_b.get_string_size(dt, HORIZONTAL_ALIGNMENT_LEFT, -1, 16)
+		var dy := cy + 36.0
 		var dx := clampf(x - ts.x * 0.5, 0.0, w - ts.x)
-		draw_string_outline(_font, Vector2(dx, dy), dt, HORIZONTAL_ALIGNMENT_LEFT, -1, 16, 4, Color(0, 0, 0, 0.6))
-		draw_string(_font, Vector2(dx, dy), dt, HORIZONTAL_ALIGNMENT_LEFT, -1, 16, UIStyle.GOLD_LIGHT)
+		draw_string_outline(_font_b, Vector2(dx, dy), dt, HORIZONTAL_ALIGNMENT_LEFT, -1, 16, 5, Color(0, 0, 0, 0.75))
+		draw_string(_font_b, Vector2(dx, dy), dt, HORIZONTAL_ALIGNMENT_LEFT, -1, 16, UIStyle.GOLD_LIGHT)

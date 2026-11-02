@@ -156,6 +156,37 @@ func test_vehicle_imports() -> void:
 					assert_near(aabb.size.y * 0.5, float(wd["radius"]), 0.03, "%s %s radius" % [id, wd["node"]])
 		if String(d["kind"]) != "helmet":
 			assert_true(inst.find_children("SEAT_*", "", true, false).size() >= 1, id + " seat markers")
+		if String(d["kind"]) in ["car", "van"]:
+			# closed cabins: tinted glass + lamp materials (world-life raises lamp emission at night)
+			var mats: Array[String] = []
+			for n in inst.find_children("*", "MeshInstance3D", true, false):
+				var mesh := (n as MeshInstance3D).mesh
+				for s in mesh.get_surface_count():
+					var m := mesh.surface_get_material(s)
+					if m != null:
+						mats.append(m.resource_path.get_file().get_basename())
+			for want in ["veh_glass", "veh_light_head", "veh_light_tail"]:
+				assert_true(want in mats, "%s uses %s" % [id, want])
+		# every catalogued lamp became a hidden, switchable light (SpotLight3D head / OmniLight3D tail)
+		for l: Variant in d.get("lights", []):
+			var ld := l as Dictionary
+			var mount := inst.find_child(String(ld["node"]), true, false) as Node3D
+			assert_not_null(mount, "%s light mount %s" % [id, ld["node"]])
+			if mount == null:
+				continue
+			var want_cls := "SpotLight3D" if String(ld["kind"]) == "head" else "OmniLight3D"
+			var lights := mount.find_children("*", want_cls, false, false)
+			assert_eq(lights.size(), 1, "%s %s has a %s" % [id, ld["node"], want_cls])
+			if lights.size() == 1:
+				var lt := lights[0] as Light3D
+				assert_false(lt.visible, id + " lights start off")
+				assert_true(lt.is_in_group(&"vehicle_light") and float(lt.get_meta(&"night_energy", 0.0)) > 0.0,
+					id + " light group/meta")
+				if lt is SpotLight3D:
+					var fwd := (mount.transform.basis * lt.transform.basis) * Vector3(0.0, 0.0, -1.0)
+					assert_true(fwd.z > 0.9, "%s head light aims along +Z (front): %s" % [id, fwd])
+		if String(d["kind"]) in ["car", "van", "scooter", "motorbike"]:
+			assert_true((d.get("lights", []) as Array).size() >= 2, id + " has head + tail lights")
 		inst.free()
 
 
@@ -200,7 +231,9 @@ func test_vehicle_nap_spots_supported() -> void:
 
 func test_showcase_scenes_load() -> void:
 	for p in ["res://assets/models/nature/preview/nature_showcase.tscn",
-			"res://assets/models/vehicles/preview/vehicles_showcase.tscn"]:
+			"res://assets/models/nature/preview/nature_garden.tscn",
+			"res://assets/models/vehicles/preview/vehicles_showcase.tscn",
+			"res://assets/models/vehicles/preview/vehicles_street.tscn"]:
 		var ps := load(p) as PackedScene
 		assert_not_null(ps, p)
 		if ps == null:

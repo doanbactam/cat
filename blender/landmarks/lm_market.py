@@ -265,7 +265,8 @@ def build_hall(spec):
     # canvas tarps tied under the trusses over some stalls (sun/rain shades)
     for x0, y0 in ((-11.0, 2.4), (1.2, 9.2), (7.2, 2.4)):
         K.sag_cloth(cl, (x0, y0, 3.2), (x0 + 2.6, y0, 3.2), (x0, y0 + 2.0, 3.35), (x0 + 2.6, y0 + 2.0, 3.35),
-                    "lm:tarp_stripe" if x0 > 0 else "lm:tarp_blue", WHITE, nu=8, nv=6, sag=0.18, seed=int(x0 * 3))
+                    "lm:tarp_stripe" if x0 > 0 else "lm:tarp_blue", WHITE, nu=16, nv=12, sag=0.22, seed=int(x0 * 3),
+                    wrinkle=0.045)
         for (px, py) in ((x0, y0), (x0 + 2.6, y0), (x0, y0 + 2.0), (x0 + 2.6, y0 + 2.0)):
             cl.tube([(px, py, 3.2), (px, py, EAVE - 0.16)], 0.004, "fabric_canvas", (0.5, 0.45, 0.35, 1), sides=3)
     # hanging bulbs over the produce rows + night lights
@@ -298,20 +299,51 @@ def umbrella(ctx: K.LCtx, x, y, r=1.25, h=2.3, tilt=8.0, col=(0.85, 0.2, 0.15, 1
     R = Matrix.Translation((x, y, 0)) @ Matrix.Rotation(math.radians(tilt), 4, "X") @ Matrix.Translation((-x, -y, 0))
     n = 8
     c = V((x, y, h + 0.35))
+    ns, nw = 6, 6
     for k in range(n):
         a0, a1 = 2 * math.pi * k / n, 2 * math.pi * (k + 1) / n
         p0 = V((x + math.cos(a0) * r, y + math.sin(a0) * r, h))
         p1 = V((x + math.cos(a1) * r, y + math.sin(a1) * r, h))
-        pc = (p0 + p1) / 2 + V((0, 0, 0.06))
         tint = col if k % 2 == 0 else (0.92, 0.9, 0.84, 1)
-        for tri in ((p0, pc, c), (pc, p1, c)):
-            bm = bmesh.new()
-            vs = [bm.verts.new(R @ q) for q in tri]
-            bm.faces.new(vs)
-            bm.faces.new([bm.verts.new(R @ q - V((0, 0, 0.005))) for q in reversed(tri)])
-            bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
-            cl.add_bm(bm, "fabric_canvas", tint)
-        cl.tube([R @ c, R @ p0], 0.006, "chrome", (0.6, 0.6, 0.6, 1), sides=4)
+        # canopy panel: fabric stretched between two ribs, slack between them (droops toward the rim)
+        bm = bmesh.new()
+        grid = []
+        for i in range(ns + 1):
+            sr = i / ns
+            row = []
+            for j in range(nw + 1):
+                w = j / nw
+                e = p0.lerp(p1, w)
+                q = c + (e - c) * sr
+                q.z -= 0.075 * math.sin(math.pi * w) * sr ** 1.3
+                row.append(q)
+            grid.append(row)
+        # valance: a short scalloped skirt hanging off the rim, bellying out between the ribs
+        skirt = []
+        for j in range(nw + 1):
+            w = j / nw
+            e = grid[ns][j]
+            out = V((e.x - x, e.y - y, 0)).normalized() * 0.03 * math.sin(math.pi * w)
+            skirt.append(e + out - V((0, 0, 0.13 + 0.035 * math.sin(math.pi * w))))
+        grid.append(skirt)
+        top = [[bm.verts.new(R @ q) for q in row] for row in grid]
+        bot = [[bm.verts.new(R @ (q - V((0, 0, 0.005)))) for q in row] for row in grid]
+        for i in range(len(grid) - 1):
+            for j in range(nw):
+                try:
+                    bm.faces.new([top[i][j], top[i + 1][j], top[i + 1][j + 1], top[i][j + 1]])
+                    bm.faces.new([bot[i][j + 1], bot[i + 1][j + 1], bot[i + 1][j], bot[i][j]])
+                except ValueError:
+                    pass
+        bmesh.ops.remove_doubles(bm, verts=bm.verts, dist=1e-5)
+        cl.add_bm(bm, "fabric_canvas", tint, smooth=True)
+        cl.tube([R @ c, R @ (p0 - V((0, 0, 0.01)))], 0.006, "chrome", (0.6, 0.6, 0.6, 1), sides=4)
+        # stretcher strut from the runner to mid-rib
+        cl.tube([R @ V((x, y, h - 0.45)), R @ (c + (p0 - c) * 0.55 - V((0, 0, 0.012)))], 0.005, "chrome",
+                (0.6, 0.6, 0.6, 1), sides=4)
+    # finial + runner
+    K.lathe(cl, tuple(R @ c), [(0.03, 0), (0.025, 0.04), (0.008, 0.07)], "plastic", (0.15, 0.15, 0.15, 1), sides=8)
+    cl.cylinder(tuple(R @ V((x, y, h - 0.45))), (0, 0, 1), 0.03, 0.08, "plastic", (0.15, 0.15, 0.15, 1), sides=8)
     cl.tube([V((x, y, 0.0)), R @ c], 0.02, "chrome", (0.7, 0.7, 0.7, 1), sides=8)
     K.lathe(cl, (x, y, 0), [(0.14, 0), (0.17, 0.3), (0.18, 0.32)], "plastic", (0.2, 0.2, 0.22, 1), sides=14)
     ctx.zone("SHELTER", (x - r * 0.8, y - r * 0.8, 0), (x + r * 0.8, y + r * 0.8, h))
@@ -356,7 +388,12 @@ def build_lane(spec):
             for px in (x0 + 0.15, x1 - 0.15):
                 cl.tube([(px, 0.45, z), (px, 0.45, 2.15)], 0.03, "wood_brown", (1.7, 1.5, 0.9, 1), sides=8)
             K.sag_cloth(cl, (x0 + 0.1, 0.4, 2.15), (x1 - 0.1, 0.4, 2.15), (x0 + 0.1, 3.2, 2.55), (x1 - 0.1, 3.2, 2.55),
-                        "lm:tarp_stripe" if i % 2 else "lm:tarp_orange", WHITE, nu=8, nv=6, sag=0.15, seed=i)
+                        "lm:tarp_stripe" if i % 2 else "lm:tarp_orange", WHITE, nu=18, nv=12, sag=0.17, seed=i,
+                        wrinkle=0.04)
+            # loose front valance flapping off the bamboo pole line
+            K.sag_cloth(cl, (x0 + 0.1, 0.38, 2.15), (x1 - 0.1, 0.38, 2.15), (x0 + 0.1, 0.36, 1.98),
+                        (x1 - 0.1, 0.36, 1.98), "lm:tarp_stripe" if i % 2 else "lm:tarp_orange", (0.9, 0.9, 0.9, 1),
+                        nu=24, nv=3, sag=0.0, seed=i + 20, wrinkle=0.0, hem_droop=0.06, hem_ties=(0.0, 0.5, 1.0))
             ctx.zone("SHELTER", (x0 + 0.1, 0.4, 0.0), (x1 - 0.1, 3.2, 2.1))
             ctx.nap.append(V((cx, 1.45, z + 0.35)))
     for k in range(3):

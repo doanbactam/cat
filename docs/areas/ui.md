@@ -43,7 +43,7 @@ A missing path emits `load_failed` and a toast; it never leaves the screen black
 | `inventory_screen.tscn` | `inventory_screen.gd` | category tabs, slot grid, detail page with actions (carry/put away/eat/use/wear), caps + buffs |
 | `skill_tree_screen.tscn` | `skill_tree_screen.gd` | 5 trees of medallions with prerequisite ink lines, skill page (effects, requirements, cost, Learn), attributes with Raise |
 | `journal_screen.tscn` | `journal_screen.gd` | Quests (active/completed, objectives, rewards, Track) / Memories (12 photos) / Places / Cam (attributes, reputation, achievements) |
-| `map_screen.tscn` | `map_screen.gd` + `map_capture.gd` + `shaders/paper_map.gdshader` | runtime orthographic SubViewport capture of the current world → ink-wash on rice paper; Cam arrow, quest target, places, home; pan/zoom/centre |
+| `map_screen.tscn` | `map_screen.gd` + `map_capture.gd` + `scripts/ui/shaders/paper_map.gdshader` | runtime orthographic SubViewport capture of the current world → ink-wash on rice paper; Cam arrow, quest target, places, home; pan/zoom/centre |
 | `settings_menu.tscn` | `settings_menu.gd` | tabs Graphics (preset + every toggle) / Audio / Controls (sensitivities, invert, rebinding list for KB/M and pad with conflict warnings) / Gameplay (language, subtitles + size, hints, compass, text speed, UI scale, HUD opacity, default camera, head bob); help column |
 | `save_slots.tscn` | `save_slots_screen.gd` | autosave + 3 manual slots with `GameState.get_save_info()` summaries; overwrite/delete confirm |
 | `credits.tscn` | `credits_screen.gd` | scrolling rice-paper credits, licences, walking cat |
@@ -86,7 +86,9 @@ Xbox-style pad buttons for any action and switches on `Settings.input_device_cha
   alphabetical area order; conflicting definitions are reported; keys present only in `strings.csv` are kept;
   missing translations fall back to the other language and are reported. Request CSVs must have an `.import`
   with `importer="keep"` so Godot does not build translations from them.
-- Current merge: ui 475 + systems 413 + player 7 = 895 keys, 0 problems.
+- Current merge: ui 475 + systems 413 + street-props 76 + vehicles-nature 28 + world 13 + player 7 = 1012 keys,
+  0 conflicts. (`WEATHER_*` belong to world — Title-case display names; the pause menu's in-sentence weather uses
+  ui's own `PAUSE_WEATHER_*`.)
 
 ## Regenerate
 ```bash
@@ -109,7 +111,7 @@ tools/godot_import.sh
   `tools/screenshot.sh scene=res://scenes/ui/qa/ui_gallery.tscn out=/abs.png frames=40 screen=<id> [lang=en]`
   with `<id>` ∈ menu, splash, loading, hud, hud_events, dialogue, pause, inventory, skills, journal,
   journal_memories, map, settings, settings_audio, settings_controls, settings_gameplay, save_slots, credits,
-  confirm. `scenes/ui/qa/loader_probe.tscn` is the SceneLoader test target.
+  confirm. Add `world=city` to run over the real `scenes/world/city.tscn` (map capture QA; needs ~4 GB RAM). `scenes/ui/qa/loader_probe.tscn` is the SceneLoader test target.
 - Captures in `qa/out/ui/` (v2 = this pass); best in `docs/gallery/ui_*.jpg`.
 
 ## For other areas

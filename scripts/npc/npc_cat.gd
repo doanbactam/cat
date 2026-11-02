@@ -375,7 +375,7 @@ func _flee_from(p: Vector3) -> void:
 
 func _find_sunny_spot() -> Vector3:
 	if _sun == null:
-		for n: Node in get_tree().get_nodes_in_group(&"sun"):
+		for n: Node in NpcUtil.nodes_in(get_tree(), &"sun"):
 			if n is DirectionalLight3D:
 				_sun = n
 		if _sun == null:

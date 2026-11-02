@@ -42,11 +42,14 @@ func test_catalog_contract() -> void:
 		assert_true(String(d["file"]) == "res://assets/models/props/%s.glb" % id, id + " file path")
 		assert_true(FileAccess.file_exists(String(d["file"])), id + " glb exists")
 		assert_true(String(d["surface"]) in SURFACES, id + " surface " + String(d["surface"]))
-		assert_true(String(d["material_kind"]) in MATERIAL_KINDS, id + " material_kind " + String(d["material_kind"]))
+		# material_kind picks the Pushable impact sound -> must be a known kind for knockable props
+		if bool(d["dynamic"]):
+			assert_true(String(d["material_kind"]) in MATERIAL_KINDS, id + " material_kind " + String(d["material_kind"]))
 		var fp := d["footprint"] as Array
 		assert_eq(fp.size(), 2, id + " footprint")
 		assert_true(float(fp[0]) > 0.0 and float(fp[1]) > 0.0 and float(d["height"]) > 0.0, id + " dims > 0")
-		assert_true(float(d["height"]) < 6.0 and float(fp[0]) < 4.0, id + " dims plausible")
+		# tallest props: concrete electric pole 8.6 m (4.1 m cross-arm with cable stubs), street light 7.4 m
+		assert_true(float(d["height"]) < 10.0 and float(fp[0]) < 4.5 and float(fp[1]) < 4.5, id + " dims plausible")
 		assert_true(int(d["tris"]) > 12 and int(d["tris"]) < 120000, id + " tris %d" % int(d["tris"]))
 		var ts := int(d["texture_size"])
 		assert_true(ts >= 256 and ts <= 2048 and (ts & (ts - 1)) == 0, id + " texture size pow2 <= 2048")
@@ -66,8 +69,15 @@ func test_required_props_present() -> void:
 	for id in ["lamp_post_colonial", "lamp_post_modern", "electric_pole_concrete", "trash_bin_municipal",
 			"cardboard_box_open", "plastic_crate_blue", "food_cart_xoi", "banh_mi_cart", "stool_plastic_red",
 			"stool_plastic_blue", "stool_plastic_green", "star_lantern_red", "silk_lantern_round", "carp_lantern",
-			"lantern_string", "pot_snake_plant", "cup_ceramic", "book_stack", "fire_hydrant", "traffic_cone"]:
+			"lantern_string", "pot_snake_plant", "cup_ceramic", "book_stack", "fire_hydrant", "traffic_cone",
+			"umbrella"]:
 		assert_true(ids.has(id), "required prop " + id)
+	# handheld umbrella (world-life request): origin at the grip, canopy above it, no colliders
+	if ids.has("umbrella"):
+		var u := ids["umbrella"] as Dictionary
+		assert_eq(String(u.get("origin", "")), "grip", "umbrella origin is the grip")
+		assert_true(float((u["bounds_max"] as Array)[1]) > 0.7, "umbrella canopy above the grip")
+		assert_eq(int(u.get("colliders", 0)), 0, "umbrella has no colliders")
 	# lamp posts expose their light emitter position
 	for id in ["lamp_post_colonial", "lamp_post_modern"]:
 		if ids.has(id):

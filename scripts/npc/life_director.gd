@@ -149,22 +149,22 @@ func _in_my_world(n: Node) -> bool:
 
 func _scan_markers() -> void:
 	var tree := get_tree()
-	for n: Node in tree.get_nodes_in_group(&"pedestrian_poi"):
+	for n: Node in NpcUtil.nodes_in(tree, &"pedestrian_poi"):
 		if _in_my_world(n):
 			var act := StringName(str(NpcUtil.meta_or(n, &"activity", "look")))
 			var cap_default := 2 if act in [&"chat", &"shop", &"wait", &"look"] else 1
 			pois.append({"node": n, "activity": act, "capacity": int(NpcUtil.meta_or(n, &"capacity", cap_default)), "occupants": []})
-	for n: Node in tree.get_nodes_in_group(&"traffic_lane"):
+	for n: Node in NpcUtil.nodes_in(tree, &"traffic_lane"):
 		if n is Path3D and _in_my_world(n) and (n as Path3D).curve != null and (n as Path3D).curve.point_count >= 2:
 			lanes.append(n)
 			lane_members[n] = []
-	for n: Node in tree.get_nodes_in_group(&"patrol_path"):
+	for n: Node in NpcUtil.nodes_in(tree, &"patrol_path"):
 		if n is Path3D and _in_my_world(n):
 			patrol_paths[StringName(str(NpcUtil.meta_or(n, &"npc_id", "")))] = n
-	for n: Node in tree.get_nodes_in_group(&"shelter"):
+	for n: Node in NpcUtil.nodes_in(tree, &"shelter"):
 		if n is Area3D and _in_my_world(n):
 			shelters.append(n)
-	for n: Node in tree.get_nodes_in_group(&"npc_spawn"):
+	for n: Node in NpcUtil.nodes_in(tree, &"npc_spawn"):
 		if not _in_my_world(n):
 			continue
 		var kind := str(NpcUtil.meta_or(n, &"npc_kind", "pedestrian"))
@@ -176,7 +176,7 @@ func _scan_markers() -> void:
 func _spawn_named_and_animals() -> void:
 	var stray_markers: Array[Node3D] = []
 	var cat_homes: Array[Vector3] = []
-	for n: Node in get_tree().get_nodes_in_group(&"npc_spawn"):
+	for n: Node in NpcUtil.nodes_in(get_tree(), &"npc_spawn"):
 		if not _in_my_world(n):
 			continue
 		var m := n as Node3D
@@ -593,15 +593,35 @@ func _lane_kinds(lane: Path3D) -> PackedStringArray:
 	return PackedStringArray([str(k)])
 
 
+## Lane `vehicle_kinds` may name sub-kinds (world uses scooter/cyclo/…): they map to the three
+## driving models and pick a matching catalog GLB (variant).
+const KIND_ALIASES := {"motorbike": "motorbike", "scooter": "motorbike", "xe_may": "motorbike", "moto": "motorbike",
+	"underbone": "motorbike", "bicycle": "bicycle", "cyclo": "bicycle", "tricycle": "bicycle", "cargo_trike": "bicycle",
+	"car": "car", "taxi": "car", "van": "car"}
+const KIND_WEIGHTS := {"motorbike": 0.5, "scooter": 0.5, "bicycle": 0.08, "cyclo": 0.05, "tricycle": 0.03,
+	"car": 0.12, "taxi": 0.06, "van": 0.04}
+
+
+static func base_kind(k: String) -> StringName:
+	return StringName(KIND_ALIASES.get(k, "motorbike"))
+
+
+func lane_accepts(lane: Path3D, base: StringName) -> bool:
+	for k: String in _lane_kinds(lane):
+		if base_kind(k) == base:
+			return true
+	return false
+
+
+## Returns the raw (sub-)kind picked for a lane, e.g. &"scooter" or &"cyclo".
 func _pick_kind(lane: Path3D) -> StringName:
 	var kinds := _lane_kinds(lane)
-	var weights := {"motorbike": 0.72, "bicycle": 0.1, "car": 0.18}
 	var total := 0.0
 	for k: String in kinds:
-		total += float(weights.get(k, 0.1))
+		total += float(KIND_WEIGHTS.get(k, 0.1))
 	var r := _rng.randf() * total
 	for k: String in kinds:
-		r -= float(weights.get(k, 0.1))
+		r -= float(KIND_WEIGHTS.get(k, 0.1))
 		if r <= 0.0:
 			return StringName(k)
 	return StringName(kinds[0]) if not kinds.is_empty() else &"motorbike"
@@ -645,10 +665,11 @@ func _lane_clear(lane: Path3D, off: float, gap: float) -> bool:
 
 
 func _spawn_vehicle(lane: Path3D, off: float, speed: float) -> Node:
-	var kind := _pick_kind(lane)
+	var variant := _pick_kind(lane)
+	var kind := base_kind(String(variant))
 	var v: Node = null
 	for i in vehicle_pool.size():
-		if vehicle_pool[i].get(&"kind") == kind:
+		if vehicle_pool[i].get(&"kind") == kind and vehicle_pool[i].get(&"variant") == variant:
 			v = vehicle_pool[i]
 			vehicle_pool.remove_at(i)
 			break
@@ -658,7 +679,7 @@ func _spawn_vehicle(lane: Path3D, off: float, speed: float) -> Node:
 		v.name = "%s%d" % [String(kind).capitalize(), _veh_serial]
 		v.set(&"director", self)
 		add_child(v)
-		v.call(&"setup", kind, _rng.randi())
+		v.call(&"setup", kind, _rng.randi(), variant)
 	v.call(&"set_active", true)
 	v.call(&"place_on_lane", lane, off, speed)
 	vehicles.append(v)
@@ -683,7 +704,7 @@ func vehicle_finished(v: Node) -> void:
 		# re-enter on a lane start (any lane accepting this kind)
 		var candidates: Array[Path3D] = []
 		for l: Path3D in lanes:
-			if String(v.get(&"kind")) in _lane_kinds(l) and _lane_clear(l, 0.0, 8.0):
+			if lane_accepts(l, v.get(&"kind")) and _lane_clear(l, 0.0, 8.0):
 				candidates.append(l)
 		if not candidates.is_empty():
 			var lane: Path3D = candidates[_rng.randi() % candidates.size()]

@@ -31,7 +31,7 @@ meshes/lightmap_texel_size=0.2
 meshes/force_disable_compression=false
 skins/use_named_skins=true
 animation/import=true
-animation/fps=30
+animation/fps=120
 animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
@@ -34992,6 +34992,13 @@ _subresources={
 "slice_99/save_to_file/path": "",
 "slice_99/start_frame": 0,
 "slices/amount": 0
+}
+},
+"materials": {
+"CatFur": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://assets/models/cat/cat_fur_fallback.tres",
+"use_external/path": "res://assets/models/cat/cat_fur_fallback.tres"
 }
 }
 }

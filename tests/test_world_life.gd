@@ -334,7 +334,12 @@ func test_traffic_stops_for_cat_and_follows_leader() -> void:
 	assert_true(front_x < cat_x - 0.1, "stopped before reaching the cat (front %f, cat %f)" % [front_x, cat_x])
 	assert_true(float(v2.get(&"speed")) < 0.5, "follower stopped behind the leader")
 	assert_true((v2 as Node3D).global_position.x < (v1 as Node3D).global_position.x - 2.0, "follower keeps a gap")
-	var wheel := ((v1.get(&"visual") as Node).call(&"get_rig") as Dictionary).get("WheelF") as Node3D
+	var vis := v1.get(&"visual") as Node
+	var wheel := (vis.call(&"get_rig") as Dictionary).get("WheelF") as Node3D
+	if wheel == null and not bool(vis.get(&"is_standin")):
+		var ws: Array = vis.call(&"_find_glb_wheels")
+		assert_true(ws.size() >= 2, "GLB vehicle wheels found (%d)" % ws.size())
+		wheel = ws[0] as Node3D if not ws.is_empty() else null
 	var spin_before := wheel.transform.basis if wheel != null else Basis.IDENTITY
 	# cat leaves the road: traffic resumes and wheels turn
 	p.global_position = Vector3(0, 0.05, 6)
@@ -460,3 +465,57 @@ func test_koi_and_sparrows_react() -> void:
 	p.global_position = Vector3(0, 4.8, -8)
 	await _frames(10)
 	assert_true(int(wire.get(&"scatter_count")) >= 1, "sparrows burst off the wire when Cam climbs close")
+
+
+## city.tscn is saved with non-persistent groups: markers must be found from their metadata, and
+## lane sub-kinds (scooter, cyclo) must map onto the driving models and keep recycling.
+func test_markers_without_groups_and_lane_subkinds() -> void:
+	_make_world()
+	var markers := Node3D.new()
+	markers.name = "Markers"
+	_world.add_child(markers)
+	var lane := Path3D.new()
+	lane.name = "Lane_test"
+	lane.set_meta(&"vehicle_kinds", PackedStringArray(["scooter", "cyclo"]))
+	lane.set_meta(&"speed_limit", 8.0)
+	var c := Curve3D.new()
+	c.add_point(Vector3(-28, 0, -6))
+	c.add_point(Vector3(28, 0, -6))
+	lane.curve = c
+	markers.add_child(lane)
+	var ped_spawn := Marker3D.new()
+	ped_spawn.set_meta(&"npc_kind", "pedestrian")
+	ped_spawn.set_meta(&"npc_id", "")
+	markers.add_child(ped_spawn)
+	ped_spawn.global_position = Vector3(5, 0, 5)
+	var dog := Marker3D.new()
+	dog.set_meta(&"npc_kind", "dog")
+	dog.set_meta(&"npc_id", "ven")
+	markers.add_child(dog)
+	dog.global_position = Vector3(-5, 0, 5)
+	var poi := Marker3D.new()
+	poi.set_meta(&"activity", "look")
+	markers.add_child(poi)
+	poi.global_position = Vector3(10, 0, 10)
+	_player(Vector3(0, 0.05, 20))
+	var d := _director({"spawn_geckos": false})
+	d.call(&"start")
+	await _frames(30)
+	assert_not_null(d.call(&"get_named", &"ven"), "dog marker found without a group")
+	assert_eq((d.get(&"lanes") as Array).size(), 1, "lane found from vehicle_kinds metadata")
+	assert_eq((d.get(&"pois") as Array).size(), 1, "poi found from activity metadata")
+	var vs: Array = d.get(&"vehicles")
+	assert_true(vs.size() > 0, "vehicles spawned on a scooter/cyclo lane")
+	for v: Node in vs:
+		assert_true(v.get(&"kind") in [&"motorbike", &"bicycle"], "sub-kind mapped to a driving model: %s" % v.get(&"kind"))
+		assert_true(v.get(&"variant") in [&"scooter", &"cyclo"], "variant kept: %s" % v.get(&"variant"))
+	assert_true(bool(d.call(&"lane_accepts", lane, &"motorbike")), "scooter lane accepts motorbikes")
+	assert_true(bool(d.call(&"lane_accepts", lane, &"bicycle")), "cyclo lane accepts bicycles")
+	assert_false(bool(d.call(&"lane_accepts", lane, &"car")), "no cars on this lane")
+	# a vehicle reaching the lane end is recycled (back on the lane start, or into the pool)
+	var v0: Node = vs[0]
+	v0.set(&"offset", float(v0.get(&"lane_length")) - 0.05)
+	v0.set(&"speed", 5.0)
+	await _frames(4)
+	var recycled := (bool(v0.get(&"active")) and float(v0.get(&"offset")) < 5.0) or (d.get(&"vehicle_pool") as Array).has(v0)
+	assert_true(recycled, "vehicle at the lane end re-entered the lane or went back to the pool")

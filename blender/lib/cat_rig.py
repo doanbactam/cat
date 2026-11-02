@@ -211,7 +211,7 @@ def weight_body(body: bpy.types.Object, rig: bpy.types.Object) -> None:
     W["head"] = np.maximum(headw - take, 0)
     # eyelids: upper lid skin around the aperture (eye frame v > 0), lower lid (v < 0)
     for sx, s in ((1, "L"), (-1, "R")):
-        c, g, u, vv = S.eye_frame(1)
+        c, g, u, vv = S.aperture_frame(1)
         q = phm - c
         side = np.sign(ph[:, 0]) == sx
         r = np.linalg.norm(q, axis=1)

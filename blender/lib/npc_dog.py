@@ -65,13 +65,13 @@ def build_model(lm) -> S.Model:
     back = (0, 1, 0)
     down = (0, 0.15, -1)
     # torso: deep chest, tucked waist, rump
-    fp(M, E((0, -0.105, 0.395), (0.098, 0.165, 0.118)), [(0, -0.105, 0.395)], {"chest": 0.6, "spine_02": 0.4}, "fur",
+    fp(M, E((0, -0.105, 0.392), (0.106, 0.17, 0.128)), [(0, -0.105, 0.395)], {"chest": 0.6, "spine_02": 0.4}, "fur",
        0.05, 0.04, back, "ribcage", pad=0.17)
-    fp(M, S.f_sphere((0, -0.235, 0.385), 0.078), [(0, -0.235, 0.385)], "chest", "fur", 0.05, 0.03, (0, 0.3, -1),
+    fp(M, S.f_sphere((0, -0.232, 0.39), 0.086), [(0, -0.235, 0.385)], "chest", "fur", 0.05, 0.03, (0, 0.3, -1),
        "brisket", pad=0.08)
-    fp(M, E((0, 0.10, 0.425), (0.072, 0.15, 0.072)), [(0, 0.10, 0.425)], {"spine_01": 0.7, "spine_02": 0.3}, "fur",
+    fp(M, E((0, 0.10, 0.425), (0.079, 0.15, 0.079)), [(0, 0.10, 0.425)], {"spine_01": 0.7, "spine_02": 0.3}, "fur",
        0.06, 0.04, back, "loin", pad=0.15)
-    fp(M, E((0, 0.255, 0.43), (0.082, 0.095, 0.082)), [(0, 0.255, 0.43)], "pelvis", "fur", 0.05, 0.03, back, "rump",
+    fp(M, E((0, 0.255, 0.43), (0.088, 0.10, 0.088)), [(0, 0.255, 0.43)], "pelvis", "fur", 0.05, 0.03, back, "rump",
        pad=0.1)
     for sd, nm in ((1, "L"), (-1, "R")):
         x = 0.052 * sd
@@ -79,9 +79,9 @@ def build_model(lm) -> S.Model:
            {f"scapula_{nm}": 0.7, "chest": 0.3}, "fur", 0.04, 0.03, (0, 0.4, -1), "shoulder", pad=0.1)
         # front leg
         sh, el, wr, pw = (lm[f"shoulder_{nm}"], lm[f"elbow_{nm}"], lm[f"wrist_{nm}"], lm[f"fpaw_{nm}"])
-        fp(M, RC(sh + np.array([0, -0.01, 0.03]), el, 0.046, 0.032), [sh, el], f"upperarm_{nm}", "fur", 0.035, 0.02,
+        fp(M, RC(sh + np.array([0, -0.01, 0.03]), el, 0.050, 0.035), [sh, el], f"upperarm_{nm}", "fur", 0.035, 0.02,
            down, "upperarm", pad=0.05)
-        fp(M, RC(el, wr, 0.026, 0.017), [el, wr], f"forearm_{nm}", "fur", 0.02, 0.015, down, "forearm", pad=0.03)
+        fp(M, RC(el, wr, 0.0295, 0.0195), [el, wr], f"forearm_{nm}", "fur", 0.02, 0.015, down, "forearm", pad=0.03)
         fp(M, RC(wr, pw + np.array([0, -0.01, 0.012]), 0.017, 0.018), [wr, pw], f"hand_{nm}", "fur", 0.012, 0.012,
            (0, -0.2, -1), "pastern", pad=0.02)
         fp(M, E(pw + np.array([0, -0.012, 0.012]), (0.022, 0.03, 0.014)), [pw], f"hand_{nm}", "fur", 0.01, 0.01,
@@ -96,8 +96,8 @@ def build_model(lm) -> S.Model:
         hp, kn, hk, hw, ht = (lm[f"hip_{nm}"], lm[f"knee_{nm}"], lm[f"hock_{nm}"], lm[f"hpaw_{nm}"], lm[f"htoe_{nm}"])
         fp(M, E(hp + (kn - hp) * 0.45 + np.array([0.004 * sd, 0.018, 0.0]), (0.045, 0.075, 0.095),
                 S.rot((1, 0, 0), 30)), [hp], f"thigh_{nm}", "fur", 0.05, 0.025, (0, 0.5, -1), "thigh", pad=0.1)
-        fp(M, RC(kn, hk, 0.033, 0.017), [kn, hk], f"shin_{nm}", "fur", 0.03, 0.02, (0, 0.6, -1), "gaskin", pad=0.04)
-        fp(M, RC(hk + np.array([0, 0.01, 0.0]), hw + np.array([0, 0, 0.012]), 0.017, 0.016), [hk, hw], f"foot_{nm}",
+        fp(M, RC(kn, hk, 0.038, 0.0195), [kn, hk], f"shin_{nm}", "fur", 0.03, 0.02, (0, 0.6, -1), "gaskin", pad=0.04)
+        fp(M, RC(hk + np.array([0, 0.01, 0.0]), hw + np.array([0, 0, 0.012]), 0.0185, 0.017), [hk, hw], f"foot_{nm}",
            "fur", 0.012, 0.012, (0, -0.1, -1), "metatarsus", pad=0.02)
         fp(M, E(hw + np.array([0, -0.014, 0.011]), (0.021, 0.029, 0.013)), [hw], f"toe_{nm}", "fur", 0.01, 0.01,
            (0, -1, -0.3), "hpaw", pad=0.03)
@@ -109,9 +109,9 @@ def build_model(lm) -> S.Model:
                   "claw", pad=0.015)
         # ear: erect triangle, cupped
         eb, et = lm[f"ear_base_{nm}"], lm[f"ear_tip_{nm}"]
-        ear = S.f_flat_cone(eb, et, 0.034, 0.007, 0.36, (0, 1, 0.0))
+        ear = S.f_flat_cone(eb, et, 0.036, 0.008, 0.46, (0, 1, 0.0))
         fp(M, ear, [eb, et], f"ear_{nm}", "fur", 0.012, 0.008, et - eb, "ear", pad=0.03)
-        cup = S.f_flat_cone(eb + np.array([0, -0.009, 0.016]), et + np.array([0, -0.006, -0.018]), 0.019, 0.002, 0.25,
+        cup = S.f_flat_cone(eb + np.array([0, -0.009, 0.016]), et + np.array([0, -0.006, -0.018]), 0.016, 0.002, 0.22,
                             (0, 1, 0))
         M.carve(cup, [eb, et], k=0.003, pad=0.03)
         # eyes: sockets + lids
@@ -122,12 +122,12 @@ def build_model(lm) -> S.Model:
         fp(M, E((0.036 * sd, -0.385, 0.605), (0.032, 0.04, 0.032)), [(0.036 * sd, -0.385, 0.605)], "head", "fur", 0.025,
            0.012, (0.2 * sd, 1, -0.3), "cheek", pad=0.04)
     # neck
-    fp(M, RC((0, -0.215, 0.455), (0, -0.33, 0.6), 0.070, 0.050), [(0, -0.215, 0.455), (0, -0.33, 0.6)],
+    fp(M, RC((0, -0.215, 0.452), (0, -0.33, 0.598), 0.086, 0.066), [(0, -0.215, 0.455), (0, -0.33, 0.6)],
        {"neck": 0.8, "chest": 0.2}, "fur", 0.05, 0.03, (0, 1, -0.6), "neck", pad=0.08)
     # head: skull, stop, muzzle, jaw, nose
-    fp(M, E((0, -0.35, 0.635), (0.06, 0.072, 0.055)), [(0, -0.35, 0.635)], "head", "fur", 0.03, 0.015, back, "skull",
+    fp(M, E((0, -0.35, 0.633), (0.064, 0.076, 0.058)), [(0, -0.35, 0.635)], "head", "fur", 0.03, 0.015, back, "skull",
        pad=0.075)
-    fp(M, S.f_flat_cone((0, -0.39, 0.612), (0, -0.50, 0.590), 0.038, 0.024, 0.85, (1, 0, 0)),
+    fp(M, S.f_flat_cone((0, -0.39, 0.612), (0, -0.50, 0.590), 0.041, 0.026, 0.85, (1, 0, 0)),
        [(0, -0.39, 0.612), (0, -0.50, 0.590)], "head", "fur", 0.025, 0.012, (0, 1, 0.2), "muzzle", pad=0.04)
     fp(M, RC((0, -0.38, 0.580), (0, -0.48, 0.566), 0.026, 0.014), [(0, -0.38, 0.58), (0, -0.48, 0.566)], "jaw",
        "fur", 0.014, 0.008, (0, 1, 0), "lowerjaw", pad=0.03)
@@ -147,7 +147,7 @@ def build_model(lm) -> S.Model:
 
 
 def _eye_aperture(c, sd):
-    w, a = 0.0105, 0.0068
+    w, a = 0.0088, 0.0054
 
     def f(p):
         q = p - c
@@ -167,19 +167,34 @@ def _eye_aperture(c, sd):
 def colour(P, N, lab, fl, s1, s2, names):
     K = len(P)
     li = {n: i for i, n in enumerate(names)}
-    base = col("#8a6340")
-    light = col("#c8a983")
-    dark = col("#2a1f17")
-    # brindle: dense dark streaks perpendicular to the hair flow, warped, broken and patchy
-    coord = np.einsum("ij,ij->i", P, fl)
-    warp = X.fbm(P, 7.0, 3, 5) * 0.06 + X.fbm(P, 25.0, 2, 6) * 0.02 + X.fbm(P, 60.0, 2, 12) * 0.006
-    st = 0.5 + 0.5 * np.sin(2 * np.pi * (coord + warp) / 0.017)
-    brk = X.aniso(P, fl, 25.0, 260.0, 11)
-    streak = X.aniso(P, fl, 400.0, 25.0, 13)
-    patch = sstep(-0.45, 0.2, X.fbm(P, 5.0, 3, 7))
-    stripes = sstep(0.45, 0.95, st + 0.45 * brk + 0.25 * streak) * patch
-    a = base[None] * (0.82 + 0.25 * X.fbm(P, 9.0, 2, 8)[:, None])
-    a = mix(a, dark[None] * (1.1 + 0.4 * s2[:, None]), stripes * 0.62)
+    base = col("#9a6a3c")
+    light = col("#cdb08a")
+    dark = col("#1c1510")
+    # brindle ("vện"): irregular dark tiger streaks running dorso-ventrally on the trunk (bands across the
+    # body axis), ringing the legs and tail; streaks are torn into hair-length dashes and fade in patches.
+    leg = sstep(0.33, 0.24, P[:, 2]) * sstep(0.03, 0.08, np.abs(P[:, 0]))
+    neck_head = sstep(-0.22, -0.30, P[:, 1])
+    ax = P[:, 1] * (1.0 - leg) + P[:, 2] * leg * 1.15
+    ax = ax + neck_head * P[:, 2] * 0.55
+    warp = X.fbm(P, 6.0, 3, 5) * 0.035 + X.fbm(P, 18.0, 2, 6) * 0.012 + X.fbm(P, 55.0, 2, 12) * 0.004
+    period = 0.021 * (1.0 + 0.25 * X.fbm(P, 3.0, 2, 14))
+    st = 0.5 + 0.5 * np.sin(2 * np.pi * (ax + warp) / period)
+    brk = X.aniso(P, fl, 30.0, 220.0, 11) + 0.6 * X.fbm(P, 40.0, 2, 15)
+    streak = X.aniso(P, fl, 420.0, 22.0, 13)
+    patch = sstep(-0.55, 0.15, X.fbm(P, 4.0, 3, 7))
+    stripes = sstep(0.62, 1.05, st + 0.5 * brk + 0.4 * streak) * patch
+    stripes = stripes * (1.0 - 0.75 * sstep(-0.4, -0.85, N[:, 2]))      # belly stays light
+    # where the surface faces along the body axis (chest front, face, rump) the bands would turn into
+    # contour rings: fade them into a dark-tipped grizzle instead
+    endon = sstep(0.45, 0.85, np.abs(N[:, 1])) * (1.0 - leg)
+    stripes = stripes * (1.0 - 0.85 * endon) + endon * 0.25 * sstep(0.3, 0.8, streak)
+    a = base[None] * (0.84 + 0.22 * X.fbm(P, 9.0, 2, 8)[:, None])
+    # sun-bleached tips: slightly lighter, warmer on the upper flanks and back
+    a = mix(a, a * np.array([1.12, 1.08, 1.0]), sstep(0.2, 0.9, N[:, 2]) * 0.6)
+    a = mix(a, dark[None] * (1.2 + 0.6 * s2[:, None]), stripes * 0.68)
+    # muddy undercoat: brindle base is never clean, a fine dark ticking all over the trunk
+    tick = sstep(0.2, 0.9, streak) * (1.0 - leg * 0.5)
+    a = mix(a, a * 0.62, tick * 0.35)
     # darker saddle along the back
     saddle = sstep(0.0, 0.7, N[:, 2]) * sstep(0.40, 0.5, P[:, 2]) * (P[:, 1] > -0.25)
     a = mix(a, a * 0.7, saddle * 0.5)
@@ -205,7 +220,7 @@ def colour(P, N, lab, fl, s1, s2, names):
     a = a * (0.88 + 0.16 * s1[:, None])
     rough = 0.62 + 0.08 * s1
     metal = np.zeros(K)
-    for nm, c, r in (("nose", "#151210", 0.32), ("claw", "#2c2622", 0.4), ("lid", "#3a2a20", 0.5)):
+    for nm, c, r in (("nose", "#151210", 0.32), ("claw", "#2c2622", 0.4), ("lid", "#2a1e16", 0.45)):
         if nm in li:
             m = lab == li[nm]
             a[m] = col(c) * (0.9 + 0.2 * X.fbm(P[m], 600.0, 2, 9)[:, None])

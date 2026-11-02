@@ -5,7 +5,9 @@ extends Node3D
 ##   tools/screenshot.sh scene=res://scenes/ui/qa/ui_gallery.tscn out=/abs.png -- screen=<id> [lang=en]
 ## screen ids: menu, splash, loading, hud, hud_events, dialogue, pause, inventory, skills, journal,
 ## journal_memories, map, settings, settings_audio, settings_controls, settings_gameplay,
-## save_slots, credits, confirm. Not shipped gameplay — a capture/test harness only.
+## save_slots, credits, confirm. `world=city` swaps the rooftop backdrop for the real
+## res://scenes/world/city.tscn (camera + "player" proxy at PlayerSpawn, the city's own location
+## markers) — used to QA the map capture. Not shipped gameplay — a capture/test harness only.
 
 const BACKDROP := "res://scenes/ui/menu_backdrop.tscn"
 const HUD := "res://scenes/ui/hud.tscn"
@@ -13,7 +15,10 @@ const MAIN := "res://scenes/main/main.tscn"
 const STORY_QUESTS := "res://tests/fixtures/story/quests"
 const STORY_DIALOGUE := "res://tests/fixtures/story/dialogue"
 
+const CITY := "res://scenes/world/city.tscn"
+
 var screen_id := "hud"
+var world_id := "backdrop"
 var hud: CanvasLayer = null
 
 
@@ -24,6 +29,7 @@ func _ready() -> void:
 		if kv.size() == 2:
 			args[kv[0]] = kv[1]
 	screen_id = String(args.get("screen", "hud"))
+	world_id = String(args.get("world", "backdrop"))
 	var lang := String(args.get("lang", ""))
 	if lang != "":
 		TranslationServer.set_locale(lang)
@@ -48,9 +54,13 @@ func _run() -> void:
 		if ls.has_method("set_progress"):
 			ls.call("set_progress", 0.62)
 		return
-	add_child((load(BACKDROP) as PackedScene).instantiate())
-	_populate_state()
-	_add_markers()
+	if world_id == "city" and ResourceLoader.exists(CITY):
+		_add_city()
+		_populate_state()
+	else:
+		add_child((load(BACKDROP) as PackedScene).instantiate())
+		_populate_state()
+		_add_markers()
 	hud = (load(HUD) as PackedScene).instantiate() as CanvasLayer
 	add_child(hud)
 	await get_tree().process_frame
@@ -129,6 +139,31 @@ func _populate_state() -> void:
 			qm.call("start_quest", &"side_knock_it_off", true)
 			qm.call("complete_quest", &"side_knock_it_off")
 		qm.call("track", &"main_01_morning")
+
+
+func _add_city() -> void:
+	var city := (load(CITY) as PackedScene).instantiate() as Node3D
+	add_child(city)
+	var spawn := get_tree().get_first_node_in_group(&"player_spawn") as Node3D
+	var xf := spawn.global_transform if spawn != null else Transform3D.IDENTITY
+	# Stand-in for the player so the map arrow and compass have something to follow.
+	var proxy := Node3D.new()
+	proxy.name = "PlayerProxy"
+	proxy.add_to_group(&"player")
+	add_child(proxy)
+	proxy.global_transform = xf
+	var cam := Camera3D.new()
+	cam.name = "QACamera"
+	add_child(cam)
+	cam.global_position = xf.origin + xf.basis.z * 3.0 + Vector3.UP * 1.6
+	cam.look_at(xf.origin + Vector3.UP * 0.4)
+	cam.current = true
+	var gs := get_node_or_null(^"/root/GameState")
+	# Discover every city location so the map shows the full set of labels.
+	for m in get_tree().get_nodes_in_group(&"location"):
+		var id: StringName = StringName(str(m.get_meta(&"location_id", m.name)))
+		if gs != null:
+			gs.call_deferred("discover_location", id, str(m.get_meta(&"display_name_key", "")))
 
 
 func _add_markers() -> void:

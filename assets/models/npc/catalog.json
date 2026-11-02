@@ -202,7 +202,7 @@
   "skeleton": "Armature/Skeleton3D",
   "front": "+Z",
   "origin": "ground contact, bottom centre",
-  "tris": 14574,
+  "tris": 14576,
   "speeds": {
    "walk": 1.1,
    "run": 3.6
@@ -306,7 +306,7 @@
   "front": "+Z",
   "origin": "ground contact, bottom centre",
   "height": 1.62,
-  "tris": 15878,
+  "tris": 15880,
   "walk_speed": 0.898
  },
  {
@@ -380,7 +380,7 @@
   "front": "+Z",
   "origin": "ground contact, bottom centre",
   "height": 1.7,
-  "tris": 15880,
+  "tris": 15878,
   "walk_speed": 1.076
  },
  {

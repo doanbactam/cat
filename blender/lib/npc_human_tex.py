@@ -303,10 +303,10 @@ class HumanTex:
         a = mix(sk[None], base[None], 0.75) * (1 + 0.05 * X.fbm(P, 400.0, 2, sp.seed + 81)[:, None])
         # blend to skin at the lip border (soft vermilion edge) and toward the corners
         d_mid = np.abs(Q[:, 2] - 1.4152)
-        edge = np.clip(sstep(0.0035, 0.0068, d_mid) + sstep(0.012, 0.019, np.abs(Q[:, 0])), 0, 1)
+        edge = np.clip(sstep(0.0035, 0.0068, d_mid) + sstep(0.016, 0.024, np.abs(Q[:, 0])), 0, 1)
         a = mix(a, sk[None] * 0.97, edge * 0.85)
         # mouth line
-        line = sstep(0.0012, 0.0002, d_mid) * (Q[:, 1] < -0.075) * sstep(0.02, 0.012, np.abs(Q[:, 0]))
+        line = sstep(0.0012, 0.0002, d_mid) * (Q[:, 1] < -0.075) * sstep(0.024, 0.015, np.abs(Q[:, 0]))
         a = mix(a, col("#4a2624")[None], line * 0.8)
         r = 0.38 + 0.08 * X.fbm(P, 500.0, 2, sp.seed + 82)
         return np.clip(a, 0.02, 0.8), r, np.zeros(len(P))

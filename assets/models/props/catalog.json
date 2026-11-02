@@ -635,7 +635,7 @@
   "dynamic": false,
   "mass": 9.0,
   "surface": "fabric",
-  "material_kind": "fabric",
+  "material_kind": "soft",
   "name_key": "PROP_CABLE_COIL_LARGE",
   "tris": 24812,
   "materials": 1,
@@ -691,7 +691,7 @@
   "dynamic": false,
   "mass": 4.0,
   "surface": "fabric",
-  "material_kind": "fabric",
+  "material_kind": "soft",
   "name_key": "PROP_CABLE_COIL_SMALL",
   "tris": 13864,
   "materials": 1,
@@ -2062,15 +2062,15 @@
   "category": "stall",
   "footprint": [
    0.576,
-   0.658
+   0.662
   ],
   "width": 0.576,
-  "depth": 0.658,
+  "depth": 0.662,
   "height": 1.042,
   "bounds_min": [
    -0.288,
    0.0,
-   -0.413
+   -0.417
   ],
   "bounds_max": [
    0.288,
@@ -2082,10 +2082,10 @@
   "surface": "metal",
   "material_kind": "metal",
   "name_key": "PROP_PHO_POT_STOVE",
-  "tris": 21116,
+  "tris": 21468,
   "materials": 2,
   "texture_size": 2048,
-  "texel_density": 927,
+  "texel_density": 924,
   "textures": [
    "res://assets/textures/props/pho_pot_stove_albedo.jpg",
    "res://assets/textures/props/pho_pot_stove_orm.jpg",
@@ -2888,30 +2888,30 @@
   "category": "home",
   "footprint": [
    0.315,
-   0.251
+   0.248
   ],
   "width": 0.315,
-  "depth": 0.251,
-  "height": 0.092,
+  "depth": 0.248,
+  "height": 0.084,
   "bounds_min": [
    -0.139,
    0.0,
-   -0.132
+   -0.131
   ],
   "bounds_max": [
    0.177,
-   0.092,
-   0.119
+   0.084,
+   0.117
   ],
   "dynamic": true,
   "mass": 0.6,
   "surface": "fabric",
   "material_kind": "soft",
   "name_key": "PROP_SHOES_CANVAS_PAIR",
-  "tris": 6048,
+  "tris": 6192,
   "materials": 1,
   "texture_size": 1024,
-  "texel_density": 1275,
+  "texel_density": 1346,
   "textures": [
    "res://assets/textures/props/shoes_canvas_pair_albedo.jpg",
    "res://assets/textures/props/shoes_canvas_pair_orm.jpg",
@@ -2972,6 +2972,107 @@
    "knockable",
    "footwear"
   ]
+ },
+ {
+  "id": "umbrella",
+  "file": "res://assets/models/props/umbrella.glb",
+  "kind": "handheld",
+  "category": "home",
+  "footprint": [
+   1.016,
+   1.016
+  ],
+  "width": 1.016,
+  "depth": 1.016,
+  "height": 1.032,
+  "bounds_min": [
+   -0.508,
+   -0.167,
+   -0.508
+  ],
+  "bounds_max": [
+   0.508,
+   0.865,
+   0.508
+  ],
+  "dynamic": false,
+  "mass": 0.45,
+  "surface": "fabric",
+  "material_kind": "soft",
+  "name_key": "PROP_UMBRELLA",
+  "tris": 6200,
+  "materials": 2,
+  "texture_size": 2048,
+  "texel_density": 1118,
+  "textures": [
+   "res://assets/textures/props/umbrella_albedo.jpg",
+   "res://assets/textures/props/umbrella_orm.jpg",
+   "res://assets/textures/props/umbrella_normal.png"
+  ],
+  "colliders": 0,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "handheld",
+   "rain",
+   "npc",
+   "umbrella"
+  ],
+  "origin": "grip",
+  "open_radius": 0.5,
+  "canopy_top": 0.8
+ },
+ {
+  "id": "umbrella_red",
+  "file": "res://assets/models/props/umbrella_red.glb",
+  "kind": "handheld",
+  "category": "home",
+  "footprint": [
+   1.016,
+   1.016
+  ],
+  "width": 1.016,
+  "depth": 1.016,
+  "height": 1.032,
+  "bounds_min": [
+   -0.508,
+   -0.167,
+   -0.508
+  ],
+  "bounds_max": [
+   0.508,
+   0.865,
+   0.508
+  ],
+  "dynamic": false,
+  "mass": 0.45,
+  "surface": "fabric",
+  "material_kind": "soft",
+  "name_key": "PROP_UMBRELLA",
+  "tris": 6200,
+  "materials": 2,
+  "texture_size": 2048,
+  "texel_density": 1118,
+  "textures": [
+   "res://assets/textures/props/umbrella_red_albedo.jpg",
+   "res://assets/textures/props/umbrella_red_orm.jpg",
+   "res://assets/textures/props/umbrella_red_normal.png"
+  ],
+  "colliders": 0,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "handheld",
+   "rain",
+   "npc",
+   "umbrella"
+  ],
+  "variant_of": "umbrella",
+  "origin": "grip",
+  "open_radius": 0.5,
+  "canopy_top": 0.8
  },
  {
   "id": "water_bowl",
@@ -4821,20 +4922,20 @@
   "kind": "item",
   "category": "item",
   "footprint": [
-   0.108,
-   0.055
+   0.08,
+   0.053
   ],
-  "width": 0.108,
-  "depth": 0.055,
-  "height": 0.055,
+  "width": 0.08,
+  "depth": 0.053,
+  "height": 0.014,
   "bounds_min": [
-   -0.054,
+   -0.04,
    0.0,
    -0.027
   ],
   "bounds_max": [
-   0.054,
-   0.055,
+   0.04,
+   0.014,
    0.027
   ],
   "dynamic": false,
@@ -4842,10 +4943,10 @@
   "surface": "fabric",
   "material_kind": "soft",
   "name_key": "ITEM_DRIED_FISH",
-  "tris": 6100,
+  "tris": 5062,
   "materials": 1,
-  "texture_size": 1024,
-  "texel_density": 2741,
+  "texture_size": 512,
+  "texel_density": 2545,
   "textures": [
    "res://assets/textures/props/item_dried_fish_albedo.jpg",
    "res://assets/textures/props/item_dried_fish_orm.jpg",
@@ -5388,31 +5489,31 @@
   "kind": "item",
   "category": "item",
   "footprint": [
-   0.133,
-   0.048
+   0.111,
+   0.056
   ],
-  "width": 0.133,
-  "depth": 0.048,
-  "height": 0.047,
+  "width": 0.111,
+  "depth": 0.056,
+  "height": 0.036,
   "bounds_min": [
-   -0.067,
+   -0.056,
    0.0,
-   -0.024
+   -0.028
   ],
   "bounds_max": [
-   0.067,
-   0.047,
-   0.024
+   0.056,
+   0.036,
+   0.028
   ],
   "dynamic": false,
   "mass": 0.03,
   "surface": "fabric",
   "material_kind": "soft",
   "name_key": "ITEM_PATE_CRUST",
-  "tris": 1040,
+  "tris": 3808,
   "materials": 1,
   "texture_size": 512,
-  "texel_density": 3062,
+  "texel_density": 2564,
   "textures": [
    "res://assets/textures/props/item_pate_crust_albedo.jpg",
    "res://assets/textures/props/item_pate_crust_orm.jpg",
