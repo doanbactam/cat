@@ -184,7 +184,6 @@ def build_steps(spec):
         K.lathe(dt, (px, COPE_W - 0.14, 0.75), [(0.11, 0), (0.14, 0.05), (0.1, 0.12), (0.02, 0.2)], "lm:bluestone", STONE,
                 sides=10)
     P.decal_plane(ctx, "moss_base", V((0, ylo - 0.905, -0.6)), (0, -1, 0), 2.0, 0.5)
-    ctx.climb.append(V((0, ylo - 0.5, -0.85)))
     ctx.nap.append(V((0.4, ylo - 0.4, -0.84)))
     ctx.mark_pt("MARKER_water_access", (0, ylo - 0.5, -0.85))
     qa_water()

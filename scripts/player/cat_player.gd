@@ -1182,7 +1182,9 @@ func _update_planner(_force: bool) -> void:
 			var flat := Vector2(aim_point.x - global_position.x, aim_point.z - global_position.z).length()
 			if flat > _planner.max_distance + 0.4:
 				aim_point = Vector3.INF
-	var deliberate := _aiming() or _jump_down_t > 0.3
+	# plain floor spots are only targets in explicit aim mode (aim_jump): a long jump-hold with the
+	# TPP camera looking down past the cat must still pick the ledge ahead, not the floor at its nose
+	var deliberate := _aiming()
 	_target = _planner.find_target(global_position, _aim_direction(), aim_point, deliberate)
 	if _reticle != null:
 		if _target.is_empty():

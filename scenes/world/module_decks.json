@@ -9,10 +9,11 @@
   "colonial_3f_w5_ochre": 12.4,
   "colonial_3f_w5_pink": 12.4,
   "colonial_3f_w5_white": 12.4,
+  "colonial_corner_3f_ochre": 10.9,
   "colonial_corner_3f_yellow": 10.9,
   "modern_4f_w6_dark": 14.0,
   "modern_4f_w6_white": 14.0,
-  "modern_5f_w4_grey": 18.3,
+  "modern_5f_w4_white": 17.4,
   "oldtile_1f_w4_white": 4.9,
   "oldtile_1f_w4_yellow": 4.9,
   "oldtile_1f_w5_shop_white": 5.1,
@@ -28,5 +29,5 @@
   "tube90s_5f_w3_5_white": 16.9,
   "tube90s_5f_w3_5_yellow": 18.7,
   "tube90s_6f_w5_blue": 20.2,
-  "tube90s_6f_w5_white": 20.2
+  "tube90s_6f_w5_yellow": 20.2
 }

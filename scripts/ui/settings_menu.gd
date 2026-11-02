@@ -250,6 +250,7 @@ func _toggle(section: String, key: String, label_key: String, icon: StringName =
 	var t := CheckButton.new()
 	t.button_pressed = bool(_sv_get(section, key))
 	t.custom_minimum_size = Vector2(90, 48)
+	t.add_theme_constant_override(&"icon_max_width", 0)
 	t.toggled.connect(func(on: bool) -> void:
 		_sv_set(section, key, on)
 		_after_change(section, key))

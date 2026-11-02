@@ -140,10 +140,16 @@ def gait(stride_frames, v, duty, phases, *, strides=2, track=(0.024, 0.024), cen
          lift=(0.030, 0.034), body_dz=0.0, bob=0.004, bob_phase=0.0, roll=2.5, yaw=3.0, spine_yaw=4.0,
          spine_pitch_amp=0.0, spine_phase=0.0, pel_pitch_amp=0.0, head=(-6.0, 0.0, 0.0), neck_lift=0.0,
          tail=None, tail_amp=6.0, tail_pitch_amp=0.0, ears=(0.0, 0.0, 0.0), fore_flex=80.0, hind_flex=22.0,
-         chest_dz=0.0, chest_bob=0.0, chest_phase=0.0, extra=None):
+         chest_dz=0.0, chest_bob=0.0, chest_phase=0.0, extra=None, surge=0.0, surge_phase=0.0,
+         swing_match=0.9, toe_curl=25.0, stance_roll=(-6.0, 22.0)):
+    """Footfall-driven locomotion cycle.  Stance paws (ball of the foot) move backwards at
+    exactly v; the swing is a cubic Hermite whose end tangents equal the stance velocity
+    (x swing_match) so the paw leaves and meets the ground with ground speed matched (no
+    lift-off / touch-down slip; slight late-swing retraction like real cats).  `duty` may be a
+    {"F": .., "H": ..} dict, `surge` moves the whole body fore-aft (m) at the stride rate."""
     T = stride_frames
     L = v * T / FPS
-    nf = T * strides
+    nf = int(round(T * strides))
 
     def leg_state(leg, tt):
         ph = (tt - phases[leg]) % 1.0
@@ -153,21 +159,23 @@ def gait(stride_frames, v, duty, phases, *, strides=2, track=(0.024, 0.024), cen
         base = REST_PAW[leg]
         x = s * (track[0] if fore else track[1])
         f0 = -base.y + (centre[0] if fore else centre[1])
-        z0 = base.z
+        z0 = base.z + (0.0006 if fore else 0.0)      # fore pads would graze 0.3 mm under the floor
         travel = b * L
         if ph < b:
             u = ph / b
             f = f0 + travel * 0.5 - travel * u
             z = z0
-            a = (-6.0 + 22.0 * ease((u - 0.55) / 0.45)) if fore else 0.0
+            a = (stance_roll[0] + stance_roll[1] * ease((u - 0.55) / 0.45)) if fore else 0.0
             toe = 0.0
         else:
             u = (ph - b) / (1 - b)
-            f = f0 - travel * 0.5 + travel * ease5(u)
-            hgt = (lift[0] if fore else lift[1]) * math.sin(math.pi * min(1.0, u ** 0.85))
+            m = -v * ((1 - b) * T / FPS) * swing_match          # stance velocity in swing-u units
+            hf = travel * (3 * u * u - 2 * u ** 3) + m * (2 * u ** 3 - 3 * u * u + u)
+            f = f0 - travel * 0.5 + hf
+            hgt = (lift[0] if fore else lift[1]) * math.sin(math.pi * min(1.0, u ** 0.8))
             z = z0 + hgt
             a = (fore_flex if fore else hind_flex) * math.sin(math.pi * min(1.0, u ** 0.7)) ** 1.2
-            toe = 25.0 * math.sin(math.pi * u)
+            toe = toe_curl * math.sin(math.pi * u) ** 1.5
         out = {"p": Vector((x, -f, z)), "a": a, "toe": toe}
         if not fore:
             out["mode"] = "panto"
@@ -180,7 +188,7 @@ def gait(stride_frames, v, duty, phases, *, strides=2, track=(0.024, 0.024), cen
             p[leg].update(leg_state(leg, tt))
         w = TAU * tt
         dz = body_dz + bob * math.cos(2 * w + bob_phase)
-        p["pel"] = (0.0, 0.0, dz)
+        p["pel"] = (0.0, surge * math.sin(w + surge_phase), dz)
         p["pel_rot"] = (pel_pitch_amp * math.cos(w - spine_phase), yaw * math.sin(w), roll * math.sin(w + 0.6))
         p["spine"] = (spine_pitch_amp * math.cos(w - spine_phase) + chest_bob * math.cos(2 * w + chest_phase),
                       -spine_yaw * math.sin(w), -roll * 0.6 * math.sin(w + 0.6))
@@ -238,16 +246,20 @@ def clip_defs():
                        body_dz=-0.006, bob=0.0035, roll=2.0, yaw=3.5, spine_yaw=4.0, head=(-17.0, 0.0, 0.0),
                        neck_lift=-4.0, tail={"lift": 18.0, "curve": 4.0, "tip": 18.0}, tail_amp=7.0), True)
     trot_ph = {"HL": 0.0, "FR": 0.0, "HR": 0.5, "FL": 0.5}
-    C["trot"] = (*gait(10, 1.60, 0.42, trot_ph, track=(0.020, 0.022), centre=(0.012, -0.010), lift=(0.034, 0.036),
+    C["trot"] = (*gait(10, 1.60, 0.46, trot_ph, track=(0.020, 0.022), centre=(0.012, -0.010), lift=(0.034, 0.036),
                        body_dz=-0.012, bob=0.005, roll=1.5, yaw=2.0, spine_yaw=2.5, head=(-15.0, 0.0, 0.0),
                        neck_lift=-6.0, tail={"lift": 10.0, "curve": 2.0, "tip": 10.0}, tail_amp=5.0,
                        ears=(6.0, 0.0, 0.0), fore_flex=95.0, hind_flex=28.0), True)
-    gal_ph = {"HL": 0.0, "HR": 0.10, "FR": 0.42, "FL": 0.52}
-    C["run"] = (*gait(8, 4.50, 0.21, gal_ph, track=(0.018, 0.022), centre=(0.030, -0.030), lift=(0.050, 0.055),
-                      body_dz=-0.014, bob=0.006, bob_phase=1.0, roll=1.0, yaw=2.0, spine_yaw=2.0,
-                      spine_pitch_amp=-26.0, spine_phase=TAU * 0.92, pel_pitch_amp=14.0,
+    # rotary gallop (cats): LH -> RH -> RF -> LF, 4 Hz strides of 1.125 m at 4.5 m/s, duty ~0.3,
+    # extended suspension after the hind push-off, gathered suspension after the fore pair,
+    # big spine flexion/extension (+-24 deg) timed with the footfalls.
+    gal_ph = {"HL": 0.0, "HR": 0.11, "FR": 0.43, "FL": 0.54}
+    C["run"] = (*gait(7.5, 4.50, {"F": 0.30, "H": 0.28}, gal_ph, track=(0.016, 0.020), centre=(-0.004, -0.030),
+                      lift=(0.055, 0.060), body_dz=-0.030, bob=0.007, bob_phase=1.0, roll=1.0, yaw=2.0, spine_yaw=2.0,
+                      spine_pitch_amp=-24.0, spine_phase=TAU * 0.92, pel_pitch_amp=12.0,
                       head=(-12.0, 0.0, 0.0), neck_lift=-10.0, tail={"lift": 4.0, "curve": 12.0, "tip": 0.0},
-                      tail_amp=3.0, tail_pitch_amp=8.0, ears=(22.0, 10.0, 0.0), fore_flex=110.0, hind_flex=40.0),
+                      tail_amp=3.0, tail_pitch_amp=8.0, ears=(22.0, 10.0, 0.0), fore_flex=110.0, hind_flex=40.0,
+                      swing_match=0.9, toe_curl=30.0, stance_roll=(-10.0, 34.0)),
                 True)
     sneak_ph = {"HL": 0.0, "FL": 0.25, "HR": 0.5, "FR": 0.75}
 

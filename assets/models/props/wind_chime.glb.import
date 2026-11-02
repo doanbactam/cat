@@ -13,7 +13,6 @@ dest_files=["res://.godot/imported/wind_chime.glb-5b541065d243436b29a88e51ba7e40
 
 [params]
 
-
 nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null

@@ -469,14 +469,19 @@ def g_top(body: Body, label="top", sleeve=0.55, hem=0.80, t=0.010, loose=0.006, 
     return lay
 
 
-def g_bottom(body: Body, label="bottom", length=1.0, t=0.008, loose=0.01, flare=0.0, waist=0.98):
-    """Trousers (length 1 = ankle, 0.5 = knee shorts)."""
+def g_bottom(body: Body, label="bottom", length=1.0, t=0.008, loose=0.01, flare=0.0, waist=0.98, tight_above=None):
+    """Trousers (length 1 = ankle, 0.5 = knee shorts). tight_above: reference height above which the
+    trousers shrink inside the body (hidden under an untucked top, so they never poke through it)."""
     M = body.model
     L = body.L
     s = body.s
     names = ["pelvis", "glute", "waist", "belly", "thigh", "kneecap", "shin", "calf"]
     lay = _offset_layer(M, label, names, t, loose)
     lay.hems = []
+    if tight_above is not None:
+        zt = body.b(0, 0, tight_above)[2]
+        for pr in lay.prims:
+            pr.fn = (lambda f: (lambda q: f(q) + 0.035 * np.clip((q[:, 2] - zt) / 0.04, 0.0, 1.0)))(pr.fn)
     if flare > 0:
         for nm in ("L", "R"):
             K, An = L[f"knee_{nm}"], L[f"ankle_{nm}"]

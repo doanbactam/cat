@@ -7,6 +7,7 @@ PROP_BASIN_PLASTIC,Plastic basin,Chậu nhựa
 PROP_BICYCLE_RACK,Bicycle rack,Giá để xe đạp
 PROP_BIRD_CAGE,Bird cage,Lồng chim
 PROP_BOOK_SINGLE,Book,Cuốn sách
+PROP_BOOK_STACK,Stack of books,Chồng sách
 PROP_BOTTLE_CRATE,Bottle crate,Két chai
 PROP_BOTTLE_FISH_SAUCE,Fish-sauce bottle,Chai nước mắm
 PROP_BOTTLE_SOY,Soy-sauce bottle,Chai xì dầu
@@ -18,6 +19,7 @@ PROP_CABLE_COIL_LARGE,Tangle of cables,Búi dây điện
 PROP_CABLE_COIL_SMALL,Coil of cable,Cuộn dây điện
 PROP_CABLE_DRUM,Cable drum,Lô cuốn cáp
 PROP_CACTUS_POT,Little cactus,Chậu xương rồng
+PROP_CAN_CONDENSED_MILK,Tin of condensed milk,Lon sữa đặc
 PROP_CARDBOARD_BOX_CLOSED,Cardboard box,Thùng các-tông
 PROP_CARDBOARD_BOX_OPEN,Open cardboard box,Hộp các-tông mở
 PROP_CARDBOARD_FLAT_PILE,Pile of flattened boxes,Chồng bìa các-tông

@@ -238,7 +238,7 @@ func _physics_process(delta: float) -> void:
 		acc -= a * pow(maxf(s_star, 0.0) / maxf(gap, 0.05), 2.0)
 	acc = clampf(acc, -9.0, a)
 	speed = maxf(speed + acc * delta, 0.0)
-	if gap < 0.25:
+	if gap < 0.05 and speed < 1.0:
 		speed = 0.0
 	var ds := speed * delta
 	offset += ds

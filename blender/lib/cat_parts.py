@@ -17,10 +17,7 @@ import cat_sdf as S
 
 
 def head_to_world_np(v: np.ndarray) -> np.ndarray:
-    piv = np.asarray(A.HEAD_PIVOT)
-    R = np.asarray(A._head_rot())
-    q = (v - piv) * A.HEAD_SCALE
-    return piv + q @ R.T + np.asarray(A.HEAD_LIFT)
+    return A.head_to_world_np(v)
 
 
 def _nrm(v):
@@ -32,7 +29,7 @@ def _nrm(v):
 # Ears
 # ---------------------------------------------------------------------------
 EAR_H = 0.0425          # design space (x1.10 -> ~0.047 m)
-EAR_W = 0.0370
+EAR_W = 0.0345
 EAR_NU, EAR_NV = 12, 11
 
 
@@ -402,15 +399,15 @@ def build_whiskers(col=None, seed: int = 11):
                 length = (0.046 + 0.010 * (2 - c) + 0.007 * (1.5 - abs(r - 1.2)) + rng.normal(0, 0.003)) * A.HEAD_SCALE
                 bend = np.array(A.head_dir_to_world((0.0, -0.7, -0.5)))
                 pts = _whisker_curve(root - d * 0.0008, d, bend, length, 0.14 + rng.normal(0, 0.03))
-                add(pts, 0.00105, 0.00040, up_w, "whisker", "wh_mystacial_" + nm)
-        # superciliary (above the eye)
-        for k in range(3):
-            root_h = np.array([0.0125 * sx + 0.0025 * k * sx, -0.2055 + 0.0015 * k, 0.2600 - 0.0008 * k])
+                add(pts, 0.00090, 0.00034, up_w, "whisker", "wh_mystacial_" + nm)
+        # superciliary (above the eye): fine, short, up-forward-outward, curving outwards
+        for k in range(4):
+            root_h = np.array([0.0110 * sx + 0.0022 * k * sx, -0.2050 + 0.0012 * k, 0.2592 - 0.0006 * k])
             root = S.project(head_to_world_np(root_h[None]), iters=4, max_step=0.003)[0]
-            d = np.array(A.head_dir_to_world(tuple(_nrm((0.45 * sx, -0.45, 0.75)))))
-            pts = _whisker_curve(root, d, np.array(A.head_dir_to_world((sx * 0.6, 0.2, -0.3))),
-                                 (0.030 + 0.006 * k) * A.HEAD_SCALE, 0.10)
-            add(pts, 0.0008, 0.0003, up_w, "whisker", "wh_head")
+            d = np.array(A.head_dir_to_world(tuple(_nrm((0.55 * sx + 0.08 * k * sx, -0.62 + 0.06 * k, 0.55)))))
+            pts = _whisker_curve(root, d, np.array(A.head_dir_to_world((sx * 0.7, 0.3, -0.4))),
+                                 (0.022 + 0.004 * k + rng.normal(0, 0.002)) * A.HEAD_SCALE, 0.16)
+            add(pts, 0.00055, 0.00022, up_w, "whisker", "wh_head")
         # genal (cheek, behind the mouth corner)
         for k in range(2):
             root_h = np.array([0.0300 * sx, -0.1840 + 0.004 * k, 0.2330 - 0.004 * k])
@@ -425,20 +422,25 @@ def build_whiskers(col=None, seed: int = 11):
             d = _nrm((0.25 * sx * (k - 1), 0.6, 0.8))
             pts = _whisker_curve(root, d, (0, 1, 0), 0.016 + 0.002 * k, 0.15)
             add(pts, 0.0006, 0.00025, np.array([1.0, 0, 0]), "whisker", "wh_carpal_" + nm)
-        # ear furnishings: tufts inside the cavity, fanning up and out of the ear
+        # ear furnishings: soft tufts growing from the medial rim / lower cavity, lying along the
+        # inner surface and spilling a little past the front edge.  The ribbon plane spans the
+        # ear width (faces out of the cavity), so from the front it reads as a fan of fine hairs
+        # instead of an edge-on white line.
         base, a, n, b = ear_frame(sx)
-        for k in range(6):
-            vv = 0.06 + 0.07 * k
-            uu = -0.55 + 0.22 * k
+        for k in range(9):
+            vv = 0.05 + 0.045 * k
+            uu = -0.70 + 0.10 * k + 0.06 * rng.normal()
             w = 0.5 * EAR_W * (1 - vv) ** 0.8
-            root_h = base + a * (EAR_H * vv) + b * (w * uu) - n * (w * 0.45 * (1 - uu * uu)) + n * 0.0012
-            dir_h = _nrm(a * 0.75 + n * 0.55 + b * (0.25 * uu))
-            L = (0.016 + 0.004 * rng.random()) * A.HEAD_SCALE
-            pts_h = np.array([root_h + dir_h * L * t + n * (0.004 * t * t) for t in np.linspace(0, 1, 4)])
+            sag = w * (0.58 - 0.32 * vv)
+            root_h = base + a * (EAR_H * vv) + b * (w * uu) - n * (sag * (1 - uu * uu)) + n * 0.0008
+            dir_h = _nrm(a * 0.85 + n * 0.30 + b * (-0.15 + 0.10 * uu))
+            L = (0.011 + 0.005 * rng.random()) * A.HEAD_SCALE
+            ts = np.linspace(0, 1, 5)
+            pts_h = np.array([root_h + dir_h * L * t - n * (0.0035 * t * t) + b * (0.002 * sx * t * t * 0) for t in ts])
             pts = head_to_world_np(pts_h)
-            v, q, uv = _ribbon_pair(pts, 0.0070, 0.0060, np.array(A.head_dir_to_world(tuple(b))), 0.5, 1.0)
-            # single ribbon is enough for tufts (keep first half)
-            nv = len(v) // 2
+            up_n = np.array(A.head_dir_to_world(tuple(n)))
+            v, q, uv = _ribbon_pair(pts, 0.0060, 0.0075, up_n, 0.5, 1.0)
+            nv = len(v) // 2          # single ribbon (plane spans tangent x ear width)
             off = len(V)
             V.extend(v[:nv])
             Q.extend([tuple(i + off for i in f) for f in q[: len(q) // 2]])

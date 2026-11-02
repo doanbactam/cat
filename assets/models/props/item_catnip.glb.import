@@ -13,7 +13,6 @@ dest_files=["res://.godot/imported/item_catnip.glb-b1578e9cc5cf5a3af01f660d277c2
 
 [params]
 
-
 nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null

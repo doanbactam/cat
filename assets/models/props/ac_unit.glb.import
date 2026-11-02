@@ -13,7 +13,6 @@ dest_files=["res://.godot/imported/ac_unit.glb-9eec9c5896ec3c565d2b94eab84f6d1f.
 
 [params]
 
-
 nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null

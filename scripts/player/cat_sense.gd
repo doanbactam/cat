@@ -173,6 +173,8 @@ func _scan_highlights() -> void:
 		if n.has_method(&"is_visible_to") and not bool(n.call(&"is_visible_to", _player)):
 			continue
 		var h: Node = n.call(&"get_highlight_node") if n.has_method(&"get_highlight_node") else null
+		if h != null and _too_big(h):
+			h = null  # a fallback that resolved to level geometry (floor, wall): never glow the world
 		if h != null:
 			OverlayUtil.set_layer(h, &"sense", _glow_mat)
 			keep.append(h)
@@ -191,6 +193,14 @@ func _scan_highlights() -> void:
 			OverlayUtil.clear_layer(old, &"sense")
 			OverlayUtil.clear_layer(old, &"sense_npc")
 	_highlighted = keep
+
+
+func _too_big(n: Node) -> bool:
+	var vi := n as VisualInstance3D
+	if vi == null:
+		return false
+	var sz := vi.get_aabb().size * vi.global_basis.get_scale().abs()
+	return maxf(sz.x, maxf(sz.y, sz.z)) > 4.0
 
 
 func _clear_highlights() -> void:

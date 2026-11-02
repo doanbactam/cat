@@ -17,7 +17,6 @@ dest_files=["res://.godot/imported/carp_lantern_orm.jpg-fee4d7701c8ef51f57fd8780
 
 [params]
 
-
 compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7

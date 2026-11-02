@@ -13,7 +13,6 @@ dest_files=["res://.godot/imported/flame_tree.glb-38841a98c88b6f380bf51ae8d7f4d2
 
 [params]
 
-
 nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null

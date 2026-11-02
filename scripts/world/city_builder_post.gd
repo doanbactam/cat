@@ -34,9 +34,11 @@ func run() -> Dictionary:
 	_add_planks()
 	_add_walkable_cables()
 	_add_tower_access()
+	_bridge_components()
 	var after := _net_coverage()
 	_add_decorative_cables()
 	_add_mun_patrol()
+	report["rows_in_main_network"] = _row_membership()
 	report["net_coverage_before"] = before
 	report["net_coverage_after"] = after
 	return report
@@ -173,6 +175,34 @@ func _net_coverage() -> float:
 	return float(best) / maxf(1.0, float(total))
 
 
+func _row_membership() -> Dictionary:
+	var placed: Array = b.get(&"placed")
+	var count: Dictionary = {}
+	for i in samples.size():
+		var r := _find(i)
+		count[r] = int(count.get(r, 0)) + 1
+	var big := -1
+	var bn := -1
+	for r: int in count:
+		if int(count[r]) > bn:
+			bn = count[r]
+			big = r
+	var out: Dictionary = {}
+	for mi: int in by_module:
+		var row := str(placed[mi]["row"])
+		var inbig := false
+		for si: int in by_module[mi]:
+			if _find(si) == big:
+				inbig = true
+				break
+		if not out.has(row):
+			out[row] = [0, 0]
+		out[row][1] += 1
+		if inbig:
+			out[row][0] += 1
+	return out
+
+
 func _module_roots(mi: int) -> Dictionary:
 	var out: Dictionary = {}
 	for si: int in by_module.get(mi, []):
@@ -297,44 +327,46 @@ func _add_planks() -> void:
 	report["planks"] = planks
 
 
-func _closest_pair(rows_a: Array, rows_b: Array, min_d: float, max_d: float, max_dy: float) -> Array:
+func _candidate_pairs(rows_a: Array, rows_b: Array, min_d: float, max_d: float, max_dy: float) -> Array:
 	var placed: Array = b.get(&"placed")
-	var best: Array = []
-	var best_d := INF
+	var A: Array = []
+	var B: Array = []
 	for i in samples.size():
-		var mi: int = samples[i]["m"]
-		if not str(placed[mi]["row"]) in rows_a:
-			continue
+		var row := str(placed[samples[i]["m"]]["row"])
+		if row in rows_a:
+			A.append(i)
+		if row in rows_b:
+			B.append(i)
+	var out: Array = []
+	for i: int in A:
 		var p: Vector3 = samples[i]["p"]
-		for j in samples.size():
-			var mj: int = samples[j]["m"]
-			if not str(placed[mj]["row"]) in rows_b:
-				continue
+		for j: int in B:
 			var q: Vector3 = samples[j]["p"]
 			var hd := Vector2(p.x - q.x, p.z - q.z).length()
 			if hd < min_d or hd > max_d or absf(p.y - q.y) > max_dy:
 				continue
-			if hd < best_d:
-				best_d = hd
-				best = [i, j]
-	return best
+			out.append([hd + absf(p.y - q.y), i, j])
+	out.sort_custom(func(a: Array, c: Array) -> bool: return float(a[0]) < float(c[0]))
+	return out
 
 
 func _cable_between(i: int, j: int, wires: int) -> bool:
 	var rng: RandomNumberGenerator = b.get(&"rng")
-	var p: Vector3 = samples[i]["p"] + Vector3.UP * 0.6
-	var q: Vector3 = samples[j]["p"] + Vector3.UP * 0.6
-	var ray := PhysicsRayQueryParameters3D.create(p + Vector3.UP * 0.2, q + Vector3.UP * 0.2, 1)
+	var p: Vector3 = samples[i]["p"] + Vector3.UP * 1.1
+	var q: Vector3 = samples[j]["p"] + Vector3.UP * 1.1
+	var ray := PhysicsRayQueryParameters3D.create(p + Vector3.UP * 0.35, q + Vector3.UP * 0.35, 1)
 	if not space.intersect_ray(ray).is_empty():
 		return false
 	var cab := CS.make_cable_bundle(p, q, wires, rng, true)
 	(b.call(&"grp", "Cables") as Node3D).add_child(cab)
-	# little steel anchor posts at both ends so the bundle visibly starts somewhere
+	var WMs: GDScript = load("res://scripts/world/world_materials.gd")
 	for e: Vector3 in [p, q]:
 		var post := Node3D.new()
 		post.name = "CableAnchor"
 		var k := CS.Kit.new(post)
-		k.box(load("res://scripts/world/world_materials.gd").flat("anchor_steel", Color(0.25, 0.25, 0.25), 0.5, 0.8), Transform3D(Basis(), e - Vector3(0, 0.3, 0)), Vector3(0.06, 0.6, 0.06), 1.0)
+		var steel: Material = WMs.call(&"flat", "anchor_steel", Color(0.25, 0.25, 0.25), 0.5, 0.8)
+		k.box(steel, Transform3D(Basis(), e - Vector3(0, 0.55, 0)), Vector3(0.07, 1.15, 0.07), 1.0, &"metal")
+		k.box(steel, Transform3D(Basis(), e - Vector3(0, 1.1, 0)), Vector3(0.25, 0.04, 0.25), 1.0)
 		k.finish("AnchorMesh")
 		(b.call(&"grp", "Cables") as Node3D).add_child(post)
 	_union(i, j)
@@ -355,13 +387,100 @@ func _add_walkable_cables() -> void:
 		[["main_south_w"], ["pho_ho_w"], 2.5, 12.0, 3.0],
 	]
 	for pr: Array in pairs:
-		var best := _closest_pair(pr[0], pr[1], pr[2], pr[3], pr[4])
-		if best.is_empty():
+		var cands := _candidate_pairs(pr[0], pr[1], pr[2], pr[3], pr[4])
+		var ok := false
+		var tries := 0
+		for c: Array in cands:
+			if tries > 60:
+				break
+			if _find(c[1]) == _find(c[2]) and tries > 0:
+				continue
+			tries += 1
+			if _cable_between(c[1], c[2], 7):
+				ok = true
+				n += 1
+				break
+		if not ok:
 			(report.get_or_add("cable_misses", []) as Array).append(str(pr[0]) + "→" + str(pr[1]))
-			continue
-		if _cable_between(best[0], best[1], 7):
-			n += 1
 	report["walkable_cables"] = n
+
+
+## Join leftover rooftop islands (≥ 2 modules) to the main network with the shortest clear
+## walkable cable (or a plank when short and level).
+func _bridge_components() -> void:
+	var bridged := 0
+	for iter in 20:
+		var count: Dictionary = {}
+		var mods_of: Dictionary = {}
+		for i in samples.size():
+			var r := _find(i)
+			count[r] = int(count.get(r, 0)) + 1
+			if not mods_of.has(r):
+				mods_of[r] = {}
+			mods_of[r][samples[i]["m"]] = true
+		var main := -1
+		var mn := -1
+		for r: int in count:
+			if int(count[r]) > mn:
+				mn = count[r]
+				main = r
+		var islands: Array = []
+		for r: int in mods_of:
+			if r != main and (mods_of[r] as Dictionary).size() >= 2:
+				islands.append(r)
+		if islands.is_empty():
+			break
+		islands.sort_custom(func(a: int, c: int) -> bool: return (mods_of[a] as Dictionary).size() > (mods_of[c] as Dictionary).size())
+		var progress := false
+		for isl: int in islands:
+			var A: Array = []
+			var B: Array = []
+			for i in samples.size():
+				var r := _find(i)
+				if r == isl:
+					A.append(i)
+				elif r == main:
+					B.append(i)
+			# subsample for speed
+			var cands: Array = []
+			for ii in range(0, A.size(), 2):
+				var i: int = A[ii]
+				var p: Vector3 = samples[i]["p"]
+				for jj in range(0, B.size(), 2):
+					var j: int = B[jj]
+					var q: Vector3 = samples[j]["p"]
+					var hd := Vector2(p.x - q.x, p.z - q.z).length()
+					var dy := absf(p.y - q.y)
+					if hd < 1.0 or hd > 26.0 or dy > 4.0:
+						continue
+					cands.append([hd + dy * 2.0, i, j, hd, dy])
+			cands.sort_custom(func(a: Array, c: Array) -> bool: return float(a[0]) < float(c[0]))
+			var tries := 0
+			for c: Array in cands:
+				tries += 1
+				if tries > 80:
+					break
+				var i: int = c[1]
+				var j: int = c[2]
+				if float(c[3]) <= 4.5 and float(c[4]) <= minf(MAX_STEP, float(c[3]) * 0.55):
+					var p: Vector3 = samples[i]["p"]
+					var q: Vector3 = samples[j]["p"]
+					var ray := PhysicsRayQueryParameters3D.create(p + Vector3.UP * 0.35, q + Vector3.UP * 0.35, 1)
+					if space.intersect_ray(ray).is_empty():
+						(b.call(&"grp", "Connectors") as Node3D).add_child(CS.make_plank(p + Vector3.UP * 0.03, q + Vector3.UP * 0.03))
+						_union(i, j)
+						bridged += 1
+						progress = true
+						break
+				if _cable_between(i, j, 6):
+					bridged += 1
+					progress = true
+					break
+			if progress:
+				break
+		if not progress:
+			break
+	report["island_bridges"] = bridged
 
 
 func _add_tower_access() -> void:

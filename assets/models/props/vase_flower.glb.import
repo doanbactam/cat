@@ -13,7 +13,6 @@ dest_files=["res://.godot/imported/vase_flower.glb-7b85e513cd574d6b6e51058061a7c
 
 [params]
 
-
 nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null

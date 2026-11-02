@@ -210,20 +210,29 @@ func _quest_page(page: VBoxContainer, qid: StringName) -> void:
 		var sp := Control.new()
 		sp.size_flags_vertical = Control.SIZE_EXPAND_FILL
 		page.add_child(sp)
-		var tb := Button.new()
-		tb.theme_type_variation = &"PrimaryButton"
 		var tracked := bool(q.get("tracked", false))
-		tb.text = tr("JOURNAL_TRACKED") if tracked else tr("JOURNAL_TRACK")
-		tb.disabled = tracked
-		tb.icon = UIStyle.glyph(&"quest")
-		tb.custom_minimum_size = Vector2(300, 54)
-		tb.size_flags_horizontal = Control.SIZE_SHRINK_END
-		tb.pressed.connect(func() -> void:
-			qm.call("track", qid)
-			UIStyle.sfx(&"ui_confirm")
-			_populate()
-			focus_default.call_deferred())
-		page.add_child(tb)
+		if tracked:
+			# Already tracked: an ink stamp instead of a greyed-out button (unreadable on paper).
+			var badge := HBoxContainer.new()
+			badge.size_flags_horizontal = Control.SIZE_SHRINK_END
+			badge.add_theme_constant_override(&"separation", 10)
+			badge.add_child(UIStyle.icon_rect(UIStyle.glyph(&"quest"), 28, Color("#a8321e")))
+			var bl := UIStyle.label(tr("JOURNAL_TRACKED"), &"semibold", 21, Color("#a8321e"))
+			badge.add_child(bl)
+			page.add_child(badge)
+		else:
+			var tb := Button.new()
+			tb.theme_type_variation = &"PrimaryButton"
+			tb.text = tr("JOURNAL_TRACK")
+			tb.icon = UIStyle.glyph(&"quest")
+			tb.custom_minimum_size = Vector2(300, 54)
+			tb.size_flags_horizontal = Control.SIZE_SHRINK_END
+			tb.pressed.connect(func() -> void:
+				qm.call("track", qid)
+				UIStyle.sfx(&"ui_confirm")
+				_populate()
+				focus_default.call_deferred())
+			page.add_child(tb)
 		UIStyle.wire_sounds(page)
 
 

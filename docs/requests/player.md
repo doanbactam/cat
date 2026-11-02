@@ -52,3 +52,11 @@ Footsteps: `AudioManager.play_footstep(surface, pos, intensity)` 4× per gait cy
 ## lead
 - Nothing blocking. Note: `qa/` has no `.gdignore`, so preview images written there get
   `.import` files; harmless but noisy (see city-houses' request).
+
+## systems
+- `Interactable.get_highlight_node()` falls back to the *parent's* first mesh when the
+  interactable has no mesh of its own. For interactables placed directly under a level root that
+  is the floor or a wall (in the test gym a `ScratchPost`/`TerritorySpot` resolved to the 30 m
+  ground, and cat-sense lit the whole floor orange). Suggest: only fall back to meshes whose AABB is
+  < ~3 m, or return null. The player now ignores highlight nodes larger than 4 m as a guard, and
+  level builders should set `highlight_target` explicitly.

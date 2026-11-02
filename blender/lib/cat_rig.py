@@ -193,12 +193,15 @@ def weight_body(body: bpy.types.Object, rig: bpy.types.Object) -> None:
     f = -ph[:, 1]
     headw = W["head"]
     # jaw: below the lip line, in front of the hinge, fading at the mouth corners / cheeks
-    pj = S.jaw_space(ph)
-    lip = 0.2192
-    below = smooth01((lip - pj[:, 2]) / 0.0022 + 0.5)
+    # the upper lip (curtain + flews) hangs in front of / below the lower lip, so a z threshold
+    # cannot separate them: classify by which SDF part (jaw vs skull/face) the vertex lies on
+    jd = S.head_jaw(ph)
+    ud = S.head_upper(ph, phm)
+    below = smooth01((ud - jd) / 0.0014 + 0.5)
     front = smooth01((f - 0.170) / 0.018)
     lateral = 1.0 - smooth01((np.abs(ph[:, 0]) - 0.017) / 0.010)
     under = smooth01((0.214 - ph[:, 2]) / 0.008) * smooth01((f - 0.158) / 0.02) * (1.0 - smooth01((np.abs(ph[:, 0]) - 0.022) / 0.012))
+    under *= smooth01((ud - jd) / 0.0030 + 0.8)
     jaw = np.clip(np.maximum(below * front * lateral, under * 0.85), 0, 1)
     region_head = headw + W["neck_02"] * 0.0
     jaw *= smooth01((f - 0.150) / 0.01)

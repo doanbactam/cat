@@ -780,7 +780,8 @@ def delivery_van(preview=True, paint="cream"):
               for n, sx, yy in (("front_L", -1, yf), ("front_R", 1, yf), ("rear_L", -1, yr), ("rear_R", 1, yr))]
     cols = [V.box_col("col_metal_body", (0, 0.0, 0.68), (1.7, 4.4, 0.76)),
             V.box_col("col_metal_cargo", (0, 0.62, 1.5), (1.7, 3.16, 0.96)),
-            V.box_col("col_metal_cab", (0, -1.27, 1.45), (1.62, 0.6, 1.0))]
+            V.box_col("col_metal_cab", (0, -1.27, 1.45), (1.62, 0.6, 1.0)),
+            V.box_col("col_metal_bumper", (0, 2.25, 0.48), (1.7, 0.14, 0.16))]
     mk = [V.marker("SEAT_driver", (-0.4, -0.85, 1.05)), V.marker("SEAT_front", (0.4, -0.85, 1.05)),
           V.marker("NAP_roof", (0.0, 1.0, 1.98)), V.marker("NAP_bumper", (0.4, 2.25, 0.56))]
     return finish("delivery_van", parts, wheels, cols, mk, {

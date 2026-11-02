@@ -98,7 +98,8 @@ func demo_fpp_down() -> void:
 
 func demo_aim() -> void:
 	# crouched in front of the 0.8 m ledge, jump held → reticle + arc on the ledge top
-	_place(Vector3(-0.85, 0.0, 1.25), 0.0, 215.0, -14.0, 1.35)
+	# (camera high enough to see the ledge top — the reticle lies on it)
+	_place(Vector3(-0.85, 0.0, 1.25), 0.0, 200.0, -32.0, 1.5)
 	Input.action_press(&"jump")
 
 
@@ -109,7 +110,8 @@ func demo_portrait() -> void:
 
 
 func demo_sense() -> void:
-	demo_tpp()
+	# facing the interactables (fish, cap, cushion, bowl) so their glow reads under cat-sense
+	_place(Vector3(-0.4, 0.0, 0.6), 180.0, 10.0, -16.0, 1.5)
 	await get_tree().physics_frame
 	var sense: Node = player.get_node_or_null(^"CatSense")
 	if sense != null:
@@ -583,13 +585,33 @@ func _build_interactables() -> void:
 	post.post_id = &"gym_post"
 	add_child(post)
 	post.position = Vector3(-4.3, 0.0, -1.6)
-	_cyl("ScratchPostMesh", Vector3(-4.3, 0.35, -1.75), 0.06, 0.7, _mat("rattan"), Vector3.UP, L_WORLD, &"fabric")
+	var post_body := _cyl("ScratchPostMesh", Vector3(-4.3, 0.35, -1.75), 0.06, 0.7, _mat("rattan"), Vector3.UP, L_WORLD, &"fabric")
+	# explicit highlight target (otherwise Interactable falls back to the parent's first mesh)
+	post.highlight_target = post.get_path_to(post_body)
 	# territory spot at the wall corner
 	var terr := TerritorySpot.new()
 	terr.name = "Territory"
 	terr.spot_id = &"gym_corner"
 	add_child(terr)
 	terr.position = Vector3(-13.9, 0.0, -9.8)
+	# the old scent mark: a faint damp stain at the foot of the wall corner
+	var stain := MeshInstance3D.new()
+	stain.name = "ScentStain"
+	var sm := CylinderMesh.new()
+	sm.top_radius = 0.22
+	sm.bottom_radius = 0.22
+	sm.height = 0.004
+	sm.radial_segments = 24
+	stain.mesh = sm
+	var stain_mat := StandardMaterial3D.new()
+	stain_mat.albedo_color = Color(0.22, 0.2, 0.17, 0.55)
+	stain_mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	stain_mat.roughness = 0.45
+	stain.material_override = stain_mat
+	stain.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	stain.position = Vector3(0.0, 0.003, 0.0)
+	terr.add_child(stain)
+	terr.highlight_target = terr.get_path_to(stain)
 	# bottle cap collectible
 	var cap := Collectible.new()
 	cap.name = "Cap"

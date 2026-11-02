@@ -13,7 +13,6 @@ dest_files=["res://.godot/imported/item_leg_band.glb-4198e92ea746001d4380bb98fbc
 
 [params]
 
-
 nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null

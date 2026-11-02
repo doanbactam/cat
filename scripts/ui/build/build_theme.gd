@@ -277,6 +277,9 @@ func _run() -> void:
 		var cf := _flat(Color(1, 1, 1, 0.05), 8, Color(GOLD_LIGHT, 0.9), 2, Vector4(8, 6, 8, 6))
 		th.set_stylebox("focus", t, cf)
 		_button_colors(t, TEXT, GOLD_LIGHT, TEXT, TEXT_MUTED)
+	# Check icons must not be shrunk by the inherited Button icon_max_width (32 px).
+	th.set_constant("icon_max_width", "CheckButton", 0)
+	th.set_constant("icon_max_width", "CheckBox", 0)
 	th.set_icon("checked", "CheckButton", _tex("toggle_on"))
 	th.set_icon("unchecked", "CheckButton", _tex("toggle_off"))
 	th.set_icon("checked_disabled", "CheckButton", _tex("toggle_on"))

@@ -89,6 +89,7 @@ def dress(body):
         if fn == "bottom" and hems:
             kw = dict(kw)
             kw["waist"] = min(kw.get("waist", 0.98), min(hems) + 0.05)
+            kw["tight_above"] = min(hems) + 0.015
         GARMENTS[fn](body, **kw)
     style, kw = sp.hair
     if style:

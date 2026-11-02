@@ -13,7 +13,6 @@ dest_files=["res://.godot/imported/bird_cage.glb-f37bdf984c551a876a51811585b2d3c
 
 [params]
 
-
 nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null

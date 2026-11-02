@@ -22,7 +22,8 @@ for name in clips:
     act = AN.write_action(solver, name, nf, fn, loop)
     rig.animation_data.action = act
     for k in range(fper):
-        fr = int(round(k * nf / fper)) if loop else int(round(k * nf / max(1, fper - 1)))
+        nk = nf * AN.KEY_RATE
+        fr = int(round(k * nk / fper)) if loop else int(round(k * nk / max(1, fper - 1)))
         bpy.context.scene.frame_set(fr)
         for v in views:
             Q.camera_for(v, (480, 300))

@@ -13,8 +13,6 @@ dest_files=["res://.godot/imported/delivery_van.glb-430a6c72a1d8ef51982069faa075
 
 [params]
 
-
-
 nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null

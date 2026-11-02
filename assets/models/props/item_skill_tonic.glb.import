@@ -13,7 +13,6 @@ dest_files=["res://.godot/imported/item_skill_tonic.glb-4a2e1687573913c5a69efb55
 
 [params]
 
-
 nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null

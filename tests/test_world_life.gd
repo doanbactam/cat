@@ -18,6 +18,12 @@ class StubPlayer extends CharacterBody3D:
 
 
 var _world: Node3D = null
+var _conns: Array = []
+
+
+func _connect(sig: Signal, cb: Callable) -> void:
+	sig.connect(cb)
+	_conns.append([sig, cb])
 
 
 func before_each() -> void:
@@ -31,7 +37,13 @@ func before_each() -> void:
 
 
 func after_each() -> void:
+	for c: Array in _conns:
+		if (c[0] as Signal).is_connected(c[1]):
+			(c[0] as Signal).disconnect(c[1])
+	_conns.clear()
 	if _world != null and is_instance_valid(_world):
+		if _world.get_parent() != null:
+			_world.get_parent().remove_child(_world)
 		_world.queue_free()
 		_world = null
 	var tod := tree.root.get_node_or_null("TimeOfDay")
@@ -260,8 +272,8 @@ func test_dog_chases_on_noise_and_gives_up_on_high_ground() -> void:
 	var d0 := dog.global_position.distance_to(p.global_position)
 	var ge := tree.root.get_node("GameEvents")
 	var alerts := [0]
-	ge.npc_alerted.connect(func(n: Node, lvl: float) -> void:
-		if n == dog and lvl >= 0.85:
+	_connect(ge.npc_alerted, func(n: Object, lvl: float) -> void:
+		if is_instance_valid(n) and n == dog and lvl >= 0.85:
 			alerts[0] += 1)
 	ge.player_noise.emit(p.global_position, 1.0)
 	await _frames(2)
@@ -314,7 +326,7 @@ func test_traffic_stops_for_cat_and_follows_leader() -> void:
 	# two bikes behind the cat
 	var v1: Node = d.call(&"_spawn_vehicle", lane, 8.0, 7.0)
 	var v2: Node = d.call(&"_spawn_vehicle", lane, 1.0, 7.0)
-	await _frames(240)
+	await _frames(480)
 	var cat_x := p.global_position.x
 	var front_x := (v1 as Node3D).global_position.x + float(v1.get(&"length")) * 0.5
 	assert_true(bool(v1.get(&"blocked_by_cat")), "lead bike sees the cat")
@@ -350,7 +362,7 @@ func test_vehicle_hit_knocks_cat_back_with_small_damage() -> void:
 	var gs := tree.root.get_node("GameState")
 	var hp0 := float(gs.call(&"get_stat", &"health"))
 	var hits := [0]
-	tree.root.get_node("GameEvents").player_damaged.connect(func(_a: float, src: StringName) -> void:
+	_connect(tree.root.get_node("GameEvents").player_damaged, func(_a: float, src: StringName) -> void:
 		if src == &"vehicle":
 			hits[0] += 1)
 	await _frames(2)
@@ -369,6 +381,7 @@ func test_lod_sleeps_far_agents() -> void:
 	_marker(&"npc_spawn", Vector3(25, 0, 25), {"npc_kind": "mouse", "day_active": true})
 	var p := _player(Vector3(0, 0.05, 2))
 	var d := _director({"spawn_traffic": false, "spawn_pedestrians": false, "spawn_geckos": false})
+	d.set(&"lod_mid", 15.0)
 	d.set(&"lod_far", 20.0)
 	d.call(&"start")
 	await _frames(30)
@@ -428,7 +441,7 @@ func test_mouse_flees_and_can_be_caught() -> void:
 
 func test_koi_and_sparrows_react() -> void:
 	_make_world()
-	_marker(&"npc_spawn", Vector3(0, 0, 0), {"npc_kind": "koi", "volume_size": Vector3(6, 0.8, 4), "count": 6})
+	_marker(&"npc_spawn", Vector3(0, 2, 0), {"npc_kind": "koi", "volume_size": Vector3(6, 0.8, 4), "count": 6})
 	_marker(&"npc_spawn", Vector3(-3, 5, -8), {"npc_kind": "sparrows", "wire_end": Vector3(6, 0, 0), "count": 5})
 	var p := _player(Vector3(0, 0.05, 12))
 	var d := _director({"spawn_traffic": false, "spawn_pedestrians": false, "spawn_geckos": false})

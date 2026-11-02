@@ -14,9 +14,11 @@ BARK = "res://assets/models/nature/shaders/nature_bark.gdshader"
 
 # per-atlas look: backlight colour (light through thin leaves), strength, spec, flutter, sway, alpha cut
 FOLIAGE = {
-    "leaf_banyan": dict(backlight_color=(0.45, 0.6, 0.18), backlight_strength=0.7, specular_level=0.45, sway_amp=0.8),
+    "leaf_banyan": dict(backlight_color=(0.45, 0.6, 0.18), backlight_strength=0.7, specular_level=0.35, sway_amp=0.8,
+                        tint=(1.3, 1.3, 1.05)),
     "leaf_flame": dict(backlight_color=(0.6, 0.7, 0.25), backlight_strength=1.0, specular_level=0.3, flutter_amp=1.4),
-    "leaf_sao": dict(backlight_color=(0.45, 0.6, 0.2), backlight_strength=0.8, specular_level=0.45),
+    "leaf_sao": dict(backlight_color=(0.45, 0.6, 0.2), backlight_strength=0.8, specular_level=0.35,
+                     tint=(1.25, 1.25, 1.05)),
     "leaf_frangipani": dict(backlight_color=(0.55, 0.68, 0.25), backlight_strength=0.8, specular_level=0.4,
                             flutter_amp=0.6),
     "leaf_palm": dict(backlight_color=(0.6, 0.7, 0.25), backlight_strength=1.0, specular_level=0.4, sway_amp=1.2,

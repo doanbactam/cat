@@ -13,7 +13,6 @@ dest_files=["res://.godot/imported/carp_lantern.glb-0d74230e8964ffc2b105045b7cc6
 
 [params]
 
-
 nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null

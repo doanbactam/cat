@@ -55,6 +55,7 @@ var _last_pos := Vector3.ZERO
 var _anim_override: StringName = &""
 var _anim_override_t := 0.0
 var _yaw := 0.0
+var _avoid_block_t := 0.0
 
 
 func _ready() -> void:
@@ -199,6 +200,13 @@ func _move(delta: float) -> void:
 			# never let avoidance push us faster than intended
 			if hv.length() > desired_speed * 1.1 + 0.01:
 				hv = hv.normalized() * desired_speed * 1.1
+			# RVO can deadlock (zero velocity) — fall back to the plain path velocity after a moment
+			if want.length() > 0.2 and hv.length() < want.length() * 0.15:
+				_avoid_block_t += delta
+				if _avoid_block_t > 0.4:
+					hv = want
+			else:
+				_avoid_block_t = 0.0
 	var cur := NpcUtil.flat(velocity)
 	var accel := 6.0 if hv.length() > cur.length() else 9.0
 	cur = cur.move_toward(NpcUtil.flat(hv), accel * delta)

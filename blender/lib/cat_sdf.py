@@ -176,11 +176,13 @@ def world_to_head(p):
     R = np.array(A._head_rot())
     q = p - piv - V(A.HEAD_LIFT)
     q = q @ R          # R^T applied to row vectors
-    return piv + q / A.HEAD_SCALE
+    return A.muzzle_unwarp(piv + q / A.HEAD_SCALE)
 
 
-def jaw_space(p, open_deg=A.JAW_REST_OPEN_DEG):
+def jaw_space(p, open_deg=None):
     """Map head-space points into 'closed jaw' coordinates (jaw rotated open by open_deg)."""
+    if open_deg is None:
+        open_deg = A.JAW_REST_OPEN_DEG
     h = V(A.JAW)
     R = rot_axis((1, 0, 0), -open_deg)   # inverse of opening (+X rotation opens)
     return (p - h) @ R.T + h
@@ -218,27 +220,31 @@ def neck(p):
 
 
 def head_upper(p, pm):
-    """p, pm in head design space."""
+    """Skull, face and upper lip (p, pm in head design space)."""
     cran = union([
-        ellipsoid(p, F(0, 0.172, 0.2540), (0.0340, 0.0360, 0.0290)),      # cranium
-        ellipsoid(p, F(0, 0.152, 0.2440), (0.0285, 0.0250, 0.0260)),      # occiput
-        ellipsoid(p, F(0, 0.1930, 0.2620), (0.0230, 0.0190, 0.0140)),     # forehead
-        ellipsoid(p, F(0, 0.1955, 0.2450), (0.0300, 0.0175, 0.0185)),     # orbital plate (eyes sit in it)
+        ellipsoid(p, F(0, 0.170, 0.2520), (0.0305, 0.0365, 0.0250)),      # cranium (narrower, flatter)
+        ellipsoid(p, F(0, 0.150, 0.2440), (0.0262, 0.0250, 0.0255)),      # occiput
+        ellipsoid(p, F(0, 0.1925, 0.2600), (0.0200, 0.0185, 0.0115)),     # forehead
+        ellipsoid(p, F(0, 0.1940, 0.2455), (0.0265, 0.0170, 0.0180)),     # orbital plate (eyes sit in it)
     ], 0.012)
     face = union([
-        ellipsoid(pm, F(0.0170, 0.2065, 0.2585), (0.0095, 0.0070, 0.0052)),  # brow
-        ellipsoid(pm, F(0.0280, 0.1930, 0.2380), (0.0128, 0.0185, 0.0110)),  # zygomatic arch
-        ellipsoid(pm, F(0.0285, 0.1720, 0.2285), (0.0140, 0.0225, 0.0170)),  # cheek / jowl ruff
-        round_cone(p, F(0, 0.2085, 0.2520), F(0, 0.2185, 0.2410), 0.0090, 0.0070),  # nose bridge
-        ellipsoid(p, F(0, 0.2060, 0.2300), (0.0140, 0.0115, 0.0115)),       # muzzle core
+        ellipsoid(pm, F(0.0152, 0.2058, 0.2592), (0.0092, 0.0072, 0.0048)),  # brow ridge over the upper lid
+        ellipsoid(pm, F(0.0242, 0.1940, 0.2390), (0.0108, 0.0175, 0.0098)),  # zygomatic arch
+        ellipsoid(pm, F(0.0160, 0.2030, 0.2385), (0.0078, 0.0085, 0.0055)),  # infra-orbital (lower lid support)
+        ellipsoid(pm, F(0.0240, 0.1730, 0.2300), (0.0120, 0.0215, 0.0150)),  # cheek / jowl ruff
+        round_cone(p, F(0, 0.2070, 0.2525), F(0, 0.2180, 0.2405), 0.0082, 0.0066),  # nose bridge
+        ellipsoid(p, F(0, 0.2045, 0.2310), (0.0128, 0.0125, 0.0118)),       # muzzle core
     ], 0.008)
     d = smin(cran, face, 0.010)
-    pads = ellipsoid(pm, A.WHISKER_PAD_L, (0.0088, 0.0072, 0.0078))         # whisker pads
-    flews = ellipsoid(pm, F(0.0118, 0.2035, 0.2212), (0.0068, 0.0115, 0.0058))  # upper lip flews over the jaw
-    d = smin(d, smin(pads, flews, 0.004), 0.0040)
+    pads = ellipsoid(pm, A.WHISKER_PAD_L, (0.0078, 0.0066, 0.0062))         # whisker pads
+    flews = ellipsoid(pm, F(0.0108, 0.2045, 0.2220), (0.0056, 0.0092, 0.0049))  # upper lip flews over the jaw
+    corner = ellipsoid(pm, F(0.0128, 0.1935, 0.2200), (0.0048, 0.0060, 0.0048))  # lip commissure tissue
+    curtain = ellipsoid(pm, F(0.0022, 0.2166, 0.2196), (0.0058, 0.0034, 0.0044))  # midline upper lip (covers the lower lip)
+    lip = smin(smin(smin(flews, curtain, 0.003), corner, 0.004), pads, 0.0050)
+    d = smin(d, lip, 0.0065)
     nose = union([
-        ellipsoid(p, F(0, 0.2190, 0.2368), (0.0072, 0.0050, 0.0030)),      # nose leather top (wide)
-        ellipsoid(p, F(0, 0.2195, 0.2328), (0.0040, 0.0046, 0.0036)),      # tapering lower point
+        ellipsoid(p, F(0, 0.2192, 0.2366), (0.0066, 0.0048, 0.0030)),      # nose leather top (wide)
+        ellipsoid(p, F(0, 0.2196, 0.2330), (0.0038, 0.0045, 0.0034)),      # tapering lower point
     ], 0.003)
     d = smin(d, nose, 0.0028)
     return d
@@ -249,25 +255,34 @@ def head_jaw(p):
     pjm = pj.copy()
     pjm[:, 0] = np.abs(pjm[:, 0])
     return union([
-        round_cone(pjm, F(0.0225, 0.166, 0.2150), F(0.0055, 0.1990, 0.2112), 0.0078, 0.0058),  # mandible
-        ellipsoid(pj, F(0, 0.2005, 0.2108), (0.0088, 0.0080, 0.0064)),        # chin
-        ellipsoid(pj, F(0, 0.1820, 0.2075), (0.0165, 0.0200, 0.0085)),        # jaw underside
-        round_cone(pjm, F(0.0110, 0.1975, 0.2165), F(0.0, 0.2100, 0.2163), 0.0024, 0.0028),  # lower lip
+        round_cone(pjm, F(0.0215, 0.166, 0.2150), F(0.0052, 0.1965, 0.2110), 0.0076, 0.0056),  # mandible
+        ellipsoid(pj, F(0, 0.2042, 0.2114), (0.0076, 0.0070, 0.0054)),        # chin
+        ellipsoid(pj, F(0, 0.1810, 0.2092), (0.0150, 0.0195, 0.0068)),        # jaw underside
+        round_cone(pjm, F(0.0098, 0.1965, 0.2160), F(0.0, 0.2096, 0.2158), 0.0023, 0.0026),  # lower lip
     ], 0.006)
 
 
+MOUTH_GAP = 0.0007          # air gap kept between the lower jaw and the upper lip / palate
+
+
 def mouth_carve(p):
-    """Negative inside the mouth slot + cavity (head space; to be subtracted)."""
+    """Negative inside the mouth (head space; to be subtracted).  A thin shell around the
+    lower jaw's upper/front surface separates it from the upper lip -- the upper lip
+    (curtain + flews) hangs in front of the lower lip, so the lip line opens downwards and is
+    hidden from the front like a real cat's -- plus the oral cavity."""
+    jd = head_jaw(p)
     pj = jaw_space(p)
-    z_upper_lip = 0.2194
-    z_lower_lip = 0.2190
-    above_lower = z_lower_lip - pj[:, 2]
-    below_upper = p[:, 2] - z_upper_lip
-    lateral = np.abs(p[:, 0]) - (0.0100 + 0.30 * np.clip(-p[:, 1] - 0.196, 0, 0.02))
-    behind = 0.195 - (-p[:, 1])
-    gap = np.maximum(np.maximum(above_lower, below_upper), np.maximum(lateral, behind))
-    cavity = ellipsoid(p, F(0, 0.1890, 0.2180), (0.0118, 0.0225, 0.0048))
-    return smin(gap, cavity, 0.002)
+    f = -p[:, 1]
+    shell = smax(-jd, jd - MOUTH_GAP, 0.0002)
+    upper_part = 0.2128 - pj[:, 2]                            # only the jaw's top / lip region
+    lateral = np.abs(p[:, 0]) - (0.0098 + 0.22 * np.clip(f - 0.193, 0, 0.02))
+    behind = 0.1925 - f                                        # mouth corner (commissure)
+    gap = smax(smax(shell, upper_part, 0.0008), smax(lateral, behind, 0.0010), 0.0008)
+    cavity = ellipsoid(p, F(0, 0.1885, 0.2182), (0.0088, 0.0200, 0.0044))
+    pm = p.copy()
+    pm[:, 0] = np.abs(pm[:, 0])
+    vestibule = ellipsoid(pm, F(0.0076, 0.2055, 0.2182), (0.0028, 0.0042, 0.0034))   # room for the canines behind the flews
+    return smin(smin(gap, cavity, 0.0015), vestibule, 0.0012)
 
 
 def eye_carve(pm):
@@ -283,7 +298,7 @@ def eye_carve(pm):
 
 def lid_shell(pm):
     c, _, _, _ = eye_frame(1)
-    return sphere(pm, c, A.EYE_RADIUS + 0.0016)
+    return sphere(pm, c, A.EYE_RADIUS + 0.0011)
 
 
 def head_sdf(ph):
@@ -291,7 +306,7 @@ def head_sdf(ph):
     phm = ph.copy()
     phm[:, 0] = np.abs(phm[:, 0])
     d = smin(head_upper(ph, phm), head_jaw(ph), 0.006)
-    d = smin(d, lid_shell(phm), 0.0040)
+    d = smin(d, lid_shell(phm), 0.0030)
     return d
 
 
@@ -300,10 +315,10 @@ def head_carve(ph, d):
     phm[:, 0] = np.abs(phm[:, 0])
     d = smax(d, -mouth_carve(ph), 0.0012)
     d = smax(d, -eye_carve(phm), 0.0011)
-    nostril = ellipsoid(phm, F(0.0040, 0.2240, 0.2330), (0.0015, 0.0012, 0.0008),
+    nostril = ellipsoid(phm, F(0.0038, 0.2236, 0.2330), (0.0014, 0.0012, 0.0008),
                         rot_axis((0, 1, 0), 35.0))
     d = smax(d, -nostril, 0.0006)
-    philtrum = round_cone(ph, F(0, 0.2232, 0.2310), F(0, 0.2195, 0.2195), 0.0006, 0.0007)
+    philtrum = round_cone(ph, F(0, 0.2232, 0.2310), F(0, 0.2180, 0.2165), 0.0006, 0.0008)
     d = smax(d, -philtrum, 0.0005)
     return d
 

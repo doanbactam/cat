@@ -28,7 +28,8 @@ N_STRANDS = int(argv[0]) if len(argv) > 0 else 600_000
 RES = tuple(int(x) for x in argv[1].split("x")) if len(argv) > 1 else (1280, 800)
 SAMPLES = int(argv[2]) if len(argv) > 2 else 64
 POSE = argv[3] if len(argv) > 3 else "sit"
-OUT = argv[4] if len(argv) > 4 else ""
+OUT = argv[4] if len(argv) > 4 and argv[4] != "-" else ""
+SHOT = argv[5] if len(argv) > 5 else "full"      # full | face | profile
 
 bpy.ops.wm.open_mainfile(filepath=os.path.join(HERE, "cat.blend"))
 import cat_anatomy as A  # noqa: E402
@@ -327,12 +328,21 @@ cam_d.dof.use_dof = True
 cam_d.dof.aperture_fstop = 4.0
 cam = bpy.data.objects.new("hero_cam", cam_d)
 sc.collection.objects.link(cam)
-target = Vector((0.0, -0.01, eye.z * 0.56))
-cam.location = target + Vector((0.55, -0.95, 0.12)).normalized() * 1.55
+if SHOT == "face":          # 3/4 head close-up
+    target = eye + Vector((0.0, 0.004, -0.010))
+    cam.location = target + Vector((0.50, -0.95, 0.10)).normalized() * 0.52
+elif SHOT == "profile":
+    target = eye + Vector((0.0, 0.018, -0.012))
+    cam.location = target + Vector((1.0, -0.06, 0.03)).normalized() * 0.55
+else:                        # full body, framed with headroom above the ear tips
+    target = Vector((0.0, -0.01, eye.z * 0.60))
+    cam.location = target + Vector((0.55, -0.95, 0.12)).normalized() * 1.80
 cam.rotation_euler = (target - cam.location).to_track_quat("-Z", "Y").to_euler()
 cam_d.dof.focus_distance = (eye - cam.location).length
+if SHOT != "full":
+    cam_d.dof.aperture_fstop = 5.6
 sc.camera = cam
-outp = C.qa_path(f"cat-asset/hero_{POSE}.png")
+outp = C.qa_path(f"cat-asset/hero_{POSE}{'' if SHOT == 'full' else '_' + SHOT}.png")
 sc.render.filepath = outp
 t1 = time.time()
 bpy.ops.render.render(write_still=True)

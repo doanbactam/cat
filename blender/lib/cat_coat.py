@@ -200,14 +200,17 @@ def fields(P: np.ndarray, N: np.ndarray, part: np.ndarray, seed: int = 1) -> dic
     white = np.clip(np.maximum.reduce([chin, muzzle, bib, belly, inner_leg * 0.9, toes, tail_under]), 0, 1)
     F["white_pure"] = np.clip(np.maximum(chin, muzzle), 0, 1)
     # ---------------- bare skin regions ----------------
-    nose_d = S.union([S.ellipsoid(ph, (0, -0.2190, 0.2368), (0.0072, 0.0050, 0.0030)),
-                      S.ellipsoid(ph, (0, -0.2195, 0.2328), (0.0040, 0.0046, 0.0036))], 0.003)
+    nose_d = S.union([S.ellipsoid(ph, (0, -0.2192, 0.2366), (0.0066, 0.0048, 0.0030)),
+                      S.ellipsoid(ph, (0, -0.2196, 0.2330), (0.0038, 0.0045, 0.0034))], 0.003)
     nose = head_w * (nose_d < 0.0007) * (hf > 0.2160) * smoothstep(-0.2, 0.3, -N @ np.asarray(A.head_dir_to_world((0, 1, 0))) + 0.4)
     nose_rim = nose * smoothstep(-0.0004, 0.0006, nose_d)
-    nostril = head_w * smoothstep(0.0004, 0.0, S.ellipsoid(phm, (0.0040, -0.2240, 0.2330), (0.0017, 0.0014, 0.0009), S.rot_axis((0, 1, 0), 35.0)))
+    nostril = head_w * smoothstep(0.0004, 0.0, S.ellipsoid(phm, (0.0038, -0.2236, 0.2330), (0.0016, 0.0014, 0.0009), S.rot_axis((0, 1, 0), 35.0)))
     mc = S.mouth_carve(ph)
     mouth = head_w * (mc < 0.00025) * skin
     lips = head_w * (mc >= 0.00025) * smoothstep(0.0010, 0.0005, mc) * smoothstep(0.190, 0.198, hf) * skin
+    # philtrum: the dark line from the nose down to the split upper lip (the stem of the "Y")
+    phil = S.round_cone(ph, (0, -0.2228, 0.2300), (0, -0.2180, 0.2165), 0.0004, 0.0005)
+    lips = np.maximum(lips, head_w * skin * smoothstep(0.0009, 0.0002, phil) * 0.8)
     socket = (np.linalg.norm(q, axis=1) < A.EYE_RADIUS + 0.0007) * head_w
     # paw pads (beans): near the bean ellipsoids on the underside
     beans = np.full(M, np.inf)

@@ -52,6 +52,21 @@
     -14.45
    ],
    [
+    -1.48,
+    0.31,
+    -5.78
+   ],
+   [
+    1.92,
+    0.31,
+    -5.78
+   ],
+   [
+    8.0,
+    0.69,
+    -14.6
+   ],
+   [
     -3.0,
     0.76,
     -27.6
@@ -210,8 +225,8 @@
   ],
   "origin": "street-front centre of the tam quan gate, ground level; complex extends to -Z",
   "category": "temple",
-  "colliders": 242,
-  "tris": 91070
+  "colliders": 251,
+  "tris": 94596
  },
  {
   "id": "cho_market_hall",
@@ -235,8 +250,13 @@
    ],
    [
     6.0,
-    2.0,
-    -0.4
+    0.42,
+    -0.09
+   ],
+   [
+    6.0,
+    4.9,
+    -0.09
    ]
   ],
   "nap_spots": [
@@ -393,8 +413,8 @@
   ],
   "origin": "front facade bottom-centre at ground level",
   "category": "market",
-  "colliders": 102,
-  "tris": 51330
+  "colliders": 103,
+  "tris": 51548
  },
  {
   "id": "cho_stall_lane",
@@ -610,13 +630,7 @@
   "height": 2.35,
   "floors": 0,
   "style": "lake",
-  "climb_points": [
-   [
-    0.0,
-    -0.85,
-    1.93
-   ]
-  ],
+  "climb_points": [],
   "nap_spots": [
    [
     0.4,

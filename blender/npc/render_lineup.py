@@ -66,12 +66,14 @@ def main():
         for i, (cid, clip, fr) in enumerate(HUMANS):
             items.append((cid, clip, fr, ((i - (n - 1) / 2) * 0.72, 0.0, 0.0), 0))
     if WHICH in ("animals", "all"):
-        n = len(ANIMALS)
-        sp = 0.55 if WHICH == "animals" else 0.6
-        for i, (cid, clip, fr) in enumerate(ANIMALS):
-            y = -0.9 if WHICH == "all" else 0.0
-            z = 0.05 if cid == "koi" else 0.0
-            items.append((cid, clip, fr, ((i - (n - 1) / 2) * sp, y, z), -35 if cid != "koi" else -60))
+        place = {"dog": (-0.75, 0.15, 0, -40), "crow": (-0.05, 0.1, 0, -30), "pigeon": (0.33, 0.05, 0, -35),
+                 "sparrow": (0.62, 0.0, 0, -30), "mouse": (0.84, -0.05, 0, -50), "gecko": (1.02, -0.1, 0, -60),
+                 "koi": (0.25, -0.45, 0.06, -75)}
+        for cid, clip, fr in ANIMALS:
+            x, y, z, rz = place[cid]
+            if WHICH == "all":
+                y -= 0.9
+            items.append((cid, clip, fr, (x, y, z), rz))
     arms = []
     for cid, clip, fr, loc, rz in items:
         arms.append((import_npc(cid, clip, fr, loc, rz), fr))
@@ -93,12 +95,12 @@ def main():
     bpy.context.view_layer.update()
     # cat-sized reference box (0.46 x 0.13 x 0.25 m), orange
     xs = [it[3][0] for it in items]
-    box = C.box("cat_ref", (0.13, 0.46, 0.25), (min(xs) - 0.55, -0.2 if WHICH != "animals" else 0.0, 0))
+    box = C.box("cat_ref", (0.13, 0.46, 0.25), (min(xs) - 0.5, -0.2 if WHICH != "animals" else 0.0, 0))
     C.assign(box, C.principled("cat_ref_mat", (0.8, 0.38, 0.1, 1), 0.7))
     if WHICH == "animals":
-        tgt, dist, pitch, lens = (0.0, 0.0, 0.16), 4.6, 12, 55
+        tgt, dist, pitch, lens = (0.0, -0.05, 0.2), 3.2, 14, 40
     elif WHICH == "humans":
-        tgt, dist, pitch, lens = (0.0, 0.0, 0.85), 8.8, 6, 50
+        tgt, dist, pitch, lens = (0.0, 0.0, 0.85), 10.2, 6, 50
     else:
         tgt, dist, pitch, lens = (0.0, -0.4, 0.7), 9.5, 10, 50
     C.preview_render(C.qa_path(f"creatures/lineup_{WHICH}.png"), target=tgt, distance=dist, yaw_deg=0,

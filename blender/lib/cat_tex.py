@@ -254,22 +254,30 @@ def whisker_atlas(w: int = 256, h: int = 1024, seed: int = 3, tint=(0.93, 0.91, 
     left = u < 0.5
     img[..., :3] = np.where(left[..., None], col, srgb_to_lin(np.array(tint)))   # no black bleed into mips
     img[..., 3] = np.where(left, a, 0)
-    # tuft: many fine strands converging to the root, wavy
+    # tuft: soft fan of many fine, wavy, tapering hairs from a dense root to wispy tips
     ut = (u - 0.5) / 0.5
     acc = np.zeros_like(u)
+    shade = np.zeros_like(u)
     rng = np.random.default_rng(seed)
-    for _ in range(46):
-        x0 = rng.uniform(0.08, 0.92)
-        bend = rng.uniform(-0.12, 0.12)
-        length = rng.uniform(0.55, 1.0)
-        wid = rng.uniform(0.006, 0.012)
-        cx = 0.5 + (x0 - 0.5) * v + bend * v * v
+    for _ in range(70):
+        x0 = rng.uniform(0.04, 0.96)
+        bend = rng.uniform(-0.10, 0.10)
+        wav = rng.uniform(0.004, 0.012)
+        length = rng.uniform(0.45, 1.0)
+        wid = rng.uniform(0.011, 0.020) * (1.0 - 0.55 * v)
+        cx = 0.5 + (x0 - 0.5) * (0.35 + 0.65 * v) + bend * v * v + wav * np.sin(v * rng.uniform(9, 16) + rng.uniform(0, 6))
         d = np.abs(ut - cx)
-        strand = (1 - smoothstep(wid * 0.4, wid, d)) * (v < length) * (1 - smoothstep(length * 0.7, length, v))
-        acc = np.maximum(acc, strand * rng.uniform(0.6, 1.0))
-    tuft_col = srgb_to_lin(np.array([0.92, 0.88, 0.80]))
+        strand = (1 - smoothstep(wid * 0.35, wid, d)) * (1 - smoothstep(length * 0.6, length, v))
+        s_ = strand * rng.uniform(0.55, 1.0)
+        upd = s_ > acc
+        shade = np.where(upd, rng.uniform(0.80, 1.0), shade)
+        acc = np.maximum(acc, s_)
+    acc *= 0.75 + 0.25 * smoothstep(0.0, 0.15, v)
+    tuft_col = srgb_to_lin(np.array([0.90, 0.84, 0.74]))
     right = ~left
-    img[..., :3] = np.where(right[..., None], tuft_col * (0.85 + 0.15 * v[..., None]), img[..., :3])
+    img[..., :3] = np.where(right[..., None], tuft_col * (0.80 + 0.20 * v[..., None]) * shade[..., None]
+                            + (1 - shade[..., None]) * 0, img[..., :3])
+    img[..., :3] = np.where(right[..., None] & (shade[..., None] == 0), tuft_col, img[..., :3])
     img[..., 3] = np.where(right, acc, img[..., 3])
     out = img.copy()
     out[..., :3] = lin_to_srgb(img[..., :3])

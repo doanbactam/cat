@@ -17,7 +17,6 @@ dest_files=["res://.godot/imported/bottle_crate_albedo.jpg-fb368087ee9257d7a6934
 
 [params]
 
-
 compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7

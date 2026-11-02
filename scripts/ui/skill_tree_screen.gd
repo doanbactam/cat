@@ -329,8 +329,8 @@ class _TreeCanvas extends Control:
 	var tree_color := Color.WHITE
 
 	func _notification(what: int) -> void:
-		if what == NOTIFICATION_RESIZED or what == NOTIFICATION_READY:
-			_layout()
+		if what == NOTIFICATION_RESIZED or what == NOTIFICATION_READY or what == NOTIFICATION_CHILD_ORDER_CHANGED:
+			_layout.call_deferred()
 
 	func _layout() -> void:
 		var cw := size.x / 3.0
@@ -340,6 +340,7 @@ class _TreeCanvas extends Control:
 			var n: Control = nodes[sid]
 			var g: Vector2i = n.get("grid")
 			n.position = Vector2(cw * (g.x + 0.5), top + rh * (g.y + 0.5)) - n.size * 0.5
+		queue_redraw()
 
 	func _draw() -> void:
 		for sid: StringName in requires:

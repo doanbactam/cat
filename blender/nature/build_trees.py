@@ -15,7 +15,7 @@ import random
 import sys
 
 import bpy
-from mathutils import Quaternion, Vector  # noqa: F401
+from mathutils import Quaternion, Vector, noise  # noqa: F401
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "lib"))
 import common as C            # noqa: E402
@@ -201,15 +201,20 @@ def banyan_extras(mb: T.MeshBuilder, rng: random.Random, skel):
         p, d, r = b.at(t)
         if p.z < 2.5:
             continue
-        rr = rng.uniform(0.07, 0.13)
+        rr = rng.uniform(0.11, 0.2)
         pts = []
-        n = max(4, int(p.z / 0.4))
+        n = max(6, int(p.z / 0.3))
+        ph1, ph2 = rng.uniform(0, 6), rng.uniform(0, 6)
         for i in range(n + 1):
             f = i / n
-            q = Vector((p.x + math.sin(f * 3 + rng.random()) * 0.06, p.y + math.cos(f * 2.3) * 0.05, p.z * (1 - f) - 0.15 * f))
+            wob = 0.12 * math.sin(f * math.pi)
+            q = Vector((p.x + math.sin(f * 4.0 + ph1) * wob, p.y + math.cos(f * 3.1 + ph2) * wob,
+                        (p.z - r * 0.3) * (1 - f) - 0.1 * f))
             pts.append(q)
-        radii = [rr * (0.7 + 0.5 * (i / n) ** 2) for i in range(n + 1)]
-        T.sweep(mb, pts, radii, sides=8, tile=tile, wind_fn=lambda t_: (0.0, b.phase, 0.0), cap=False)
+        # thicker where it fused with the limb and where it buttresses into the soil
+        radii = [rr * (0.85 + 0.35 * (i / n) ** 3 + 0.25 * (1 - i / n) ** 4) for i in range(n + 1)]
+        prof = lambda th, z, t_, s=rng.random(): 1.0 + 0.12 * noise.noise(Vector((math.cos(th) * 2, math.sin(th) * 2, z * 2 + s * 9)))
+        T.sweep(mb, pts, radii, sides=9, tile=tile, wind_fn=lambda t_: (0.0, b.phase, 0.0), profile=prof, cap=False)
         banyan_extras.props.append((pts[-1], pts[0], rr))
     # thin hanging aerial roots (sway with their limb)
     for k in range(46):

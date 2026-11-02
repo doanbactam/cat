@@ -14,7 +14,7 @@ Stages (each saves qa/out/cat-asset/cache/stage_<name>.blend):
   weights  skinning
   tex      baked position/normal maps -> numpy tabby albedo, normal, roughness,
            fur mask, fur flow, NPC variant albedos, eye + whisker textures
-  anim     all contract clips (in-place, 30 fps)
+  anim     all contract clips (in-place, authored at 30 fps, keyed at 60 Hz)
   export   materials + glb export + source .blend
 """
 from __future__ import annotations
@@ -64,7 +64,9 @@ def save_stage(name: str) -> None:
 
 def load_stage(name: str) -> None:
     bpy.ops.wm.open_mainfile(filepath=stage_path(name))
-    bpy.context.scene.render.fps = 30
+    import cat_anim as AN
+    # actions are keyed at AN.KEY_FPS (60 Hz) from the anim stage on
+    bpy.context.scene.render.fps = AN.KEY_FPS if name in ("anim", "export") else 30
 
 
 # ---------------------------------------------------------------------------
@@ -367,7 +369,7 @@ def st_tex(o):
     tex_m = np.maximum(texel, 1e-5)
     dhu = (np.roll(h, -1, 1) - np.roll(h, 1, 1)) / (2 * tex_m)
     dhv = (np.roll(h, 1, 0) - np.roll(h, -1, 0)) / (2 * tex_m)
-    amp = 0.00025 * (1 - res2["bare"][..., 0])
+    amp = 0.00040 * (1 - res2["bare"][..., 0])
     dhu = np.where(ok, dhu * amp, 0)
     dhv = np.where(ok, dhv * amp, 0)
     n_det = np.stack([-dhu, -dhv, np.ones_like(dhu)], -1)

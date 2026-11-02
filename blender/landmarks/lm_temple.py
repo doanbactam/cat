@@ -561,6 +561,74 @@ def store_shed(ctx: K.LCtx):
                (0.85, 0.82, 0.72, 1), bevel=0.06)
 
 
+def stone_lantern(ctx: K.LCtx, x, y):
+    """Bluestone lantern (đèn đá) on the path: square base, octagonal shaft, light box, little hip roof."""
+    dt = ctx.detail
+    dt.box((x - 0.32, y - 0.32, 0.0), (x + 0.32, y + 0.32, 0.18), "lm:bluestone", STONE, bevel=0.02)
+    dt.box((x - 0.24, y - 0.24, 0.18), (x + 0.24, y + 0.24, 0.3), "lm:bluestone", STONE, bevel=0.015)
+    K.lathe(dt, (x, y, 0.3), [(0.12, 0), (0.1, 0.1), (0.1, 0.75), (0.13, 0.8)], "lm:bluestone", STONE, sides=8,
+            smooth=False)
+    dt.box((x - 0.24, y - 0.24, 1.1), (x + 0.24, y + 0.24, 1.16), "lm:bluestone", STONE, bevel=0.01)
+    for sx in (-1, 1):
+        for sy in (-1, 1):
+            dt.box((x + sx * 0.2 - 0.035, y + sy * 0.2 - 0.035, 1.16), (x + sx * 0.2 + 0.035, y + sy * 0.2 + 0.035, 1.46),
+                   "lm:bluestone", STONE)
+    dt.box((x - 0.14, y - 0.14, 1.16), (x + 0.14, y + 0.14, 1.42), "dark", WHITE)
+    r = K.HipRoof(x, y, 0.36, 0.36, 1.46, 0.2, p=1.2, U=0.08, L=0.15)
+    r.build(ctx, collide=False, nt=4, du=0.12, thick=0.06, mat="lm:bluestone", soffit_mat="lm:bluestone", mb=dt)
+    K.lathe(dt, (x, y, 1.62), [(0.06, 0), (0.04, 0.06), (0.05, 0.1), (0.005, 0.18)], "lm:bluestone", STONE, sides=8)
+    ctx.col((x - 0.32, y - 0.32, 0), (x + 0.32, y + 0.32, 0.3), "concrete")
+    ctx.col((x - 0.1, y - 0.1, 0.3), (x + 0.1, y + 0.1, 1.1), "concrete")
+    ctx.col((x - 0.36, y - 0.36, 1.1), (x + 0.36, y + 0.36, 1.66), "concrete")
+    ctx.nap.append(V((x + 0.22, y - 0.22, 0.31)))
+
+
+def courtyard_dressing(ctx: K.LCtx):
+    """Lotus basin, big water jars, stone lanterns, a bamboo broom and leaf piles — lived-in temple yard."""
+    sh, cl, dt = ctx.shell, ctx.clutter, ctx.detail
+    rng = ctx.rng
+    for sx in (-1, 1):
+        stone_lantern(ctx, sx * 1.7, 6.0)
+    # rectangular lotus basin (bể cạn) on the east side
+    bx, by, bw, bd = 6.5, 15.5, 1.6, 1.0
+    for (a, b) in (((bx - bw, by - bd, 0), (bx + bw, by - bd + 0.18, 0.62)), ((bx - bw, by + bd - 0.18, 0), (bx + bw, by + bd, 0.62)),
+                   ((bx - bw, by - bd, 0), (bx - bw + 0.18, by + bd, 0.62)), ((bx + bw - 0.18, by - bd, 0), (bx + bw, by + bd, 0.62))):
+        sh.box(a, b, "lm:plaster_temple", (0.85, 0.85, 0.82, 1), bevel=0.02)
+    for (a, b) in (((bx - bw - 0.03, by - bd - 0.03, 0.62), (bx + bw + 0.03, by - bd + 0.2, 0.68)),
+                   ((bx - bw - 0.03, by + bd - 0.2, 0.62), (bx + bw + 0.03, by + bd + 0.03, 0.68)),
+                   ((bx - bw - 0.03, by - bd, 0.62), (bx - bw + 0.2, by + bd, 0.68)),
+                   ((bx + bw - 0.2, by - bd, 0.62), (bx + bw + 0.03, by + bd, 0.68))):
+        sh.box(a, b, "lm:bluestone", STONE, bevel=0.01)
+    cl.box((bx - bw + 0.18, by - bd + 0.18, 0.5), (bx + bw - 0.18, by + bd - 0.18, 0.505), "water")
+    for k in range(9):   # lotus pads (flat discs) + a few upright leaves/buds
+        px = bx + rng.uniform(-bw + 0.4, bw - 0.4)
+        py = by + rng.uniform(-bd + 0.35, bd - 0.35)
+        rr = rng.uniform(0.12, 0.22)
+        cl.cylinder((px, py, 0.506), (0, 0, 1), rr, 0.004, "plastic_matte", (0.22, 0.4, 0.16, 1), sides=12)
+        if k % 3 == 0:
+            cl.tube([(px, py, 0.5), (px + 0.03, py, 0.8)], 0.006, "plastic_matte", (0.3, 0.45, 0.2, 1), sides=4)
+            K.lathe(cl, (px + 0.03, py, 0.8), [(0.02, 0), (0.05, 0.05), (0.03, 0.11), (0.001, 0.14)], "plastic_matte",
+                    (0.9, 0.55, 0.6, 1), sides=8)
+    ctx.col((bx - bw, by - bd, 0), (bx + bw, by + bd, 0.68), "concrete")
+    ctx.nap.append(V((bx + bw - 0.1, by - bd + 0.1, 0.69)))
+    # glazed water jars (chum) by the west wall + a ladle
+    for k, yy in enumerate((24.0, 25.2)):
+        x = -W2 + 1.2
+        K.lathe(cl, (x, yy, 0.02), [(0.25, 0), (0.42, 0.25), (0.45, 0.5), (0.36, 0.78), (0.3, 0.82), (0.32, 0.86)],
+                "ceramic", (0.45, 0.32, 0.2, 1), sides=18, cap_top=False)
+        cl.cylinder((x, yy, 0.74), (0, 0, 1), 0.33, 0.003, "water", sides=16)
+        ctx.col((x - 0.42, yy - 0.42, 0), (x + 0.42, yy + 0.42, 0.86), "tile")
+    cl.tube([(-W2 + 1.2, 24.0, 0.86), (-W2 + 1.0, 23.8, 1.0)], 0.012, "lm:wood_aged", sides=5)
+    # bamboo broom against the hall platform + swept leaf piles
+    cl.tube([(-8.6, 20.3, 0.02), (-8.75, 20.55, 1.45)], 0.015, "wood_brown", (1.6, 1.4, 0.9, 1), sides=6)
+    for k in range(14):
+        a = rng.uniform(-0.4, 0.4)
+        cl.tube([(-8.6, 20.3, 0.3), (-8.6 + math.sin(a) * 0.25, 20.25, 0.02)], 0.005, "wood_brown", (1.5, 1.3, 0.8, 1),
+                sides=3)
+    for (px, py, r) in ((-10.5, 19.0, 0.6), (-5.0, 3.0, 0.45), (10.8, 6.0, 0.5), (4.2, 20.2, 0.4)):
+        K.mound(cl, px, py, 0.02, r, r * 0.8, 0.07, "dried_goods", (0.85, 0.75, 0.55, 1))
+
+
 def build(spec):
     ctx = K.LCtx(spec["id"], spec["seed"])
     courtyard_walls(ctx)
@@ -578,6 +646,7 @@ def build(spec):
             for k in range(3):
                 P.foliage_card(ctx, x, yy, 0.5, 1.0, 1.1, "leafy", k * 60 + 15, mul(WHITE, 0.85))
             ctx.col((x - 0.33, yy - 0.33, 0), (x + 0.33, yy + 0.33, 0.6), "tile")
+    courtyard_dressing(ctx)
     hall(ctx)
     return ctx, {"height": 10.4, "floors": 1}
 

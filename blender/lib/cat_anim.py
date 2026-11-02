@@ -406,17 +406,29 @@ class Solver:
 LOC_BONES = {"pelvis", "scapula_L", "scapula_R", "tongue_01"}
 
 
+# Clips are AUTHORED in 30 fps frames (clip functions take 30 fps frame numbers) but KEYED at
+# KEY_RATE x 30 = 60 Hz: the exporter writes one glTF key per scene frame and Godot interpolates
+# bone rotations linearly, so at 30 Hz fast clips (run: 2-frame stances) dipped paws through
+# the floor between keys.  The scene fps is set to KEY_FPS; durations in seconds are unchanged.
+KEY_RATE = 2
+KEY_FPS = FPS * KEY_RATE
+
+
 def write_action(solver: Solver, name: str, nframes: int, fn, loop: bool) -> bpy.types.Action:
-    """fn(frame:int, t:float in [0,1)) -> params. Keys frames 0..nframes (last == first for loops)."""
+    """fn(frame:float (30 fps units), t:float in [0,1)) -> params. Keys 0..nframes*KEY_RATE
+    at KEY_FPS (last == first for loops)."""
     ob = solver.ob
+    bpy.context.scene.render.fps = KEY_FPS
     act = bpy.data.actions.new(name)
     act.use_fake_user = True
     ob.animation_data_create()
     ob.animation_data.action = act
     prev_q = {}
     solver.stats = []
-    for fr in range(nframes + 1):
-        f_eval = (fr % nframes) if loop else fr
+    nk = nframes * KEY_RATE
+    for fr in range(nk + 1):
+        k_eval = (fr % nk) if loop else fr
+        f_eval = k_eval / KEY_RATE
         prm = fn(f_eval, f_eval / nframes)
         Acc, H = solver.solve(prm)
         L = solver.bases(Acc, H)
@@ -433,7 +445,7 @@ def write_action(solver: Solver, name: str, nframes: int, fn, loop: bool) -> bpy
                 pb.keyframe_insert("location", frame=fr)
     act.use_frame_range = True
     act.frame_start = 0
-    act.frame_end = nframes
+    act.frame_end = nk
     act["loop"] = bool(loop)
     ob.animation_data.action = None
     per = {}

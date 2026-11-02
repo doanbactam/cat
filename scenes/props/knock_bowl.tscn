@@ -25,7 +25,7 @@ _surfaces = [{
 height = 0.058
 radius = 0.075
 
-[node name="Knock_bowl" type="RigidBody3D" unique_id=1783029895]
+[node name="Knock_bowl" type="RigidBody3D" unique_id=715799319]
 mass = 0.2
 sleeping = true
 script = ExtResource("1_co30k")
@@ -33,11 +33,11 @@ break_height = 1.2
 metadata/mass = 0.2
 metadata/name_key = "PROP_BOWL"
 
-[node name="Mesh" type="MeshInstance3D" parent="." unique_id=2064274339]
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=1156916768]
 visibility_range_end = 45.0
 visibility_range_end_margin = 5.0
 mesh = SubResource("ArrayMesh_knbtr")
 
-[node name="Shape" type="CollisionShape3D" parent="." unique_id=997172586]
+[node name="Shape" type="CollisionShape3D" parent="." unique_id=315301138]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.029, 0)
 shape = SubResource("CylinderShape3D_jfp8a")

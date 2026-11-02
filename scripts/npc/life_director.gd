@@ -91,10 +91,14 @@ func _ready() -> void:
 		ge.player_landed.connect(_on_player_landed)
 		ge.player_noise.connect(_on_player_noise)
 		ge.settings_changed.connect(_on_settings_changed)
-		ge.player_spawned.connect(func(p: Node3D) -> void: player = p)
+		ge.player_spawned.connect(_on_player_spawned)
 	_read_caps()
 	if auto_start:
 		_start_deferred.call_deferred()
+
+
+func _on_player_spawned(p: Node3D) -> void:
+	player = p
 
 
 func _start_deferred() -> void:
@@ -109,7 +113,7 @@ func start() -> void:
 	if started or not is_inside_tree():
 		return
 	started = true
-	player = NpcUtil.get_player(self)
+	player = get_player()
 	_scan_markers()
 	if spawn_animals:
 		_spawn_named_and_animals()
@@ -300,8 +304,7 @@ func _new_pedestrian(id: StringName = &"") -> Node:
 func _physics_process(delta: float) -> void:
 	if not started:
 		return
-	if player == null or not is_instance_valid(player):
-		player = NpcUtil.get_player(self)
+	get_player()
 	_lod_t -= delta
 	if _lod_t <= 0.0:
 		_lod_t = 0.25
@@ -323,14 +326,18 @@ func _physics_process(delta: float) -> void:
 
 
 func get_player() -> Node3D:
-	if player == null or not is_instance_valid(player):
-		player = NpcUtil.get_player(self)
+	if player == null or not is_instance_valid(player) or player.is_queued_for_deletion() or not player.is_inside_tree():
+		player = null
+		for n: Node in get_tree().get_nodes_in_group(&"player"):
+			if n is Node3D and not n.is_queued_for_deletion() and _in_my_world(n):
+				player = n
+				break
 	return player
 
 
 func reference_point() -> Vector3:
 	var cam := get_viewport().get_camera_3d() if is_inside_tree() else null
-	if player != null and is_instance_valid(player):
+	if get_player() != null:
 		return player.global_position
 	if cam != null:
 		return cam.global_position
@@ -630,7 +637,7 @@ func _lane_clear(lane: Path3D, off: float, gap: float) -> bool:
 		if absf(float(v.get(&"offset")) - off) < gap:
 			return false
 	# keep spawns out of Cam's face
-	if player != null:
+	if player != null and is_instance_valid(player):
 		var p := lane.to_global(lane.curve.sample_baked(off, true))
 		if p.distance_to(player.global_position) < 4.0:
 			return false

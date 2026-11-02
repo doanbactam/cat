@@ -13,7 +13,6 @@ dest_files=["res://.godot/imported/item_herbal_tonic.glb-d7a0d73afe47633429ca416
 
 [params]
 
-
 nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null

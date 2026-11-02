@@ -13,7 +13,6 @@ dest_files=["res://.godot/imported/star_lantern_red.glb-8e88f0c13e1636bcc7f3e6ff
 
 [params]
 
-
 nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null

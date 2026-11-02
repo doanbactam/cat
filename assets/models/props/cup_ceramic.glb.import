@@ -13,7 +13,6 @@ dest_files=["res://.godot/imported/cup_ceramic.glb-2bc3625a073008a001f8a98a6c1a7
 
 [params]
 
-
 nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null

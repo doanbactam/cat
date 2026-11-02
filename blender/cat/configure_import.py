@@ -1,6 +1,9 @@
 """Configure Godot import options for the cat asset (run with system python3 after an
 initial tools/godot_import.sh, then re-run the import):
   * cat.glb: loop_mode=LINEAR on looping clips (so gameplay code need not set it)
+  * cat.glb: the body material CatFur is replaced by assets/models/cat/cat_fur_fallback.tres
+    (same textures + wrap diffuse, velvet rim and a stronger strand micro-normal) so the cat
+    does not read as vinyl wherever the player's shell fur is not attached / disabled
   * colour textures: VRAM compressed + mipmaps; normal maps: normal-map compression;
     fur mask / fur flow (data): lossless + mipmaps (no block-compression artefacts)
 Usage: python3 blender/cat/configure_import.py"""
@@ -32,7 +35,9 @@ def glb():
     for a in LOOPING:
         entries.append(f'"{a}": {{\n"save_to_file/enabled": false,\n"save_to_file/keep_custom_tracks": "",\n'
                        f'"save_to_file/path": "",\n"settings/loop_mode": 1,\n"slices/amount": 0\n}}')
-    sub = '{\n"animations": {\n' + ",\n".join(entries) + "\n}\n}"
+    mats = ('"materials": {\n"CatFur": {\n"use_external/enabled": true,\n'
+            '"use_external/path": "res://assets/models/cat/cat_fur_fallback.tres"\n}\n}')
+    sub = '{\n"animations": {\n' + ",\n".join(entries) + "\n},\n" + mats + "\n}"
     s = open(p).read()
     s = re.sub(r"^_subresources=\{.*?^\}$|^_subresources=\{\}$", "_subresources=" + sub, s, flags=re.M | re.S)
     open(p, "w").write(s)

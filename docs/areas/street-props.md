@@ -91,3 +91,19 @@ Code layout:
   instance. MultiMesh scattering is up to `world`.
 - `item_memory_photo` is shared by `memory_01..12` (same print). The brass bell is a jingle bell rather than
   a temple wind-bell clapper.
+- Weaker models (would get another pass with more time): `item_pate_crust` reads more like a pointed bread roll
+  than a torn bánh mì end; the `pho_pot_stove` lid ends up hidden, so the pot reads as open; the anchovy tails in
+  `item_dried_fish` are a bit spiky; `shoes_canvas_pair` is chunky; `wind_chime` is thin and hard to see in the
+  Blender preview (it looks fine in-engine at close range).
+- `bottle_crate` print sits on the back long side only in practice (front print faint).
+- Blender preview renders take most of the build time (bakes are 5–60 s); `--preview` is optional.
+
+## Iterations done (visual QA)
+1. Blender contact sheets per category (`qa/out/street-props/sheet_*.png`): fixed cylindrical labels never
+   applying on long lathe faces (new `lathe(max_seg=…)` densification → bottle/tonic/hydrant/gas/lamp prints now
+   show), open-box flaps folding inward + missing print, hanging props rendering under the preview floor,
+   fish basin water hiding the fish (now transparent glass surface over a murky floor), festival previews.
+2. Items re-modelled to match the item descriptions (systems' strings): anchovy bundle, peeled quail egg, giò
+   lụa slice, red yarn, pearl hair clip, green marble, key with plastic star, mouse with a chewed-off ear, jade-bead
+   collar; fish turned so its dark back reads; shrimp now lies curled on its side.
+3. In-engine showcase screenshots (`qa/out/street-props/godot/*.png`) checked for scale, textures, lit materials.

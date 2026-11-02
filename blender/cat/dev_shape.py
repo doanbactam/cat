@@ -14,10 +14,13 @@ h = float(argv[0]) * 1e-3 if argv else 1.2e-3
 tag = argv[1] if len(argv) > 1 else "dev"
 views = argv[2].split(",") if len(argv) > 2 else ["side", "front", "top", "q_front", "q_back", "face"]
 
+if len(argv) > 3 and argv[3] == "closed":      # preview the closed-mouth shape (rest pose is 4 deg open)
+    import cat_anatomy as A
+    A.JAW_REST_OPEN_DEG = 0.0
 C.reset_scene()
 t = time.time()
-head_only = "hf_front" in views
-bmin, bmax = ((-0.065, -0.275, 0.165), (0.065, -0.10, 0.34)) if head_only else (S.BBOX_MIN, S.BBOX_MAX)
+head_only = any(v.startswith(("hf_", "hd_")) for v in views)
+bmin, bmax = ((-0.065, -0.275, 0.175), (0.065, -0.12, 0.345)) if head_only else (S.BBOX_MIN, S.BBOX_MAX)
 v, q, tr = M.sdf_to_mesh(S.cat_sdf, bmin, bmax, h)
 ob = M.mesh_from_arrays("CatHigh", v, [q, tr])
 C.shade_smooth(ob, None)

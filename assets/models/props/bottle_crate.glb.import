@@ -13,7 +13,6 @@ dest_files=["res://.godot/imported/bottle_crate.glb-4fcb810aad8042989a76481fbc07
 
 [params]
 
-
 nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null

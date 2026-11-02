@@ -81,6 +81,8 @@ func _fit_to_water(marker: Node3D) -> void:
 	var hit := NpcUtil.ray(get_world_3d(), p + Vector3.UP * (surface_y + 0.05), p - Vector3.UP * 6.0, NpcUtil.LAYER_WORLD)
 	if not hit.is_empty():
 		bed_y = (hit["position"] as Vector3).y - p.y
+		if bed_y > surface_y - 0.3:
+			bed_y = -INF    # marker sits on solid ground: ignore, trust volume_size
 
 
 ## Lathe-built koi: elliptical cross-sections along Z (+Z nose), forked tail fin, pectoral fins.

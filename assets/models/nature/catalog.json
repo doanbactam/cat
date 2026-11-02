@@ -83,12 +83,12 @@
   "id": "banyan",
   "file": "res://assets/models/nature/banyan.glb",
   "kind": "tree",
-  "width": 15.44,
-  "depth": 16.81,
-  "height": 10.97,
+  "width": 15.84,
+  "depth": 17.02,
+  "height": 11.26,
   "footprint": [
-   15.44,
-   16.81
+   15.84,
+   17.02
   ],
   "floors": 0,
   "style": "nature",
@@ -152,7 +152,7 @@
    ]
   ],
   "entrances": [],
-  "tris": 36111,
+  "tris": 36833,
   "materials": [
    "nbark_bark_banyan",
    "nfol_leaf_banyan"

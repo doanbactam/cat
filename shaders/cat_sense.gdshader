@@ -34,8 +34,10 @@ void fragment() {
 		ALBEDO = col;
 	} else {
 		float lum = dot(col, vec3(0.2126, 0.7152, 0.0722));
-		float yb = (col.r + col.g) * 0.5 - col.b;
-		vec3 cat_col = vec3(lum) + vec3(0.42, 0.36, -0.5) * yb * 0.5;
+		// the screen texture is linear HDR: chroma is taken relative to luminance, otherwise sunlit
+		// warm surfaces explode into saturated orange
+		float yb = clamp(((col.r + col.g) * 0.5 - col.b) / max(lum, 0.001), -1.0, 1.0);
+		vec3 cat_col = lum * (vec3(1.0) + vec3(0.3, 0.24, -0.38) * yb * 0.55);
 		cat_col = mix(cat_col, shadow_tint.rgb * lum * 2.0, smoothstep(0.25, 0.0, lum) * 0.5);
 		// whisker edges from linear depth
 		vec2 px = 1.5 / VIEWPORT_SIZE;
