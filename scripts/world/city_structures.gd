@@ -810,3 +810,25 @@ static func make_rattan_chair() -> Node3D:
 			k.box(rattan, _xf(Vector3(sx * 0.19, 0.14, sz * 0.19)), Vector3(0.04, 0.28, 0.04), 0.5)
 	k.finish("ChairMesh")
 	return root
+
+
+## Cast-iron / PVC drainpipe with wall brackets (climbable, layers 1 + 6). Origin at the bottom,
+## the pipe runs up +Y; its back (-Z) touches the wall.
+static func make_drainpipe(height: float) -> Node3D:
+	var root := Node3D.new()
+	root.name = "Drainpipe"
+	var k := Kit.new(root)
+	var pipe := WM.flat("drainpipe", Color(0.28, 0.3, 0.29), 0.55, 0.3)
+	MU.tube(k.st(pipe), PackedVector3Array([Vector3(0, 0.05, 0.0), Vector3(0, height, 0.0)]), PackedFloat32Array([0.055, 0.055]), 10, 1.0)
+	MU.tube(k.st(pipe), PackedVector3Array([Vector3(0, 0.05, 0.0), Vector3(0, 0.05, 0.18)]), PackedFloat32Array([0.06, 0.06]), 10, 1.0)
+	var bracket := WM.flat("bracket", Color(0.16, 0.16, 0.16), 0.5, 0.7)
+	var y := 0.6
+	while y < height - 0.2:
+		k.box(bracket, _xf(Vector3(0, y, -0.06)), Vector3(0.16, 0.04, 0.1), 1.0)
+		y += 1.4
+	# hopper head at the top
+	k.box(pipe, _xf(Vector3(0, height - 0.12, 0.0)), Vector3(0.2, 0.24, 0.16), 1.0)
+	var cs := k.col(&"metal", _xf(Vector3(0, height * 0.5, -0.02)), Vector3(0.16, height, 0.16), 1 << 5)
+	cs.get_parent().set_meta(&"climb", true)
+	k.finish("PipeMesh")
+	return root

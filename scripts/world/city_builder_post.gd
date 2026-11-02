@@ -182,69 +182,70 @@ func _module_roots(mi: int) -> Dictionary:
 
 # --- connectors --------------------------------------------------------------------------------------
 
+## Links touching modules (any rows) whose roofs differ by more than a jump: crate stairs for
+## steps ≤ 4.2 m, a climbable drainpipe (layers 1+6) on the taller wall above that.
 func _add_crate_stairs() -> void:
-	var placed: Array = b.get(&"placed")
 	var rng: RandomNumberGenerator = b.get(&"rng")
+	var grid: Dictionary = {}
+	for i in samples.size():
+		var p: Vector3 = samples[i]["p"]
+		var key := Vector2i(floori(p.x / 2.0), floori(p.z / 2.0))
+		if not grid.has(key):
+			grid[key] = []
+		(grid[key] as Array).append(i)
+	var best: Dictionary = {}       # module pair -> [score, low, high]
+	for i in samples.size():
+		var p: Vector3 = samples[i]["p"]
+		var key := Vector2i(floori(p.x / 2.0), floori(p.z / 2.0))
+		for dx in range(-1, 2):
+			for dz in range(-1, 2):
+				for j: int in grid.get(key + Vector2i(dx, dz), []):
+					if j <= i or samples[i]["m"] == samples[j]["m"]:
+						continue
+					var q: Vector3 = samples[j]["p"]
+					var hd := Vector2(p.x - q.x, p.z - q.z).length()
+					var dy := absf(p.y - q.y)
+					if hd > MAX_GAP or dy > 14.0:
+						continue
+					var mk := Vector2i(mini(samples[i]["m"], samples[j]["m"]), maxi(samples[i]["m"], samples[j]["m"]))
+					var score := dy + hd * 0.3
+					if not best.has(mk) or score < float(best[mk][0]):
+						best[mk] = [score, i if p.y < q.y else j, j if p.y < q.y else i]
+	var keys := best.keys()
+	keys.sort_custom(func(a: Vector2i, c: Vector2i) -> bool: return float(best[a][0]) < float(best[c][0]))
 	var stairs := 0
-	for mi in placed.size() - 1:
-		var m1: Dictionary = placed[mi]
-		var m2: Dictionary = placed[mi + 1]
-		if not bool(m1["net"]) or m1["row"] != m2["row"]:
+	var pipes := 0
+	for mk: Vector2i in keys:
+		var lo_i: int = best[mk][1]
+		var hi_i: int = best[mk][2]
+		if _find(lo_i) == _find(hi_i):
 			continue
-		var o1: Vector3 = (m1["xf"] as Transform3D).origin
-		var o2: Vector3 = (m2["xf"] as Transform3D).origin
-		if absf(o1.distance_to(o2) - (float(m1["w"]) + float(m2["w"])) * 0.5) > 0.3:
-			continue            # not adjacent (gap / alley between)
-		var r1 := _module_roots(mi)
-		var r2 := _module_roots(mi + 1)
-		var linked := false
-		for r: int in r1:
-			if r2.has(r):
-				linked = true
-				break
-		if linked:
+		var lo: Vector3 = samples[lo_i]["p"]
+		var hi: Vector3 = samples[hi_i]["p"]
+		var dy := hi.y - lo.y
+		var toward := Vector3(hi.x - lo.x, 0, hi.z - lo.z)
+		if toward.length() < 0.05:
+			toward = Vector3.FORWARD
+		toward = toward.normalized()
+		var parent_node := b.call(&"grp", "Connectors") as Node3D
+		if dy <= MAX_STEP:
+			_union(lo_i, hi_i)
 			continue
-		# best pair across the shared wall: lower deck point ≥ 0.8 m from the wall, minimal step
-		var along: Vector3 = (m1["xf"] as Transform3D).basis.x
-		var wall_x := (o1.dot(along) + o2.dot(along)) * 0.5
-		var best: Array = []
-		var best_score := INF
-		for si: int in by_module.get(mi, []):
-			for sj: int in by_module.get(mi + 1, []):
-				var p: Vector3 = samples[si]["p"]
-				var q: Vector3 = samples[sj]["p"]
-				var low := p if p.y < q.y else q
-				var high := q if p.y < q.y else p
-				var low_dist := absf(low.dot(along) - wall_x)
-				var high_dist := absf(high.dot(along) - wall_x)
-				if low_dist < 0.8 or low_dist > 2.2 or high_dist > 2.5:
-					continue
-				var along_off := absf((p - q).dot((m1["xf"] as Transform3D).basis.z))
-				if along_off > 1.2:
-					continue
-				var dy := high.y - low.y
-				if dy > 4.2:
-					continue
-				var score := dy + along_off
-				if score < best_score:
-					best_score = score
-					best = [si if p.y < q.y else sj, sj if p.y < q.y else si]
-		if best.is_empty():
-			continue
-		var lo: Vector3 = samples[best[0]]["p"]
-		var hi: Vector3 = samples[best[1]]["p"]
-		var toward := (along if hi.dot(along) > lo.dot(along) else -along)
-		var height := hi.y - lo.y - 0.4
-		if height < 0.3:
-			_union(best[0], best[1])
-			continue
-		var stair := CS.make_crate_stair(height, rng)
-		var wall_pt := lo + toward * (absf(lo.dot(along) - wall_x) - 0.35)
-		stair.transform = Transform3D(Basis.looking_at(toward, Vector3.UP, true), Vector3(wall_pt.x, lo.y, wall_pt.z))
-		(b.call(&"grp", "Connectors") as Node3D).add_child(stair)
-		_union(best[0], best[1])
-		stairs += 1
+		if dy <= 4.2:
+			var stair := CS.make_crate_stair(dy - 0.4, rng)
+			stair.transform = Transform3D(Basis.looking_at(toward, Vector3.UP, true), lo)
+			parent_node.add_child(stair)
+			stairs += 1
+		else:
+			var pipe := CS.make_drainpipe(dy + 0.1)
+			# against the taller wall, just in front of it
+			var at := hi - toward * 0.25
+			pipe.transform = Transform3D(Basis.looking_at(-toward, Vector3.UP, true), Vector3(at.x, lo.y, at.z) - toward * 0.25)
+			parent_node.add_child(pipe)
+			pipes += 1
+		_union(lo_i, hi_i)
 	report["crate_stairs"] = stairs
+	report["climb_pipes"] = pipes
 
 
 func _add_planks() -> void:
@@ -268,7 +269,7 @@ func _add_planks() -> void:
 						continue
 					var q: Vector3 = samples[j]["p"]
 					var hd := Vector2(p.x - q.x, p.z - q.z).length()
-					if hd > MAX_GAP and hd <= 4.2 and absf(p.y - q.y) <= 1.0:
+					if hd > MAX_GAP and hd <= 4.5 and absf(p.y - q.y) <= MAX_STEP:
 						cands.append([hd + absf(p.y - q.y) * 0.5, i, j])
 	cands.sort_custom(func(a: Array, c: Array) -> bool: return float(a[0]) < float(c[0]))
 	var planks := 0
@@ -343,12 +344,15 @@ func _cable_between(i: int, j: int, wires: int) -> bool:
 func _add_walkable_cables() -> void:
 	var n := 0
 	var pairs := [
-		[["pho_ho_w"], ["main_south_lake"], 9.0, 20.0, 2.5],
-		[["dinh_north_w"], ["dinh_south_w"], 12.0, 22.0, 3.0],
-		[["main_south_w"], ["main_north"], 13.0, 22.0, 3.0],
-		[["hem_a_w_n"], ["hem_a_e_n"], 2.5, 8.0, 1.5],
-		[["hem_a_w_s"], ["hem_a_e_s"], 2.5, 8.0, 1.5],
-		[["hem_b_n"], ["hem_b_s"], 2.5, 8.0, 1.5],
+		[["pho_ho_w"], ["main_south_lake"], 9.0, 24.0, 4.0],
+		[["dinh_north_w"], ["dinh_south_w"], 12.0, 24.0, 4.0],
+		[["main_south_w"], ["main_north"], 13.0, 24.0, 4.0],
+		[["main_south_lake"], ["main_north"], 13.0, 24.0, 4.0],
+		[["hem_a_w_n"], ["hem_a_e_n"], 2.5, 9.0, 2.0],
+		[["hem_a_w_s"], ["hem_a_e_s"], 2.5, 9.0, 2.0],
+		[["hem_b_n"], ["hem_b_s"], 2.5, 9.0, 2.0],
+		[["pho_ho_w"], ["dinh_north_w"], 2.5, 12.0, 3.0],
+		[["main_south_w"], ["pho_ho_w"], 2.5, 12.0, 3.0],
 	]
 	for pr: Array in pairs:
 		var best := _closest_pair(pr[0], pr[1], pr[2], pr[3], pr[4])

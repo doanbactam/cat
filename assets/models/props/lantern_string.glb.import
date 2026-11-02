@@ -13,6 +13,7 @@ dest_files=["res://.godot/imported/lantern_string.glb-4aa1fa7b89216f5d8c2ca67f27
 
 [params]
 
+
 nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null

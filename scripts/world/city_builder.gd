@@ -846,6 +846,10 @@ func _fill_row(row: Array) -> void:
 				var near: Array = cands.filter(func(e: Dictionary) -> bool: return absf(deck_of(e) - prev_h) <= MAX_ROW_STEP)
 				if not near.is_empty():
 					cands = near
+				else:
+					var ph := prev_h
+					cands.sort_custom(func(a: Dictionary, c: Dictionary) -> bool: return absf(deck_of(a) - ph) < absf(deck_of(c) - ph))
+					cands = cands.slice(0, 1)
 			var pick := _weighted_pick(cands, styles, prev_h, net)
 			var w := float(pick["width"])
 			_place_module(pick, origin + along * (pos + w * 0.5), basis, name, net)

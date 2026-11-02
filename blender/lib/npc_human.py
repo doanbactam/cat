@@ -451,14 +451,21 @@ def g_top(body: Body, label="top", sleeve=0.55, hem=0.80, t=0.010, loose=0.006, 
             nrm = -S.normalize(Wr - El)
         _cut(lay, p, nrm, p + (-nrm) * 0.25, 0.27, k=0.004)
         lay.hems.append(("pt", p, nrm))
+    if collar:
+        trim = M.layer(label + "_trim", priority=0.003)
+        trim.hems = []
     if collar == "polo":
-        nb2 = nb + np.array([0, -0.004, 0.018]) * s
-        c = S.f_torus(nb2, 0.062 * s, 0.009 * s, axis=(0, 0.25, 1))
-        lay.prims.append(S.Prim(c, nb2, 0.075 * s, {"neck": 0.5, "chest": 0.5}, label + "_trim", 0.006, 0.02, "collar"))
+        # turned-down collar: a flattened ring around the neck base, open at the front
+        nb2 = nb + np.array([0, 0.002, 0.022]) * s
+        c = S.f_torus(nb2, 0.060 * s, 0.011 * s, axis=(0, 0.3, 1))
+        gap = S.f_sphere(nb2 + np.array([0, -0.07, -0.02]) * s, 0.03 * s)
+        trim.prims.append(S.Prim(lambda p: np.maximum(c(p), -gap(p)), nb2, 0.08 * s, {"neck": 0.4, "chest": 0.6},
+                                 label + "_trim", 0.006, 0.02, "collar"))
     if collar == "mandarin":
-        nb2 = nb + np.array([0, -0.006, 0.03]) * s
-        c = S.f_shell(S.f_cyl(nb2 - np.array([0, 0, 0.012]) * s, nb2 + np.array([0, 0, 0.012]) * s, 0.06 * s), 0.003)
-        lay.prims.append(S.Prim(c, nb2, 0.075 * s, {"neck": 0.6, "chest": 0.4}, label + "_trim", 0.004, 0.02, "collar"))
+        nb2 = nb + np.array([0, -0.004, 0.032]) * s
+        c = S.f_shell(S.f_cyl(nb2 - np.array([0, 0, 0.014]) * s, nb2 + np.array([0, 0, 0.014]) * s, 0.058 * s), 0.0035)
+        trim.prims.append(S.Prim(c, nb2, 0.08 * s, {"neck": 0.6, "chest": 0.4}, label + "_trim", 0.004, 0.02,
+                                 "collar"))
     return lay
 
 
@@ -805,10 +812,10 @@ def acc_helmet(body: Body, label="helmet"):
     shell_c = h(0, 0.012, 1.50)
     lay.prims.append(S.Prim(S.f_ellipsoid(shell_c, np.array([0.098, 0.122, 0.112]) * hs), shell_c, 0.13 * hs, "head",
                             label, 0.0, 0.01, "shell"))
-    cut_p = h(0, 0.0, 1.488)
-    pl = S.f_plane(cut_p, (0, -0.18, 1))
-    lay.carves.append(S.Carve(pl, h(0, 0, 1.38), 0.2, 0.005))
-    vc = h(0, -0.118, 1.512)
+    cut_p = h(0, 0.0, 1.492)
+    pl = S.f_plane(cut_p, (0, 0.6, 1))
+    lay.carves.append(S.Carve(pl, h(0, 0, 1.38), 0.3, 0.005))
+    vc = h(0, -0.112, 1.548)
     vis = S.f_ellipsoid(vc, np.array([0.075, 0.035, 0.005]) * hs, S.rot((1, 0, 0), 14))
     cutv = S.f_plane(h(0, -0.095, 0), (0, -1, 0))
     lay.prims.append(S.Prim(lambda p: np.maximum(vis(p), -cutv(p)), vc, 0.08 * hs, "head", label + "_visor", 0.004,

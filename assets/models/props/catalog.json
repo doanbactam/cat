@@ -5644,10 +5644,10 @@
   "surface": "plastic",
   "material_kind": "glass",
   "name_key": "ITEM_SKILL_TONIC",
-  "tris": 1016,
+  "tris": 1336,
   "materials": 1,
   "texture_size": 512,
-  "texel_density": 5066,
+  "texel_density": 4990,
   "textures": [
    "res://assets/textures/props/item_skill_tonic_albedo.jpg",
    "res://assets/textures/props/item_skill_tonic_orm.jpg",
