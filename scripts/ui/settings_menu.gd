@@ -31,7 +31,7 @@ func build() -> void:
 	header.add_child(_tabs_bar)
 	var content: Control = _frame["content"]
 	var h := HBoxContainer.new()
-	h.set_anchors_preset(Control.PRESET_FULL_RECT)
+	h.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	h.add_theme_constant_override(&"separation", 36)
 	content.add_child(h)
 	var left := PanelContainer.new()

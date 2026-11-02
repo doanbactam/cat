@@ -13,7 +13,6 @@ dest_files=["res://.godot/imported/sign_lightbox.glb-06c6d31dc4f4dccbc4ccff3986b
 
 [params]
 
-
 nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null

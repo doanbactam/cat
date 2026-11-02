@@ -907,10 +907,13 @@ def glass_opaque(name, color="#2f5f3a", rough=0.08, dirt=0.3, label=False, label
 
 # --- organics -----------------------------------------------------------------
 def fish_skin(name, back="#2f3c46", belly="#d9dcd6", stripe=None, scales=1.0, role="base", wet=True,
-              dried=False):
+              dried=False, dorsal="Z", centre=0.0, span=1.0):
+    """Fish body modelled along X; `dorsal` = object axis ('Z', 'Y', '-Y') pointing to the back,
+    `centre` = coordinate of the lateral line on that axis, `span` scales the belly->back blend."""
     nb = NB(name, role)
-    # body is modelled along X with dorsal side +Z
-    t = nb.smooth(nb.add(nb.z, nb.mul(nb.noise(scale=30, detail=3), 0.006)), -0.004, 0.012)
+    ax = {"Z": nb.z, "Y": nb.y, "-Y": nb.mul(nb.y, -1.0), "X": nb.x}[dorsal]
+    ax = nb.sub(ax, centre)
+    t = nb.smooth(nb.add(ax, nb.mul(nb.noise(scale=30, detail=3), 0.006 * span)), -0.004 * span, 0.012 * span)
     c = nb.mixc(t, belly, back)
     sc = nb.voronoi(nb.coords((1.0, 1.6, 1.6)), scale=260, feature="DISTANCE_TO_EDGE")
     scm = nb.smooth(sc, 0.08, 0.0)
@@ -918,7 +921,7 @@ def fish_skin(name, back="#2f3c46", belly="#d9dcd6", stripe=None, scales=1.0, ro
     c = nb.mixc(nb.mul(nb.inv(t), 0.35), c, irid)
     c = nb.mixc(nb.mul(scm, 0.35 * scales), c, nb.hsv(back, v=0.5))
     if stripe:
-        sb = nb.mul(nb.smooth(nb.math("ABSOLUTE", nb.sub(nb.z, 0.004)), 0.003, 0.0), 0.6)
+        sb = nb.mul(nb.smooth(nb.math("ABSOLUTE", nb.sub(ax, 0.004 * span)), 0.003 * span, 0.0), 0.6)
         c = nb.mixc(sb, c, stripe)
     r = 0.22 if wet else 0.6
     if dried:

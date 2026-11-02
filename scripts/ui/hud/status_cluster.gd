@@ -5,6 +5,8 @@ extends VBoxContainer
 ## pops up when bottle caps change. Everything listens to GameEvents.
 
 var rings: Dictionary = {}          # stat -> HudVitalRing
+## Item currently shown on the mouth card (&"" = empty).
+var mouth_item: StringName = &""
 var _mouth_card: PanelContainer
 var _mouth_icon: TextureRect
 var _mouth_name: Label
@@ -117,6 +119,11 @@ func _ready() -> void:
 	refresh_all()
 
 
+## The ring widget of a vital stat (health/hunger/energy/warmth) or null.
+func get_ring(stat: StringName) -> HudVitalRing:
+	return rings.get(stat, null)
+
+
 func refresh_all() -> void:
 	var gs := get_node_or_null(^"/root/GameState")
 	if gs != null:
@@ -158,6 +165,7 @@ func refresh_xp() -> void:
 func refresh_mouth() -> void:
 	var gs := get_node_or_null(^"/root/GameState")
 	var id: StringName = gs.get("mouth_item") if gs != null else &""
+	mouth_item = id
 	if id == &"":
 		if _mouth_card.visible:
 			var tw := create_tween()

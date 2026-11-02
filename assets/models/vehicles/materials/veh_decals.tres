@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/textures/vehicles/veh_decals_albedo.png" id="1"]
+
+[resource]
+resource_name = "veh_decals"
+albedo_texture = ExtResource("1")
+transparency = 2
+alpha_scissor_threshold = 0.5
+roughness = 0.45
+texture_filter = 5

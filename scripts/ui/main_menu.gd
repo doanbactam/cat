@@ -21,7 +21,7 @@ var _revealed := false
 
 
 func _ready() -> void:
-	set_anchors_preset(Control.PRESET_FULL_RECT)
+	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	theme = UIStyle.theme()
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_build()
@@ -62,12 +62,12 @@ func _build() -> void:
 	vig.texture = UIStyle.ui_tex("vignette")
 	vig.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	vig.stretch_mode = TextureRect.STRETCH_SCALE
-	vig.set_anchors_preset(Control.PRESET_FULL_RECT)
+	vig.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	vig.modulate = Color(1, 1, 1, 0.75)
 	vig.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(vig)
 	_bokeh = _Bokeh.new()
-	_bokeh.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_bokeh.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_bokeh.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_bokeh)
 

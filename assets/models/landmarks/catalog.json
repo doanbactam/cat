@@ -1,0 +1,1180 @@
+[
+ {
+  "id": "dinh_hang_may",
+  "file": "res://assets/models/landmarks/dinh_hang_may.glb",
+  "kind": "landmark",
+  "width": 26.0,
+  "depth": 37.2,
+  "height": 10.4,
+  "floors": 1,
+  "style": "temple",
+  "climb_points": [
+   [
+    -7.2,
+    2.25,
+    -21.1
+   ],
+   [
+    7.2,
+    2.25,
+    -21.1
+   ]
+  ],
+  "nap_spots": [
+   [
+    -12.1,
+    0.49,
+    -5.4
+   ],
+   [
+    -12.1,
+    0.49,
+    -17.4
+   ],
+   [
+    12.1,
+    0.49,
+    -5.4
+   ],
+   [
+    12.1,
+    0.49,
+    -17.4
+   ],
+   [
+    -6.06,
+    0.46,
+    -7.56
+   ],
+   [
+    0.55,
+    0.71,
+    -14.45
+   ],
+   [
+    -3.0,
+    0.76,
+    -27.6
+   ],
+   [
+    10.45,
+    3.171,
+    -30.6
+   ],
+   [
+    -6.0,
+    0.76,
+    -22.2
+   ]
+  ],
+  "entrances": [
+   [
+    0.0,
+    0.15,
+    1.0
+   ],
+   [
+    -3.1,
+    0.15,
+    1.0
+   ],
+   [
+    3.1,
+    0.15,
+    1.0
+   ],
+   [
+    0.0,
+    0.75,
+    -22.7
+   ]
+  ],
+  "markers": {
+   "MARKER_banyan": [
+    [
+     -7.5,
+     0.42,
+     -9.0
+    ]
+   ],
+   "MARKER_bell": [
+    [
+     8.0,
+     0.25,
+     -9.0
+    ]
+   ],
+   "MARKER_burner": [
+    [
+     0.0,
+     0.7,
+     -15.0
+    ]
+   ],
+   "LIGHT_ALTAR": [
+    [
+     0.0,
+     2.35,
+     -31.0
+    ]
+   ],
+   "MARKER_altar": [
+    [
+     0.0,
+     0.75,
+     -30.8
+    ]
+   ],
+   "QUEST_crow_nest": [
+    [
+     2.1,
+     9.39,
+     -27.95
+    ]
+   ],
+   "MARKER_nest": [
+    [
+     2.1,
+     9.39,
+     -27.95
+    ]
+   ],
+   "MARKER_roof_route": [
+    [
+     12.64,
+     2.6,
+     -29.0
+    ]
+   ],
+   "MARKER_temple_roof": [
+    [
+     0.0,
+     9.3,
+     -27.95
+    ]
+   ]
+  },
+  "zones": [
+   {
+    "name": "SHELTER",
+    "center": [
+     0.0,
+     1.675,
+     -0.2
+    ],
+    "size": [
+     2.6,
+     3.05,
+     1.6
+    ]
+   },
+   {
+    "name": "SHELTER",
+    "center": [
+     8.0,
+     1.425,
+     -9.0
+    ],
+    "size": [
+     2.2,
+     2.35,
+     2.2
+    ]
+   },
+   {
+    "name": "SHELTER",
+    "center": [
+     0.0,
+     2.55,
+     -27.95
+    ],
+    "size": [
+     19.2,
+     3.6,
+     12.7
+    ]
+   },
+   {
+    "name": "REVERB_Temple",
+    "center": [
+     0.0,
+     3.25,
+     -28.0
+    ],
+    "size": [
+     14.4,
+     5.0,
+     10.0
+    ]
+   }
+  ],
+  "origin": "street-front centre of the tam quan gate, ground level; complex extends to -Z",
+  "category": "temple",
+  "colliders": 242,
+  "tris": 91070
+ },
+ {
+  "id": "cho_market_hall",
+  "file": "res://assets/models/landmarks/cho_market_hall.glb",
+  "kind": "landmark",
+  "width": 24.6,
+  "depth": 18.6,
+  "height": 8.9,
+  "floors": 1,
+  "style": "market",
+  "climb_points": [
+   [
+    12.0,
+    0.32,
+    -17.4
+   ],
+   [
+    12.0,
+    5.0,
+    -17.5
+   ],
+   [
+    6.0,
+    2.0,
+    -0.4
+   ]
+  ],
+  "nap_spots": [
+   [
+    2.7,
+    0.73,
+    -4.15
+   ],
+   [
+    5.7,
+    0.73,
+    -4.15
+   ],
+   [
+    8.7,
+    0.73,
+    -4.15
+   ],
+   [
+    2.7,
+    0.73,
+    -10.95
+   ],
+   [
+    5.7,
+    0.73,
+    -10.95
+   ],
+   [
+    8.7,
+    0.73,
+    -10.95
+   ],
+   [
+    2.7,
+    0.73,
+    -15.75
+   ],
+   [
+    5.7,
+    0.73,
+    -15.75
+   ],
+   [
+    8.7,
+    0.73,
+    -15.75
+   ],
+   [
+    -11.2,
+    1.33,
+    -16.8
+   ],
+   [
+    6.0,
+    5.21,
+    -9.1
+   ]
+  ],
+  "entrances": [
+   [
+    -9.0,
+    0.12,
+    0.1
+   ],
+   [
+    -3.0,
+    0.12,
+    0.1
+   ],
+   [
+    3.0,
+    0.12,
+    0.1
+   ],
+   [
+    9.0,
+    0.12,
+    0.1
+   ]
+  ],
+  "markers": {
+   "MARKER_fish_stall": [
+    [
+     -7.1,
+     0.12,
+     -2.75
+    ]
+   ],
+   "QUEST_fish_stall": [
+    [
+     -7.1,
+     0.97,
+     -3.65
+    ]
+   ],
+   "LIGHT_NIGHT": [
+    [
+     -9.0,
+     3.0,
+     -9.0
+    ],
+    [
+     -3.0,
+     3.0,
+     -9.0
+    ],
+    [
+     3.0,
+     3.0,
+     -9.0
+    ],
+    [
+     9.0,
+     3.0,
+     -9.0
+    ]
+   ],
+   "MARKER_market_hall": [
+    [
+     0.0,
+     0.12,
+     -9.0
+    ]
+   ]
+  },
+  "zones": [
+   {
+    "name": "SHELTER",
+    "center": [
+     0.0,
+     2.6,
+     -9.0
+    ],
+    "size": [
+     25.8,
+     5.2,
+     19.0
+    ]
+   },
+   {
+    "name": "REVERB_Market",
+    "center": [
+     0.0,
+     3.35,
+     -9.0
+    ],
+    "size": [
+     24.0,
+     6.7,
+     18.0
+    ]
+   }
+  ],
+  "origin": "front facade bottom-centre at ground level",
+  "category": "market",
+  "colliders": 102,
+  "tris": 51330
+ },
+ {
+  "id": "cho_stall_lane",
+  "file": "res://assets/models/landmarks/cho_stall_lane.glb",
+  "kind": "landmark",
+  "width": 12.0,
+  "depth": 3.2,
+  "height": 2.7,
+  "floors": 1,
+  "style": "market",
+  "climb_points": [],
+  "nap_spots": [
+   [
+    -1.5,
+    0.5,
+    -1.45
+   ],
+   [
+    4.5,
+    0.5,
+    -1.45
+   ]
+  ],
+  "entrances": [],
+  "markers": {
+   "MARKER_stall_lane": [
+    [
+     0.0,
+     0.15,
+     -1.5
+    ]
+   ]
+  },
+  "zones": [
+   {
+    "name": "SHELTER",
+    "center": [
+     -4.5,
+     1.15,
+     -1.5
+    ],
+    "size": [
+     2.0,
+     2.3,
+     2.0
+    ]
+   },
+   {
+    "name": "SHELTER",
+    "center": [
+     -1.5,
+     1.05,
+     -1.8
+    ],
+    "size": [
+     2.8,
+     2.1,
+     2.8
+    ]
+   },
+   {
+    "name": "SHELTER",
+    "center": [
+     1.5,
+     1.15,
+     -1.5
+    ],
+    "size": [
+     2.0,
+     2.3,
+     2.0
+    ]
+   },
+   {
+    "name": "SHELTER",
+    "center": [
+     4.5,
+     1.05,
+     -1.8
+    ],
+    "size": [
+     2.8,
+     2.1,
+     2.8
+    ]
+   }
+  ],
+  "origin": "front facade bottom-centre at ground level",
+  "category": "market",
+  "colliders": 13,
+  "tris": 12882
+ },
+ {
+  "id": "cho_gate_arch",
+  "file": "res://assets/models/landmarks/cho_gate_arch.glb",
+  "kind": "landmark",
+  "width": 9.0,
+  "depth": 0.8,
+  "height": 6.5,
+  "floors": 1,
+  "style": "market",
+  "climb_points": [
+   [
+    -4.15,
+    1.0,
+    0.45
+   ],
+   [
+    4.15,
+    1.0,
+    0.45
+   ]
+  ],
+  "nap_spots": [
+   [
+    4.15,
+    4.96,
+    -0.0
+   ]
+  ],
+  "entrances": [],
+  "markers": {
+   "LIGHT_NIGHT": [
+    [
+     -2.2,
+     3.85,
+     -0.0
+    ],
+    [
+     2.2,
+     3.85,
+     -0.0
+    ]
+   ],
+   "MARKER_market_gate": [
+    [
+     0.0,
+     0.0,
+     -0.0
+    ]
+   ]
+  },
+  "zones": [],
+  "origin": "centre of the arch at street level; road passes along Z",
+  "category": "market",
+  "colliders": 39,
+  "tris": 8964
+ },
+ {
+  "id": "ho_embank_straight_4m",
+  "file": "res://assets/models/landmarks/ho_embank_straight_4m.glb",
+  "kind": "landmark",
+  "width": 4.0,
+  "depth": 3.0,
+  "height": 1.72,
+  "floors": 0,
+  "style": "lake",
+  "climb_points": [],
+  "nap_spots": [
+   [
+    1.2,
+    0.125,
+    -0.2
+   ]
+  ],
+  "entrances": [],
+  "markers": {
+   "MARKER_shore": [
+    [
+     0.0,
+     0.0,
+     -1.5
+    ]
+   ]
+  },
+  "zones": [],
+  "origin": "top of the water-side edge at walkway level; water toward +Z, water level -1.0",
+  "category": "lake",
+  "colliders": 4,
+  "tris": 262
+ },
+ {
+  "id": "ho_embank_curve_30",
+  "file": "res://assets/models/landmarks/ho_embank_curve_30.glb",
+  "kind": "landmark",
+  "width": 4.2,
+  "depth": 3.0,
+  "height": 1.72,
+  "floors": 0,
+  "style": "lake",
+  "climb_points": [],
+  "nap_spots": [
+   [
+    0.0,
+    0.125,
+    -0.2
+   ]
+  ],
+  "entrances": [],
+  "markers": {},
+  "zones": [],
+  "origin": "midpoint of the arc on the water-side edge at walkway level; arc radius 8 m",
+  "category": "lake",
+  "colliders": 12,
+  "tris": 290
+ },
+ {
+  "id": "ho_embank_steps_4m",
+  "file": "res://assets/models/landmarks/ho_embank_steps_4m.glb",
+  "kind": "landmark",
+  "width": 4.0,
+  "depth": 3.0,
+  "height": 2.35,
+  "floors": 0,
+  "style": "lake",
+  "climb_points": [
+   [
+    0.0,
+    -0.85,
+    1.93
+   ]
+  ],
+  "nap_spots": [
+   [
+    0.4,
+    -0.84,
+    1.83
+   ]
+  ],
+  "entrances": [],
+  "markers": {
+   "MARKER_water_access": [
+    [
+     0.0,
+     -0.85,
+     1.93
+    ]
+   ]
+  },
+  "zones": [],
+  "origin": "top of the water-side edge at walkway level; water toward +Z",
+  "category": "lake",
+  "colliders": 14,
+  "tris": 880
+ },
+ {
+  "id": "ho_railing_4m",
+  "file": "res://assets/models/landmarks/ho_railing_4m.glb",
+  "kind": "landmark",
+  "width": 4.0,
+  "depth": 0.3,
+  "height": 0.78,
+  "floors": 0,
+  "style": "lake",
+  "climb_points": [],
+  "nap_spots": [
+   [
+    0.0,
+    0.58,
+    -0.2
+   ]
+  ],
+  "entrances": [],
+  "markers": {},
+  "zones": [],
+  "origin": "same as the embankment pieces (place on top of them)",
+  "category": "lake",
+  "colliders": 3,
+  "tris": 668
+ },
+ {
+  "id": "ho_bridge",
+  "file": "res://assets/models/landmarks/ho_bridge.glb",
+  "kind": "landmark",
+  "width": 3.4,
+  "depth": 16.0,
+  "height": 4.25,
+  "floors": 0,
+  "style": "lake",
+  "climb_points": [],
+  "nap_spots": [
+   [
+    -1.57,
+    1.16,
+    8.4
+   ],
+   [
+    1.57,
+    1.16,
+    8.4
+   ],
+   [
+    -1.57,
+    1.16,
+    -8.4
+   ],
+   [
+    1.57,
+    1.16,
+    -8.4
+   ],
+   [
+    0.6,
+    1.56,
+    -0.0
+   ]
+  ],
+  "entrances": [
+   [
+    0.0,
+    0.0,
+    8.6
+   ],
+   [
+    0.0,
+    0.0,
+    -8.6
+   ]
+  ],
+  "markers": {
+   "MARKER_riddle_bridge": [
+    [
+     0.0,
+     1.55,
+     -0.0
+    ]
+   ]
+  },
+  "zones": [],
+  "origin": "bridge midpoint at walkway level; spans Z -8..8, water level -1.0",
+  "category": "lake",
+  "colliders": 48,
+  "tris": 15376
+ },
+ {
+  "id": "ho_islet_shrine",
+  "file": "res://assets/models/landmarks/ho_islet_shrine.glb",
+  "kind": "landmark",
+  "width": 9.0,
+  "depth": 7.0,
+  "height": 5.5,
+  "floors": 0,
+  "style": "lake",
+  "climb_points": [
+   [
+    -2.6,
+    0.6,
+    -1.0
+   ]
+  ],
+  "nap_spots": [
+   [
+    1.9,
+    0.48,
+    1.0
+   ],
+   [
+    -1.8,
+    0.48,
+    0.4
+   ],
+   [
+    1.1,
+    0.46,
+    0.5
+   ]
+  ],
+  "entrances": [],
+  "markers": {
+   "LIGHT_ALTAR": [
+    [
+     0.0,
+     1.6,
+     -0.9
+    ]
+   ],
+   "MARKER_islet_shrine": [
+    [
+     0.0,
+     0.05,
+     0.8
+    ]
+   ],
+   "MARKER_bridge_landing": [
+    [
+     0.0,
+     0.05,
+     3.5
+    ]
+   ],
+   "MARKER_pigeons": [
+    [
+     1.5,
+     0.1,
+     1.6
+    ]
+   ]
+  },
+  "zones": [
+   {
+    "name": "SHELTER",
+    "center": [
+     0.0,
+     1.375,
+     -0.6
+    ],
+    "size": [
+     2.6,
+     1.85,
+     2.6
+    ]
+   }
+  ],
+  "origin": "islet centre at ground level (+0.0 = walkway level), water level -1.0",
+  "category": "lake",
+  "colliders": 60,
+  "tris": 7832
+ },
+ {
+  "id": "ho_lamp_post",
+  "file": "res://assets/models/landmarks/ho_lamp_post.glb",
+  "kind": "landmark",
+  "width": 0.8,
+  "depth": 0.8,
+  "height": 3.55,
+  "floors": 0,
+  "style": "lake",
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "markers": {
+   "LIGHT_NIGHT": [
+    [
+     0.0,
+     3.1,
+     -0.0
+    ]
+   ]
+  },
+  "zones": [],
+  "origin": "post base centre",
+  "category": "lake",
+  "colliders": 2,
+  "tris": 2088
+ },
+ {
+  "id": "ho_bench",
+  "file": "res://assets/models/landmarks/ho_bench.glb",
+  "kind": "landmark",
+  "width": 1.8,
+  "depth": 0.7,
+  "height": 0.86,
+  "floors": 0,
+  "style": "lake",
+  "climb_points": [],
+  "nap_spots": [
+   [
+    0.2,
+    0.46,
+    -0.28
+   ]
+  ],
+  "entrances": [],
+  "markers": {},
+  "zones": [],
+  "origin": "bench front-centre on the ground",
+  "category": "lake",
+  "colliders": 2,
+  "tris": 992
+ },
+ {
+  "id": "shrine_wall_box",
+  "file": "res://assets/models/landmarks/shrine_wall_box.glb",
+  "kind": "roof_prop",
+  "width": 0.6,
+  "depth": 0.45,
+  "height": 0.8,
+  "floors": 0,
+  "style": "temple",
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "markers": {
+   "LIGHT_ALTAR": [
+    [
+     0.0,
+     0.25,
+     0.25
+    ]
+   ],
+   "MARKER_shrine": [
+    [
+     0.0,
+     0.04,
+     0.25
+    ]
+   ]
+  },
+  "zones": [],
+  "origin": "bottom-back centre (mount on a wall face, front = +Z)",
+  "category": "shrine",
+  "colliders": 1,
+  "tris": 5352
+ },
+ {
+  "id": "shrine_tree",
+  "file": "res://assets/models/landmarks/shrine_tree.glb",
+  "kind": "roof_prop",
+  "width": 0.7,
+  "depth": 0.7,
+  "height": 1.9,
+  "floors": 0,
+  "style": "temple",
+  "climb_points": [
+   [
+    0.0,
+    0.6,
+    0.1
+   ]
+  ],
+  "nap_spots": [],
+  "entrances": [],
+  "markers": {
+   "LIGHT_ALTAR": [
+    [
+     0.0,
+     1.42,
+     0.05
+    ]
+   ],
+   "MARKER_shrine": [
+    [
+     0.0,
+     0.0,
+     0.3
+    ]
+   ]
+  },
+  "zones": [],
+  "origin": "post base centre",
+  "category": "shrine",
+  "colliders": 3,
+  "tris": 3908
+ },
+ {
+  "id": "cafe_bong",
+  "file": "res://assets/models/landmarks/cafe_bong.glb",
+  "kind": "shop",
+  "width": 6.0,
+  "depth": 10.0,
+  "height": 9.6,
+  "floors": 2,
+  "style": "modern",
+  "climb_points": [
+   [
+    2.88,
+    0.45,
+    0.115
+   ],
+   [
+    2.88,
+    7.8,
+    0.115
+   ]
+  ],
+  "nap_spots": [
+   [
+    -1.8,
+    0.79,
+    -0.5
+   ],
+   [
+    -2.65,
+    0.6,
+    1.2
+   ],
+   [
+    2.65,
+    0.6,
+    1.2
+   ],
+   [
+    -1.45,
+    7.29,
+    -6.4
+   ]
+  ],
+  "entrances": [
+   [
+    0.0,
+    0.15,
+    0.2
+   ]
+  ],
+  "markers": {
+   "MARKER_bong_spot": [
+    [
+     -1.8,
+     0.79,
+     -0.5
+    ]
+   ],
+   "LIGHT_NIGHT": [
+    [
+     -2.8,
+     2.4,
+     0.4
+    ],
+    [
+     2.8,
+     2.4,
+     0.4
+    ]
+   ],
+   "MARKER_cafe": [
+    [
+     0.0,
+     0.15,
+     1.0
+    ]
+   ]
+  },
+  "zones": [
+   {
+    "name": "SHELTER",
+    "center": [
+     0.0,
+     1.7,
+     0.65
+    ],
+    "size": [
+     6.0,
+     3.4,
+     1.3
+    ]
+   },
+   {
+    "name": "SHELTER",
+    "center": [
+     0.0,
+     1.7,
+     -2.3
+    ],
+    "size": [
+     6.0,
+     3.4,
+     4.6
+    ]
+   },
+   {
+    "name": "REVERB_Interior",
+    "center": [
+     0.0,
+     1.8,
+     -2.4
+    ],
+    "size": [
+     6.0,
+     3.6,
+     4.4
+    ]
+   }
+  ],
+  "origin": "front facade bottom-centre at ground level",
+  "category": "shop",
+  "colliders": 47,
+  "tris": 13092
+ },
+ {
+  "id": "quan_tra_ba_tu",
+  "file": "res://assets/models/landmarks/quan_tra_ba_tu.glb",
+  "kind": "shop",
+  "width": 4.0,
+  "depth": 2.8,
+  "height": 2.5,
+  "floors": 1,
+  "style": "old_tile",
+  "climb_points": [
+   [
+    -1.95,
+    0.9,
+    -0.15
+   ],
+   [
+    1.95,
+    0.9,
+    -0.15
+   ]
+  ],
+  "nap_spots": [
+   [
+    0.9,
+    2.27,
+    -1.4
+   ],
+   [
+    -0.975,
+    0.18,
+    -2.065
+   ],
+   [
+    0.85,
+    0.41,
+    -2.3
+   ],
+   [
+    1.0,
+    0.11,
+    -2.0
+   ]
+  ],
+  "entrances": [
+   [
+    0.0,
+    0.0,
+    -0.0
+   ]
+  ],
+  "markers": {
+   "MARKER_cam_bed": [
+    [
+     -0.975,
+     0.18,
+     -2.065
+    ]
+   ],
+   "MARKER_bowl": [
+    [
+     -0.35,
+     0.1,
+     -1.45
+    ]
+   ],
+   "MARKER_stall_counter": [
+    [
+     -0.6,
+     0.1,
+     -1.6
+    ]
+   ],
+   "MARKER_grandma": [
+    [
+     0.85,
+     0.1,
+     -1.95
+    ]
+   ],
+   "LIGHT_NIGHT": [
+    [
+     -0.3,
+     1.6,
+     -1.5
+    ]
+   ],
+   "MARKER_tea_stall": [
+    [
+     0.0,
+     0.0,
+     -0.6
+    ]
+   ]
+  },
+  "zones": [
+   {
+    "name": "SHELTER",
+    "center": [
+     0.0,
+     1.0,
+     -1.475
+    ],
+    "size": [
+     4.2,
+     2.0,
+     2.65
+    ]
+   }
+  ],
+  "origin": "front-centre on the sidewalk; the stall leans against a wall at +2.8 m behind (Godot -Z)",
+  "category": "shop",
+  "colliders": 19,
+  "tris": 10202
+ }
+]

@@ -44,7 +44,7 @@ func build() -> void:
 	_ap_label = _points_badge(pts, "SKILLS_ATTR_POINTS", UIStyle.JADE)
 	var content: Control = _frame["content"]
 	var v := VBoxContainer.new()
-	v.set_anchors_preset(Control.PRESET_FULL_RECT)
+	v.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	v.add_theme_constant_override(&"separation", 16)
 	content.add_child(v)
 	_trees_row = HBoxContainer.new()

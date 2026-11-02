@@ -13,7 +13,6 @@ dest_files=["res://.godot/imported/sign_aframe_com.glb-34293fa9ca7d8664c9b75d870
 
 [params]
 
-
 nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null

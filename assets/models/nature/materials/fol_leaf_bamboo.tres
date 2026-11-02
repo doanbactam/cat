@@ -1,0 +1,19 @@
+[gd_resource type="ShaderMaterial" load_steps=6 format=3]
+
+[ext_resource type="Shader" path="res://assets/models/nature/shaders/nature_foliage.gdshader" id="1"]
+[ext_resource type="Texture2D" path="res://assets/textures/nature/leaf_bamboo_albedo.png" id="2"]
+[ext_resource type="Texture2D" path="res://assets/textures/nature/leaf_bamboo_normal.png" id="3"]
+[ext_resource type="Texture2D" path="res://assets/textures/nature/leaf_bamboo_orm.jpg" id="4"]
+[ext_resource type="Texture2D" path="res://assets/textures/nature/leaf_bamboo_trans.jpg" id="5"]
+
+[resource]
+shader = ExtResource("1")
+shader_parameter/albedo_tex = ExtResource("2")
+shader_parameter/normal_tex = ExtResource("3")
+shader_parameter/orm_tex = ExtResource("4")
+shader_parameter/trans_tex = ExtResource("5")
+shader_parameter/backlight_color = Color(0.6, 0.72, 0.28, 1)
+shader_parameter/backlight_strength = 1.0
+shader_parameter/specular_level = 0.35
+shader_parameter/sway_amp = 1.3
+shader_parameter/flutter_amp = 1.5

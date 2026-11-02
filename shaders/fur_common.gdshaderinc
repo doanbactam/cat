@@ -14,7 +14,7 @@ uniform vec4 tint : source_color = vec4(1.0, 1.0, 1.0, 1.0);
 uniform float fur_length = 0.016;
 // flow map (tangent-space RG) → model space; flip if the source convention differs
 uniform float flow_sign_x = 1.0;
-uniform float flow_sign_y = -1.0;
+uniform float flow_sign_y = 1.0;  // verified: dorsal fur combs toward the tail (-Z) with +1
 // how upright the strands stand (0 = combed flat along the flow, 1 = straight out)
 uniform float strand_lift = 0.38;
 uniform float wet_darken = 0.58;

@@ -1,0 +1,23 @@
+[gd_resource type="ORMMaterial3D" load_steps=4 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/textures/vehicles/veh_paint_albedo.jpg" id="1"]
+[ext_resource type="Texture2D" path="res://assets/textures/vehicles/veh_paint_normal.png" id="2"]
+[ext_resource type="Texture2D" path="res://assets/textures/vehicles/veh_paint_orm.jpg" id="3"]
+
+[resource]
+resource_name = "veh_paint_teal"
+albedo_texture = ExtResource("1")
+normal_texture = ExtResource("2")
+orm_texture = ExtResource("3")
+vertex_color_use_as_albedo = true
+normal_enabled = true
+texture_filter = 5
+uv1_triplanar = false
+albedo_color = Color(0.2478, 0.6012, 0.6012, 1)
+metallic = 0.0
+roughness = 1.0
+metallic_specular = 0.5
+clearcoat_enabled = true
+clearcoat = 1.0
+clearcoat_roughness = 0.06
+normal_scale = 0.5

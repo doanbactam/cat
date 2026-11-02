@@ -1,0 +1,19 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://bsk6nufkvxmdr"
+
+[deps]
+
+files=["res://data/i18n/requests/vehicles-nature.en.translation", "res://data/i18n/requests/vehicles-nature.vi.translation"]
+
+source_file="res://data/i18n/requests/vehicles-nature.csv"
+dest_files=["res://data/i18n/requests/vehicles-nature.en.translation", "res://data/i18n/requests/vehicles-nature.vi.translation"]
+
+[params]
+
+compress=1
+delimiter=0
+unescape_keys=false
+unescape_translations=true

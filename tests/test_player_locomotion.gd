@@ -6,7 +6,7 @@ extends "res://tests/test_player_base.gd"
 func test_scene_contract() -> void:
 	ground()
 	var p := spawn_player(Vector3.ZERO)
-	await step(2)
+	await settle()
 	assert_true(p is CatPlayer, "root is CatPlayer")
 	assert_true(p.is_in_group(&"player"), "group player")
 	assert_eq(p.collision_layer, 2, "layer 2")

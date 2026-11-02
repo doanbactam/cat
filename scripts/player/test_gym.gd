@@ -93,7 +93,7 @@ func demo_fpp() -> void:
 func demo_fpp_down() -> void:
 	demo_fpp()
 	var rig: Node3D = player.call(&"get_camera_rig")
-	rig.set(&"pitch", deg_to_rad(-62.0))
+	rig.set(&"pitch", deg_to_rad(-78.0))
 
 
 func demo_aim() -> void:
@@ -104,7 +104,8 @@ func demo_aim() -> void:
 
 func demo_portrait() -> void:
 	# sunny 3/4 portrait for fur / material review
-	_place(Vector3(-1.6, 0.0, 0.2), 200.0, 130.0, -8.0, 0.62)
+	# sunny 3/4 portrait for fur / material review (sun from +X, camera on the lit side)
+	_place(Vector3(-1.6, 0.0, 0.2), 170.0, 130.0, -6.0, 0.62)
 
 
 func demo_sense() -> void:
@@ -252,18 +253,27 @@ func _build_environment() -> void:
 	var env := Environment.new()
 	env.background_mode = Environment.BG_SKY
 	var sky := Sky.new()
-	var psm := PhysicalSkyMaterial.new()
-	psm.turbidity = 7.0
-	psm.mie_coefficient = 0.006
-	psm.mie_eccentricity = 0.82
-	psm.rayleigh_coefficient = 2.2
-	psm.ground_color = Color(0.32, 0.3, 0.28)
-	psm.energy_multiplier = 1.0
+	# Hanoi late-morning sky: deep zenith blue, hazy warm-white horizon (PhysicalSky read as flat
+	# grey under AgX on lavapipe; the procedural gradient gives controllable colour + GI tint)
+	var psm := ProceduralSkyMaterial.new()
+	psm.sky_top_color = Color(0.3, 0.46, 0.7)
+	psm.sky_horizon_color = Color(0.74, 0.76, 0.78)
+	psm.sky_curve = 0.12
+	psm.sky_energy_multiplier = 0.9
+	psm.ground_horizon_color = Color(0.62, 0.6, 0.56)
+	psm.ground_bottom_color = Color(0.3, 0.27, 0.24)
+	psm.ground_curve = 0.06
+	psm.sun_angle_max = 18.0
+	psm.sun_curve = 0.12
+	psm.use_debanding = true
 	sky.sky_material = psm
 	env.sky = sky
 	env.ambient_light_source = Environment.AMBIENT_SOURCE_SKY
 	env.reflected_light_source = Environment.REFLECTION_SOURCE_SKY
-	env.ambient_light_sky_contribution = 1.0
+	# part sky, part warm bounce: pure sky ambient turned every shadow saturated blue
+	env.ambient_light_sky_contribution = 0.6
+	env.ambient_light_color = Color(0.62, 0.57, 0.5)
+	env.ambient_light_energy = 0.7
 	env.tonemap_mode = Environment.TONE_MAPPER_AGX
 	env.tonemap_exposure = 1.0
 	env.ssao_enabled = true
@@ -290,7 +300,8 @@ func _build_environment() -> void:
 	add_child(we)
 	var sun := DirectionalLight3D.new()
 	sun.name = "Sun"
-	sun.rotation_degrees = Vector3(-38.0, -32.0, 0.0)
+	# from +X, a little south: rakes across the ledge row and lights the portrait side of the cat
+	sun.rotation_degrees = Vector3(-34.0, 100.0, 0.0)
 	sun.light_color = Color(1.0, 0.93, 0.82)
 	sun.light_energy = 2.4
 	sun.light_angular_distance = 0.6

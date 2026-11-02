@@ -19,7 +19,7 @@ var _backdrop: ColorRect = null
 
 
 func _ready() -> void:
-	set_anchors_preset(Control.PRESET_FULL_RECT)
+	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	if theme == null:
@@ -27,7 +27,7 @@ func _ready() -> void:
 	if dim_background:
 		_backdrop = ColorRect.new()
 		_backdrop.name = "Backdrop"
-		_backdrop.set_anchors_preset(Control.PRESET_FULL_RECT)
+		_backdrop.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 		_backdrop.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		var mat := ShaderMaterial.new()
 		mat.shader = preload("res://scripts/ui/shaders/blur_dim.gdshader")
@@ -105,7 +105,7 @@ func close_now() -> void:
 ## Returns {"root": MarginContainer, "header": HBoxContainer, "content": Control, "hints": UIHintBar}.
 func make_frame(title_key: String, icon: StringName = &"") -> Dictionary:
 	var margin := MarginContainer.new()
-	margin.set_anchors_preset(Control.PRESET_FULL_RECT)
+	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	margin.add_theme_constant_override(&"margin_left", 96)
 	margin.add_theme_constant_override(&"margin_right", 96)
 	margin.add_theme_constant_override(&"margin_top", 60)

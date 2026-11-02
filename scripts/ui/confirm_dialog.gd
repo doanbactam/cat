@@ -30,7 +30,7 @@ static func make(t_key: String, b_key: String, is_danger: bool = false, args: Di
 
 func build() -> void:
 	var center := CenterContainer.new()
-	center.set_anchors_preset(Control.PRESET_FULL_RECT)
+	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(center)
 	var card := PanelContainer.new()
 	card.theme_type_variation = &"LacquerPanel"

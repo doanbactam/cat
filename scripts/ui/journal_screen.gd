@@ -22,7 +22,7 @@ func build() -> void:
 	_tabs_bar = make_tabs(TABS, TAB_ICONS, _select_tab)
 	(_frame["header"] as HBoxContainer).add_child(_tabs_bar)
 	_body = Control.new()
-	_body.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_body.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	(_frame["content"] as Control).add_child(_body)
 	(_frame["hints"] as UIHintBar).set_hints([[&"ui_accept", "UI_SELECT"], ["@Q / E|LB / RB", "UI_TABS"], [&"ui_cancel", "UI_BACK"]])
 	_populate()
@@ -64,7 +64,7 @@ func _populate() -> void:
 
 func _split() -> Array[Control]:
 	var h := HBoxContainer.new()
-	h.set_anchors_preset(Control.PRESET_FULL_RECT)
+	h.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	h.add_theme_constant_override(&"separation", 34)
 	_body.add_child(h)
 	var left := PanelContainer.new()
@@ -260,7 +260,7 @@ func _build_memories() -> void:
 		var photo := _Photo.new()
 		photo.found = has
 		photo.number = idx + 1
-		photo.set_anchors_preset(Control.PRESET_FULL_RECT)
+		photo.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 		photo.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		b.add_child(photo)
 		b.focus_entered.connect(func() -> void: _memory_page(page, id, has))
@@ -304,7 +304,7 @@ func _build_places() -> void:
 	var locs: Dictionary = gs.call("get_discovered_locations") if gs != null else {}
 	var panel := PanelContainer.new()
 	panel.theme_type_variation = &"PaperPanel"
-	panel.set_anchors_preset(Control.PRESET_FULL_RECT)
+	panel.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_body.add_child(panel)
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override(&"separation", 14)
@@ -336,7 +336,7 @@ func _build_places() -> void:
 func _build_cam() -> void:
 	var gs := get_node_or_null(^"/root/GameState")
 	var h := HBoxContainer.new()
-	h.set_anchors_preset(Control.PRESET_FULL_RECT)
+	h.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	h.add_theme_constant_override(&"separation", 30)
 	_body.add_child(h)
 	var col1 := PanelContainer.new()

@@ -1,0 +1,104 @@
+{
+ "lacquer_red": {
+  "tile_m": 1.0,
+  "albedo": "lacquer_red_albedo.jpg",
+  "normal": "lacquer_red_normal.png",
+  "orm": "lacquer_red_orm.jpg"
+ },
+ "gilt": {
+  "tile_m": 0.5,
+  "albedo": "gilt_albedo.jpg",
+  "normal": "gilt_normal.png",
+  "orm": "gilt_orm.jpg"
+ },
+ "wood_aged": {
+  "tile_m": 1.0,
+  "albedo": "wood_aged_albedo.jpg",
+  "normal": "wood_aged_normal.png",
+  "orm": "wood_aged_orm.jpg"
+ },
+ "bluestone": {
+  "tile_m": 1.0,
+  "albedo": "bluestone_albedo.jpg",
+  "normal": "bluestone_normal.png",
+  "orm": "bluestone_orm.jpg"
+ },
+ "brick_paving": {
+  "tile_m": 2.0,
+  "albedo": "brick_paving_albedo.jpg",
+  "normal": "brick_paving_normal.png",
+  "orm": "brick_paving_orm.jpg"
+ },
+ "plaster_temple": {
+  "tile_m": 2.0,
+  "albedo": "plaster_temple_albedo.jpg",
+  "normal": "plaster_temple_normal.png",
+  "orm": "plaster_temple_orm.jpg"
+ },
+ "bronze": {
+  "tile_m": 0.5,
+  "albedo": "bronze_albedo.jpg",
+  "normal": "bronze_normal.png",
+  "orm": "bronze_orm.jpg"
+ },
+ "stone_embank": {
+  "tile_m": 2.0,
+  "albedo": "stone_embank_albedo.jpg",
+  "normal": "stone_embank_normal.png",
+  "orm": "stone_embank_orm.jpg"
+ },
+ "stone_plinth": {
+  "tile_m": 2.0,
+  "albedo": "stone_plinth_albedo.jpg",
+  "normal": "stone_plinth_normal.png",
+  "orm": "stone_plinth_orm.jpg"
+ },
+ "wood_red_paint": {
+  "tile_m": 1.0,
+  "albedo": "wood_red_paint_albedo.jpg",
+  "normal": "wood_red_paint_normal.png",
+  "orm": "wood_red_paint_orm.jpg"
+ },
+ "leaves_ground": {
+  "tile_m": 2.0,
+  "albedo": "leaves_ground_albedo.jpg",
+  "normal": "leaves_ground_normal.png",
+  "orm": "leaves_ground_orm.jpg"
+ },
+ "tile_white": {
+  "tile_m": 1.0,
+  "albedo": "tile_white_albedo.jpg",
+  "normal": "tile_white_normal.png",
+  "orm": "tile_white_orm.jpg"
+ },
+ "market_floor": {
+  "tile_m": 2.0,
+  "albedo": "market_floor_albedo.jpg",
+  "normal": "market_floor_normal.png",
+  "orm": "market_floor_orm.jpg"
+ },
+ "steel_green": {
+  "tile_m": 1.0,
+  "albedo": "steel_green_albedo.jpg",
+  "normal": "steel_green_normal.png",
+  "orm": "steel_green_orm.jpg"
+ },
+ "tarp_stripe": {
+  "tile_m": 1.0,
+  "albedo": "tarp_stripe_albedo.jpg",
+  "normal": "tarp_stripe_normal.png",
+  "orm": "tarp_stripe_orm.jpg"
+ },
+ "tarp_blue": {
+  "tile_m": 1.0,
+  "albedo": "tarp_blue_albedo.jpg",
+  "normal": "tarp_blue_normal.png",
+  "orm": "tarp_blue_orm.jpg"
+ },
+ "tarp_orange": {
+  "tile_m": 1.0,
+  "albedo": "tarp_orange_albedo.jpg",
+  "normal": "tarp_orange_normal.png",
+  "orm": "tarp_orange_orm.jpg"
+ }
+}

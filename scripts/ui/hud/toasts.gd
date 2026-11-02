@@ -68,7 +68,16 @@ func push_toast(text: String, icon: StringName = &"info") -> Control:
 	h.add_theme_constant_override(&"separation", 12)
 	h.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	p.add_child(h)
-	var ic := UIStyle.icon_rect(UIStyle.glyph(spec[0], spec[1]), 30, spec[2])
+	var ic: TextureRect
+	if not ICONS.has(icon) and icon != &"" and UIStyle.tex(UIStyle.ICONS + "items/" + String(icon) + ".png") != null:
+		# Item ids (GameEvents.notify(text, &"shrimp")) show the painted item illustration.
+		ic = UIStyle.icon_rect(UIStyle.item_icon(icon), 36, Color.WHITE)
+		sb.border_color = UIStyle.GOLD_LIGHT
+	elif not ICONS.has(icon) and UIStyle.glyph(icon) != null:
+		ic = UIStyle.icon_rect(UIStyle.glyph(icon), 30, UIStyle.GOLD_LIGHT)
+		sb.border_color = UIStyle.GOLD_LIGHT
+	else:
+		ic = UIStyle.icon_rect(UIStyle.glyph(spec[0], spec[1]), 30, spec[2])
 	ic.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	h.add_child(ic)
 	var l := UIStyle.label(text, &"medium", 21, UIStyle.TEXT)

@@ -53,14 +53,15 @@ func test_drop_mouth_item() -> void:
 
 func test_swipe_knocks_cup_off_table() -> void:
 	ground()
-	box(Vector3(0, 0.35, 0.6), Vector3(1.0, 0.7, 0.6))
+	# table top 0.7 m, z 0..1; the cat stands on it facing +Z, the cup 0.26 m from the far edge
+	box(Vector3(0, 0.35, 0.5), Vector3(1.0, 0.7, 1.0))
 	var cup := Pushable.new()
 	cup.object_id = &"test_cup"
 	cup.set_meta(&"mass", 0.2)
 	world.add_child(cup)
-	cup.position = Vector3(0.0, 0.7, 0.45)
+	cup.position = Vector3(0.0, 0.7, 0.74)
 	watch(GameEvents.object_knocked_off, "knocked")
-	var p := spawn_player(Vector3(0, 0.7, 0.15))
+	var p := spawn_player(Vector3(0, 0.7, 0.38))
 	await settle()
 	await tap(&"swipe", 2)
 	await step(2)

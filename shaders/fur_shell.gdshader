@@ -20,6 +20,10 @@ uniform float guard_extent = 1.35;
 uniform float shadow_shell = 1.0;
 uniform float gravity_droop = 0.28;
 uniform float tip_lighten = 0.10;
+// Negative mip bias on the strand field: at gameplay distance the averaged mips fall under the
+// alpha-scissor threshold for every shell at once and the coat turns into a smooth shell; keeping
+// sharper mips preserves broken strand tips (TAA resolves the extra shimmer).
+uniform float strand_lod_bias = -1.25;
 
 varying float v_len;
 
@@ -53,7 +57,7 @@ void fragment() {
 	// strands: finer on short / dense coat (face, paws), tufted into locks, sparse guard hairs
 	float fine = mix(1.9, 1.0, smoothstep(0.12, 0.5, m.r)) * mix(1.2, 1.0, m.g);
 	vec2 suv = UV * strand_tiling * fine;
-	vec4 st = texture(strand_tex, suv);
+	vec4 st = texture(strand_tex, suv, strand_lod_bias);
 	float lock = texture(strand_tex, UV * clump_tiling + vec2(0.37, 0.11)).b;
 	float under = st.r * mix(0.78, 1.12, lock);
 	under = mix(under, lock * 1.05, v_wet * 0.6);       // wet: strands clump into spikes

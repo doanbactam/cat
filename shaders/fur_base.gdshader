@@ -32,7 +32,7 @@ void fragment() {
 	AO = orm.r;
 	AO_LIGHT_AFFECT = 0.35;
 	// wet fur: darker and with tighter highlights, but still a matted coat (not latex)
-	ROUGHNESS = clamp(orm.g * roughness_scale * mix(1.0, 0.68, v_wet), 0.28, 1.0);
+	ROUGHNESS = clamp(orm.g * roughness_scale * mix(1.0, 0.68, v_wet), mix(0.5, 0.3, v_wet), 1.0);
 	METALLIC = 0.0;
 	SPECULAR = mix(0.35, 0.42, v_wet);
 	NORMAL_MAP = texture(normal_tex, UV).rgb;

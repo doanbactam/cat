@@ -7,7 +7,8 @@ from PIL import Image, ImageDraw
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 QA = os.path.join(ROOT, "qa", "out", "street-props")
-args = [a for a in sys.argv[1:] if not a.startswith("--")]
+_av = sys.argv[1:]
+args = [a for i, a in enumerate(_av) if not a.startswith("--") and not (i > 0 and _av[i - 1] == "--cols")]
 out = args[0] if args else os.path.join(QA, "sheet.png")
 ids = args[1].split(",") if len(args) > 1 else None
 cols = int(sys.argv[sys.argv.index("--cols") + 1]) if "--cols" in sys.argv else 5

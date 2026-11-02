@@ -146,10 +146,21 @@ def cyl(name, r, h, loc=(0, 0, 0), segs=24, bevel=0.002, mat=None, rot=(0, 0, 0)
 
 
 def lathe(name, prof: Sequence[tuple], segs=32, mat=None, loc=(0, 0, 0), rot=(0, 0, 0),
-          smooth_angle: float | None = 40.0, phase=0.0, rfunc: Callable | None = None):
+          smooth_angle: float | None = 40.0, phase=0.0, rfunc: Callable | None = None, max_seg: float | None = None):
     """Surface of revolution around Z from a profile [(r, z), ...] (bottom to top).
-    r == 0 endpoints become poles (closed caps). rfunc(r, z, angle) -> r for wobble/flutes."""
+    r == 0 endpoints become poles (closed caps). rfunc(r, z, angle) -> r for wobble/flutes.
+    max_seg: split profile segments longer than this (needed where labels are projected)."""
     prof = list(prof)
+    if max_seg:
+        dense = [prof[0]]
+        for (r0, z0), (r1, z1) in zip(prof, prof[1:]):
+            n = max(1, int(math.ceil(math.hypot(r1 - r0, z1 - z0) / max_seg)))
+            if r0 <= 1e-6 or r1 <= 1e-6:
+                n = 1
+            for k in range(1, n + 1):
+                t = k / n
+                dense.append((r0 + (r1 - r0) * t, z0 + (z1 - z0) * t))
+        prof = dense
     if len(prof) >= 3:
         # auto-orient: a counter-clockwise (r, z) polygon gives outward normals
         area = 0.0

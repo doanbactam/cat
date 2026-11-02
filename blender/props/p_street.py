@@ -154,7 +154,7 @@ def lamp_post_modern():
     parts = []
     H = 7.0
     pole = G.lathe("pole", [(0.0, 0.02), (0.09, 0.02), (0.088, 0.3), (0.075, 2.5), (0.058, 5.0), (0.045, H),
-                            (0.0, H + 0.01)], 8, mat=galv, phase=math.pi / 8, smooth_angle=50)
+                            (0.0, H + 0.01)], 8, mat=galv, phase=math.pi / 8, smooth_angle=50, max_seg=0.1)
     G.label_cyl(pole, (0.0, 0.0, 1.0, 0.42), 1.0, 2.1, a0=-math.pi / 2 - 1.3, a1=-math.pi / 2 + 1.3)
     plate = G.rbox("plate", (0.36, 0.36, 0.02), bevel=0.004, mat=galv)
     parts += [pole, plate]
@@ -428,7 +428,7 @@ def fire_hydrant():
     G.wobble(pad, 0.004, 5, seed=3)
     body = G.lathe("body", [(0.0, 0.05), (0.15, 0.05), (0.15, 0.08), (0.115, 0.09), (0.1, 0.12), (0.092, 0.2),
                             (0.09, 0.55), (0.1, 0.57), (0.105, 0.6), (0.095, 0.62), (0.085, 0.68), (0.06, 0.72),
-                            (0.035, 0.74), (0.0, 0.745)], 40, mat=red)
+                            (0.035, 0.74), (0.0, 0.745)], 40, mat=red, max_seg=0.02)
     G.label_cyl(body, (0, 0, 1, 1), 0.42, 0.5, a0=-math.pi, a1=math.pi)
     for i in range(8):
         a = 2 * math.pi * i / 8

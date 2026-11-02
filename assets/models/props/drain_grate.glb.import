@@ -13,7 +13,6 @@ dest_files=["res://.godot/imported/drain_grate.glb-2aeaf76d86658ed07edd8a4511f9e
 
 [params]
 
-
 nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null

@@ -347,7 +347,11 @@ func _update_camera(delta: float) -> void:
 			var ph: float = _player.call(&"get_gait_phase")
 			var amp := clampf(moving_speed / 2.0, 0.0, 1.0) * 0.006 * _head_bob
 			bob = Vector3(sin(ph * TAU) * amp * 0.5, absf(sin(ph * TAU)) * amp, 0.0)
-		var p := body_xf * (_fpp_smooth) + Basis(Vector3.UP, yaw) * bob
+		# looking down the cat tucks its chin: the eyes drop and pull back over the forepaws, so
+		# the paws and chest come into view instead of the floor a body-length ahead
+		var dip := smoothstep(deg_to_rad(35.0), deg_to_rad(80.0), -pitch)
+		var tuck := Basis(Vector3.UP, yaw) * Vector3(0.0, -0.055 * dip, 0.045 * dip)
+		var p := body_xf * (_fpp_smooth) + Basis(Vector3.UP, yaw) * bob + tuck
 		fpp_xf = Transform3D(Basis.from_euler(Vector3(pitch, yaw, 0.0)), p)
 
 	# --- blend --------------------------------------------------------------------------------

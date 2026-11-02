@@ -5,6 +5,7 @@ extends UIScreen
 
 const SPEED := 46.0
 
+var _close_btn: Button = null
 var _scroll_root: Control
 var _column: VBoxContainer
 var _offset := 0.0
@@ -20,11 +21,11 @@ func _init() -> void:
 func build() -> void:
 	var bg := ColorRect.new()
 	bg.color = Color(0.05, 0.035, 0.028, 0.88)
-	bg.set_anchors_preset(Control.PRESET_FULL_RECT)
+	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(bg)
 	_scroll_root = Control.new()
-	_scroll_root.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_scroll_root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_scroll_root.clip_contents = true
 	_scroll_root.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_scroll_root)
@@ -53,6 +54,7 @@ func build() -> void:
 	_walker.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_walker)
 	var close := Button.new()
+	_close_btn = close
 	close.text = tr("BTN_CLOSE")
 	close.position = Vector2(72, 48)
 	close.pressed.connect(request_close)
@@ -113,7 +115,7 @@ func _fill() -> void:
 
 
 func default_focus() -> Control:
-	return null
+	return _close_btn
 
 
 func _process(delta: float) -> void:

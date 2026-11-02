@@ -92,7 +92,7 @@ def electric_pole_concrete():
         prof = [(pr(z0 + (z1 - z0) * k / 4), z0 + (z1 - z0) * k / 4) for k in range(5)]
         if z1 >= H:
             prof += [(0.06, H + 0.005), (0.0, H + 0.005)]
-        sp = G.lathe("pole", prof, 28, mat=conc, smooth_angle=50,
+        sp = G.lathe("pole", prof, 28, mat=conc, smooth_angle=50, max_seg=0.1,
                      rfunc=lambda r, z, a: r * (1 + 0.006 * math.sin(a * 2 + z)))
         segs_pole.append(sp)
         if z0 >= 2.3:
@@ -402,7 +402,7 @@ def gas_cylinder():
     parts = []
     R = 0.152
     body = G.lathe("body", [(0.0, 0.05), (0.07, 0.05), (0.12, 0.06), (0.148, 0.09), (R, 0.13), (R, 0.47),
-                            (0.145, 0.51), (0.12, 0.54), (0.07, 0.56), (0.03, 0.565), (0.0, 0.565)], 40, mat=red)
+                            (0.145, 0.51), (0.12, 0.54), (0.07, 0.56), (0.03, 0.565), (0.0, 0.565)], 40, mat=red, max_seg=0.02)
     G.label_cyl(body, (0, 0, 1, 1), 0.22, 0.4, a0=-math.pi / 2 - 1.2, a1=-math.pi / 2 + 1.2)
     G.dent(body, (0.1, -0.11, 0.3), 0.06, 0.006)
     foot = G.lathe("foot", [(0.13, 0.0), (0.14, 0.0), (0.14, 0.06), (0.13, 0.06)], 40, mat=red)

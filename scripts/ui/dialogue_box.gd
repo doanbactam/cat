@@ -35,7 +35,7 @@ var _prev_mouse_mode := Input.MOUSE_MODE_VISIBLE
 
 
 func _ready() -> void:
-	set_anchors_preset(Control.PRESET_FULL_RECT)
+	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	theme = UIStyle.theme()
@@ -71,7 +71,7 @@ func _build() -> void:
 	grad.texture = gt
 	grad.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	grad.stretch_mode = TextureRect.STRETCH_SCALE
-	grad.set_anchors_preset(Control.PRESET_FULL_RECT)
+	grad.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	grad.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_band.add_child(grad)
 
@@ -224,7 +224,7 @@ func _show_after_text() -> void:
 		b.theme_type_variation = &"ChipButton"
 		b.alignment = HORIZONTAL_ALIGNMENT_LEFT
 		b.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		b.custom_minimum_size = Vector2(560, 58)
+		b.custom_minimum_size = Vector2(640, 58)
 		var txt := String(c.get("text", ""))
 		if not bool(c.get("enabled", true)):
 			txt += "\n" + tr("DLG_REQUIRES").format({"req": String(c.get("requirement", ""))})

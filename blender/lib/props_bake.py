@@ -578,9 +578,14 @@ def catalog_save(entries):
 
 
 def catalog_put(entry):
-    es = [e for e in catalog_load() if e.get("id") != entry["id"]]
-    es.append(entry)
-    catalog_save(es)
+    """Locked read-modify-write (several build processes may run in parallel)."""
+    import fcntl
+    os.makedirs(MODEL_DIR, exist_ok=True)
+    with open(os.path.join(CACHE_DIR, ".catalog.lock") if os.path.isdir(CACHE_DIR) else CATALOG + ".lock", "w") as lk:
+        fcntl.flock(lk, fcntl.LOCK_EX)
+        es = [e for e in catalog_load() if e.get("id") != entry["id"]]
+        es.append(entry)
+        catalog_save(es)
 
 
 def _gd(v):
@@ -805,6 +810,15 @@ def build(pid: str, preview=False, preview_kw=None, tex_override=None, samples=N
 
 
 def _preview(pid, objs, mn, mx, yaw=35.0, pitch=18.0, res=(640, 480), samples=24):
+    if mn.z < -0.01:
+        # hanging props (origin = hang point) would sit under the preview floor: lift them for the render
+        off = -mn.z + 0.05
+        for o in objs:
+            o.location.z += off
+        mn = mn.copy()
+        mx = mx.copy()
+        mn.z += off
+        mx.z += off
     c = (mn + mx) * 0.5
     diag = (mx - mn).length
     for o in bpy.context.scene.objects:

@@ -46,11 +46,11 @@ def open_box(name, w, d, h, t, mat):
 # ---------------------------------------------------------------------------
 def _box_labels(ob, w, d, h, z0=0.0, front_rect=(0.0, 0.0, 0.5, 0.62), back_rect=(0.5, 0.0, 1.0, 0.62),
                 side_rects=((0.0, 0.64, 0.5, 1.0), (0.5, 0.64, 1.0, 1.0))):
-    G.label_planar(ob, front_rect, (-w / 2, -d / 2, z0), (1, 0, 0), (0, 0, 1), (w, h), normal=(0, -1, 0), min_dot=0.8)
-    G.label_planar(ob, back_rect, (w / 2, d / 2, z0), (-1, 0, 0), (0, 0, 1), (w, h), normal=(0, 1, 0), min_dot=0.8)
-    G.label_planar(ob, side_rects[0], (w / 2, -d / 2, z0), (0, 1, 0), (0, 0, 1), (d, h), normal=(1, 0, 0), min_dot=0.8)
+    G.label_planar(ob, front_rect, (-w / 2, -d / 2, z0), (1, 0, 0), (0, 0, 1), (w, h), normal=(0, -1, 0), min_dot=0.8, bounds_pad=0.01)
+    G.label_planar(ob, back_rect, (w / 2, d / 2, z0), (-1, 0, 0), (0, 0, 1), (w, h), normal=(0, 1, 0), min_dot=0.8, bounds_pad=0.01)
+    G.label_planar(ob, side_rects[0], (w / 2, -d / 2, z0), (0, 1, 0), (0, 0, 1), (d, h), normal=(1, 0, 0), min_dot=0.8, bounds_pad=0.01)
     G.label_planar(ob, side_rects[1], (-w / 2, d / 2, z0), (0, -1, 0), (0, 0, 1), (d, h), normal=(-1, 0, 0),
-                   min_dot=0.8)
+                   min_dot=0.8, bounds_pad=0.01)
 
 
 @prop("cardboard_box_open", category="container", surface="fabric", material_kind="cardboard", mass=0.7,
@@ -72,11 +72,11 @@ def cardboard_box_open():
         ang = rng.uniform(100, 128)
         if axis == "y":
             G.place(flap, (0, sgn * width / 2, 0))
-            G.place(flap, (0, 0, 0), (-sgn * ang, 0, 0))
+            G.place(flap, (0, 0, 0), (sgn * (180 - ang), 0, 0))
             G.place(flap, (0, sgn * D / 2, H))
         else:
             G.place(flap, (sgn * width / 2, 0, 0))
-            G.place(flap, (0, 0, 0), (0, sgn * ang, 0))
+            G.place(flap, (0, 0, 0), (0, -sgn * (180 - ang), 0))
             G.place(flap, (sgn * W / 2, 0, H))
         G.wobble(flap, 0.01, 3.5, seed=rng.randint(0, 99))
         parts.append(flap)

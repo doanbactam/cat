@@ -13,7 +13,6 @@ dest_files=["res://.godot/imported/bicycle_rack.glb-43fae18a568b0d7be245c452cc1b
 
 [params]
 
-
 nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null

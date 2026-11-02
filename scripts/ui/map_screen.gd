@@ -26,7 +26,7 @@ func build() -> void:
 	header.move_child(sub, 2)
 	var content: Control = frame["content"]
 	var h := HBoxContainer.new()
-	h.set_anchors_preset(Control.PRESET_FULL_RECT)
+	h.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	h.add_theme_constant_override(&"separation", 24)
 	content.add_child(h)
 	var map_frame := PanelContainer.new()
@@ -156,7 +156,7 @@ class _MapView extends Control:
 		_tex_rect.material = mat
 		add_child(_tex_rect)
 		_overlay = Control.new()
-		_overlay.set_anchors_preset(Control.PRESET_FULL_RECT)
+		_overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 		_overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		_overlay.draw.connect(_draw_markers)
 		add_child(_overlay)

@@ -5,6 +5,10 @@ retopologises, UV-unwraps, rigs, skins, textures and animates Cam, and exports o
 
 ![hero](../gallery/cat-asset_hero.jpg)
 
+Gallery: `docs/gallery/cat-asset_hero.jpg` (Cycles strand-fur preview, sit pose), `cat-asset_godot_walk.jpg`
+(in-engine, `walk` playing, no shell fur), `cat-asset_anim_loco.jpg` (gait contact sheet), `cat-asset_coats.jpg`
+(the 4 NPC coat variants in Godot).
+
 ## What was built
 
 | Part | Details |
@@ -41,7 +45,7 @@ python3 blender/cat/configure_import.py && tools/godot_import.sh # import option
 tools/run_tests.sh cat_asset                                     # contract test
 tools/blender_run.sh blender/cat/render_hero.py -- 1500000 1600x1000 96 sit   # Cycles strand-fur hero
 ```
-Stages cache to `qa/out/cat-asset/cache/stage_*.blend`. Dev helpers: `dev_shape.py` (SDF clay views),
+Stages cache to `qa/out/cat-asset/cache/stage_*.blend` (`qa/out/cat-asset/.gdignore` keeps Godot's importer away from them). Dev helpers: `dev_shape.py` (SDF clay views),
 `dev_anim.py` (render selected clips), `dev_probe.py` (pose landmarks + IK reach, no render).
 Source scene for humans: `blender/cat/cat.blend` (dense sculpt mesh removed to stay small).
 In-engine check: `assets/models/cat/preview/cat_preview.tscn` (plays `walk`; `call=pose_idle|pose_sit|
@@ -64,3 +68,8 @@ pose_sleep|pose_run|pose_meow` for stills via `tools/screenshot.sh`).
   dilation would need a custom eye shader.
 - The tail is an 8-bone chain; very tight curls (sleeping donut) are approximated.
 - Turning/climb/scratch clips assume the controller conventions listed above.
+- Hero gallery shot (1 M strands, 48 samples, 1280×800) crops the ear tips at the top edge and the
+  closed mouth still reads as a slight dark slit (painted lip line + lip shading); a re-frame needs
+  `target`/camera tweaks in `render_hero.py` and ~10 min of Cycles CPU.
+- The assets/models/cat/cat_cat_*.{jpg,png} files next to the GLB are Godot's extracted embedded
+  textures (import side effect), not separate sources.

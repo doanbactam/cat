@@ -13,7 +13,6 @@ dest_files=["res://.godot/imported/manhole_cover.glb-704d655f50adaaa3c01a768a969
 
 [params]
 
-
 nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null

@@ -1,0 +1,806 @@
+[
+ {
+  "id": "bicycle_city",
+  "file": "res://assets/models/vehicles/bicycle_city.glb",
+  "width": 0.692,
+  "depth": 1.797,
+  "height": 1.095,
+  "length": 1.797,
+  "footprint": [
+   0.692,
+   1.797
+  ],
+  "floors": 0,
+  "style": "vehicle",
+  "climb_points": [],
+  "nap_spots": [
+   [
+    0.0,
+    0.88,
+    0.59
+   ]
+  ],
+  "entrances": [],
+  "wheels": [
+   {
+    "node": "wheel_front",
+    "radius": 0.33,
+    "position": [
+     0.0,
+     0.33,
+     0.54
+    ]
+   },
+   {
+    "node": "wheel_rear",
+    "radius": 0.33,
+    "position": [
+     0.0,
+     0.33,
+     -0.54
+    ]
+   }
+  ],
+  "wheel_spin_axis": "x",
+  "tris": 8304,
+  "materials": [
+   "veh_paint_teal",
+   "veh_chrome",
+   "veh_plastic_black",
+   "veh_rubber",
+   "veh_vinyl_brown",
+   "veh_alloy",
+   "veh_light_tail",
+   "veh_steel_dark"
+  ],
+  "dynamic": false,
+  "surface": "metal",
+  "kind": "bicycle",
+  "name_key": "VEH_BICYCLE",
+  "wheelbase": 1.08,
+  "seat": [
+   0.0,
+   1.02,
+   -0.25
+  ],
+  "seats": {
+   "rider": [
+    0.0,
+    1.02,
+    -0.25
+   ]
+  },
+  "rider_pose": "bicycle",
+  "mass": 18.0,
+  "paint": "teal",
+  "max_speed": 4.5
+ },
+ {
+  "id": "cargo_trike",
+  "file": "res://assets/models/vehicles/cargo_trike.glb",
+  "width": 1.128,
+  "depth": 2.574,
+  "height": 1.096,
+  "length": 2.574,
+  "footprint": [
+   1.128,
+   2.574
+  ],
+  "floors": 0,
+  "style": "vehicle",
+  "climb_points": [],
+  "nap_spots": [
+   [
+    0.0,
+    0.9,
+    -0.75
+   ]
+  ],
+  "entrances": [],
+  "wheels": [
+   {
+    "node": "wheel_front",
+    "radius": 0.31,
+    "position": [
+     0.0,
+     0.31,
+     0.8
+    ]
+   },
+   {
+    "node": "wheel_rear_L",
+    "radius": 0.31,
+    "position": [
+     -0.5,
+     0.31,
+     -0.62
+    ]
+   },
+   {
+    "node": "wheel_rear_R",
+    "radius": 0.31,
+    "position": [
+     0.5,
+     0.31,
+     -0.62
+    ]
+   }
+  ],
+  "wheel_spin_axis": "x",
+  "tris": 10798,
+  "materials": [
+   "veh_paint_sky",
+   "veh_rubber",
+   "veh_chrome",
+   "veh_plastic_black",
+   "veh_steel_dark",
+   "veh_vinyl_black",
+   "veh_rust",
+   "veh_wood",
+   "veh_fabric_sack",
+   "veh_vinyl_brown",
+   "veh_decals",
+   "veh_light_tail",
+   "veh_alloy"
+  ],
+  "dynamic": false,
+  "surface": "metal",
+  "kind": "tricycle",
+  "name_key": "VEH_CARGO_TRIKE",
+  "wheelbase": 1.42,
+  "track": 1.0,
+  "seat": [
+   0.0,
+   1.06,
+   0.15
+  ],
+  "seats": {
+   "rider": [
+    0.0,
+    1.06,
+    0.15
+   ]
+  },
+  "rider_pose": "bicycle",
+  "mass": 70.0,
+  "paint": "sky",
+  "max_speed": 3.0
+ },
+ {
+  "id": "cyclo",
+  "file": "res://assets/models/vehicles/cyclo.glb",
+  "width": 0.96,
+  "depth": 2.278,
+  "height": 1.115,
+  "length": 2.278,
+  "footprint": [
+   0.96,
+   2.278
+  ],
+  "floors": 0,
+  "style": "vehicle",
+  "climb_points": [],
+  "nap_spots": [
+   [
+    0.0,
+    0.56,
+    0.5
+   ]
+  ],
+  "entrances": [],
+  "wheels": [
+   {
+    "node": "wheel_front_L",
+    "radius": 0.33,
+    "position": [
+     -0.43,
+     0.33,
+     0.72
+    ]
+   },
+   {
+    "node": "wheel_front_R",
+    "radius": 0.33,
+    "position": [
+     0.43,
+     0.33,
+     0.72
+    ]
+   },
+   {
+    "node": "wheel_rear",
+    "radius": 0.33,
+    "position": [
+     0.0,
+     0.33,
+     -0.78
+    ]
+   }
+  ],
+  "wheel_spin_axis": "x",
+  "tris": 11124,
+  "materials": [
+   "veh_paint_green",
+   "veh_chrome",
+   "veh_steel_dark",
+   "veh_vinyl_red",
+   "veh_wood",
+   "veh_fabric_black",
+   "veh_vinyl_black",
+   "veh_plastic_black",
+   "veh_rubber",
+   "veh_alloy",
+   "veh_light_amber",
+   "veh_decals"
+  ],
+  "dynamic": false,
+  "surface": "metal",
+  "kind": "cyclo",
+  "name_key": "VEH_CYCLO",
+  "wheelbase": 1.5,
+  "track": 0.86,
+  "seat": [
+   0.0,
+   1.1,
+   -0.52
+  ],
+  "seats": {
+   "rider": [
+    0.0,
+    1.1,
+    -0.52
+   ],
+   "passenger": [
+    0.0,
+    0.56,
+    0.48
+   ]
+  },
+  "rider_pose": "bicycle",
+  "mass": 65.0,
+  "paint": "green",
+  "max_speed": 3.5
+ },
+ {
+  "id": "delivery_van",
+  "file": "res://assets/models/vehicles/delivery_van.glb",
+  "width": 1.98,
+  "depth": 4.594,
+  "height": 1.99,
+  "length": 4.594,
+  "footprint": [
+   1.98,
+   4.594
+  ],
+  "floors": 0,
+  "style": "vehicle",
+  "climb_points": [],
+  "nap_spots": [
+   [
+    0.0,
+    1.98,
+    -1.0
+   ],
+   [
+    0.4,
+    0.56,
+    -2.25
+   ]
+  ],
+  "entrances": [],
+  "wheels": [
+   {
+    "node": "wheel_front_L",
+    "radius": 0.32,
+    "position": [
+     -0.725,
+     0.32,
+     1.3
+    ]
+   },
+   {
+    "node": "wheel_front_R",
+    "radius": 0.32,
+    "position": [
+     0.725,
+     0.32,
+     1.3
+    ]
+   },
+   {
+    "node": "wheel_rear_L",
+    "radius": 0.32,
+    "position": [
+     -0.725,
+     0.32,
+     -1.3
+    ]
+   },
+   {
+    "node": "wheel_rear_R",
+    "radius": 0.32,
+    "position": [
+     0.725,
+     0.32,
+     -1.3
+    ]
+   }
+  ],
+  "wheel_spin_axis": "x",
+  "tris": 12616,
+  "materials": [
+   "veh_paint_cream",
+   "veh_glass",
+   "veh_plastic_black",
+   "veh_light_head",
+   "veh_light_amber",
+   "veh_light_tail",
+   "veh_decals",
+   "veh_steel_dark",
+   "veh_chrome",
+   "veh_vinyl_black",
+   "veh_rubber",
+   "veh_plastic_grey"
+  ],
+  "dynamic": false,
+  "surface": "metal",
+  "kind": "van",
+  "name_key": "VEH_VAN",
+  "wheelbase": 2.6,
+  "track": 1.45,
+  "seat": [
+   -0.4,
+   1.05,
+   0.85
+  ],
+  "seats": {
+   "driver": [
+    -0.4,
+    1.05,
+    0.85
+   ],
+   "front": [
+    0.4,
+    1.05,
+    0.85
+   ]
+  },
+  "rider_pose": "car",
+  "mass": 1450.0,
+  "paint": "cream",
+  "max_speed": 10.0
+ },
+ {
+  "id": "helmet_half",
+  "file": "res://assets/models/vehicles/helmet_half.glb",
+  "kind": "helmet",
+  "name_key": "VEH_HELMET_HALF",
+  "width": 0.29,
+  "depth": 0.34,
+  "height": 0.168,
+  "footprint": [
+   0.29,
+   0.34
+  ],
+  "floors": 0,
+  "style": "vehicle",
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "wheels": [],
+  "dynamic": true,
+  "mass": 0.45,
+  "surface": "plastic",
+  "tris": 1678,
+  "materials": [
+   "veh_paint_yellow",
+   "veh_fabric_black",
+   "veh_plastic_black",
+   "veh_decals"
+  ],
+  "paint": "yellow"
+ },
+ {
+  "id": "helmet_open",
+  "file": "res://assets/models/vehicles/helmet_open.glb",
+  "kind": "helmet",
+  "name_key": "VEH_HELMET_OPEN",
+  "width": 0.29,
+  "depth": 0.34,
+  "height": 0.204,
+  "footprint": [
+   0.29,
+   0.34
+  ],
+  "floors": 0,
+  "style": "vehicle",
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "wheels": [],
+  "dynamic": true,
+  "mass": 0.9,
+  "surface": "plastic",
+  "tris": 1628,
+  "materials": [
+   "veh_paint_white",
+   "veh_fabric_black",
+   "veh_glass",
+   "veh_plastic_black"
+  ],
+  "paint": "white"
+ },
+ {
+  "id": "manual_classic",
+  "file": "res://assets/models/vehicles/manual_classic.glb",
+  "width": 0.88,
+  "depth": 1.96,
+  "height": 1.375,
+  "length": 1.96,
+  "footprint": [
+   0.88,
+   1.96
+  ],
+  "floors": 0,
+  "style": "vehicle",
+  "climb_points": [],
+  "nap_spots": [
+   [
+    0.0,
+    0.92,
+    -0.5
+   ]
+  ],
+  "entrances": [],
+  "wheels": [
+   {
+    "node": "wheel_front",
+    "radius": 0.305,
+    "position": [
+     0.0,
+     0.305,
+     0.65
+    ]
+   },
+   {
+    "node": "wheel_rear",
+    "radius": 0.305,
+    "position": [
+     0.0,
+     0.305,
+     -0.65
+    ]
+   }
+  ],
+  "wheel_spin_axis": "x",
+  "tris": 11076,
+  "materials": [
+   "veh_steel_dark",
+   "veh_paint_maroon",
+   "veh_chrome",
+   "veh_decals",
+   "veh_rubber",
+   "veh_vinyl_brown",
+   "veh_vinyl_black",
+   "veh_engine",
+   "veh_alloy",
+   "veh_rust",
+   "veh_light_amber",
+   "veh_light_head",
+   "veh_light_tail"
+  ],
+  "dynamic": false,
+  "surface": "metal",
+  "kind": "motorbike",
+  "name_key": "VEH_MANUAL_BIKE",
+  "wheelbase": 1.3,
+  "seat": [
+   0.0,
+   0.92,
+   -0.3
+  ],
+  "seats": {
+   "rider": [
+    0.0,
+    0.92,
+    -0.3
+   ],
+   "pillion": [
+    0.0,
+    0.93,
+    -0.7
+   ]
+  },
+  "rider_pose": "motorbike",
+  "mass": 105.0,
+  "paint": "maroon",
+  "max_speed": 15.0
+ },
+ {
+  "id": "scooter_auto",
+  "file": "res://assets/models/vehicles/scooter_auto.glb",
+  "width": 0.83,
+  "depth": 1.9,
+  "height": 1.309,
+  "length": 1.9,
+  "footprint": [
+   0.83,
+   1.9
+  ],
+  "floors": 0,
+  "style": "vehicle",
+  "climb_points": [],
+  "nap_spots": [
+   [
+    0.0,
+    0.83,
+    -0.4
+   ]
+  ],
+  "entrances": [],
+  "wheels": [
+   {
+    "node": "wheel_front",
+    "radius": 0.25,
+    "position": [
+     0.0,
+     0.25,
+     0.635
+    ]
+   },
+   {
+    "node": "wheel_rear",
+    "radius": 0.258,
+    "position": [
+     0.0,
+     0.258,
+     -0.635
+    ]
+   }
+  ],
+  "wheel_spin_axis": "x",
+  "tris": 9946,
+  "materials": [
+   "veh_plastic_black",
+   "veh_rubber",
+   "veh_paint_red",
+   "veh_light_head",
+   "veh_chrome",
+   "veh_light_amber",
+   "veh_alloy",
+   "veh_mirror",
+   "veh_steel_dark",
+   "veh_vinyl_black",
+   "veh_light_tail",
+   "veh_engine",
+   "veh_decals"
+  ],
+  "dynamic": false,
+  "surface": "metal",
+  "kind": "scooter",
+  "name_key": "VEH_SCOOTER",
+  "wheelbase": 1.27,
+  "seat": [
+   0.0,
+   0.82,
+   -0.25
+  ],
+  "seats": {
+   "rider": [
+    0.0,
+    0.82,
+    -0.25
+   ],
+   "pillion": [
+    0.0,
+    0.84,
+    -0.62
+   ]
+  },
+  "rider_pose": "scooter",
+  "mass": 112.0,
+  "paint": "red",
+  "max_speed": 16.0
+ },
+ {
+  "id": "taxi_hatch",
+  "file": "res://assets/models/vehicles/taxi_hatch.glb",
+  "width": 1.88,
+  "depth": 3.754,
+  "height": 1.655,
+  "length": 3.754,
+  "footprint": [
+   1.88,
+   3.754
+  ],
+  "floors": 0,
+  "style": "vehicle",
+  "climb_points": [],
+  "nap_spots": [
+   [
+    0.25,
+    1.49,
+    -1.05
+   ],
+   [
+    0.0,
+    0.99,
+    1.25
+   ]
+  ],
+  "entrances": [],
+  "wheels": [
+   {
+    "node": "wheel_front_L",
+    "radius": 0.29,
+    "position": [
+     -0.69,
+     0.29,
+     1.2
+    ]
+   },
+   {
+    "node": "wheel_front_R",
+    "radius": 0.29,
+    "position": [
+     0.69,
+     0.29,
+     1.2
+    ]
+   },
+   {
+    "node": "wheel_rear_L",
+    "radius": 0.29,
+    "position": [
+     -0.69,
+     0.29,
+     -1.2
+    ]
+   },
+   {
+    "node": "wheel_rear_R",
+    "radius": 0.29,
+    "position": [
+     0.69,
+     0.29,
+     -1.2
+    ]
+   }
+  ],
+  "wheel_spin_axis": "x",
+  "tris": 13546,
+  "materials": [
+   "veh_paint_white",
+   "veh_plastic_black",
+   "veh_glass",
+   "veh_mirror",
+   "veh_chrome",
+   "veh_light_head",
+   "veh_light_tail",
+   "veh_light_amber",
+   "veh_decals",
+   "veh_plastic_grey",
+   "veh_vinyl_black",
+   "veh_steel_dark",
+   "veh_rubber"
+  ],
+  "dynamic": false,
+  "surface": "metal",
+  "kind": "car",
+  "name_key": "VEH_TAXI",
+  "wheelbase": 2.4,
+  "track": 1.38,
+  "seat": [
+   -0.36,
+   0.95,
+   -0.15
+  ],
+  "seats": {
+   "driver": [
+    -0.36,
+    0.95,
+    -0.15
+   ],
+   "front": [
+    0.36,
+    0.95,
+    -0.15
+   ],
+   "rear": [
+    0.0,
+    0.95,
+    -1.0
+   ]
+  },
+  "rider_pose": "car",
+  "mass": 950.0,
+  "paint": "white",
+  "max_speed": 11.0
+ },
+ {
+  "id": "underbone_step",
+  "file": "res://assets/models/vehicles/underbone_step.glb",
+  "width": 0.81,
+  "depth": 1.948,
+  "height": 1.3,
+  "length": 1.948,
+  "footprint": [
+   0.81,
+   1.948
+  ],
+  "floors": 0,
+  "style": "vehicle",
+  "climb_points": [],
+  "nap_spots": [
+   [
+    0.0,
+    0.81,
+    -0.42
+   ]
+  ],
+  "entrances": [],
+  "wheels": [
+   {
+    "node": "wheel_front",
+    "radius": 0.285,
+    "position": [
+     0.0,
+     0.285,
+     0.615
+    ]
+   },
+   {
+    "node": "wheel_rear",
+    "radius": 0.285,
+    "position": [
+     0.0,
+     0.285,
+     -0.615
+    ]
+   }
+  ],
+  "wheel_spin_axis": "x",
+  "tris": 10118,
+  "materials": [
+   "veh_paint_blue",
+   "veh_steel_dark",
+   "veh_vinyl_black",
+   "veh_chrome",
+   "veh_light_head",
+   "veh_plastic_black",
+   "veh_rubber",
+   "veh_mirror",
+   "veh_light_amber",
+   "veh_engine",
+   "veh_alloy",
+   "veh_decals",
+   "veh_light_tail"
+  ],
+  "dynamic": false,
+  "surface": "metal",
+  "kind": "motorbike",
+  "name_key": "VEH_UNDERBONE",
+  "wheelbase": 1.23,
+  "seat": [
+   0.0,
+   0.81,
+   -0.3
+  ],
+  "seats": {
+   "rider": [
+    0.0,
+    0.81,
+    -0.3
+   ],
+   "pillion": [
+    0.0,
+    0.82,
+    -0.6
+   ]
+  },
+  "rider_pose": "motorbike",
+  "mass": 98.0,
+  "paint": "blue",
+  "max_speed": 14.0
+ }
+]

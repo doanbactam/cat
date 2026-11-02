@@ -127,10 +127,15 @@ func _draw() -> void:
 		if is_nan(x):
 			continue
 		var icon := _home_icon if bool(l["home"]) else _loc_icon
-		var sz := 20.0 if bool(l["home"]) else 16.0
-		var c := Color(UIStyle.GOLD_LIGHT, 0.85) if bool(l["home"]) else Color(UIStyle.TEXT, 0.6)
+		var sz := 24.0 if bool(l["home"]) else 20.0
+		var edge2 := absf(x / w - 0.5) * 2.0
+		var fade2 := clampf(1.0 - pow(edge2, 4.0), 0.0, 1.0)
+		var c := Color(UIStyle.GOLD_LIGHT, 0.95 * fade2) if bool(l["home"]) else Color(UIStyle.TEXT, 0.85 * fade2)
 		if icon != null:
-			draw_texture_rect(icon, Rect2(Vector2(x - sz * 0.5, cy + 17), Vector2(sz, sz)), false, c)
+			var r := Rect2(Vector2(x - sz * 0.5, cy + 18), Vector2(sz, sz))
+			# soft dark halo so the pin reads over bright skies
+			draw_texture_rect(icon, r.grow(2.0), false, Color(0, 0, 0, 0.45 * fade2))
+			draw_texture_rect(icon, r, false, c)
 	# tracked quest marker
 	if quest_target != Vector3.INF:
 		var b := bearing_to(quest_target)

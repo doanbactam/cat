@@ -25,7 +25,7 @@ func build() -> void:
 	_title = (_frame["header"] as HBoxContainer).get_node("Title") as Label
 	var content: Control = _frame["content"]
 	var center := CenterContainer.new()
-	center.set_anchors_preset(Control.PRESET_FULL_RECT)
+	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	content.add_child(center)
 	_list = VBoxContainer.new()
 	_list.add_theme_constant_override(&"separation", 18)
@@ -67,7 +67,7 @@ func _make_card(slot: int) -> Button:
 	b.set_meta(&"slot", slot)
 	b.disabled = mode == &"load" and not exists
 	var h := HBoxContainer.new()
-	h.set_anchors_preset(Control.PRESET_FULL_RECT)
+	h.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	h.offset_left = 22
 	h.offset_right = -22
 	h.add_theme_constant_override(&"separation", 26)

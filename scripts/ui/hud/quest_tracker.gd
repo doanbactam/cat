@@ -116,6 +116,11 @@ func get_tracked_quest() -> StringName:
 	return _quest
 
 
+## Title currently shown ("" when nothing is tracked).
+func get_title_text() -> String:
+	return _title.text if _title != null and visible else ""
+
+
 class _CheckMark extends Control:
 	var done := false
 

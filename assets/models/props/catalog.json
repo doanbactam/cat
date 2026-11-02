@@ -137,31 +137,31 @@
   "kind": "utility",
   "category": "street",
   "footprint": [
-   0.422,
-   0.421
+   0.423,
+   0.42
   ],
-  "width": 0.422,
-  "depth": 0.421,
-  "height": 0.773,
+  "width": 0.423,
+  "depth": 0.42,
+  "height": 0.771,
   "bounds_min": [
    -0.211,
-   -0.003,
+   -0.001,
    -0.21
   ],
   "bounds_max": [
-   0.211,
+   0.212,
    0.77,
-   0.211
+   0.21
   ],
   "dynamic": false,
   "mass": 90.0,
   "surface": "metal",
   "material_kind": "metal",
   "name_key": "PROP_FIRE_HYDRANT",
-  "tris": 3706,
+  "tris": 6346,
   "materials": 1,
   "texture_size": 2048,
-  "texel_density": 1742,
+  "texel_density": 1757,
   "textures": [
    "res://assets/textures/props/fire_hydrant_albedo.jpg",
    "res://assets/textures/props/fire_hydrant_orm.jpg",
@@ -274,10 +274,10 @@
   "surface": "metal",
   "material_kind": "metal",
   "name_key": "PROP_LAMP_POST_MODERN",
-  "tris": 2298,
+  "tris": 3402,
   "materials": 2,
   "texture_size": 2048,
-  "texel_density": 336,
+  "texel_density": 419,
   "textures": [
    "res://assets/textures/props/lamp_post_modern_albedo.jpg",
    "res://assets/textures/props/lamp_post_modern_orm.jpg",
@@ -588,8 +588,8 @@
   "name_key": "PROP_AC_UNIT",
   "tris": 7600,
   "materials": 1,
-  "texture_size": 128,
-  "texel_density": 14,
+  "texture_size": 2048,
+  "texel_density": 854,
   "textures": [
    "res://assets/textures/props/ac_unit_albedo.jpg",
    "res://assets/textures/props/ac_unit_orm.jpg",
@@ -639,8 +639,8 @@
   "name_key": "PROP_CABLE_COIL_LARGE",
   "tris": 24812,
   "materials": 1,
-  "texture_size": 128,
-  "texel_density": 8,
+  "texture_size": 2048,
+  "texel_density": 404,
   "textures": [
    "res://assets/textures/props/cable_coil_large_albedo.jpg",
    "res://assets/textures/props/cable_coil_large_orm.jpg",
@@ -695,8 +695,8 @@
   "name_key": "PROP_CABLE_COIL_SMALL",
   "tris": 13864,
   "materials": 1,
-  "texture_size": 256,
-  "texel_density": 75,
+  "texture_size": 2048,
+  "texel_density": 602,
   "textures": [
    "res://assets/textures/props/cable_coil_small_albedo.jpg",
    "res://assets/textures/props/cable_coil_small_orm.jpg",
@@ -736,7 +736,7 @@
   "height": 0.842,
   "bounds_min": [
    -0.3,
-   -0.002,
+   -0.0,
    -0.422
   ],
   "bounds_max": [
@@ -751,8 +751,8 @@
   "name_key": "PROP_CABLE_DRUM",
   "tris": 20404,
   "materials": 1,
-  "texture_size": 256,
-  "texel_density": 107,
+  "texture_size": 2048,
+  "texel_density": 974,
   "textures": [
    "res://assets/textures/props/cable_drum_albedo.jpg",
    "res://assets/textures/props/cable_drum_orm.jpg",
@@ -787,15 +787,15 @@
   "category": "utility",
   "footprint": [
    4.06,
-   0.743
+   0.742
   ],
   "width": 4.06,
-  "depth": 0.743,
-  "height": 8.611,
+  "depth": 0.742,
+  "height": 8.609,
   "bounds_min": [
    -2.03,
-   -0.006,
-   -0.285
+   -0.004,
+   -0.284
   ],
   "bounds_max": [
    2.03,
@@ -807,10 +807,10 @@
   "surface": "concrete",
   "material_kind": "concrete",
   "name_key": "PROP_ELECTRIC_POLE_CONCRETE",
-  "tris": 14841,
+  "tris": 21049,
   "materials": 1,
-  "texture_size": 256,
-  "texel_density": 47,
+  "texture_size": 2048,
+  "texel_density": 824,
   "textures": [
    "res://assets/textures/props/electric_pole_concrete_albedo.jpg",
    "res://assets/textures/props/electric_pole_concrete_orm.jpg",
@@ -941,10 +941,10 @@
   "surface": "metal",
   "material_kind": "metal",
   "name_key": "PROP_GAS_CYLINDER",
-  "tris": 2080,
+  "tris": 4400,
   "materials": 1,
-  "texture_size": 128,
-  "texel_density": 76,
+  "texture_size": 2048,
+  "texel_density": 1738,
   "textures": [
    "res://assets/textures/props/gas_cylinder_albedo.jpg",
    "res://assets/textures/props/gas_cylinder_orm.jpg",
@@ -1164,5 +1164,4598 @@
    0.25
   ],
   "emissive": true
+ },
+ {
+  "id": "basin_plastic",
+  "file": "res://assets/models/props/basin_plastic.glb",
+  "kind": "container",
+  "category": "container",
+  "footprint": [
+   0.616,
+   0.616
+  ],
+  "width": 0.616,
+  "depth": 0.616,
+  "height": 0.154,
+  "bounds_min": [
+   -0.308,
+   0.0,
+   -0.308
+  ],
+  "bounds_max": [
+   0.308,
+   0.154,
+   0.308
+  ],
+  "dynamic": false,
+  "mass": 0.8,
+  "surface": "plastic",
+  "material_kind": "plastic",
+  "name_key": "PROP_BASIN_PLASTIC",
+  "tris": 2676,
+  "materials": 1,
+  "texture_size": 2048,
+  "texel_density": 1422,
+  "textures": [
+   "res://assets/textures/props/basin_plastic_albedo.jpg",
+   "res://assets/textures/props/basin_plastic_orm.jpg",
+   "res://assets/textures/props/basin_plastic_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "household"
+  ]
+ },
+ {
+  "id": "bucket_plastic",
+  "file": "res://assets/models/props/bucket_plastic.glb",
+  "kind": "container",
+  "category": "container",
+  "footprint": [
+   0.344,
+   0.318
+  ],
+  "width": 0.344,
+  "depth": 0.318,
+  "height": 0.281,
+  "bounds_min": [
+   -0.172,
+   0.0,
+   -0.159
+  ],
+  "bounds_max": [
+   0.172,
+   0.281,
+   0.159
+  ],
+  "dynamic": true,
+  "mass": 0.7,
+  "surface": "plastic",
+  "material_kind": "plastic",
+  "name_key": "PROP_BUCKET_PLASTIC",
+  "tris": 1112,
+  "materials": 1,
+  "texture_size": 1024,
+  "texel_density": 988,
+  "textures": [
+   "res://assets/textures/props/bucket_plastic_albedo.jpg",
+   "res://assets/textures/props/bucket_plastic_orm.jpg",
+   "res://assets/textures/props/bucket_plastic_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "knockable",
+   "household"
+  ]
+ },
+ {
+  "id": "cardboard_box_closed",
+  "file": "res://assets/models/props/cardboard_box_closed.glb",
+  "kind": "container",
+  "category": "container",
+  "footprint": [
+   0.349,
+   0.256
+  ],
+  "width": 0.349,
+  "depth": 0.256,
+  "height": 0.227,
+  "bounds_min": [
+   -0.172,
+   -0.0,
+   -0.126
+  ],
+  "bounds_max": [
+   0.177,
+   0.226,
+   0.131
+  ],
+  "dynamic": true,
+  "mass": 0.9,
+  "surface": "fabric",
+  "material_kind": "cardboard",
+  "name_key": "PROP_CARDBOARD_BOX_CLOSED",
+  "tris": 166,
+  "materials": 1,
+  "texture_size": 1024,
+  "texel_density": 1220,
+  "textures": [
+   "res://assets/textures/props/cardboard_box_closed_albedo.jpg",
+   "res://assets/textures/props/cardboard_box_closed_orm.jpg",
+   "res://assets/textures/props/cardboard_box_closed_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "knockable",
+   "cardboard"
+  ]
+ },
+ {
+  "id": "cardboard_box_open",
+  "file": "res://assets/models/props/cardboard_box_open.glb",
+  "kind": "container",
+  "category": "container",
+  "footprint": [
+   0.56,
+   0.43
+  ],
+  "width": 0.56,
+  "depth": 0.43,
+  "height": 0.427,
+  "bounds_min": [
+   -0.296,
+   0.0,
+   -0.208
+  ],
+  "bounds_max": [
+   0.264,
+   0.427,
+   0.222
+  ],
+  "dynamic": false,
+  "mass": 0.7,
+  "surface": "fabric",
+  "material_kind": "cardboard",
+  "name_key": "PROP_CARDBOARD_BOX_OPEN",
+  "tris": 1022,
+  "materials": 2,
+  "texture_size": 2048,
+  "texel_density": 1366,
+  "textures": [
+   "res://assets/textures/props/cardboard_box_open_albedo.jpg",
+   "res://assets/textures/props/cardboard_box_open_orm.jpg",
+   "res://assets/textures/props/cardboard_box_open_normal.png"
+  ],
+  "colliders": 5,
+  "climb_points": [],
+  "nap_spots": [
+   [
+    0.0,
+    0.02,
+    -0.0
+   ]
+  ],
+  "entrances": [],
+  "tags": [
+   "nap",
+   "sit_in",
+   "cardboard"
+  ],
+  "sit_spots": [
+   [
+    0.0,
+    0.02,
+    -0.0
+   ]
+  ]
+ },
+ {
+  "id": "cardboard_flat_pile",
+  "file": "res://assets/models/props/cardboard_flat_pile.glb",
+  "kind": "container",
+  "category": "container",
+  "footprint": [
+   0.897,
+   0.704
+  ],
+  "width": 0.897,
+  "depth": 0.704,
+  "height": 0.082,
+  "bounds_min": [
+   -0.456,
+   -0.004,
+   -0.351
+  ],
+  "bounds_max": [
+   0.441,
+   0.078,
+   0.353
+  ],
+  "dynamic": false,
+  "mass": 6.0,
+  "surface": "fabric",
+  "material_kind": "cardboard",
+  "name_key": "PROP_CARDBOARD_FLAT_PILE",
+  "tris": 1084,
+  "materials": 1,
+  "texture_size": 2048,
+  "texel_density": 613,
+  "textures": [
+   "res://assets/textures/props/cardboard_flat_pile_albedo.jpg",
+   "res://assets/textures/props/cardboard_flat_pile_orm.jpg",
+   "res://assets/textures/props/cardboard_flat_pile_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [
+   [
+    0.0,
+    0.072,
+    -0.0
+   ]
+  ],
+  "entrances": [],
+  "tags": [
+   "nap",
+   "standable",
+   "cardboard",
+   "recycling"
+  ]
+ },
+ {
+  "id": "plastic_crate_blue",
+  "file": "res://assets/models/props/plastic_crate_blue.glb",
+  "kind": "container",
+  "category": "container",
+  "footprint": [
+   0.534,
+   0.364
+  ],
+  "width": 0.534,
+  "depth": 0.364,
+  "height": 0.28,
+  "bounds_min": [
+   -0.267,
+   0.0,
+   -0.182
+  ],
+  "bounds_max": [
+   0.267,
+   0.28,
+   0.182
+  ],
+  "dynamic": false,
+  "mass": 1.6,
+  "surface": "plastic",
+  "material_kind": "plastic",
+  "name_key": "PROP_PLASTIC_CRATE_BLUE",
+  "tris": 6500,
+  "materials": 1,
+  "texture_size": 2048,
+  "texel_density": 1349,
+  "textures": [
+   "res://assets/textures/props/plastic_crate_blue_albedo.jpg",
+   "res://assets/textures/props/plastic_crate_blue_orm.jpg",
+   "res://assets/textures/props/plastic_crate_blue_normal.png"
+  ],
+  "colliders": 5,
+  "climb_points": [],
+  "nap_spots": [
+   [
+    0.0,
+    0.016,
+    -0.0
+   ]
+  ],
+  "entrances": [],
+  "tags": [
+   "crate",
+   "sit_in",
+   "standable"
+  ]
+ },
+ {
+  "id": "plastic_crate_red",
+  "file": "res://assets/models/props/plastic_crate_red.glb",
+  "kind": "container",
+  "category": "container",
+  "footprint": [
+   0.534,
+   0.364
+  ],
+  "width": 0.534,
+  "depth": 0.364,
+  "height": 0.28,
+  "bounds_min": [
+   -0.267,
+   0.0,
+   -0.182
+  ],
+  "bounds_max": [
+   0.267,
+   0.28,
+   0.182
+  ],
+  "dynamic": false,
+  "mass": 1.6,
+  "surface": "plastic",
+  "material_kind": "plastic",
+  "name_key": "PROP_PLASTIC_CRATE_RED",
+  "tris": 6500,
+  "materials": 1,
+  "texture_size": 2048,
+  "texel_density": 1349,
+  "textures": [
+   "res://assets/textures/props/plastic_crate_red_albedo.jpg",
+   "res://assets/textures/props/plastic_crate_red_orm.jpg",
+   "res://assets/textures/props/plastic_crate_red_normal.png"
+  ],
+  "colliders": 5,
+  "climb_points": [],
+  "nap_spots": [
+   [
+    0.0,
+    0.016,
+    -0.0
+   ]
+  ],
+  "entrances": [],
+  "tags": [
+   "crate",
+   "sit_in",
+   "standable"
+  ],
+  "variant_of": "plastic_crate_blue"
+ },
+ {
+  "id": "recycling_sack",
+  "file": "res://assets/models/props/recycling_sack.glb",
+  "kind": "container",
+  "category": "container",
+  "footprint": [
+   0.595,
+   0.439
+  ],
+  "width": 0.595,
+  "depth": 0.439,
+  "height": 0.912,
+  "bounds_min": [
+   -0.294,
+   -0.002,
+   -0.219
+  ],
+  "bounds_max": [
+   0.301,
+   0.911,
+   0.22
+  ],
+  "dynamic": false,
+  "mass": 3.0,
+  "surface": "fabric",
+  "material_kind": "soft",
+  "name_key": "PROP_RECYCLING_SACK",
+  "tris": 3138,
+  "materials": 1,
+  "texture_size": 2048,
+  "texel_density": 1349,
+  "textures": [
+   "res://assets/textures/props/recycling_sack_albedo.jpg",
+   "res://assets/textures/props/recycling_sack_orm.jpg",
+   "res://assets/textures/props/recycling_sack_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [
+   [
+    0.0,
+    0.8,
+    -0.0
+   ]
+  ],
+  "entrances": [],
+  "tags": [
+   "recycling",
+   "standable"
+  ]
+ },
+ {
+  "id": "styrofoam_box",
+  "file": "res://assets/models/props/styrofoam_box.glb",
+  "kind": "container",
+  "category": "container",
+  "footprint": [
+   0.585,
+   0.413
+  ],
+  "width": 0.585,
+  "depth": 0.413,
+  "height": 0.271,
+  "bounds_min": [
+   -0.281,
+   -0.001,
+   -0.201
+  ],
+  "bounds_max": [
+   0.305,
+   0.27,
+   0.213
+  ],
+  "dynamic": false,
+  "mass": 0.6,
+  "surface": "plastic",
+  "material_kind": "soft",
+  "name_key": "PROP_STYROFOAM_BOX",
+  "tris": 494,
+  "materials": 1,
+  "texture_size": 2048,
+  "texel_density": 1336,
+  "textures": [
+   "res://assets/textures/props/styrofoam_box_albedo.jpg",
+   "res://assets/textures/props/styrofoam_box_orm.jpg",
+   "res://assets/textures/props/styrofoam_box_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [
+   [
+    0.0,
+    0.27,
+    -0.0
+   ]
+  ],
+  "entrances": [],
+  "tags": [
+   "standable",
+   "market"
+  ]
+ },
+ {
+  "id": "wooden_crate",
+  "file": "res://assets/models/props/wooden_crate.glb",
+  "kind": "container",
+  "category": "container",
+  "footprint": [
+   0.508,
+   0.323
+  ],
+  "width": 0.508,
+  "depth": 0.323,
+  "height": 0.295,
+  "bounds_min": [
+   -0.254,
+   0.0,
+   -0.161
+  ],
+  "bounds_max": [
+   0.254,
+   0.295,
+   0.163
+  ],
+  "dynamic": false,
+  "mass": 3.5,
+  "surface": "wood",
+  "material_kind": "wood",
+  "name_key": "PROP_WOODEN_CRATE",
+  "tris": 2458,
+  "materials": 1,
+  "texture_size": 2048,
+  "texel_density": 1544,
+  "textures": [
+   "res://assets/textures/props/wooden_crate_albedo.jpg",
+   "res://assets/textures/props/wooden_crate_orm.jpg",
+   "res://assets/textures/props/wooden_crate_normal.png"
+  ],
+  "colliders": 5,
+  "climb_points": [],
+  "nap_spots": [
+   [
+    0.0,
+    0.013,
+    -0.0
+   ]
+  ],
+  "entrances": [],
+  "tags": [
+   "crate",
+   "sit_in",
+   "standable"
+  ]
+ },
+ {
+  "id": "banh_mi_cart",
+  "file": "res://assets/models/props/banh_mi_cart.glb",
+  "kind": "stall",
+  "category": "stall",
+  "footprint": [
+   1.244,
+   0.908
+  ],
+  "width": 1.244,
+  "depth": 0.908,
+  "height": 1.238,
+  "bounds_min": [
+   -0.622,
+   -0.001,
+   -0.573
+  ],
+  "bounds_max": [
+   0.622,
+   1.237,
+   0.335
+  ],
+  "dynamic": false,
+  "mass": 60.0,
+  "surface": "metal",
+  "material_kind": "metal",
+  "name_key": "PROP_BANH_MI_CART",
+  "tris": 8640,
+  "materials": 3,
+  "texture_size": 2048,
+  "texel_density": 570,
+  "textures": [
+   "res://assets/textures/props/banh_mi_cart_albedo.jpg",
+   "res://assets/textures/props/banh_mi_cart_orm.jpg",
+   "res://assets/textures/props/banh_mi_cart_normal.png"
+  ],
+  "colliders": 4,
+  "climb_points": [
+   [
+    0.0,
+    0.805,
+    0.36
+   ]
+  ],
+  "nap_spots": [
+   [
+    0.0,
+    1.238,
+    -0.0
+   ]
+  ],
+  "entrances": [],
+  "tags": [
+   "stall",
+   "food",
+   "cart",
+   "standable",
+   "nap"
+  ],
+  "lights": [
+   {
+    "name": "LIGHT_01",
+    "pos": [
+     0.0,
+     1.195,
+     -0.0
+    ],
+    "kind": "omni",
+    "range": 2.5,
+    "energy": 0.8,
+    "color": [
+     1.0,
+     0.9,
+     0.75
+    ],
+    "shadow": false,
+    "fade": 30.0
+   }
+  ],
+  "night_emission": 1.5,
+  "vendor": "chu_sau",
+  "light_pos": [
+   0.0,
+   1.195,
+   -0.0
+  ]
+ },
+ {
+  "id": "bottle_crate",
+  "file": "res://assets/models/props/bottle_crate.glb",
+  "kind": "container",
+  "category": "stall",
+  "footprint": [
+   0.466,
+   0.34
+  ],
+  "width": 0.466,
+  "depth": 0.34,
+  "height": 0.285,
+  "bounds_min": [
+   -0.233,
+   0.0,
+   -0.17
+  ],
+  "bounds_max": [
+   0.233,
+   0.285,
+   0.17
+  ],
+  "dynamic": false,
+  "mass": 16.0,
+  "surface": "plastic",
+  "material_kind": "plastic",
+  "name_key": "PROP_BOTTLE_CRATE",
+  "tris": 29282,
+  "materials": 1,
+  "texture_size": 2048,
+  "texel_density": 942,
+  "textures": [
+   "res://assets/textures/props/bottle_crate_albedo.jpg",
+   "res://assets/textures/props/bottle_crate_orm.jpg",
+   "res://assets/textures/props/bottle_crate_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "market",
+   "crate",
+   "standable",
+   "bottles"
+  ],
+  "sit_spots": [
+   [
+    0.0,
+    0.3,
+    -0.0
+   ]
+  ]
+ },
+ {
+  "id": "fish_basin",
+  "file": "res://assets/models/props/fish_basin.glb",
+  "kind": "stall",
+  "category": "stall",
+  "footprint": [
+   1.103,
+   0.804
+  ],
+  "width": 1.103,
+  "depth": 0.804,
+  "height": 0.233,
+  "bounds_min": [
+   -0.402,
+   0.0,
+   -0.402
+  ],
+  "bounds_max": [
+   0.701,
+   0.233,
+   0.402
+  ],
+  "dynamic": false,
+  "mass": 30.0,
+  "surface": "plastic",
+  "material_kind": "plastic",
+  "name_key": "PROP_FISH_BASIN",
+  "tris": 10952,
+  "materials": 2,
+  "texture_size": 2048,
+  "texel_density": 1019,
+  "textures": [
+   "res://assets/textures/props/fish_basin_albedo.jpg",
+   "res://assets/textures/props/fish_basin_orm.jpg",
+   "res://assets/textures/props/fish_basin_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "stall",
+   "fish",
+   "market",
+   "water",
+   "cat_interest"
+  ],
+  "attach_points": [
+   {
+    "name": "ATTACH_01",
+    "pos": [
+     0.0,
+     0.15,
+     -0.0
+    ]
+   }
+  ],
+  "water_level": 0.15
+ },
+ {
+  "id": "flower_bucket",
+  "file": "res://assets/models/props/flower_bucket.glb",
+  "kind": "stall",
+  "category": "stall",
+  "footprint": [
+   0.356,
+   0.353
+  ],
+  "width": 0.356,
+  "depth": 0.353,
+  "height": 0.827,
+  "bounds_min": [
+   -0.182,
+   0.0,
+   -0.165
+  ],
+  "bounds_max": [
+   0.174,
+   0.827,
+   0.188
+  ],
+  "dynamic": false,
+  "mass": 8.0,
+  "surface": "metal",
+  "material_kind": "metal",
+  "name_key": "PROP_FLOWER_BUCKET",
+  "tris": 10264,
+  "materials": 2,
+  "texture_size": 2048,
+  "texel_density": 1043,
+  "textures": [
+   "res://assets/textures/props/flower_bucket_albedo.jpg",
+   "res://assets/textures/props/flower_bucket_orm.jpg",
+   "res://assets/textures/props/flower_bucket_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "stall",
+   "flowers",
+   "market"
+  ]
+ },
+ {
+  "id": "food_cart_xoi",
+  "file": "res://assets/models/props/food_cart_xoi.glb",
+  "kind": "stall",
+  "category": "stall",
+  "footprint": [
+   1.244,
+   0.908
+  ],
+  "width": 1.244,
+  "depth": 0.908,
+  "height": 1.238,
+  "bounds_min": [
+   -0.622,
+   -0.001,
+   -0.573
+  ],
+  "bounds_max": [
+   0.622,
+   1.237,
+   0.335
+  ],
+  "dynamic": false,
+  "mass": 60.0,
+  "surface": "metal",
+  "material_kind": "metal",
+  "name_key": "PROP_FOOD_CART_XOI",
+  "tris": 4640,
+  "materials": 3,
+  "texture_size": 2048,
+  "texel_density": 590,
+  "textures": [
+   "res://assets/textures/props/food_cart_xoi_albedo.jpg",
+   "res://assets/textures/props/food_cart_xoi_orm.jpg",
+   "res://assets/textures/props/food_cart_xoi_normal.png"
+  ],
+  "colliders": 4,
+  "climb_points": [
+   [
+    0.0,
+    0.805,
+    0.36
+   ]
+  ],
+  "nap_spots": [
+   [
+    0.0,
+    1.238,
+    -0.0
+   ]
+  ],
+  "entrances": [],
+  "tags": [
+   "stall",
+   "food",
+   "cart",
+   "standable",
+   "nap"
+  ],
+  "lights": [
+   {
+    "name": "LIGHT_01",
+    "pos": [
+     0.0,
+     1.195,
+     -0.0
+    ],
+    "kind": "omni",
+    "range": 2.5,
+    "energy": 0.8,
+    "color": [
+     1.0,
+     0.9,
+     0.75
+    ],
+    "shadow": false,
+    "fade": 30.0
+   }
+  ],
+  "night_emission": 1.5,
+  "vendor": "co_hoa",
+  "light_pos": [
+   0.0,
+   1.195,
+   -0.0
+  ]
+ },
+ {
+  "id": "fruit_basket",
+  "file": "res://assets/models/props/fruit_basket.glb",
+  "kind": "stall",
+  "category": "stall",
+  "footprint": [
+   0.624,
+   0.624
+  ],
+  "width": 0.624,
+  "depth": 0.624,
+  "height": 0.168,
+  "bounds_min": [
+   -0.312,
+   0.0,
+   -0.312
+  ],
+  "bounds_max": [
+   0.312,
+   0.168,
+   0.312
+  ],
+  "dynamic": false,
+  "mass": 6.0,
+  "surface": "wood",
+  "material_kind": "wood",
+  "name_key": "PROP_FRUIT_BASKET",
+  "tris": 7492,
+  "materials": 2,
+  "texture_size": 2048,
+  "texel_density": 1345,
+  "textures": [
+   "res://assets/textures/props/fruit_basket_albedo.jpg",
+   "res://assets/textures/props/fruit_basket_orm.jpg",
+   "res://assets/textures/props/fruit_basket_normal.png"
+  ],
+  "colliders": 2,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "stall",
+   "food",
+   "market"
+  ],
+  "sells": [
+   "mango",
+   "dragon_fruit",
+   "banana",
+   "rambutan"
+  ]
+ },
+ {
+  "id": "pho_pot_stove",
+  "file": "res://assets/models/props/pho_pot_stove.glb",
+  "kind": "stall",
+  "category": "stall",
+  "footprint": [
+   0.576,
+   0.658
+  ],
+  "width": 0.576,
+  "depth": 0.658,
+  "height": 1.042,
+  "bounds_min": [
+   -0.288,
+   0.0,
+   -0.413
+  ],
+  "bounds_max": [
+   0.288,
+   1.042,
+   0.245
+  ],
+  "dynamic": false,
+  "mass": 25.0,
+  "surface": "metal",
+  "material_kind": "metal",
+  "name_key": "PROP_PHO_POT_STOVE",
+  "tris": 21116,
+  "materials": 2,
+  "texture_size": 2048,
+  "texel_density": 927,
+  "textures": [
+   "res://assets/textures/props/pho_pot_stove_albedo.jpg",
+   "res://assets/textures/props/pho_pot_stove_orm.jpg",
+   "res://assets/textures/props/pho_pot_stove_normal.png"
+  ],
+  "colliders": 2,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "stall",
+   "food",
+   "hot",
+   "smell"
+  ],
+  "lights": [
+   {
+    "name": "LIGHT_01",
+    "pos": [
+     0.0,
+     0.08,
+     0.25
+    ],
+    "kind": "omni",
+    "range": 1.6,
+    "energy": 0.6,
+    "color": [
+     1.0,
+     0.45,
+     0.2
+    ],
+    "shadow": false,
+    "fade": 20.0
+   }
+  ],
+  "night_emission": 1.2,
+  "hot": true,
+  "steam_point": [
+   0.0,
+   0.8,
+   0.0
+  ],
+  "light_pos": [
+   0.0,
+   0.08,
+   0.25
+  ],
+  "emissive": true
+ },
+ {
+  "id": "rice_sack",
+  "file": "res://assets/models/props/rice_sack.glb",
+  "kind": "container",
+  "category": "stall",
+  "footprint": [
+   0.568,
+   0.378
+  ],
+  "width": 0.568,
+  "depth": 0.378,
+  "height": 0.734,
+  "bounds_min": [
+   -0.283,
+   -0.004,
+   -0.188
+  ],
+  "bounds_max": [
+   0.285,
+   0.73,
+   0.189
+  ],
+  "dynamic": false,
+  "mass": 25.0,
+  "surface": "fabric",
+  "material_kind": "soft",
+  "name_key": "PROP_RICE_SACK",
+  "tris": 1864,
+  "materials": 1,
+  "texture_size": 2048,
+  "texel_density": 1414,
+  "textures": [
+   "res://assets/textures/props/rice_sack_albedo.jpg",
+   "res://assets/textures/props/rice_sack_orm.jpg",
+   "res://assets/textures/props/rice_sack_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [
+   [
+    0.0,
+    0.57,
+    -0.0
+   ]
+  ],
+  "entrances": [],
+  "tags": [
+   "market",
+   "sack",
+   "standable",
+   "nap"
+  ]
+ },
+ {
+  "id": "tea_set",
+  "file": "res://assets/models/props/tea_set.glb",
+  "kind": "stall",
+  "category": "stall",
+  "footprint": [
+   0.45,
+   0.36
+  ],
+  "width": 0.45,
+  "depth": 0.36,
+  "height": 0.203,
+  "bounds_min": [
+   -0.225,
+   0.0,
+   -0.18
+  ],
+  "bounds_max": [
+   0.225,
+   0.203,
+   0.18
+  ],
+  "dynamic": true,
+  "mass": 1.8,
+  "surface": "metal",
+  "material_kind": "metal",
+  "name_key": "PROP_TEA_SET",
+  "tris": 4832,
+  "materials": 1,
+  "texture_size": 1024,
+  "texel_density": 1395,
+  "textures": [
+   "res://assets/textures/props/tea_set_albedo.jpg",
+   "res://assets/textures/props/tea_set_orm.jpg",
+   "res://assets/textures/props/tea_set_normal.png"
+  ],
+  "colliders": 2,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "stall",
+   "tea",
+   "knockable",
+   "table"
+  ]
+ },
+ {
+  "id": "umbrella_tarp",
+  "file": "res://assets/models/props/umbrella_tarp.glb",
+  "kind": "stall",
+  "category": "stall",
+  "footprint": [
+   2.503,
+   2.503
+  ],
+  "width": 2.503,
+  "depth": 2.503,
+  "height": 2.43,
+  "bounds_min": [
+   -1.252,
+   0.0,
+   -1.252
+  ],
+  "bounds_max": [
+   1.252,
+   2.43,
+   1.252
+  ],
+  "dynamic": false,
+  "mass": 18.0,
+  "surface": "fabric",
+  "material_kind": "soft",
+  "name_key": "PROP_UMBRELLA_TARP",
+  "tris": 2772,
+  "materials": 2,
+  "texture_size": 2048,
+  "texel_density": 599,
+  "textures": [
+   "res://assets/textures/props/umbrella_tarp_albedo.jpg",
+   "res://assets/textures/props/umbrella_tarp_orm.jpg",
+   "res://assets/textures/props/umbrella_tarp_normal.png"
+  ],
+  "colliders": 2,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "stall",
+   "shelter",
+   "shade"
+  ],
+  "shelter_radius": 1.25
+ },
+ {
+  "id": "stool_plastic_blue",
+  "file": "res://assets/models/props/stool_plastic_blue.glb",
+  "kind": "furniture",
+  "category": "furniture",
+  "footprint": [
+   0.3,
+   0.302
+  ],
+  "width": 0.3,
+  "depth": 0.302,
+  "height": 0.263,
+  "bounds_min": [
+   -0.15,
+   -0.002,
+   -0.151
+  ],
+  "bounds_max": [
+   0.15,
+   0.262,
+   0.151
+  ],
+  "dynamic": true,
+  "mass": 0.6,
+  "surface": "plastic",
+  "material_kind": "plastic",
+  "name_key": "PROP_STOOL_PLASTIC",
+  "tris": 2480,
+  "materials": 1,
+  "texture_size": 1024,
+  "texel_density": 1088,
+  "textures": [
+   "res://assets/textures/props/stool_plastic_blue_albedo.jpg",
+   "res://assets/textures/props/stool_plastic_blue_orm.jpg",
+   "res://assets/textures/props/stool_plastic_blue_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [
+   [
+    0.0,
+    0.26,
+    -0.0
+   ]
+  ],
+  "entrances": [],
+  "tags": [
+   "stool",
+   "sit",
+   "knockable",
+   "stall",
+   "standable"
+  ],
+  "sit_spots": [
+   [
+    0.0,
+    0.26,
+    -0.0
+   ]
+  ]
+ },
+ {
+  "id": "stool_plastic_green",
+  "file": "res://assets/models/props/stool_plastic_green.glb",
+  "kind": "furniture",
+  "category": "furniture",
+  "footprint": [
+   0.3,
+   0.302
+  ],
+  "width": 0.3,
+  "depth": 0.302,
+  "height": 0.263,
+  "bounds_min": [
+   -0.15,
+   -0.002,
+   -0.151
+  ],
+  "bounds_max": [
+   0.15,
+   0.262,
+   0.151
+  ],
+  "dynamic": true,
+  "mass": 0.6,
+  "surface": "plastic",
+  "material_kind": "plastic",
+  "name_key": "PROP_STOOL_PLASTIC",
+  "tris": 2480,
+  "materials": 1,
+  "texture_size": 1024,
+  "texel_density": 1088,
+  "textures": [
+   "res://assets/textures/props/stool_plastic_green_albedo.jpg",
+   "res://assets/textures/props/stool_plastic_green_orm.jpg",
+   "res://assets/textures/props/stool_plastic_green_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [
+   [
+    0.0,
+    0.26,
+    -0.0
+   ]
+  ],
+  "entrances": [],
+  "tags": [
+   "stool",
+   "sit",
+   "knockable",
+   "stall",
+   "standable"
+  ],
+  "sit_spots": [
+   [
+    0.0,
+    0.26,
+    -0.0
+   ]
+  ]
+ },
+ {
+  "id": "stool_plastic_red",
+  "file": "res://assets/models/props/stool_plastic_red.glb",
+  "kind": "furniture",
+  "category": "furniture",
+  "footprint": [
+   0.3,
+   0.302
+  ],
+  "width": 0.3,
+  "depth": 0.302,
+  "height": 0.263,
+  "bounds_min": [
+   -0.15,
+   -0.002,
+   -0.151
+  ],
+  "bounds_max": [
+   0.15,
+   0.262,
+   0.151
+  ],
+  "dynamic": true,
+  "mass": 0.6,
+  "surface": "plastic",
+  "material_kind": "plastic",
+  "name_key": "PROP_STOOL_PLASTIC",
+  "tris": 2480,
+  "materials": 1,
+  "texture_size": 1024,
+  "texel_density": 1088,
+  "textures": [
+   "res://assets/textures/props/stool_plastic_red_albedo.jpg",
+   "res://assets/textures/props/stool_plastic_red_orm.jpg",
+   "res://assets/textures/props/stool_plastic_red_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [
+   [
+    0.0,
+    0.26,
+    -0.0
+   ]
+  ],
+  "entrances": [],
+  "tags": [
+   "stool",
+   "sit",
+   "knockable",
+   "stall",
+   "standable"
+  ],
+  "sit_spots": [
+   [
+    0.0,
+    0.26,
+    -0.0
+   ]
+  ]
+ },
+ {
+  "id": "table_plastic_low",
+  "file": "res://assets/models/props/table_plastic_low.glb",
+  "kind": "furniture",
+  "category": "furniture",
+  "footprint": [
+   0.6,
+   0.6
+  ],
+  "width": 0.6,
+  "depth": 0.6,
+  "height": 0.692,
+  "bounds_min": [
+   -0.3,
+   -0.002,
+   -0.3
+  ],
+  "bounds_max": [
+   0.3,
+   0.69,
+   0.3
+  ],
+  "dynamic": false,
+  "mass": 2.5,
+  "surface": "plastic",
+  "material_kind": "plastic",
+  "name_key": "PROP_TABLE_PLASTIC_LOW",
+  "tris": 2458,
+  "materials": 2,
+  "texture_size": 2048,
+  "texel_density": 1283,
+  "textures": [
+   "res://assets/textures/props/table_plastic_low_albedo.jpg",
+   "res://assets/textures/props/table_plastic_low_orm.jpg",
+   "res://assets/textures/props/table_plastic_low_normal.png"
+  ],
+  "colliders": 5,
+  "climb_points": [],
+  "nap_spots": [
+   [
+    -0.1,
+    0.45,
+    0.1
+   ]
+  ],
+  "entrances": [],
+  "tags": [
+   "table",
+   "stall",
+   "standable",
+   "nap"
+  ],
+  "sit_spots": [
+   [
+    -0.1,
+    0.45,
+    0.1
+   ]
+  ]
+ },
+ {
+  "id": "altar_box",
+  "file": "res://assets/models/props/altar_box.glb",
+  "kind": "home",
+  "category": "home",
+  "footprint": [
+   0.62,
+   0.48
+  ],
+  "width": 0.62,
+  "depth": 0.48,
+  "height": 0.772,
+  "bounds_min": [
+   -0.31,
+   0.0,
+   -0.24
+  ],
+  "bounds_max": [
+   0.31,
+   0.772,
+   0.24
+  ],
+  "dynamic": false,
+  "mass": 12.0,
+  "surface": "wood",
+  "material_kind": "wood",
+  "name_key": "PROP_ALTAR_BOX",
+  "tris": 3382,
+  "materials": 2,
+  "texture_size": 2048,
+  "texel_density": 1053,
+  "textures": [
+   "res://assets/textures/props/altar_box_albedo.jpg",
+   "res://assets/textures/props/altar_box_orm.jpg",
+   "res://assets/textures/props/altar_box_normal.png"
+  ],
+  "colliders": 2,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "altar",
+   "shop",
+   "light"
+  ],
+  "lights": [
+   {
+    "name": "LIGHT_01",
+    "pos": [
+     0.0,
+     0.2,
+     -0.0
+    ],
+    "kind": "omni",
+    "range": 1.4,
+    "energy": 0.35,
+    "color": [
+     1.0,
+     0.35,
+     0.22
+    ],
+    "shadow": false,
+    "fade": 20.0
+   }
+  ],
+  "night_emission": 2.0,
+  "light_pos": [
+   0.0,
+   0.2,
+   -0.0
+  ],
+  "emissive": true
+ },
+ {
+  "id": "bird_cage",
+  "file": "res://assets/models/props/bird_cage.glb",
+  "kind": "home",
+  "category": "home",
+  "footprint": [
+   0.35,
+   0.35
+  ],
+  "width": 0.35,
+  "depth": 0.35,
+  "height": 0.522,
+  "bounds_min": [
+   -0.175,
+   -0.52,
+   -0.175
+  ],
+  "bounds_max": [
+   0.175,
+   0.002,
+   0.175
+  ],
+  "dynamic": false,
+  "mass": 1.2,
+  "surface": "wood",
+  "material_kind": "wood",
+  "name_key": "PROP_BIRD_CAGE",
+  "tris": 5252,
+  "materials": 1,
+  "texture_size": 1024,
+  "texel_density": 1266,
+  "textures": [
+   "res://assets/textures/props/bird_cage_albedo.jpg",
+   "res://assets/textures/props/bird_cage_orm.jpg",
+   "res://assets/textures/props/bird_cage_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "hanging",
+   "balcony"
+  ],
+  "attach_points": [
+   {
+    "name": "HANG_01",
+    "pos": [
+     0.0,
+     0.0,
+     -0.0
+    ]
+   }
+  ],
+  "origin": "hang_point"
+ },
+ {
+  "id": "broom_bamboo",
+  "file": "res://assets/models/props/broom_bamboo.glb",
+  "kind": "home",
+  "category": "home",
+  "footprint": [
+   0.542,
+   0.133
+  ],
+  "width": 0.542,
+  "depth": 0.133,
+  "height": 1.7,
+  "bounds_min": [
+   -0.27,
+   0.001,
+   -0.067
+  ],
+  "bounds_max": [
+   0.272,
+   1.7,
+   0.066
+  ],
+  "dynamic": true,
+  "mass": 0.9,
+  "surface": "wood",
+  "material_kind": "wood",
+  "name_key": "PROP_BROOM_BAMBOO",
+  "tris": 4616,
+  "materials": 1,
+  "texture_size": 1024,
+  "texel_density": 1008,
+  "textures": [
+   "res://assets/textures/props/broom_bamboo_albedo.jpg",
+   "res://assets/textures/props/broom_bamboo_orm.jpg",
+   "res://assets/textures/props/broom_bamboo_normal.png"
+  ],
+  "colliders": 2,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "knockable",
+   "lean",
+   "street_sweeper"
+  ]
+ },
+ {
+  "id": "broom_soft",
+  "file": "res://assets/models/props/broom_soft.glb",
+  "kind": "home",
+  "category": "home",
+  "footprint": [
+   0.341,
+   0.066
+  ],
+  "width": 0.341,
+  "depth": 0.066,
+  "height": 1.171,
+  "bounds_min": [
+   -0.17,
+   0.02,
+   -0.033
+  ],
+  "bounds_max": [
+   0.171,
+   1.171,
+   0.033
+  ],
+  "dynamic": true,
+  "mass": 0.35,
+  "surface": "wood",
+  "material_kind": "wood",
+  "name_key": "PROP_BROOM_SOFT",
+  "tris": 1974,
+  "materials": 2,
+  "texture_size": 1024,
+  "texel_density": 1299,
+  "textures": [
+   "res://assets/textures/props/broom_soft_albedo.jpg",
+   "res://assets/textures/props/broom_soft_orm.jpg",
+   "res://assets/textures/props/broom_soft_normal.png"
+  ],
+  "colliders": 2,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "knockable",
+   "lean"
+  ]
+ },
+ {
+  "id": "food_bowl",
+  "file": "res://assets/models/props/food_bowl.glb",
+  "kind": "home",
+  "category": "home",
+  "footprint": [
+   0.176,
+   0.176
+  ],
+  "width": 0.176,
+  "depth": 0.176,
+  "height": 0.05,
+  "bounds_min": [
+   -0.088,
+   0.0,
+   -0.088
+  ],
+  "bounds_max": [
+   0.088,
+   0.05,
+   0.088
+  ],
+  "dynamic": false,
+  "mass": 0.25,
+  "surface": "metal",
+  "material_kind": "metal",
+  "name_key": "PROP_FOOD_BOWL",
+  "tris": 1808,
+  "materials": 1,
+  "texture_size": 512,
+  "texel_density": 1231,
+  "textures": [
+   "res://assets/textures/props/food_bowl_albedo.jpg",
+   "res://assets/textures/props/food_bowl_orm.jpg",
+   "res://assets/textures/props/food_bowl_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "cat",
+   "food"
+  ]
+ },
+ {
+  "id": "laundry_rack",
+  "file": "res://assets/models/props/laundry_rack.glb",
+  "kind": "home",
+  "category": "home",
+  "footprint": [
+   1.278,
+   0.578
+  ],
+  "width": 1.278,
+  "depth": 0.578,
+  "height": 1.065,
+  "bounds_min": [
+   -0.639,
+   0.0,
+   -0.288
+  ],
+  "bounds_max": [
+   0.639,
+   1.065,
+   0.29
+  ],
+  "dynamic": false,
+  "mass": 3.5,
+  "surface": "metal",
+  "material_kind": "metal",
+  "name_key": "PROP_LAUNDRY_RACK",
+  "tris": 1908,
+  "materials": 2,
+  "texture_size": 2048,
+  "texel_density": 1258,
+  "textures": [
+   "res://assets/textures/props/laundry_rack_albedo.jpg",
+   "res://assets/textures/props/laundry_rack_orm.jpg",
+   "res://assets/textures/props/laundry_rack_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "laundry",
+   "balcony"
+  ]
+ },
+ {
+  "id": "sandals_honeycomb",
+  "file": "res://assets/models/props/sandals_honeycomb.glb",
+  "kind": "home",
+  "category": "home",
+  "footprint": [
+   0.292,
+   0.245
+  ],
+  "width": 0.292,
+  "depth": 0.245,
+  "height": 0.071,
+  "bounds_min": [
+   -0.132,
+   0.0,
+   -0.123
+  ],
+  "bounds_max": [
+   0.16,
+   0.071,
+   0.122
+  ],
+  "dynamic": true,
+  "mass": 0.4,
+  "surface": "plastic",
+  "material_kind": "soft",
+  "name_key": "PROP_SANDALS_HONEYCOMB",
+  "tris": 2984,
+  "materials": 1,
+  "texture_size": 512,
+  "texel_density": 941,
+  "textures": [
+   "res://assets/textures/props/sandals_honeycomb_albedo.jpg",
+   "res://assets/textures/props/sandals_honeycomb_orm.jpg",
+   "res://assets/textures/props/sandals_honeycomb_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "doorway",
+   "knockable",
+   "footwear"
+  ]
+ },
+ {
+  "id": "shoes_canvas_pair",
+  "file": "res://assets/models/props/shoes_canvas_pair.glb",
+  "kind": "home",
+  "category": "home",
+  "footprint": [
+   0.315,
+   0.251
+  ],
+  "width": 0.315,
+  "depth": 0.251,
+  "height": 0.092,
+  "bounds_min": [
+   -0.139,
+   0.0,
+   -0.132
+  ],
+  "bounds_max": [
+   0.177,
+   0.092,
+   0.119
+  ],
+  "dynamic": true,
+  "mass": 0.6,
+  "surface": "fabric",
+  "material_kind": "soft",
+  "name_key": "PROP_SHOES_CANVAS_PAIR",
+  "tris": 6048,
+  "materials": 1,
+  "texture_size": 1024,
+  "texel_density": 1275,
+  "textures": [
+   "res://assets/textures/props/shoes_canvas_pair_albedo.jpg",
+   "res://assets/textures/props/shoes_canvas_pair_orm.jpg",
+   "res://assets/textures/props/shoes_canvas_pair_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "doorway",
+   "knockable",
+   "footwear"
+  ]
+ },
+ {
+  "id": "slippers_pair",
+  "file": "res://assets/models/props/slippers_pair.glb",
+  "kind": "home",
+  "category": "home",
+  "footprint": [
+   0.274,
+   0.22
+  ],
+  "width": 0.274,
+  "depth": 0.22,
+  "height": 0.049,
+  "bounds_min": [
+   -0.128,
+   0.0,
+   -0.112
+  ],
+  "bounds_max": [
+   0.147,
+   0.049,
+   0.107
+  ],
+  "dynamic": true,
+  "mass": 0.25,
+  "surface": "plastic",
+  "material_kind": "soft",
+  "name_key": "PROP_SLIPPERS_PAIR",
+  "tris": 2160,
+  "materials": 1,
+  "texture_size": 512,
+  "texel_density": 995,
+  "textures": [
+   "res://assets/textures/props/slippers_pair_albedo.jpg",
+   "res://assets/textures/props/slippers_pair_orm.jpg",
+   "res://assets/textures/props/slippers_pair_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "doorway",
+   "knockable",
+   "footwear"
+  ]
+ },
+ {
+  "id": "water_bowl",
+  "file": "res://assets/models/props/water_bowl.glb",
+  "kind": "home",
+  "category": "home",
+  "footprint": [
+   0.176,
+   0.176
+  ],
+  "width": 0.176,
+  "depth": 0.176,
+  "height": 0.05,
+  "bounds_min": [
+   -0.088,
+   0.0,
+   -0.088
+  ],
+  "bounds_max": [
+   0.088,
+   0.05,
+   0.088
+  ],
+  "dynamic": false,
+  "mass": 0.6,
+  "surface": "metal",
+  "material_kind": "metal",
+  "name_key": "PROP_WATER_BOWL",
+  "tris": 796,
+  "materials": 2,
+  "texture_size": 512,
+  "texel_density": 1375,
+  "textures": [
+   "res://assets/textures/props/water_bowl_albedo.jpg",
+   "res://assets/textures/props/water_bowl_orm.jpg",
+   "res://assets/textures/props/water_bowl_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "cat",
+   "water"
+  ]
+ },
+ {
+  "id": "wind_chime",
+  "file": "res://assets/models/props/wind_chime.glb",
+  "kind": "home",
+  "category": "home",
+  "footprint": [
+   0.13,
+   0.13
+  ],
+  "width": 0.13,
+  "depth": 0.13,
+  "height": 0.467,
+  "bounds_min": [
+   -0.065,
+   -0.45,
+   -0.065
+  ],
+  "bounds_max": [
+   0.065,
+   0.018,
+   0.065
+  ],
+  "dynamic": false,
+  "mass": 0.4,
+  "surface": "metal",
+  "material_kind": "metal",
+  "name_key": "PROP_WIND_CHIME",
+  "tris": 1416,
+  "materials": 1,
+  "texture_size": 512,
+  "texel_density": 980,
+  "textures": [
+   "res://assets/textures/props/wind_chime_albedo.jpg",
+   "res://assets/textures/props/wind_chime_orm.jpg",
+   "res://assets/textures/props/wind_chime_normal.png"
+  ],
+  "colliders": 0,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "hanging",
+   "balcony",
+   "sound"
+  ],
+  "attach_points": [
+   {
+    "name": "HANG_01",
+    "pos": [
+     0.0,
+     0.0,
+     -0.0
+    ]
+   }
+  ],
+  "origin": "hang_point"
+ },
+ {
+  "id": "pot_aloe",
+  "file": "res://assets/models/props/pot_aloe.glb",
+  "kind": "plant",
+  "category": "plant",
+  "footprint": [
+   0.431,
+   0.472
+  ],
+  "width": 0.431,
+  "depth": 0.472,
+  "height": 0.276,
+  "bounds_min": [
+   -0.203,
+   0.0,
+   -0.209
+  ],
+  "bounds_max": [
+   0.228,
+   0.276,
+   0.263
+  ],
+  "dynamic": false,
+  "mass": 4.0,
+  "surface": "tile",
+  "material_kind": "ceramic",
+  "name_key": "PROP_POT_ALOE",
+  "tris": 1838,
+  "materials": 1,
+  "texture_size": 1024,
+  "texel_density": 1106,
+  "textures": [
+   "res://assets/textures/props/pot_aloe_albedo.jpg",
+   "res://assets/textures/props/pot_aloe_orm.jpg",
+   "res://assets/textures/props/pot_aloe_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "plant",
+   "doorway"
+  ]
+ },
+ {
+  "id": "pot_bonsai",
+  "file": "res://assets/models/props/pot_bonsai.glb",
+  "kind": "plant",
+  "category": "plant",
+  "footprint": [
+   0.44,
+   0.3
+  ],
+  "width": 0.44,
+  "depth": 0.3,
+  "height": 0.489,
+  "bounds_min": [
+   -0.22,
+   0.0,
+   -0.15
+  ],
+  "bounds_max": [
+   0.22,
+   0.489,
+   0.15
+  ],
+  "dynamic": false,
+  "mass": 9.0,
+  "surface": "tile",
+  "material_kind": "ceramic",
+  "name_key": "PROP_POT_BONSAI",
+  "tris": 10404,
+  "materials": 2,
+  "texture_size": 1024,
+  "texel_density": 940,
+  "textures": [
+   "res://assets/textures/props/pot_bonsai_albedo.jpg",
+   "res://assets/textures/props/pot_bonsai_orm.jpg",
+   "res://assets/textures/props/pot_bonsai_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "plant",
+   "altar"
+  ]
+ },
+ {
+  "id": "pot_chili",
+  "file": "res://assets/models/props/pot_chili.glb",
+  "kind": "plant",
+  "category": "plant",
+  "footprint": [
+   0.227,
+   0.239
+  ],
+  "width": 0.227,
+  "depth": 0.239,
+  "height": 0.425,
+  "bounds_min": [
+   -0.112,
+   0.0,
+   -0.112
+  ],
+  "bounds_max": [
+   0.115,
+   0.425,
+   0.127
+  ],
+  "dynamic": false,
+  "mass": 2.5,
+  "surface": "plastic",
+  "material_kind": "plastic",
+  "name_key": "PROP_POT_CHILI",
+  "tris": 3444,
+  "materials": 2,
+  "texture_size": 1024,
+  "texel_density": 1573,
+  "textures": [
+   "res://assets/textures/props/pot_chili_albedo.jpg",
+   "res://assets/textures/props/pot_chili_orm.jpg",
+   "res://assets/textures/props/pot_chili_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "plant"
+  ]
+ },
+ {
+  "id": "pot_snake_plant",
+  "file": "res://assets/models/props/pot_snake_plant.glb",
+  "kind": "plant",
+  "category": "plant",
+  "footprint": [
+   0.296,
+   0.296
+  ],
+  "width": 0.296,
+  "depth": 0.296,
+  "height": 0.867,
+  "bounds_min": [
+   -0.148,
+   0.0,
+   -0.148
+  ],
+  "bounds_max": [
+   0.148,
+   0.867,
+   0.148
+  ],
+  "dynamic": false,
+  "mass": 6.0,
+  "surface": "tile",
+  "material_kind": "ceramic",
+  "name_key": "PROP_POT_SNAKE_PLANT",
+  "tris": 1568,
+  "materials": 1,
+  "texture_size": 2048,
+  "texel_density": 1731,
+  "textures": [
+   "res://assets/textures/props/pot_snake_plant_albedo.jpg",
+   "res://assets/textures/props/pot_snake_plant_orm.jpg",
+   "res://assets/textures/props/pot_snake_plant_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "plant",
+   "doorway"
+  ]
+ },
+ {
+  "id": "carp_lantern",
+  "file": "res://assets/models/props/carp_lantern.glb",
+  "kind": "lantern",
+  "category": "festival",
+  "footprint": [
+   0.922,
+   0.281
+  ],
+  "width": 0.922,
+  "depth": 0.281,
+  "height": 0.493,
+  "bounds_min": [
+   -0.6,
+   -0.492,
+   -0.141
+  ],
+  "bounds_max": [
+   0.322,
+   0.001,
+   0.141
+  ],
+  "dynamic": false,
+  "mass": 0.35,
+  "surface": "fabric",
+  "material_kind": "soft",
+  "name_key": "PROP_CARP_LANTERN",
+  "tris": 3972,
+  "materials": 3,
+  "texture_size": 1024,
+  "texel_density": 1279,
+  "textures": [
+   "res://assets/textures/props/carp_lantern_albedo.jpg",
+   "res://assets/textures/props/carp_lantern_orm.jpg",
+   "res://assets/textures/props/carp_lantern_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "festival",
+   "lantern",
+   "hanging",
+   "light",
+   "trung_thu"
+  ],
+  "attach_points": [
+   {
+    "name": "HANG_01",
+    "pos": [
+     0.0,
+     0.0,
+     -0.0
+    ]
+   }
+  ],
+  "lights": [
+   {
+    "name": "LIGHT_01",
+    "pos": [
+     0.0,
+     -0.25,
+     -0.0
+    ],
+    "kind": "omni",
+    "range": 2.8,
+    "energy": 0.5,
+    "color": [
+     1.0,
+     0.55,
+     0.3
+    ],
+    "shadow": false,
+    "fade": 25.0
+   }
+  ],
+  "night_emission": 2.4,
+  "origin": "hang_point",
+  "light_pos": [
+   0.0,
+   -0.25,
+   -0.0
+  ],
+  "emissive": true
+ },
+ {
+  "id": "lantern_string",
+  "file": "res://assets/models/props/lantern_string.glb",
+  "kind": "lantern",
+  "category": "festival",
+  "footprint": [
+   3.201,
+   0.15
+  ],
+  "width": 3.201,
+  "depth": 0.15,
+  "height": 0.585,
+  "bounds_min": [
+   -1.601,
+   -0.582,
+   -0.075
+  ],
+  "bounds_max": [
+   1.601,
+   0.002,
+   0.075
+  ],
+  "dynamic": false,
+  "mass": 1.2,
+  "surface": "fabric",
+  "material_kind": "soft",
+  "name_key": "PROP_LANTERN_STRING",
+  "tris": 10196,
+  "materials": 2,
+  "texture_size": 1024,
+  "texel_density": 833,
+  "textures": [
+   "res://assets/textures/props/lantern_string_albedo.jpg",
+   "res://assets/textures/props/lantern_string_orm.jpg",
+   "res://assets/textures/props/lantern_string_normal.png"
+  ],
+  "colliders": 7,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "festival",
+   "lantern",
+   "hanging",
+   "light",
+   "string"
+  ],
+  "attach_points": [
+   {
+    "name": "ATTACH_01",
+    "pos": [
+     -1.6,
+     0.0,
+     -0.0
+    ]
+   },
+   {
+    "name": "ATTACH_02",
+    "pos": [
+     1.6,
+     0.0,
+     -0.0
+    ]
+   }
+  ],
+  "lights": [
+   {
+    "name": "LIGHT_00",
+    "pos": [
+     -1.2,
+     -0.273,
+     -0.0
+    ],
+    "kind": "omni",
+    "range": 1.8,
+    "energy": 0.25,
+    "color": [
+     1.0,
+     0.5,
+     0.3
+    ],
+    "shadow": false,
+    "fade": 20.0
+   },
+   {
+    "name": "LIGHT_02",
+    "pos": [
+     -0.4,
+     -0.412,
+     -0.0
+    ],
+    "kind": "omni",
+    "range": 1.8,
+    "energy": 0.25,
+    "color": [
+     1.0,
+     0.5,
+     0.3
+    ],
+    "shadow": false,
+    "fade": 20.0
+   },
+   {
+    "name": "LIGHT_04",
+    "pos": [
+     0.4,
+     -0.412,
+     -0.0
+    ],
+    "kind": "omni",
+    "range": 1.8,
+    "energy": 0.25,
+    "color": [
+     1.0,
+     0.5,
+     0.3
+    ],
+    "shadow": false,
+    "fade": 20.0
+   },
+   {
+    "name": "LIGHT_06",
+    "pos": [
+     1.2,
+     -0.273,
+     -0.0
+    ],
+    "kind": "omni",
+    "range": 1.8,
+    "energy": 0.25,
+    "color": [
+     1.0,
+     0.5,
+     0.3
+    ],
+    "shadow": false,
+    "fade": 20.0
+   }
+  ],
+  "night_emission": 2.2,
+  "origin": "string_centre",
+  "span": 3.2,
+  "light_pos": [
+   -1.2,
+   -0.273,
+   -0.0
+  ],
+  "emissive": true
+ },
+ {
+  "id": "silk_lantern_oval",
+  "file": "res://assets/models/props/silk_lantern_oval.glb",
+  "kind": "lantern",
+  "category": "festival",
+  "footprint": [
+   0.307,
+   0.307
+  ],
+  "width": 0.307,
+  "depth": 0.307,
+  "height": 0.875,
+  "bounds_min": [
+   -0.154,
+   -0.874,
+   -0.154
+  ],
+  "bounds_max": [
+   0.154,
+   0.001,
+   0.154
+  ],
+  "dynamic": false,
+  "mass": 0.4,
+  "surface": "fabric",
+  "material_kind": "soft",
+  "name_key": "PROP_SILK_LANTERN_OVAL",
+  "tris": 6616,
+  "materials": 3,
+  "texture_size": 1024,
+  "texel_density": 890,
+  "textures": [
+   "res://assets/textures/props/silk_lantern_oval_albedo.jpg",
+   "res://assets/textures/props/silk_lantern_oval_orm.jpg",
+   "res://assets/textures/props/silk_lantern_oval_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "festival",
+   "lantern",
+   "hanging",
+   "light",
+   "hoi_an"
+  ],
+  "attach_points": [
+   {
+    "name": "HANG_01",
+    "pos": [
+     0.0,
+     0.0,
+     -0.0
+    ]
+   }
+  ],
+  "lights": [
+   {
+    "name": "LIGHT_01",
+    "pos": [
+     0.0,
+     -0.33,
+     -0.0
+    ],
+    "kind": "omni",
+    "range": 3.0,
+    "energy": 0.55,
+    "color": [
+     1.0,
+     0.72,
+     0.36
+    ],
+    "shadow": false,
+    "fade": 30.0
+   }
+  ],
+  "night_emission": 2.6,
+  "origin": "hang_point",
+  "light_pos": [
+   0.0,
+   -0.33,
+   -0.0
+  ],
+  "emissive": true
+ },
+ {
+  "id": "silk_lantern_round",
+  "file": "res://assets/models/props/silk_lantern_round.glb",
+  "kind": "lantern",
+  "category": "festival",
+  "footprint": [
+   0.387,
+   0.387
+  ],
+  "width": 0.387,
+  "depth": 0.387,
+  "height": 0.755,
+  "bounds_min": [
+   -0.194,
+   -0.754,
+   -0.194
+  ],
+  "bounds_max": [
+   0.194,
+   0.001,
+   0.194
+  ],
+  "dynamic": false,
+  "mass": 0.4,
+  "surface": "fabric",
+  "material_kind": "soft",
+  "name_key": "PROP_SILK_LANTERN_ROUND",
+  "tris": 8400,
+  "materials": 3,
+  "texture_size": 1024,
+  "texel_density": 882,
+  "textures": [
+   "res://assets/textures/props/silk_lantern_round_albedo.jpg",
+   "res://assets/textures/props/silk_lantern_round_orm.jpg",
+   "res://assets/textures/props/silk_lantern_round_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "festival",
+   "lantern",
+   "hanging",
+   "light",
+   "hoi_an"
+  ],
+  "attach_points": [
+   {
+    "name": "HANG_01",
+    "pos": [
+     0.0,
+     0.0,
+     -0.0
+    ]
+   }
+  ],
+  "lights": [
+   {
+    "name": "LIGHT_01",
+    "pos": [
+     0.0,
+     -0.27,
+     -0.0
+    ],
+    "kind": "omni",
+    "range": 3.0,
+    "energy": 0.55,
+    "color": [
+     1.0,
+     0.45,
+     0.28
+    ],
+    "shadow": false,
+    "fade": 30.0
+   }
+  ],
+  "night_emission": 2.6,
+  "origin": "hang_point",
+  "light_pos": [
+   0.0,
+   -0.27,
+   -0.0
+  ],
+  "emissive": true
+ },
+ {
+  "id": "star_lantern_multi",
+  "file": "res://assets/models/props/star_lantern_multi.glb",
+  "kind": "lantern",
+  "category": "festival",
+  "footprint": [
+   0.676,
+   0.223
+  ],
+  "width": 0.676,
+  "depth": 0.223,
+  "height": 0.597,
+  "bounds_min": [
+   -0.338,
+   -0.616,
+   -0.112
+  ],
+  "bounds_max": [
+   0.338,
+   -0.019,
+   0.112
+  ],
+  "dynamic": false,
+  "mass": 0.25,
+  "surface": "fabric",
+  "material_kind": "soft",
+  "name_key": "PROP_STAR_LANTERN",
+  "tris": 1068,
+  "materials": 3,
+  "texture_size": 1024,
+  "texel_density": 1325,
+  "textures": [
+   "res://assets/textures/props/star_lantern_multi_albedo.jpg",
+   "res://assets/textures/props/star_lantern_multi_orm.jpg",
+   "res://assets/textures/props/star_lantern_multi_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "festival",
+   "lantern",
+   "hanging",
+   "light",
+   "trung_thu"
+  ],
+  "attach_points": [
+   {
+    "name": "HANG_01",
+    "pos": [
+     0.0,
+     0.0,
+     -0.0
+    ]
+   }
+  ],
+  "lights": [
+   {
+    "name": "LIGHT_01",
+    "pos": [
+     0.0,
+     -0.3,
+     -0.0
+    ],
+    "kind": "omni",
+    "range": 2.2,
+    "energy": 0.35,
+    "color": [
+     1.0,
+     0.62,
+     0.32
+    ],
+    "shadow": false,
+    "fade": 25.0
+   }
+  ],
+  "night_emission": 2.2,
+  "origin": "hang_point",
+  "light_pos": [
+   0.0,
+   -0.3,
+   -0.0
+  ],
+  "emissive": true
+ },
+ {
+  "id": "star_lantern_red",
+  "file": "res://assets/models/props/star_lantern_red.glb",
+  "kind": "lantern",
+  "category": "festival",
+  "footprint": [
+   0.676,
+   0.223
+  ],
+  "width": 0.676,
+  "depth": 0.223,
+  "height": 0.597,
+  "bounds_min": [
+   -0.338,
+   -0.616,
+   -0.112
+  ],
+  "bounds_max": [
+   0.338,
+   -0.019,
+   0.112
+  ],
+  "dynamic": false,
+  "mass": 0.25,
+  "surface": "fabric",
+  "material_kind": "soft",
+  "name_key": "PROP_STAR_LANTERN",
+  "tris": 1068,
+  "materials": 3,
+  "texture_size": 1024,
+  "texel_density": 1325,
+  "textures": [
+   "res://assets/textures/props/star_lantern_red_albedo.jpg",
+   "res://assets/textures/props/star_lantern_red_orm.jpg",
+   "res://assets/textures/props/star_lantern_red_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "festival",
+   "lantern",
+   "hanging",
+   "light",
+   "trung_thu"
+  ],
+  "attach_points": [
+   {
+    "name": "HANG_01",
+    "pos": [
+     0.0,
+     0.0,
+     -0.0
+    ]
+   }
+  ],
+  "lights": [
+   {
+    "name": "LIGHT_01",
+    "pos": [
+     0.0,
+     -0.3,
+     -0.0
+    ],
+    "kind": "omni",
+    "range": 2.2,
+    "energy": 0.35,
+    "color": [
+     1.0,
+     0.62,
+     0.32
+    ],
+    "shadow": false,
+    "fade": 25.0
+   }
+  ],
+  "night_emission": 2.2,
+  "origin": "hang_point",
+  "light_pos": [
+   0.0,
+   -0.3,
+   -0.0
+  ],
+  "emissive": true
+ },
+ {
+  "id": "star_lantern_yellow",
+  "file": "res://assets/models/props/star_lantern_yellow.glb",
+  "kind": "lantern",
+  "category": "festival",
+  "footprint": [
+   0.676,
+   0.223
+  ],
+  "width": 0.676,
+  "depth": 0.223,
+  "height": 0.597,
+  "bounds_min": [
+   -0.338,
+   -0.616,
+   -0.112
+  ],
+  "bounds_max": [
+   0.338,
+   -0.019,
+   0.112
+  ],
+  "dynamic": false,
+  "mass": 0.25,
+  "surface": "fabric",
+  "material_kind": "soft",
+  "name_key": "PROP_STAR_LANTERN",
+  "tris": 1068,
+  "materials": 3,
+  "texture_size": 1024,
+  "texel_density": 1325,
+  "textures": [
+   "res://assets/textures/props/star_lantern_yellow_albedo.jpg",
+   "res://assets/textures/props/star_lantern_yellow_orm.jpg",
+   "res://assets/textures/props/star_lantern_yellow_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "festival",
+   "lantern",
+   "hanging",
+   "light",
+   "trung_thu"
+  ],
+  "attach_points": [
+   {
+    "name": "HANG_01",
+    "pos": [
+     0.0,
+     0.0,
+     -0.0
+    ]
+   }
+  ],
+  "lights": [
+   {
+    "name": "LIGHT_01",
+    "pos": [
+     0.0,
+     -0.3,
+     -0.0
+    ],
+    "kind": "omni",
+    "range": 2.2,
+    "energy": 0.35,
+    "color": [
+     1.0,
+     0.62,
+     0.32
+    ],
+    "shadow": false,
+    "fade": 25.0
+   }
+  ],
+  "night_emission": 2.2,
+  "origin": "hang_point",
+  "light_pos": [
+   0.0,
+   -0.3,
+   -0.0
+  ],
+  "emissive": true
+ },
+ {
+  "id": "book_single",
+  "file": "res://assets/models/props/book_single.glb",
+  "kind": "clutter",
+  "category": "clutter",
+  "footprint": [
+   0.154,
+   0.21
+  ],
+  "width": 0.154,
+  "depth": 0.21,
+  "height": 0.026,
+  "bounds_min": [
+   -0.079,
+   -0.0,
+   -0.105
+  ],
+  "bounds_max": [
+   0.075,
+   0.026,
+   0.105
+  ],
+  "dynamic": true,
+  "mass": 0.45,
+  "surface": "fabric",
+  "material_kind": "soft",
+  "name_key": "PROP_BOOK_SINGLE",
+  "tris": 174,
+  "materials": 1,
+  "texture_size": 1024,
+  "texel_density": 1968,
+  "textures": [
+   "res://assets/textures/props/book_single_albedo.jpg",
+   "res://assets/textures/props/book_single_orm.jpg",
+   "res://assets/textures/props/book_single_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "knockable",
+   "book",
+   "table",
+   "shelf"
+  ]
+ },
+ {
+  "id": "book_stack",
+  "file": "res://assets/models/props/book_stack.glb",
+  "kind": "clutter",
+  "category": "clutter",
+  "footprint": [
+   0.197,
+   0.249
+  ],
+  "width": 0.197,
+  "depth": 0.249,
+  "height": 0.108,
+  "bounds_min": [
+   -0.102,
+   -0.0,
+   -0.126
+  ],
+  "bounds_max": [
+   0.095,
+   0.108,
+   0.124
+  ],
+  "dynamic": true,
+  "mass": 1.6,
+  "surface": "fabric",
+  "material_kind": "soft",
+  "name_key": "PROP_BOOK_STACK",
+  "tris": 666,
+  "materials": 1,
+  "texture_size": 1024,
+  "texel_density": 924,
+  "textures": [
+   "res://assets/textures/props/book_stack_albedo.jpg",
+   "res://assets/textures/props/book_stack_orm.jpg",
+   "res://assets/textures/props/book_stack_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "knockable",
+   "book",
+   "table",
+   "shelf",
+   "standable"
+  ]
+ },
+ {
+  "id": "bottle_fish_sauce",
+  "file": "res://assets/models/props/bottle_fish_sauce.glb",
+  "kind": "clutter",
+  "category": "clutter",
+  "footprint": [
+   0.064,
+   0.064
+  ],
+  "width": 0.064,
+  "depth": 0.064,
+  "height": 0.272,
+  "bounds_min": [
+   -0.032,
+   0.0,
+   -0.032
+  ],
+  "bounds_max": [
+   0.032,
+   0.272,
+   0.032
+  ],
+  "dynamic": true,
+  "mass": 0.75,
+  "surface": "plastic",
+  "material_kind": "glass",
+  "name_key": "PROP_BOTTLE_FISH_SAUCE",
+  "tris": 3048,
+  "materials": 1,
+  "texture_size": 512,
+  "texel_density": 1843,
+  "textures": [
+   "res://assets/textures/props/bottle_fish_sauce_albedo.jpg",
+   "res://assets/textures/props/bottle_fish_sauce_orm.jpg",
+   "res://assets/textures/props/bottle_fish_sauce_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "knockable",
+   "bottle",
+   "kitchen"
+  ],
+  "break_height": 0.7
+ },
+ {
+  "id": "bottle_soy",
+  "file": "res://assets/models/props/bottle_soy.glb",
+  "kind": "clutter",
+  "category": "clutter",
+  "footprint": [
+   0.056,
+   0.056
+  ],
+  "width": 0.056,
+  "depth": 0.056,
+  "height": 0.232,
+  "bounds_min": [
+   -0.028,
+   0.0,
+   -0.028
+  ],
+  "bounds_max": [
+   0.028,
+   0.232,
+   0.028
+  ],
+  "dynamic": true,
+  "mass": 0.6,
+  "surface": "plastic",
+  "material_kind": "glass",
+  "name_key": "PROP_BOTTLE_SOY",
+  "tris": 2760,
+  "materials": 1,
+  "texture_size": 512,
+  "texel_density": 2180,
+  "textures": [
+   "res://assets/textures/props/bottle_soy_albedo.jpg",
+   "res://assets/textures/props/bottle_soy_orm.jpg",
+   "res://assets/textures/props/bottle_soy_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "knockable",
+   "bottle",
+   "kitchen",
+   "table"
+  ],
+  "break_height": 0.7
+ },
+ {
+  "id": "bottle_water",
+  "file": "res://assets/models/props/bottle_water.glb",
+  "kind": "clutter",
+  "category": "clutter",
+  "footprint": [
+   0.066,
+   0.066
+  ],
+  "width": 0.066,
+  "depth": 0.066,
+  "height": 0.21,
+  "bounds_min": [
+   -0.033,
+   0.0,
+   -0.033
+  ],
+  "bounds_max": [
+   0.033,
+   0.21,
+   0.033
+  ],
+  "dynamic": true,
+  "mass": 0.52,
+  "surface": "plastic",
+  "material_kind": "plastic",
+  "name_key": "PROP_BOTTLE_WATER",
+  "tris": 2568,
+  "materials": 1,
+  "texture_size": 512,
+  "texel_density": 1970,
+  "textures": [
+   "res://assets/textures/props/bottle_water_albedo.jpg",
+   "res://assets/textures/props/bottle_water_orm.jpg",
+   "res://assets/textures/props/bottle_water_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "knockable",
+   "bottle",
+   "table"
+  ]
+ },
+ {
+  "id": "cactus_pot",
+  "file": "res://assets/models/props/cactus_pot.glb",
+  "kind": "clutter",
+  "category": "clutter",
+  "footprint": [
+   0.096,
+   0.096
+  ],
+  "width": 0.096,
+  "depth": 0.096,
+  "height": 0.153,
+  "bounds_min": [
+   -0.048,
+   0.0,
+   -0.048
+  ],
+  "bounds_max": [
+   0.048,
+   0.153,
+   0.048
+  ],
+  "dynamic": true,
+  "mass": 0.35,
+  "surface": "tile",
+  "material_kind": "ceramic",
+  "name_key": "PROP_CACTUS_POT",
+  "tris": 3688,
+  "materials": 1,
+  "texture_size": 512,
+  "texel_density": 1233,
+  "textures": [
+   "res://assets/textures/props/cactus_pot_albedo.jpg",
+   "res://assets/textures/props/cactus_pot_orm.jpg",
+   "res://assets/textures/props/cactus_pot_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "knockable",
+   "plant",
+   "table",
+   "windowsill"
+  ],
+  "break_height": 1.0
+ },
+ {
+  "id": "can_condensed_milk",
+  "file": "res://assets/models/props/can_condensed_milk.glb",
+  "kind": "clutter",
+  "category": "clutter",
+  "footprint": [
+   0.074,
+   0.075
+  ],
+  "width": 0.074,
+  "depth": 0.075,
+  "height": 0.083,
+  "bounds_min": [
+   -0.037,
+   0.0,
+   -0.037
+  ],
+  "bounds_max": [
+   0.037,
+   0.083,
+   0.037
+  ],
+  "dynamic": true,
+  "mass": 0.4,
+  "surface": "metal",
+  "material_kind": "metal",
+  "name_key": "PROP_CAN_CONDENSED_MILK",
+  "tris": 908,
+  "materials": 1,
+  "texture_size": 512,
+  "texel_density": 2433,
+  "textures": [
+   "res://assets/textures/props/can_condensed_milk_albedo.jpg",
+   "res://assets/textures/props/can_condensed_milk_orm.jpg",
+   "res://assets/textures/props/can_condensed_milk_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "knockable",
+   "kitchen",
+   "can",
+   "table"
+  ]
+ },
+ {
+  "id": "cup_ceramic",
+  "file": "res://assets/models/props/cup_ceramic.glb",
+  "kind": "clutter",
+  "category": "clutter",
+  "footprint": [
+   0.107,
+   0.086
+  ],
+  "width": 0.107,
+  "depth": 0.086,
+  "height": 0.08,
+  "bounds_min": [
+   -0.043,
+   0.0,
+   -0.043
+  ],
+  "bounds_max": [
+   0.064,
+   0.08,
+   0.043
+  ],
+  "dynamic": true,
+  "mass": 0.22,
+  "surface": "tile",
+  "material_kind": "ceramic",
+  "name_key": "PROP_CUP_CERAMIC",
+  "tris": 2604,
+  "materials": 1,
+  "texture_size": 512,
+  "texel_density": 1736,
+  "textures": [
+   "res://assets/textures/props/cup_ceramic_albedo.jpg",
+   "res://assets/textures/props/cup_ceramic_orm.jpg",
+   "res://assets/textures/props/cup_ceramic_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "knockable",
+   "cup",
+   "table"
+  ],
+  "break_height": 1.2
+ },
+ {
+  "id": "glass_tra_da",
+  "file": "res://assets/models/props/glass_tra_da.glb",
+  "kind": "clutter",
+  "category": "clutter",
+  "footprint": [
+   0.071,
+   0.071
+  ],
+  "width": 0.071,
+  "depth": 0.071,
+  "height": 0.11,
+  "bounds_min": [
+   -0.036,
+   0.0,
+   -0.036
+  ],
+  "bounds_max": [
+   0.036,
+   0.11,
+   0.036
+  ],
+  "dynamic": true,
+  "mass": 0.25,
+  "surface": "plastic",
+  "material_kind": "glass",
+  "name_key": "PROP_GLASS_TRA_DA",
+  "tris": 992,
+  "materials": 2,
+  "texture_size": 256,
+  "texel_density": 1237,
+  "textures": [
+   "res://assets/textures/props/glass_tra_da_albedo.jpg",
+   "res://assets/textures/props/glass_tra_da_orm.jpg",
+   "res://assets/textures/props/glass_tra_da_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "knockable",
+   "cup",
+   "table",
+   "glass"
+  ],
+  "break_height": 0.9
+ },
+ {
+  "id": "mug_enamel",
+  "file": "res://assets/models/props/mug_enamel.glb",
+  "kind": "clutter",
+  "category": "clutter",
+  "footprint": [
+   0.108,
+   0.085
+  ],
+  "width": 0.108,
+  "depth": 0.085,
+  "height": 0.087,
+  "bounds_min": [
+   -0.043,
+   0.0,
+   -0.043
+  ],
+  "bounds_max": [
+   0.065,
+   0.087,
+   0.043
+  ],
+  "dynamic": true,
+  "mass": 0.18,
+  "surface": "metal",
+  "material_kind": "metal",
+  "name_key": "PROP_MUG_ENAMEL",
+  "tris": 872,
+  "materials": 1,
+  "texture_size": 512,
+  "texel_density": 1609,
+  "textures": [
+   "res://assets/textures/props/mug_enamel_albedo.jpg",
+   "res://assets/textures/props/mug_enamel_orm.jpg",
+   "res://assets/textures/props/mug_enamel_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "knockable",
+   "cup",
+   "table"
+  ]
+ },
+ {
+  "id": "phone",
+  "file": "res://assets/models/props/phone.glb",
+  "kind": "clutter",
+  "category": "clutter",
+  "footprint": [
+   0.078,
+   0.162
+  ],
+  "width": 0.078,
+  "depth": 0.162,
+  "height": 0.013,
+  "bounds_min": [
+   -0.039,
+   -0.001,
+   -0.081
+  ],
+  "bounds_max": [
+   0.039,
+   0.012,
+   0.081
+  ],
+  "dynamic": true,
+  "mass": 0.18,
+  "surface": "plastic",
+  "material_kind": "plastic",
+  "name_key": "PROP_PHONE",
+  "tris": 1510,
+  "materials": 1,
+  "texture_size": 512,
+  "texel_density": 2162,
+  "textures": [
+   "res://assets/textures/props/phone_albedo.jpg",
+   "res://assets/textures/props/phone_orm.jpg",
+   "res://assets/textures/props/phone_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "knockable",
+   "electronics",
+   "table",
+   "bed"
+  ]
+ },
+ {
+  "id": "tv_remote",
+  "file": "res://assets/models/props/tv_remote.glb",
+  "kind": "clutter",
+  "category": "clutter",
+  "footprint": [
+   0.05,
+   0.19
+  ],
+  "width": 0.05,
+  "depth": 0.19,
+  "height": 0.023,
+  "bounds_min": [
+   -0.025,
+   -0.0,
+   -0.095
+  ],
+  "bounds_max": [
+   0.025,
+   0.023,
+   0.095
+  ],
+  "dynamic": true,
+  "mass": 0.12,
+  "surface": "plastic",
+  "material_kind": "plastic",
+  "name_key": "PROP_TV_REMOTE",
+  "tris": 3424,
+  "materials": 1,
+  "texture_size": 512,
+  "texel_density": 2467,
+  "textures": [
+   "res://assets/textures/props/tv_remote_albedo.jpg",
+   "res://assets/textures/props/tv_remote_orm.jpg",
+   "res://assets/textures/props/tv_remote_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "knockable",
+   "electronics",
+   "table",
+   "sofa"
+  ]
+ },
+ {
+  "id": "vase_flower",
+  "file": "res://assets/models/props/vase_flower.glb",
+  "kind": "clutter",
+  "category": "clutter",
+  "footprint": [
+   0.174,
+   0.176
+  ],
+  "width": 0.174,
+  "depth": 0.176,
+  "height": 0.447,
+  "bounds_min": [
+   -0.083,
+   0.0,
+   -0.083
+  ],
+  "bounds_max": [
+   0.091,
+   0.447,
+   0.093
+  ],
+  "dynamic": true,
+  "mass": 1.1,
+  "surface": "tile",
+  "material_kind": "ceramic",
+  "name_key": "PROP_VASE_FLOWER",
+  "tris": 8800,
+  "materials": 2,
+  "texture_size": 1024,
+  "texel_density": 1475,
+  "textures": [
+   "res://assets/textures/props/vase_flower_albedo.jpg",
+   "res://assets/textures/props/vase_flower_orm.jpg",
+   "res://assets/textures/props/vase_flower_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "knockable",
+   "vase",
+   "table",
+   "altar"
+  ],
+  "break_height": 0.8
+ },
+ {
+  "id": "item_brass_bell",
+  "file": "res://assets/models/props/item_brass_bell.glb",
+  "kind": "item",
+  "category": "item",
+  "footprint": [
+   0.034,
+   0.028
+  ],
+  "width": 0.034,
+  "depth": 0.028,
+  "height": 0.027,
+  "bounds_min": [
+   -0.017,
+   0.0,
+   -0.014
+  ],
+  "bounds_max": [
+   0.017,
+   0.027,
+   0.014
+  ],
+  "dynamic": false,
+  "mass": 0.012,
+  "surface": "metal",
+  "material_kind": "metal",
+  "name_key": "ITEM_BRASS_BELL",
+  "tris": 1448,
+  "materials": 1,
+  "texture_size": 256,
+  "texel_density": 3903,
+  "textures": [
+   "res://assets/textures/props/item_brass_bell_albedo.jpg",
+   "res://assets/textures/props/item_brass_bell_orm.jpg",
+   "res://assets/textures/props/item_brass_bell_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "item",
+   "mouth",
+   "shiny",
+   "sound"
+  ],
+  "item_id": "brass_bell"
+ },
+ {
+  "id": "item_cap",
+  "file": "res://assets/models/props/item_cap.glb",
+  "kind": "item",
+  "category": "item",
+  "footprint": [
+   0.03,
+   0.03
+  ],
+  "width": 0.03,
+  "depth": 0.03,
+  "height": 0.007,
+  "bounds_min": [
+   -0.015,
+   0.0,
+   -0.015
+  ],
+  "bounds_max": [
+   0.015,
+   0.007,
+   0.015
+  ],
+  "dynamic": false,
+  "mass": 0.002,
+  "surface": "metal",
+  "material_kind": "metal",
+  "name_key": "ITEM_CAP",
+  "tris": 792,
+  "materials": 1,
+  "texture_size": 512,
+  "texel_density": 9780,
+  "textures": [
+   "res://assets/textures/props/item_cap_albedo.jpg",
+   "res://assets/textures/props/item_cap_orm.jpg",
+   "res://assets/textures/props/item_cap_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "item",
+   "currency"
+  ],
+  "item_id": "cap"
+ },
+ {
+  "id": "item_catnip",
+  "file": "res://assets/models/props/item_catnip.glb",
+  "kind": "item",
+  "category": "item",
+  "footprint": [
+   0.065,
+   0.05
+  ],
+  "width": 0.065,
+  "depth": 0.05,
+  "height": 0.078,
+  "bounds_min": [
+   -0.031,
+   -0.001,
+   -0.025
+  ],
+  "bounds_max": [
+   0.034,
+   0.077,
+   0.025
+  ],
+  "dynamic": false,
+  "mass": 0.02,
+  "surface": "fabric",
+  "material_kind": "soft",
+  "name_key": "ITEM_CATNIP",
+  "tris": 1646,
+  "materials": 1,
+  "texture_size": 512,
+  "texel_density": 3601,
+  "textures": [
+   "res://assets/textures/props/item_catnip_albedo.jpg",
+   "res://assets/textures/props/item_catnip_orm.jpg",
+   "res://assets/textures/props/item_catnip_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "item",
+   "consumable"
+  ],
+  "item_id": "catnip"
+ },
+ {
+  "id": "item_collar_bell",
+  "file": "res://assets/models/props/item_collar_bell.glb",
+  "kind": "item",
+  "category": "item",
+  "footprint": [
+   0.13,
+   0.102
+  ],
+  "width": 0.13,
+  "depth": 0.102,
+  "height": 0.026,
+  "bounds_min": [
+   -0.065,
+   0.0,
+   -0.051
+  ],
+  "bounds_max": [
+   0.065,
+   0.026,
+   0.051
+  ],
+  "dynamic": false,
+  "mass": 0.03,
+  "surface": "fabric",
+  "material_kind": "soft",
+  "name_key": "ITEM_COLLAR_BELL",
+  "tris": 1406,
+  "materials": 1,
+  "texture_size": 256,
+  "texel_density": 1637,
+  "textures": [
+   "res://assets/textures/props/item_collar_bell_albedo.jpg",
+   "res://assets/textures/props/item_collar_bell_orm.jpg",
+   "res://assets/textures/props/item_collar_bell_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "item",
+   "cosmetic",
+   "collar",
+   "sound"
+  ],
+  "item_id": "collar_bell"
+ },
+ {
+  "id": "item_collar_jade",
+  "file": "res://assets/models/props/item_collar_jade.glb",
+  "kind": "item",
+  "category": "item",
+  "footprint": [
+   0.137,
+   0.104
+  ],
+  "width": 0.137,
+  "depth": 0.104,
+  "height": 0.015,
+  "bounds_min": [
+   -0.068,
+   0.0,
+   -0.052
+  ],
+  "bounds_max": [
+   0.068,
+   0.015,
+   0.052
+  ],
+  "dynamic": false,
+  "mass": 0.02,
+  "surface": "fabric",
+  "material_kind": "soft",
+  "name_key": "ITEM_COLLAR_JADE",
+  "tris": 5856,
+  "materials": 1,
+  "texture_size": 512,
+  "texel_density": 2664,
+  "textures": [
+   "res://assets/textures/props/item_collar_jade_albedo.jpg",
+   "res://assets/textures/props/item_collar_jade_orm.jpg",
+   "res://assets/textures/props/item_collar_jade_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "item",
+   "cosmetic",
+   "collar"
+  ],
+  "item_id": "collar_jade"
+ },
+ {
+  "id": "item_collar_red",
+  "file": "res://assets/models/props/item_collar_red.glb",
+  "kind": "item",
+  "category": "item",
+  "footprint": [
+   0.104,
+   0.101
+  ],
+  "width": 0.104,
+  "depth": 0.101,
+  "height": 0.016,
+  "bounds_min": [
+   -0.052,
+   0.0,
+   -0.051
+  ],
+  "bounds_max": [
+   0.052,
+   0.016,
+   0.051
+  ],
+  "dynamic": false,
+  "mass": 0.02,
+  "surface": "fabric",
+  "material_kind": "soft",
+  "name_key": "ITEM_COLLAR_RED",
+  "tris": 912,
+  "materials": 1,
+  "texture_size": 512,
+  "texel_density": 2981,
+  "textures": [
+   "res://assets/textures/props/item_collar_red_albedo.jpg",
+   "res://assets/textures/props/item_collar_red_orm.jpg",
+   "res://assets/textures/props/item_collar_red_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "item",
+   "cosmetic",
+   "collar"
+  ],
+  "item_id": "collar_red"
+ },
+ {
+  "id": "item_dried_fish",
+  "file": "res://assets/models/props/item_dried_fish.glb",
+  "kind": "item",
+  "category": "item",
+  "footprint": [
+   0.108,
+   0.055
+  ],
+  "width": 0.108,
+  "depth": 0.055,
+  "height": 0.055,
+  "bounds_min": [
+   -0.054,
+   0.0,
+   -0.027
+  ],
+  "bounds_max": [
+   0.054,
+   0.055,
+   0.027
+  ],
+  "dynamic": false,
+  "mass": 0.04,
+  "surface": "fabric",
+  "material_kind": "soft",
+  "name_key": "ITEM_DRIED_FISH",
+  "tris": 6100,
+  "materials": 1,
+  "texture_size": 1024,
+  "texel_density": 2741,
+  "textures": [
+   "res://assets/textures/props/item_dried_fish_albedo.jpg",
+   "res://assets/textures/props/item_dried_fish_orm.jpg",
+   "res://assets/textures/props/item_dried_fish_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "item",
+   "food",
+   "mouth"
+  ],
+  "item_id": "dried_fish"
+ },
+ {
+  "id": "item_fish",
+  "file": "res://assets/models/props/item_fish.glb",
+  "kind": "item",
+  "category": "item",
+  "footprint": [
+   0.223,
+   0.064
+  ],
+  "width": 0.223,
+  "depth": 0.064,
+  "height": 0.035,
+  "bounds_min": [
+   -0.103,
+   0.0,
+   -0.032
+  ],
+  "bounds_max": [
+   0.12,
+   0.035,
+   0.032
+  ],
+  "dynamic": false,
+  "mass": 0.12,
+  "surface": "fabric",
+  "material_kind": "soft",
+  "name_key": "ITEM_FISH",
+  "tris": 1302,
+  "materials": 2,
+  "texture_size": 512,
+  "texel_density": 2590,
+  "textures": [
+   "res://assets/textures/props/item_fish_albedo.jpg",
+   "res://assets/textures/props/item_fish_orm.jpg",
+   "res://assets/textures/props/item_fish_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "item",
+   "food",
+   "mouth"
+  ],
+  "item_id": "fish"
+ },
+ {
+  "id": "item_gio_lua",
+  "file": "res://assets/models/props/item_gio_lua.glb",
+  "kind": "item",
+  "category": "item",
+  "footprint": [
+   0.076,
+   0.076
+  ],
+  "width": 0.076,
+  "depth": 0.076,
+  "height": 0.022,
+  "bounds_min": [
+   -0.038,
+   0.0,
+   -0.038
+  ],
+  "bounds_max": [
+   0.038,
+   0.022,
+   0.038
+  ],
+  "dynamic": false,
+  "mass": 0.08,
+  "surface": "fabric",
+  "material_kind": "soft",
+  "name_key": "ITEM_GIO_LUA",
+  "tris": 932,
+  "materials": 1,
+  "texture_size": 512,
+  "texel_density": 2816,
+  "textures": [
+   "res://assets/textures/props/item_gio_lua_albedo.jpg",
+   "res://assets/textures/props/item_gio_lua_orm.jpg",
+   "res://assets/textures/props/item_gio_lua_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "item",
+   "food",
+   "mouth"
+  ],
+  "item_id": "gio_lua"
+ },
+ {
+  "id": "item_glass_marble",
+  "file": "res://assets/models/props/item_glass_marble.glb",
+  "kind": "item",
+  "category": "item",
+  "footprint": [
+   0.016,
+   0.016
+  ],
+  "width": 0.016,
+  "depth": 0.016,
+  "height": 0.016,
+  "bounds_min": [
+   -0.008,
+   0.0,
+   -0.008
+  ],
+  "bounds_max": [
+   0.008,
+   0.016,
+   0.008
+  ],
+  "dynamic": false,
+  "mass": 0.005,
+  "surface": "plastic",
+  "material_kind": "glass",
+  "name_key": "ITEM_GLASS_MARBLE",
+  "tris": 824,
+  "materials": 1,
+  "texture_size": 512,
+  "texel_density": 14382,
+  "textures": [
+   "res://assets/textures/props/item_glass_marble_albedo.jpg",
+   "res://assets/textures/props/item_glass_marble_orm.jpg",
+   "res://assets/textures/props/item_glass_marble_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "item",
+   "mouth",
+   "shiny",
+   "toy"
+  ],
+  "item_id": "glass_marble"
+ },
+ {
+  "id": "item_hair_clip",
+  "file": "res://assets/models/props/item_hair_clip.glb",
+  "kind": "item",
+  "category": "item",
+  "footprint": [
+   0.059,
+   0.01
+  ],
+  "width": 0.059,
+  "depth": 0.01,
+  "height": 0.01,
+  "bounds_min": [
+   -0.03,
+   0.0,
+   -0.005
+  ],
+  "bounds_max": [
+   0.03,
+   0.01,
+   0.005
+  ],
+  "dynamic": false,
+  "mass": 0.006,
+  "surface": "plastic",
+  "material_kind": "plastic",
+  "name_key": "ITEM_HAIR_CLIP",
+  "tris": 1588,
+  "materials": 1,
+  "texture_size": 256,
+  "texel_density": 4155,
+  "textures": [
+   "res://assets/textures/props/item_hair_clip_albedo.jpg",
+   "res://assets/textures/props/item_hair_clip_orm.jpg",
+   "res://assets/textures/props/item_hair_clip_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "item",
+   "mouth",
+   "shiny"
+  ],
+  "item_id": "hair_clip"
+ },
+ {
+  "id": "item_herbal_tonic",
+  "file": "res://assets/models/props/item_herbal_tonic.glb",
+  "kind": "item",
+  "category": "item",
+  "footprint": [
+   0.042,
+   0.042
+  ],
+  "width": 0.042,
+  "depth": 0.042,
+  "height": 0.114,
+  "bounds_min": [
+   -0.021,
+   0.0,
+   -0.021
+  ],
+  "bounds_max": [
+   0.021,
+   0.114,
+   0.021
+  ],
+  "dynamic": false,
+  "mass": 0.15,
+  "surface": "plastic",
+  "material_kind": "glass",
+  "name_key": "ITEM_HERBAL_TONIC",
+  "tris": 1892,
+  "materials": 1,
+  "texture_size": 512,
+  "texel_density": 3591,
+  "textures": [
+   "res://assets/textures/props/item_herbal_tonic_albedo.jpg",
+   "res://assets/textures/props/item_herbal_tonic_orm.jpg",
+   "res://assets/textures/props/item_herbal_tonic_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "item",
+   "consumable"
+  ],
+  "item_id": "herbal_tonic"
+ },
+ {
+  "id": "item_key",
+  "file": "res://assets/models/props/item_key.glb",
+  "kind": "item",
+  "category": "item",
+  "footprint": [
+   0.124,
+   0.039
+  ],
+  "width": 0.124,
+  "depth": 0.039,
+  "height": 0.007,
+  "bounds_min": [
+   -0.062,
+   0.0,
+   -0.019
+  ],
+  "bounds_max": [
+   0.062,
+   0.007,
+   0.019
+  ],
+  "dynamic": false,
+  "mass": 0.02,
+  "surface": "metal",
+  "material_kind": "metal",
+  "name_key": "ITEM_KEY",
+  "tris": 1060,
+  "materials": 1,
+  "texture_size": 256,
+  "texel_density": 4143,
+  "textures": [
+   "res://assets/textures/props/item_key_albedo.jpg",
+   "res://assets/textures/props/item_key_orm.jpg",
+   "res://assets/textures/props/item_key_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "item",
+   "quest",
+   "mouth"
+  ],
+  "item_id": "key"
+ },
+ {
+  "id": "item_leg_band",
+  "file": "res://assets/models/props/item_leg_band.glb",
+  "kind": "item",
+  "category": "item",
+  "footprint": [
+   0.013,
+   0.012
+  ],
+  "width": 0.013,
+  "depth": 0.012,
+  "height": 0.013,
+  "bounds_min": [
+   -0.007,
+   0.0,
+   -0.006
+  ],
+  "bounds_max": [
+   0.007,
+   0.013,
+   0.006
+  ],
+  "dynamic": false,
+  "mass": 0.001,
+  "surface": "metal",
+  "material_kind": "metal",
+  "name_key": "ITEM_LEG_BAND",
+  "tris": 1648,
+  "materials": 1,
+  "texture_size": 512,
+  "texel_density": 12888,
+  "textures": [
+   "res://assets/textures/props/item_leg_band_albedo.jpg",
+   "res://assets/textures/props/item_leg_band_orm.jpg",
+   "res://assets/textures/props/item_leg_band_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "item",
+   "quest",
+   "pigeon"
+  ],
+  "item_id": "leg_band"
+ },
+ {
+  "id": "item_letter",
+  "file": "res://assets/models/props/item_letter.glb",
+  "kind": "item",
+  "category": "item",
+  "footprint": [
+   0.16,
+   0.095
+  ],
+  "width": 0.16,
+  "depth": 0.095,
+  "height": 0.007,
+  "bounds_min": [
+   -0.08,
+   0.0,
+   -0.047
+  ],
+  "bounds_max": [
+   0.08,
+   0.007,
+   0.047
+  ],
+  "dynamic": false,
+  "mass": 0.012,
+  "surface": "fabric",
+  "material_kind": "soft",
+  "name_key": "ITEM_LETTER",
+  "tris": 724,
+  "materials": 1,
+  "texture_size": 512,
+  "texel_density": 2675,
+  "textures": [
+   "res://assets/textures/props/item_letter_albedo.jpg",
+   "res://assets/textures/props/item_letter_orm.jpg",
+   "res://assets/textures/props/item_letter_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "item",
+   "quest",
+   "mouth",
+   "paper"
+  ],
+  "item_id": "letter"
+ },
+ {
+  "id": "item_lucky_cat_figurine",
+  "file": "res://assets/models/props/item_lucky_cat_figurine.glb",
+  "kind": "item",
+  "category": "item",
+  "footprint": [
+   0.09,
+   0.082
+  ],
+  "width": 0.09,
+  "depth": 0.082,
+  "height": 0.122,
+  "bounds_min": [
+   -0.045,
+   0.0,
+   -0.038
+  ],
+  "bounds_max": [
+   0.045,
+   0.122,
+   0.044
+  ],
+  "dynamic": false,
+  "mass": 0.22,
+  "surface": "tile",
+  "material_kind": "ceramic",
+  "name_key": "ITEM_LUCKY_CAT_FIGURINE",
+  "tris": 4292,
+  "materials": 1,
+  "texture_size": 1024,
+  "texel_density": 3337,
+  "textures": [
+   "res://assets/textures/props/item_lucky_cat_figurine_albedo.jpg",
+   "res://assets/textures/props/item_lucky_cat_figurine_orm.jpg",
+   "res://assets/textures/props/item_lucky_cat_figurine_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "item",
+   "quest",
+   "mouth"
+  ],
+  "item_id": "lucky_cat_figurine"
+ },
+ {
+  "id": "item_memory_photo",
+  "file": "res://assets/models/props/item_memory_photo.glb",
+  "kind": "item",
+  "category": "item",
+  "footprint": [
+   0.1,
+   0.075
+  ],
+  "width": 0.1,
+  "depth": 0.075,
+  "height": 0.006,
+  "bounds_min": [
+   -0.05,
+   0.001,
+   -0.038
+  ],
+  "bounds_max": [
+   0.05,
+   0.006,
+   0.038
+  ],
+  "dynamic": false,
+  "mass": 0.003,
+  "surface": "fabric",
+  "material_kind": "soft",
+  "name_key": "ITEM_MEMORY_PHOTO",
+  "tris": 774,
+  "materials": 1,
+  "texture_size": 1024,
+  "texel_density": 6763,
+  "textures": [
+   "res://assets/textures/props/item_memory_photo_albedo.jpg",
+   "res://assets/textures/props/item_memory_photo_orm.jpg",
+   "res://assets/textures/props/item_memory_photo_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "item",
+   "memory",
+   "collectible",
+   "paper"
+  ],
+  "item_id": "memory_photo"
+ },
+ {
+  "id": "item_mooncake_crumb",
+  "file": "res://assets/models/props/item_mooncake_crumb.glb",
+  "kind": "item",
+  "category": "item",
+  "footprint": [
+   0.049,
+   0.049
+  ],
+  "width": 0.049,
+  "depth": 0.049,
+  "height": 0.036,
+  "bounds_min": [
+   -0.025,
+   0.0,
+   -0.025
+  ],
+  "bounds_max": [
+   0.025,
+   0.036,
+   0.025
+  ],
+  "dynamic": false,
+  "mass": 0.04,
+  "surface": "fabric",
+  "material_kind": "soft",
+  "name_key": "ITEM_MOONCAKE_CRUMB",
+  "tris": 1760,
+  "materials": 1,
+  "texture_size": 512,
+  "texel_density": 2838,
+  "textures": [
+   "res://assets/textures/props/item_mooncake_crumb_albedo.jpg",
+   "res://assets/textures/props/item_mooncake_crumb_orm.jpg",
+   "res://assets/textures/props/item_mooncake_crumb_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "item",
+   "food",
+   "mouth",
+   "festival"
+  ],
+  "item_id": "mooncake_crumb"
+ },
+ {
+  "id": "item_pate_crust",
+  "file": "res://assets/models/props/item_pate_crust.glb",
+  "kind": "item",
+  "category": "item",
+  "footprint": [
+   0.133,
+   0.048
+  ],
+  "width": 0.133,
+  "depth": 0.048,
+  "height": 0.047,
+  "bounds_min": [
+   -0.067,
+   0.0,
+   -0.024
+  ],
+  "bounds_max": [
+   0.067,
+   0.047,
+   0.024
+  ],
+  "dynamic": false,
+  "mass": 0.03,
+  "surface": "fabric",
+  "material_kind": "soft",
+  "name_key": "ITEM_PATE_CRUST",
+  "tris": 1040,
+  "materials": 1,
+  "texture_size": 512,
+  "texel_density": 3062,
+  "textures": [
+   "res://assets/textures/props/item_pate_crust_albedo.jpg",
+   "res://assets/textures/props/item_pate_crust_orm.jpg",
+   "res://assets/textures/props/item_pate_crust_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "item",
+   "food",
+   "mouth"
+  ],
+  "item_id": "pate_crust"
+ },
+ {
+  "id": "item_pigeon_feather",
+  "file": "res://assets/models/props/item_pigeon_feather.glb",
+  "kind": "item",
+  "category": "item",
+  "footprint": [
+   0.123,
+   0.042
+  ],
+  "width": 0.123,
+  "depth": 0.042,
+  "height": 0.01,
+  "bounds_min": [
+   -0.061,
+   0.0,
+   -0.021
+  ],
+  "bounds_max": [
+   0.062,
+   0.01,
+   0.021
+  ],
+  "dynamic": false,
+  "mass": 0.001,
+  "surface": "fabric",
+  "material_kind": "soft",
+  "name_key": "ITEM_PIGEON_FEATHER",
+  "tris": 484,
+  "materials": 2,
+  "texture_size": 256,
+  "texel_density": 2766,
+  "textures": [
+   "res://assets/textures/props/item_pigeon_feather_albedo.jpg",
+   "res://assets/textures/props/item_pigeon_feather_orm.jpg",
+   "res://assets/textures/props/item_pigeon_feather_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "item",
+   "quest",
+   "pigeon"
+  ],
+  "item_id": "pigeon_feather"
+ },
+ {
+  "id": "item_quail_egg",
+  "file": "res://assets/models/props/item_quail_egg.glb",
+  "kind": "item",
+  "category": "item",
+  "footprint": [
+   0.033,
+   0.026
+  ],
+  "width": 0.033,
+  "depth": 0.026,
+  "height": 0.026,
+  "bounds_min": [
+   -0.016,
+   0.0,
+   -0.013
+  ],
+  "bounds_max": [
+   0.016,
+   0.026,
+   0.013
+  ],
+  "dynamic": false,
+  "mass": 0.011,
+  "surface": "fabric",
+  "material_kind": "ceramic",
+  "name_key": "ITEM_QUAIL_EGG",
+  "tris": 840,
+  "materials": 1,
+  "texture_size": 256,
+  "texel_density": 4116,
+  "textures": [
+   "res://assets/textures/props/item_quail_egg_albedo.jpg",
+   "res://assets/textures/props/item_quail_egg_orm.jpg",
+   "res://assets/textures/props/item_quail_egg_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "item",
+   "food",
+   "mouth"
+  ],
+  "item_id": "quail_egg"
+ },
+ {
+  "id": "item_shrimp",
+  "file": "res://assets/models/props/item_shrimp.glb",
+  "kind": "item",
+  "category": "item",
+  "footprint": [
+   0.1,
+   0.081
+  ],
+  "width": 0.1,
+  "depth": 0.081,
+  "height": 0.021,
+  "bounds_min": [
+   -0.05,
+   0.0,
+   -0.04
+  ],
+  "bounds_max": [
+   0.05,
+   0.021,
+   0.04
+  ],
+  "dynamic": false,
+  "mass": 0.015,
+  "surface": "fabric",
+  "material_kind": "soft",
+  "name_key": "ITEM_SHRIMP",
+  "tris": 1168,
+  "materials": 1,
+  "texture_size": 256,
+  "texel_density": 2252,
+  "textures": [
+   "res://assets/textures/props/item_shrimp_albedo.jpg",
+   "res://assets/textures/props/item_shrimp_orm.jpg",
+   "res://assets/textures/props/item_shrimp_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "item",
+   "food",
+   "mouth"
+  ],
+  "item_id": "shrimp"
+ },
+ {
+  "id": "item_silver_spoon",
+  "file": "res://assets/models/props/item_silver_spoon.glb",
+  "kind": "item",
+  "category": "item",
+  "footprint": [
+   0.131,
+   0.034
+  ],
+  "width": 0.131,
+  "depth": 0.034,
+  "height": 0.01,
+  "bounds_min": [
+   -0.066,
+   0.001,
+   -0.017
+  ],
+  "bounds_max": [
+   0.066,
+   0.01,
+   0.017
+  ],
+  "dynamic": false,
+  "mass": 0.025,
+  "surface": "metal",
+  "material_kind": "metal",
+  "name_key": "ITEM_SILVER_SPOON",
+  "tris": 760,
+  "materials": 1,
+  "texture_size": 256,
+  "texel_density": 3199,
+  "textures": [
+   "res://assets/textures/props/item_silver_spoon_albedo.jpg",
+   "res://assets/textures/props/item_silver_spoon_orm.jpg",
+   "res://assets/textures/props/item_silver_spoon_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "item",
+   "mouth",
+   "shiny"
+  ],
+  "item_id": "silver_spoon"
+ },
+ {
+  "id": "item_skill_tonic",
+  "file": "res://assets/models/props/item_skill_tonic.glb",
+  "kind": "item",
+  "category": "item",
+  "footprint": [
+   0.029,
+   0.029
+  ],
+  "width": 0.029,
+  "depth": 0.029,
+  "height": 0.077,
+  "bounds_min": [
+   -0.014,
+   0.0,
+   -0.014
+  ],
+  "bounds_max": [
+   0.014,
+   0.077,
+   0.014
+  ],
+  "dynamic": false,
+  "mass": 0.05,
+  "surface": "plastic",
+  "material_kind": "glass",
+  "name_key": "ITEM_SKILL_TONIC",
+  "tris": 1016,
+  "materials": 1,
+  "texture_size": 512,
+  "texel_density": 5066,
+  "textures": [
+   "res://assets/textures/props/item_skill_tonic_albedo.jpg",
+   "res://assets/textures/props/item_skill_tonic_orm.jpg",
+   "res://assets/textures/props/item_skill_tonic_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "item",
+   "consumable",
+   "rare"
+  ],
+  "item_id": "skill_tonic"
+ },
+ {
+  "id": "item_toy_mouse",
+  "file": "res://assets/models/props/item_toy_mouse.glb",
+  "kind": "item",
+  "category": "item",
+  "footprint": [
+   0.129,
+   0.039
+  ],
+  "width": 0.129,
+  "depth": 0.039,
+  "height": 0.031,
+  "bounds_min": [
+   -0.064,
+   0.0,
+   -0.019
+  ],
+  "bounds_max": [
+   0.064,
+   0.031,
+   0.019
+  ],
+  "dynamic": false,
+  "mass": 0.015,
+  "surface": "fabric",
+  "material_kind": "soft",
+  "name_key": "ITEM_TOY_MOUSE",
+  "tris": 1442,
+  "materials": 1,
+  "texture_size": 256,
+  "texel_density": 2507,
+  "textures": [
+   "res://assets/textures/props/item_toy_mouse_albedo.jpg",
+   "res://assets/textures/props/item_toy_mouse_orm.jpg",
+   "res://assets/textures/props/item_toy_mouse_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "item",
+   "toy",
+   "mouth"
+  ],
+  "item_id": "toy_mouse"
+ },
+ {
+  "id": "item_yarn",
+  "file": "res://assets/models/props/item_yarn.glb",
+  "kind": "item",
+  "category": "item",
+  "footprint": [
+   0.154,
+   0.09
+  ],
+  "width": 0.154,
+  "depth": 0.09,
+  "height": 0.076,
+  "bounds_min": [
+   -0.039,
+   0.0,
+   -0.039
+  ],
+  "bounds_max": [
+   0.115,
+   0.076,
+   0.051
+  ],
+  "dynamic": false,
+  "mass": 0.05,
+  "surface": "fabric",
+  "material_kind": "soft",
+  "name_key": "ITEM_YARN",
+  "tris": 10232,
+  "materials": 1,
+  "texture_size": 1024,
+  "texel_density": 3379,
+  "textures": [
+   "res://assets/textures/props/item_yarn_albedo.jpg",
+   "res://assets/textures/props/item_yarn_orm.jpg",
+   "res://assets/textures/props/item_yarn_normal.png"
+  ],
+  "colliders": 1,
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tags": [
+   "item",
+   "toy",
+   "mouth"
+  ],
+  "item_id": "yarn"
  }
 ]

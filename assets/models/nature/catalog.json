@@ -1,0 +1,821 @@
+[
+ {
+  "id": "areca_palm",
+  "file": "res://assets/models/nature/areca_palm.glb",
+  "kind": "palm",
+  "width": 3.71,
+  "depth": 3.64,
+  "height": 9.54,
+  "footprint": [
+   3.71,
+   3.64
+  ],
+  "floors": 0,
+  "style": "nature",
+  "climb_points": [
+   [
+    0.002,
+    0.6,
+    0.094
+   ],
+   [
+    0.008,
+    1.5,
+    0.097
+   ],
+   [
+    0.021,
+    2.7,
+    0.121
+   ],
+   [
+    0.034,
+    3.6,
+    0.146
+   ]
+  ],
+  "nap_spots": [],
+  "entrances": [],
+  "tris": 2696,
+  "materials": [
+   "nmat_areca_crownshaft",
+   "nbark_bark_palm",
+   "nfol_leaf_palm"
+  ],
+  "dynamic": false,
+  "mass": 0.0,
+  "surface": "wood",
+  "wind": true,
+  "collision": true,
+  "name_key": "NATURE_ARECA",
+  "climbable": true
+ },
+ {
+  "id": "bamboo_clump",
+  "file": "res://assets/models/nature/bamboo_clump.glb",
+  "kind": "bamboo",
+  "width": 5.8,
+  "depth": 7.81,
+  "height": 8.55,
+  "footprint": [
+   5.8,
+   7.81
+  ],
+  "floors": 0,
+  "style": "nature",
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tris": 20256,
+  "materials": [
+   "nbark_bamboo_culm",
+   "nfol_leaf_bamboo"
+  ],
+  "dynamic": false,
+  "mass": 0.0,
+  "surface": "wood",
+  "wind": true,
+  "collision": true,
+  "name_key": "NATURE_BAMBOO",
+  "climbable": false
+ },
+ {
+  "id": "banyan",
+  "file": "res://assets/models/nature/banyan.glb",
+  "kind": "tree",
+  "width": 15.44,
+  "depth": 16.81,
+  "height": 10.97,
+  "footprint": [
+   15.44,
+   16.81
+  ],
+  "floors": 0,
+  "style": "nature",
+  "climb_points": [
+   [
+    -0.016,
+    0.711,
+    1.19
+   ],
+   [
+    -0.039,
+    1.421,
+    1.199
+   ],
+   [
+    -0.073,
+    2.488,
+    1.188
+   ],
+   [
+    -0.123,
+    3.2,
+    1.16
+   ]
+  ],
+  "nap_spots": [
+   [
+    -0.246,
+    5.052,
+    0.307
+   ],
+   [
+    -0.188,
+    3.875,
+    0.496
+   ],
+   [
+    -0.19,
+    5.048,
+    0.077
+   ],
+   [
+    -0.501,
+    4.517,
+    1.822
+   ],
+   [
+    -0.098,
+    5.67,
+    -1.293
+   ],
+   [
+    -0.78,
+    5.131,
+    3.174
+   ],
+   [
+    -1.227,
+    5.331,
+    0.967
+   ]
+  ],
+  "entrances": [],
+  "tris": 36111,
+  "materials": [
+   "nbark_bark_banyan",
+   "nfol_leaf_banyan"
+  ],
+  "dynamic": false,
+  "mass": 0.0,
+  "surface": "wood",
+  "wind": true,
+  "collision": true,
+  "name_key": "NATURE_BANYAN",
+  "species": "Ficus benghalensis",
+  "climbable": true,
+  "shade_radius": 8.0
+ },
+ {
+  "id": "bougainvillea_cascade",
+  "file": "res://assets/models/nature/bougainvillea_cascade.glb",
+  "kind": "climber",
+  "width": 3.89,
+  "depth": 2.02,
+  "height": 0.47,
+  "footprint": [
+   3.89,
+   2.02
+  ],
+  "floors": 0,
+  "style": "nature",
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tris": 2241,
+  "materials": [
+   "nfol_undergrowth",
+   "nbark_bark_furrowed"
+  ],
+  "dynamic": false,
+  "mass": 0.0,
+  "surface": "grass",
+  "wind": true,
+  "collision": false,
+  "name_key": "NATURE_BOUGAINVILLEA",
+  "mount": "rail_top_origin"
+ },
+ {
+  "id": "bougainvillea_wall",
+  "file": "res://assets/models/nature/bougainvillea_wall.glb",
+  "kind": "climber",
+  "width": 4.66,
+  "depth": 0.96,
+  "height": 3.38,
+  "footprint": [
+   4.66,
+   0.96
+  ],
+  "floors": 0,
+  "style": "nature",
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tris": 2388,
+  "materials": [
+   "nfol_undergrowth",
+   "nbark_bark_furrowed"
+  ],
+  "dynamic": false,
+  "mass": 0.0,
+  "surface": "grass",
+  "wind": true,
+  "collision": false,
+  "name_key": "NATURE_BOUGAINVILLEA",
+  "species": "Bougainvillea spectabilis",
+  "mount": "wall_back_+z"
+ },
+ {
+  "id": "coconut_palm",
+  "file": "res://assets/models/nature/coconut_palm.glb",
+  "kind": "palm",
+  "width": 7.54,
+  "depth": 6.92,
+  "height": 11.63,
+  "footprint": [
+   7.54,
+   6.92
+  ],
+  "floors": 0,
+  "style": "nature",
+  "climb_points": [
+   [
+    -0.013,
+    0.792,
+    0.238
+   ],
+   [
+    -0.04,
+    1.583,
+    0.229
+   ],
+   [
+    -0.098,
+    2.771,
+    0.258
+   ],
+   [
+    -0.147,
+    3.562,
+    0.29
+   ]
+  ],
+  "nap_spots": [],
+  "entrances": [],
+  "tris": 5770,
+  "materials": [
+   "nmat_coconut",
+   "nbark_bark_palm",
+   "nfol_leaf_palm"
+  ],
+  "dynamic": false,
+  "mass": 0.0,
+  "surface": "wood",
+  "wind": true,
+  "collision": true,
+  "name_key": "NATURE_COCONUT",
+  "climbable": true
+ },
+ {
+  "id": "fern_clump",
+  "file": "res://assets/models/nature/fern_clump.glb",
+  "kind": "groundcover",
+  "width": 1.24,
+  "depth": 1.16,
+  "height": 0.49,
+  "footprint": [
+   1.24,
+   1.16
+  ],
+  "floors": 0,
+  "style": "nature",
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tris": 312,
+  "materials": [
+   "nfol_undergrowth"
+  ],
+  "dynamic": false,
+  "mass": 0.0,
+  "surface": "grass",
+  "wind": true,
+  "collision": false,
+  "name_key": "NATURE_FERN",
+  "cover": true
+ },
+ {
+  "id": "flame_tree",
+  "file": "res://assets/models/nature/flame_tree.glb",
+  "kind": "tree",
+  "width": 10.9,
+  "depth": 10.69,
+  "height": 8.55,
+  "footprint": [
+   10.9,
+   10.69
+  ],
+  "floors": 0,
+  "style": "nature",
+  "climb_points": [
+   [
+    -0.005,
+    0.339,
+    0.302
+   ],
+   [
+    -0.023,
+    1.359,
+    0.229
+   ],
+   [
+    -0.006,
+    2.376,
+    0.116
+   ]
+  ],
+  "nap_spots": [
+   [
+    0.007,
+    2.714,
+    -0.149
+   ],
+   [
+    0.162,
+    3.151,
+    -0.011
+   ],
+   [
+    0.997,
+    3.719,
+    0.913
+   ],
+   [
+    -0.162,
+    3.748,
+    -1.118
+   ],
+   [
+    -0.876,
+    4.063,
+    0.844
+   ]
+  ],
+  "entrances": [],
+  "tris": 13815,
+  "materials": [
+   "nbark_bark_smooth",
+   "nfol_leaf_flame"
+  ],
+  "dynamic": false,
+  "mass": 0.0,
+  "surface": "wood",
+  "wind": true,
+  "collision": true,
+  "name_key": "NATURE_FLAME_TREE",
+  "species": "Delonix regia",
+  "climbable": true
+ },
+ {
+  "id": "frangipani",
+  "file": "res://assets/models/nature/frangipani.glb",
+  "kind": "tree",
+  "width": 3.19,
+  "depth": 2.8,
+  "height": 3.29,
+  "footprint": [
+   3.19,
+   2.8
+  ],
+  "floors": 0,
+  "style": "nature",
+  "climb_points": [
+   [
+    0.011,
+    0.365,
+    0.101
+   ]
+  ],
+  "nap_spots": [
+   [
+    0.017,
+    1.097,
+    -0.081
+   ]
+  ],
+  "entrances": [],
+  "tris": 2500,
+  "materials": [
+   "nbark_bark_smooth",
+   "nfol_leaf_frangipani"
+  ],
+  "dynamic": false,
+  "mass": 0.0,
+  "surface": "wood",
+  "wind": true,
+  "collision": true,
+  "name_key": "NATURE_FRANGIPANI",
+  "species": "Plumeria rubra",
+  "climbable": true
+ },
+ {
+  "id": "grass_tuft_a",
+  "file": "res://assets/models/nature/grass_tuft_a.glb",
+  "kind": "groundcover",
+  "width": 0.4,
+  "depth": 0.43,
+  "height": 0.36,
+  "footprint": [
+   0.4,
+   0.43
+  ],
+  "floors": 0,
+  "style": "nature",
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tris": 40,
+  "materials": [
+   "nfol_undergrowth"
+  ],
+  "dynamic": false,
+  "mass": 0.0,
+  "surface": "grass",
+  "wind": true,
+  "collision": false,
+  "name_key": "NATURE_GRASS"
+ },
+ {
+  "id": "grass_tuft_b",
+  "file": "res://assets/models/nature/grass_tuft_b.glb",
+  "kind": "groundcover",
+  "width": 0.29,
+  "depth": 0.31,
+  "height": 0.26,
+  "footprint": [
+   0.29,
+   0.31
+  ],
+  "floors": 0,
+  "style": "nature",
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tris": 32,
+  "materials": [
+   "nfol_undergrowth"
+  ],
+  "dynamic": false,
+  "mass": 0.0,
+  "surface": "grass",
+  "wind": true,
+  "collision": false,
+  "name_key": "NATURE_GRASS"
+ },
+ {
+  "id": "hedge_trimmed",
+  "file": "res://assets/models/nature/hedge_trimmed.glb",
+  "kind": "shrub",
+  "width": 2.12,
+  "depth": 1.1,
+  "height": 1.09,
+  "footprint": [
+   2.12,
+   1.1
+  ],
+  "floors": 0,
+  "style": "nature",
+  "climb_points": [],
+  "nap_spots": [
+   [
+    0.0,
+    0.85,
+    0.0
+   ]
+  ],
+  "entrances": [],
+  "tris": 3384,
+  "materials": [
+   "nmat_foliage_core",
+   "nfol_undergrowth"
+  ],
+  "dynamic": false,
+  "mass": 0.0,
+  "surface": "grass",
+  "wind": true,
+  "collision": true,
+  "name_key": "NATURE_HEDGE",
+  "cover": false
+ },
+ {
+  "id": "leaf_litter",
+  "file": "res://assets/models/nature/leaf_litter.glb",
+  "kind": "litter",
+  "width": 1.66,
+  "depth": 1.28,
+  "height": 0.05,
+  "footprint": [
+   1.66,
+   1.28
+  ],
+  "floors": 0,
+  "style": "nature",
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tris": 560,
+  "materials": [
+   "nfol_undergrowth"
+  ],
+  "dynamic": false,
+  "mass": 0.0,
+  "surface": "dirt",
+  "wind": false,
+  "collision": false,
+  "name_key": "NATURE_LITTER"
+ },
+ {
+  "id": "lotus_cluster",
+  "file": "res://assets/models/nature/lotus_cluster.glb",
+  "kind": "aquatic",
+  "width": 2.27,
+  "depth": 2.17,
+  "height": 0.87,
+  "footprint": [
+   2.27,
+   2.17
+  ],
+  "floors": 0,
+  "style": "nature",
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tris": 2032,
+  "materials": [
+   "nfol_undergrowth",
+   "nmat_lotus_stem"
+  ],
+  "dynamic": false,
+  "mass": 0.0,
+  "surface": "water",
+  "wind": true,
+  "collision": false,
+  "name_key": "NATURE_LOTUS",
+  "origin": "water_surface"
+ },
+ {
+  "id": "moss_patch",
+  "file": "res://assets/models/nature/moss_patch.glb",
+  "kind": "groundcover",
+  "width": 0.97,
+  "depth": 1.72,
+  "height": 0.02,
+  "footprint": [
+   0.97,
+   1.72
+  ],
+  "floors": 0,
+  "style": "nature",
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tris": 56,
+  "materials": [
+   "nfol_undergrowth"
+  ],
+  "dynamic": false,
+  "mass": 0.0,
+  "surface": "grass",
+  "wind": false,
+  "collision": false,
+  "name_key": "NATURE_MOSS"
+ },
+ {
+  "id": "sao_tree",
+  "file": "res://assets/models/nature/sao_tree.glb",
+  "kind": "tree",
+  "width": 6.87,
+  "depth": 7.02,
+  "height": 12.78,
+  "footprint": [
+   6.87,
+   7.02
+  ],
+  "floors": 0,
+  "style": "nature",
+  "climb_points": [
+   [
+    -0.021,
+    0.5,
+    0.264
+   ],
+   [
+    -0.058,
+    1.498,
+    0.215
+   ],
+   [
+    -0.065,
+    2.498,
+    0.178
+   ],
+   [
+    -0.072,
+    3.497,
+    0.118
+   ]
+  ],
+  "nap_spots": [
+   [
+    -0.078,
+    4.497,
+    -0.121
+   ],
+   [
+    -0.009,
+    4.708,
+    0.058
+   ]
+  ],
+  "entrances": [],
+  "tris": 25027,
+  "materials": [
+   "nbark_bark_furrowed",
+   "nfol_leaf_sao"
+  ],
+  "dynamic": false,
+  "mass": 0.0,
+  "surface": "wood",
+  "wind": true,
+  "collision": true,
+  "name_key": "NATURE_SAO",
+  "species": "Hopea odorata",
+  "climbable": true
+ },
+ {
+  "id": "shrub_ixora",
+  "file": "res://assets/models/nature/shrub_ixora.glb",
+  "kind": "shrub",
+  "width": 1.82,
+  "depth": 1.76,
+  "height": 1.07,
+  "footprint": [
+   1.82,
+   1.76
+  ],
+  "floors": 0,
+  "style": "nature",
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tris": 1745,
+  "materials": [
+   "nmat_foliage_core",
+   "nfol_undergrowth",
+   "nbark_bark_smooth"
+  ],
+  "dynamic": false,
+  "mass": 0.0,
+  "surface": "grass",
+  "wind": true,
+  "collision": false,
+  "name_key": "NATURE_IXORA",
+  "cover": true,
+  "species": "Ixora coccinea"
+ },
+ {
+  "id": "water_hyacinth",
+  "file": "res://assets/models/nature/water_hyacinth.glb",
+  "kind": "aquatic",
+  "width": 2.04,
+  "depth": 1.75,
+  "height": 0.26,
+  "footprint": [
+   2.04,
+   1.75
+  ],
+  "floors": 0,
+  "style": "nature",
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tris": 1200,
+  "materials": [
+   "nfol_undergrowth"
+  ],
+  "dynamic": false,
+  "mass": 0.0,
+  "surface": "water",
+  "wind": true,
+  "collision": false,
+  "name_key": "NATURE_HYACINTH",
+  "origin": "water_surface"
+ },
+ {
+  "id": "weeds_crack_a",
+  "file": "res://assets/models/nature/weeds_crack_a.glb",
+  "kind": "groundcover",
+  "width": 1.01,
+  "depth": 0.27,
+  "height": 0.21,
+  "footprint": [
+   1.01,
+   0.27
+  ],
+  "floors": 0,
+  "style": "nature",
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tris": 56,
+  "materials": [
+   "nfol_undergrowth"
+  ],
+  "dynamic": false,
+  "mass": 0.0,
+  "surface": "grass",
+  "wind": true,
+  "collision": false,
+  "name_key": "NATURE_WEEDS"
+ },
+ {
+  "id": "weeds_crack_b",
+  "file": "res://assets/models/nature/weeds_crack_b.glb",
+  "kind": "groundcover",
+  "width": 1.66,
+  "depth": 0.28,
+  "height": 0.2,
+  "footprint": [
+   1.66,
+   0.28
+  ],
+  "floors": 0,
+  "style": "nature",
+  "climb_points": [],
+  "nap_spots": [],
+  "entrances": [],
+  "tris": 112,
+  "materials": [
+   "nfol_undergrowth"
+  ],
+  "dynamic": false,
+  "mass": 0.0,
+  "surface": "grass",
+  "wind": true,
+  "collision": false,
+  "name_key": "NATURE_WEEDS"
+ },
+ {
+  "id": "weeping_willow",
+  "file": "res://assets/models/nature/weeping_willow.glb",
+  "kind": "tree",
+  "width": 7.04,
+  "depth": 7.48,
+  "height": 6.86,
+  "footprint": [
+   7.04,
+   7.48
+  ],
+  "floors": 0,
+  "style": "nature",
+  "climb_points": [
+   [
+    0.069,
+    0.608,
+    0.14
+   ],
+   [
+    0.123,
+    1.53,
+    -0.037
+   ],
+   [
+    0.153,
+    2.147,
+    -0.132
+   ]
+  ],
+  "nap_spots": [
+   [
+    0.133,
+    1.839,
+    -0.284
+   ]
+  ],
+  "entrances": [],
+  "tris": 13028,
+  "materials": [
+   "nbark_bark_furrowed",
+   "nfol_leaf_willow"
+  ],
+  "dynamic": false,
+  "mass": 0.0,
+  "surface": "wood",
+  "wind": true,
+  "collision": true,
+  "name_key": "NATURE_WILLOW",
+  "species": "Salix babylonica",
+  "climbable": true
+ }
+]

@@ -25,7 +25,7 @@ var _glow_tex: Texture2D
 
 
 func _ready() -> void:
-	set_anchors_preset(Control.PRESET_FULL_RECT)
+	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	theme = UIStyle.theme()
 	_rng.seed = 7341
@@ -56,7 +56,7 @@ func _build() -> void:
 	gt.width = 16
 	gt.height = 256
 	_sky.texture = gt
-	_sky.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_sky.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_sky.stretch_mode = TextureRect.STRETCH_SCALE
 	_sky.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	_sky.show_behind_parent = true
@@ -158,6 +158,8 @@ func _wire_y(x: float, w: float, h: float) -> float:
 func _draw() -> void:
 	var w := size.x
 	var h := size.y
+	if w < 8.0 or h < 8.0:
+		return  # not laid out yet (first frame / headless)
 	# stars
 	for i in _stars.size():
 		var tw := 0.45 + 0.55 * absf(sin(_t * 0.7 + float(i) * 1.37))

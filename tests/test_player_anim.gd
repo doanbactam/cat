@@ -16,6 +16,23 @@ func _anim() -> Node:
 	return player.call(&"get_animator")
 
 
+## Godot 4.7 restores the animated (pre-modifier) pose after each skeleton update, so the result
+## of the SkeletonModifier3D stack (IK, look-at, springs) is only observable inside
+## `skeleton_updated`. Returns the bone's world transform as rendered on the next update.
+func _posed(sk: Skeleton3D, bone: int) -> Transform3D:
+	var out: Array[Transform3D] = []
+	var cb := func() -> void:
+		if out.is_empty():
+			out.append(sk.global_transform * sk.get_bone_global_pose(bone))
+	sk.skeleton_updated.connect(cb)
+	for i in 30:
+		await tree.process_frame
+		if not out.is_empty():
+			break
+	sk.skeleton_updated.disconnect(cb)
+	return out[0] if not out.is_empty() else sk.global_transform * sk.get_bone_global_pose(bone)
+
+
 func test_uses_real_cat_model() -> void:
 	ground()
 	var p := spawn_player(Vector3.ZERO)
@@ -85,12 +102,12 @@ func test_foot_ik_lifts_paw_on_raised_ground() -> void:
 	var a := _anim()
 	var sk: Skeleton3D = a.get(&"skeleton")
 	var hand := sk.find_bone("hand_L")
-	var flat_y := (sk.global_transform * sk.get_bone_global_pose(hand).origin).y
+	var flat_y := (await _posed(sk, hand)).origin.y
 	# a 4 cm tile under the left front paw only
 	var paw := sk.global_transform * sk.get_bone_global_pose(sk.find_bone("finger_L")).origin
-	box(Vector3(paw.x + 0.02, 0.02, paw.z), Vector3(0.05, 0.04, 0.07))
+	box(Vector3(paw.x + 0.015, 0.02, paw.z - 0.01), Vector3(0.07, 0.04, 0.11))
 	await seconds(0.5)
-	var raised_y := (sk.global_transform * sk.get_bone_global_pose(hand).origin).y
+	var raised_y := (await _posed(sk, hand)).origin.y
 	assert_true(raised_y > flat_y + 0.02, "IK lifts the paw onto the tile (%.3f → %.3f)" % [flat_y, raised_y])
 	var ik: TwoBoneIK3D = a.get(&"foot_ik")
 	assert_not_null(ik, "TwoBoneIK3D present")
@@ -109,10 +126,10 @@ func test_head_looks_at_target() -> void:
 	var rig: Node3D = p.call(&"get_camera_rig")
 	rig.set(&"yaw", -PI * 0.5)   # camera looks along +X → the cat glances there
 	await seconds(1.0)
-	var fwd_left := (sk.global_transform.basis * sk.get_bone_global_pose(head).basis).y
+	var fwd_left := (await _posed(sk, head)).basis.y
 	rig.set(&"yaw", PI * 0.5)    # camera looks along -X
 	await seconds(1.0)
-	var fwd_right := (sk.global_transform.basis * sk.get_bone_global_pose(head).basis).y
+	var fwd_right := (await _posed(sk, head)).basis.y
 	assert_not_null(look)
 	assert_true(fwd_left.x > fwd_right.x + 0.3, "head turns with the look target (%.2f vs %.2f)" % [fwd_left.x, fwd_right.x])
 

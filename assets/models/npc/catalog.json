@@ -1,0 +1,292 @@
+[
+ {
+  "id": "ba_tu",
+  "file": "res://assets/models/npc/ba_tu.glb",
+  "kind": "human",
+  "npc_id": "ba_tu",
+  "role": "named",
+  "clips": [
+   "idle",
+   "walk",
+   "sit",
+   "talk",
+   "sell",
+   "pet_cat",
+   "shoo",
+   "look_around",
+   "carry",
+   "phone"
+  ],
+  "looping": [
+   "idle",
+   "walk",
+   "sit",
+   "talk",
+   "sell",
+   "pet_cat",
+   "shoo",
+   "look_around",
+   "carry",
+   "phone"
+  ],
+  "skeleton": "Armature/Skeleton3D",
+  "front": "+Z",
+  "origin": "ground contact, bottom centre",
+  "height": 1.49,
+  "tris": 17880,
+  "walk_speed": 0.833
+ },
+ {
+  "id": "bin",
+  "file": "res://assets/models/npc/bin.glb",
+  "kind": "human",
+  "npc_id": "bin",
+  "role": "named",
+  "clips": [
+   "idle",
+   "walk",
+   "sit",
+   "talk",
+   "sell",
+   "pet_cat",
+   "shoo",
+   "look_around",
+   "carry",
+   "phone"
+  ],
+  "looping": [
+   "idle",
+   "walk",
+   "sit",
+   "talk",
+   "sell",
+   "pet_cat",
+   "shoo",
+   "look_around",
+   "carry",
+   "phone"
+  ],
+  "skeleton": "Armature/Skeleton3D",
+  "front": "+Z",
+  "origin": "ground contact, bottom centre",
+  "height": 1.28,
+  "tris": 15880,
+  "walk_speed": 0.799
+ },
+ {
+  "id": "co_hoa",
+  "file": "res://assets/models/npc/co_hoa.glb",
+  "kind": "human",
+  "npc_id": "co_hoa",
+  "role": "named",
+  "clips": [
+   "idle",
+   "walk",
+   "sit",
+   "talk",
+   "sell",
+   "pet_cat",
+   "shoo",
+   "look_around",
+   "carry",
+   "phone"
+  ],
+  "looping": [
+   "idle",
+   "walk",
+   "sit",
+   "talk",
+   "sell",
+   "pet_cat",
+   "shoo",
+   "look_around",
+   "carry",
+   "phone"
+  ],
+  "skeleton": "Armature/Skeleton3D",
+  "front": "+Z",
+  "origin": "ground contact, bottom centre",
+  "height": 1.55,
+  "tris": 18880,
+  "walk_speed": 0.981
+ },
+ {
+  "id": "crow",
+  "file": "res://assets/models/npc/crow.glb",
+  "kind": "crow",
+  "npc_id": "lao_qua",
+  "role": "named",
+  "clips": [
+   "idle",
+   "peck",
+   "walk",
+   "fly",
+   "takeoff",
+   "land",
+   "caw",
+   "hop"
+  ],
+  "looping": [
+   "idle",
+   "peck",
+   "walk",
+   "fly"
+  ],
+  "skeleton": "Armature/Skeleton3D",
+  "front": "+Z",
+  "origin": "ground contact, bottom centre",
+  "tris": 7574,
+  "walk_speed": 0.6,
+  "flight_wings": "upperarm_* scale 0.01 on ground clips"
+ },
+ {
+  "id": "dog",
+  "file": "res://assets/models/npc/dog.glb",
+  "kind": "dog",
+  "npc_id": "ven",
+  "role": "named",
+  "clips": [
+   "idle",
+   "walk",
+   "run",
+   "bark",
+   "sleep",
+   "sniff",
+   "growl"
+  ],
+  "looping": [
+   "idle",
+   "walk",
+   "run",
+   "sleep",
+   "sniff",
+   "growl"
+  ],
+  "skeleton": "Armature/Skeleton3D",
+  "front": "+Z",
+  "origin": "ground contact, bottom centre",
+  "tris": 14574,
+  "speeds": {
+   "walk": 1.1,
+   "run": 3.6
+  }
+ },
+ {
+  "id": "gecko",
+  "file": "res://assets/models/npc/gecko.glb",
+  "kind": "gecko",
+  "npc_id": "",
+  "role": "ambient",
+  "clips": [
+   "idle",
+   "run"
+  ],
+  "looping": [
+   "idle",
+   "run"
+  ],
+  "skeleton": "Armature/Skeleton3D",
+  "front": "+Z",
+  "origin": "ground contact, bottom centre",
+  "tris": 3576,
+  "speeds": {
+   "run": 0.6
+  }
+ },
+ {
+  "id": "koi",
+  "file": "res://assets/models/npc/koi.glb",
+  "kind": "koi",
+  "npc_id": "",
+  "role": "ambient",
+  "clips": [
+   "swim",
+   "idle"
+  ],
+  "looping": [
+   "swim",
+   "idle"
+  ],
+  "skeleton": "Armature/Skeleton3D",
+  "front": "+Z",
+  "origin": "ground contact, bottom centre",
+  "tris": 5576,
+  "swim_speed": 0.35
+ },
+ {
+  "id": "mouse",
+  "file": "res://assets/models/npc/mouse.glb",
+  "kind": "mouse",
+  "npc_id": "",
+  "role": "ambient",
+  "clips": [
+   "idle",
+   "run"
+  ],
+  "looping": [
+   "idle",
+   "run"
+  ],
+  "skeleton": "Armature/Skeleton3D",
+  "front": "+Z",
+  "origin": "ground contact, bottom centre",
+  "tris": 3576,
+  "speeds": {
+   "run": 1.0
+  }
+ },
+ {
+  "id": "pigeon",
+  "file": "res://assets/models/npc/pigeon.glb",
+  "kind": "pigeon",
+  "npc_id": "xam",
+  "role": "named",
+  "clips": [
+   "idle",
+   "peck",
+   "walk",
+   "fly",
+   "takeoff",
+   "land"
+  ],
+  "looping": [
+   "idle",
+   "peck",
+   "walk",
+   "fly"
+  ],
+  "skeleton": "Armature/Skeleton3D",
+  "front": "+Z",
+  "origin": "ground contact, bottom centre",
+  "tris": 6576,
+  "walk_speed": 0.45,
+  "flight_wings": "upperarm_* scale 0.01 on ground clips"
+ },
+ {
+  "id": "sparrow",
+  "file": "res://assets/models/npc/sparrow.glb",
+  "kind": "sparrow",
+  "npc_id": "",
+  "role": "ambient",
+  "clips": [
+   "idle",
+   "peck",
+   "walk",
+   "fly",
+   "takeoff",
+   "land"
+  ],
+  "looping": [
+   "idle",
+   "peck",
+   "walk",
+   "fly"
+  ],
+  "skeleton": "Armature/Skeleton3D",
+  "front": "+Z",
+  "origin": "ground contact, bottom centre",
+  "tris": 4576,
+  "walk_speed": 0.25,
+  "flight_wings": "upperarm_* scale 0.01 on ground clips"
+ }
+]

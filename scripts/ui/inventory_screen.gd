@@ -40,7 +40,7 @@ func build() -> void:
 	_tabs_bar = make_tabs(keys, [], _select_tab)
 	var content: Control = _frame["content"]
 	var v := VBoxContainer.new()
-	v.set_anchors_preset(Control.PRESET_FULL_RECT)
+	v.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	v.add_theme_constant_override(&"separation", 14)
 	content.add_child(v)
 	v.add_child(_tabs_bar)
@@ -223,7 +223,7 @@ func _make_slot(id: StringName) -> Button:
 	b.set_meta(&"item_id", id)
 	b.tooltip_text = String(gs.call("get_item_name", id, false)) if gs != null else String(id)
 	var ic := UIStyle.icon_rect(UIStyle.item_icon(id), 104)
-	ic.set_anchors_preset(Control.PRESET_FULL_RECT)
+	ic.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	ic.offset_left = 14
 	ic.offset_top = 12
 	ic.offset_right = -14

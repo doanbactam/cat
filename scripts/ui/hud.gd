@@ -44,7 +44,7 @@ func _ready() -> void:
 	add_to_group(&"hud")
 	root = Control.new()
 	root.name = "Root"
-	root.set_anchors_preset(Control.PRESET_FULL_RECT)
+	root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	root.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	root.theme = UIStyle.theme()
 	root.process_mode = Node.PROCESS_MODE_PAUSABLE

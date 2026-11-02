@@ -1,0 +1,503 @@
+extends RefCounted
+## Post-physics stage of the city build (owner: world). Needs the built city inside a SceneTree
+## with physics stepped once. Measures rooftops with ray casts, links the rooftop network
+## (crate stairs at height steps, planks over alley gaps, walkable cable bundles over streets),
+## adds decorative overhead cables from poles, Mun's rooftop patrol, and bakes the NavRegion.
+## Verifies jumpability: rules = horizontal gap ≤ 2.0 m and step-up ≤ 1.5 m (or a connector).
+
+const L := preload("res://scripts/world/city_layout.gd")
+const CS := preload("res://scripts/world/city_structures.gd")
+
+const MAX_GAP := 2.0
+const MAX_STEP := 1.5
+const SAMPLE_STEP := 1.0
+
+var b: Object                     # the CityBuilder instance
+var space: PhysicsDirectSpaceState3D
+var samples: Array = []           # [{p: Vector3, m: int}]
+var by_module: Dictionary = {}    # module index -> Array of sample indices
+var parent: PackedInt32Array = PackedInt32Array()
+var report: Dictionary = {}
+var _exclude: Array[RID] = []
+
+
+func _init(builder: Object, s: PhysicsDirectSpaceState3D) -> void:
+	b = builder
+	space = s
+
+
+func run() -> Dictionary:
+	_measure_roofs()
+	_connect_by_rules()
+	var before := _net_coverage()
+	_add_crate_stairs()
+	_add_planks()
+	_add_walkable_cables()
+	_add_tower_access()
+	var after := _net_coverage()
+	_add_decorative_cables()
+	_add_mun_patrol()
+	report["net_coverage_before"] = before
+	report["net_coverage_after"] = after
+	return report
+
+
+# --- measurement ---------------------------------------------------------------------------------
+
+func _ray_down(x: float, z: float, from_y: float = 45.0, to_y: float = 2.0) -> Dictionary:
+	var q := PhysicsRayQueryParameters3D.create(Vector3(x, from_y, z), Vector3(x, to_y, z), 1)
+	q.collide_with_areas = false
+	return space.intersect_ray(q)
+
+
+func _measure_roofs() -> void:
+	var placed: Array = b.get(&"placed")
+	for mi in placed.size():
+		var m: Dictionary = placed[mi]
+		if not bool(m["net"]):
+			continue
+		var xf: Transform3D = m["xf"]
+		var w: float = m["w"]
+		var d: float = m["d"]
+		var idx: Array = []
+		var x := -w * 0.5 + 0.3
+		while x <= w * 0.5 - 0.3 + 0.001:
+			var z := -0.25
+			while z >= -d + 0.4:
+				var wp := xf * Vector3(x, 0, z)
+				var hit := _ray_down(wp.x, wp.z)
+				if not hit.is_empty() and (hit["normal"] as Vector3).y > 0.7 and (hit["position"] as Vector3).y > 3.0:
+					samples.append({"p": hit["position"], "m": mi})
+					idx.append(samples.size() - 1)
+				z -= SAMPLE_STEP
+			x += SAMPLE_STEP if w > 3.0 else (w - 0.6)
+		by_module[mi] = idx
+	parent.resize(samples.size())
+	for i in samples.size():
+		parent[i] = i
+	report["roof_samples"] = samples.size()
+	_dump_samples()
+
+
+func _dump_samples() -> void:
+	var placed: Array = b.get(&"placed")
+	var mods: Array = []
+	for m: Dictionary in placed:
+		var xf: Transform3D = m["xf"]
+		mods.append({"id": m["id"], "row": m["row"], "w": m["w"], "d": m["d"], "h": m["h"], "net": m["net"],
+			"o": [xf.origin.x, xf.origin.z], "ax": [xf.basis.x.x, xf.basis.x.z], "fz": [xf.basis.z.x, xf.basis.z.z]})
+	var ss: Array = []
+	for smp: Dictionary in samples:
+		var p: Vector3 = smp["p"]
+		ss.append([snappedf(p.x, 0.01), snappedf(p.y, 0.01), snappedf(p.z, 0.01), smp["m"]])
+	# measured roof deck (median sample height) per module id → used by the next build's row picker
+	var per_id: Dictionary = {}
+	for smp: Dictionary in samples:
+		var id: String = placed[smp["m"]]["id"]
+		if not per_id.has(id):
+			per_id[id] = []
+		(per_id[id] as Array).append((smp["p"] as Vector3).y)
+	var decks: Dictionary = {}
+	for id: String in per_id:
+		var arr: Array = per_id[id]
+		arr.sort()
+		decks[id] = snappedf(float(arr[arr.size() / 2]), 0.05)
+	var df := FileAccess.open("res://scenes/world/module_decks.json", FileAccess.WRITE)
+	if df != null:
+		df.store_string(JSON.stringify(decks, "  ", true))
+	var f := FileAccess.open("res://qa/out/world/roof_samples.json", FileAccess.WRITE)
+	if f != null:
+		f.store_string(JSON.stringify({"modules": mods, "samples": ss}))
+
+
+func _find(i: int) -> int:
+	while parent[i] != i:
+		parent[i] = parent[parent[i]]
+		i = parent[i]
+	return i
+
+
+func _union(a: int, c: int) -> void:
+	var ra := _find(a)
+	var rc := _find(c)
+	if ra != rc:
+		parent[ra] = rc
+
+
+func _connect_by_rules() -> void:
+	# spatial hash 2 m cells
+	var grid: Dictionary = {}
+	for i in samples.size():
+		var p: Vector3 = samples[i]["p"]
+		var key := Vector2i(floori(p.x / 2.0), floori(p.z / 2.0))
+		if not grid.has(key):
+			grid[key] = []
+		(grid[key] as Array).append(i)
+	for i in samples.size():
+		var p: Vector3 = samples[i]["p"]
+		var key := Vector2i(floori(p.x / 2.0), floori(p.z / 2.0))
+		for dx in range(-1, 2):
+			for dz in range(-1, 2):
+				var k2 := key + Vector2i(dx, dz)
+				if not grid.has(k2):
+					continue
+				for j: int in grid[k2]:
+					if j <= i:
+						continue
+					var q: Vector3 = samples[j]["p"]
+					var hd := Vector2(p.x - q.x, p.z - q.z).length()
+					var same: bool = samples[i]["m"] == samples[j]["m"]
+					var lim := SAMPLE_STEP * 1.5 if same else MAX_GAP
+					if hd <= lim and absf(p.y - q.y) <= MAX_STEP:
+						_union(i, j)
+
+
+## Fraction of net modules (with roof samples) that belong to the largest rooftop component.
+func _net_coverage() -> float:
+	var comp_modules: Dictionary = {}
+	for mi: int in by_module:
+		var seen: Dictionary = {}
+		for si: int in by_module[mi]:
+			seen[_find(si)] = true
+		for r: int in seen:
+			if not comp_modules.has(r):
+				comp_modules[r] = {}
+			comp_modules[r][mi] = true
+	var best := 0
+	for r: int in comp_modules:
+		best = maxi(best, (comp_modules[r] as Dictionary).size())
+	var total := 0
+	for mi: int in by_module:
+		if not (by_module[mi] as Array).is_empty():
+			total += 1
+	return float(best) / maxf(1.0, float(total))
+
+
+func _module_roots(mi: int) -> Dictionary:
+	var out: Dictionary = {}
+	for si: int in by_module.get(mi, []):
+		out[_find(si)] = true
+	return out
+
+
+# --- connectors --------------------------------------------------------------------------------------
+
+func _add_crate_stairs() -> void:
+	var placed: Array = b.get(&"placed")
+	var rng: RandomNumberGenerator = b.get(&"rng")
+	var stairs := 0
+	for mi in placed.size() - 1:
+		var m1: Dictionary = placed[mi]
+		var m2: Dictionary = placed[mi + 1]
+		if not bool(m1["net"]) or m1["row"] != m2["row"]:
+			continue
+		var o1: Vector3 = (m1["xf"] as Transform3D).origin
+		var o2: Vector3 = (m2["xf"] as Transform3D).origin
+		if absf(o1.distance_to(o2) - (float(m1["w"]) + float(m2["w"])) * 0.5) > 0.3:
+			continue            # not adjacent (gap / alley between)
+		var r1 := _module_roots(mi)
+		var r2 := _module_roots(mi + 1)
+		var linked := false
+		for r: int in r1:
+			if r2.has(r):
+				linked = true
+				break
+		if linked:
+			continue
+		# best pair across the shared wall: lower deck point ≥ 0.8 m from the wall, minimal step
+		var along: Vector3 = (m1["xf"] as Transform3D).basis.x
+		var wall_x := (o1.dot(along) + o2.dot(along)) * 0.5
+		var best: Array = []
+		var best_score := INF
+		for si: int in by_module.get(mi, []):
+			for sj: int in by_module.get(mi + 1, []):
+				var p: Vector3 = samples[si]["p"]
+				var q: Vector3 = samples[sj]["p"]
+				var low := p if p.y < q.y else q
+				var high := q if p.y < q.y else p
+				var low_dist := absf(low.dot(along) - wall_x)
+				var high_dist := absf(high.dot(along) - wall_x)
+				if low_dist < 0.8 or low_dist > 2.2 or high_dist > 2.5:
+					continue
+				var along_off := absf((p - q).dot((m1["xf"] as Transform3D).basis.z))
+				if along_off > 1.2:
+					continue
+				var dy := high.y - low.y
+				if dy > 4.2:
+					continue
+				var score := dy + along_off
+				if score < best_score:
+					best_score = score
+					best = [si if p.y < q.y else sj, sj if p.y < q.y else si]
+		if best.is_empty():
+			continue
+		var lo: Vector3 = samples[best[0]]["p"]
+		var hi: Vector3 = samples[best[1]]["p"]
+		var toward := (along if hi.dot(along) > lo.dot(along) else -along)
+		var height := hi.y - lo.y - 0.4
+		if height < 0.3:
+			_union(best[0], best[1])
+			continue
+		var stair := CS.make_crate_stair(height, rng)
+		var wall_pt := lo + toward * (absf(lo.dot(along) - wall_x) - 0.35)
+		stair.transform = Transform3D(Basis.looking_at(toward, Vector3.UP, true), Vector3(wall_pt.x, lo.y, wall_pt.z))
+		(b.call(&"grp", "Connectors") as Node3D).add_child(stair)
+		_union(best[0], best[1])
+		stairs += 1
+	report["crate_stairs"] = stairs
+
+
+func _add_planks() -> void:
+	# candidate pairs: roof samples of different modules, 2.0 < horizontal distance ≤ 4.2, |dy| ≤ 1.0,
+	# currently in different components; clear line between them.
+	var grid: Dictionary = {}
+	for i in samples.size():
+		var p: Vector3 = samples[i]["p"]
+		var key := Vector2i(floori(p.x / 4.0), floori(p.z / 4.0))
+		if not grid.has(key):
+			grid[key] = []
+		(grid[key] as Array).append(i)
+	var cands: Array = []
+	for i in samples.size():
+		var p: Vector3 = samples[i]["p"]
+		var key := Vector2i(floori(p.x / 4.0), floori(p.z / 4.0))
+		for dx in range(-1, 2):
+			for dz in range(-1, 2):
+				for j: int in grid.get(key + Vector2i(dx, dz), []):
+					if j <= i or samples[i]["m"] == samples[j]["m"]:
+						continue
+					var q: Vector3 = samples[j]["p"]
+					var hd := Vector2(p.x - q.x, p.z - q.z).length()
+					if hd > MAX_GAP and hd <= 4.2 and absf(p.y - q.y) <= 1.0:
+						cands.append([hd + absf(p.y - q.y) * 0.5, i, j])
+	cands.sort_custom(func(a: Array, c: Array) -> bool: return float(a[0]) < float(c[0]))
+	var planks := 0
+	var used_pairs: Dictionary = {}
+	for c: Array in cands:
+		var i: int = c[1]
+		var j: int = c[2]
+		if _find(i) == _find(j):
+			continue
+		var pair_key := Vector2i(mini(samples[i]["m"], samples[j]["m"]), maxi(samples[i]["m"], samples[j]["m"]))
+		if used_pairs.has(pair_key):
+			continue
+		var p: Vector3 = samples[i]["p"]
+		var q: Vector3 = samples[j]["p"]
+		var ray := PhysicsRayQueryParameters3D.create(p + Vector3.UP * 0.35, q + Vector3.UP * 0.35, 1)
+		if not space.intersect_ray(ray).is_empty():
+			continue
+		var plank := CS.make_plank(p + Vector3.UP * 0.03, q + Vector3.UP * 0.03)
+		(b.call(&"grp", "Connectors") as Node3D).add_child(plank)
+		_union(i, j)
+		used_pairs[pair_key] = true
+		planks += 1
+		if planks >= 60:
+			break
+	report["planks"] = planks
+
+
+func _closest_pair(rows_a: Array, rows_b: Array, min_d: float, max_d: float, max_dy: float) -> Array:
+	var placed: Array = b.get(&"placed")
+	var best: Array = []
+	var best_d := INF
+	for i in samples.size():
+		var mi: int = samples[i]["m"]
+		if not str(placed[mi]["row"]) in rows_a:
+			continue
+		var p: Vector3 = samples[i]["p"]
+		for j in samples.size():
+			var mj: int = samples[j]["m"]
+			if not str(placed[mj]["row"]) in rows_b:
+				continue
+			var q: Vector3 = samples[j]["p"]
+			var hd := Vector2(p.x - q.x, p.z - q.z).length()
+			if hd < min_d or hd > max_d or absf(p.y - q.y) > max_dy:
+				continue
+			if hd < best_d:
+				best_d = hd
+				best = [i, j]
+	return best
+
+
+func _cable_between(i: int, j: int, wires: int) -> bool:
+	var rng: RandomNumberGenerator = b.get(&"rng")
+	var p: Vector3 = samples[i]["p"] + Vector3.UP * 0.6
+	var q: Vector3 = samples[j]["p"] + Vector3.UP * 0.6
+	var ray := PhysicsRayQueryParameters3D.create(p + Vector3.UP * 0.2, q + Vector3.UP * 0.2, 1)
+	if not space.intersect_ray(ray).is_empty():
+		return false
+	var cab := CS.make_cable_bundle(p, q, wires, rng, true)
+	(b.call(&"grp", "Cables") as Node3D).add_child(cab)
+	# little steel anchor posts at both ends so the bundle visibly starts somewhere
+	for e: Vector3 in [p, q]:
+		var post := Node3D.new()
+		post.name = "CableAnchor"
+		var k := CS.Kit.new(post)
+		k.box(load("res://scripts/world/world_materials.gd").flat("anchor_steel", Color(0.25, 0.25, 0.25), 0.5, 0.8), Transform3D(Basis(), e - Vector3(0, 0.3, 0)), Vector3(0.06, 0.6, 0.06), 1.0)
+		k.finish("AnchorMesh")
+		(b.call(&"grp", "Cables") as Node3D).add_child(post)
+	_union(i, j)
+	return true
+
+
+func _add_walkable_cables() -> void:
+	var n := 0
+	var pairs := [
+		[["pho_ho_w"], ["main_south_lake"], 9.0, 20.0, 2.5],
+		[["dinh_north_w"], ["dinh_south_w"], 12.0, 22.0, 3.0],
+		[["main_south_w"], ["main_north"], 13.0, 22.0, 3.0],
+		[["hem_a_w_n"], ["hem_a_e_n"], 2.5, 8.0, 1.5],
+		[["hem_a_w_s"], ["hem_a_e_s"], 2.5, 8.0, 1.5],
+		[["hem_b_n"], ["hem_b_s"], 2.5, 8.0, 1.5],
+	]
+	for pr: Array in pairs:
+		var best := _closest_pair(pr[0], pr[1], pr[2], pr[3], pr[4])
+		if best.is_empty():
+			(report.get_or_add("cable_misses", []) as Array).append(str(pr[0]) + "→" + str(pr[1]))
+			continue
+		if _cable_between(best[0], best[1], 7):
+			n += 1
+	report["walkable_cables"] = n
+
+
+func _add_tower_access() -> void:
+	var tower: Node3D = b.get(&"water_tower")
+	if tower == null:
+		return
+	var cat_y := float(tower.get_meta(&"catwalk_y", 13.6))
+	var tp := tower.position + Vector3(0, cat_y + 0.6, 0)
+	var best := -1
+	var best_d := INF
+	for i in samples.size():
+		var p: Vector3 = samples[i]["p"]
+		var hd := Vector2(p.x - tp.x, p.z - tp.z).length()
+		if hd < 6.0 or hd > 20.0 or absf(p.y - cat_y) > 4.0:
+			continue
+		if hd < best_d:
+			best_d = hd
+			best = i
+	if best < 0:
+		report["tower_cable"] = "none"
+		return
+	var p: Vector3 = samples[best]["p"]
+	var dir := Vector3(tp.x - p.x, 0, tp.z - p.z).normalized()
+	var end := Vector3(tower.position.x, cat_y + 0.05, tower.position.z) - dir * 3.6
+	var rng: RandomNumberGenerator = b.get(&"rng")
+	var cab := CS.make_cable_bundle(p + Vector3.UP * 0.6, end + Vector3.UP * 0.65, 6, rng, true)
+	(b.call(&"grp", "Cables") as Node3D).add_child(cab)
+	report["tower_cable"] = "%.1f m" % best_d
+
+
+## Decorative pole-to-pole bundles + pole-to-facade drops (not walkable).
+func _add_decorative_cables() -> void:
+	var rng: RandomNumberGenerator = b.get(&"rng")
+	var poles: Array = b.get(&"poles")
+	var n := 0
+	var by_street: Dictionary = {}
+	for pe: Array in poles:
+		if not by_street.has(pe[1]):
+			by_street[pe[1]] = []
+		(by_street[pe[1]] as Array).append(pe[0])
+	for sid: String in by_street:
+		var arr: Array = by_street[sid]
+		for i in arr.size() - 1:
+			var a: Node3D = arr[i]
+			var c: Node3D = arr[i + 1]
+			for side in ["ATTACH_BUNDLE_L", "ATTACH_BUNDLE_R"]:
+				var na := a.get_node_or_null(side) as Node3D
+				var nc := c.get_node_or_null(side) as Node3D
+				var pa: Vector3 = (a.transform * na.position) if na != null else a.position + Vector3(0, 7.2, 0)
+				var pc: Vector3 = (c.transform * nc.position) if nc != null else c.position + Vector3(0, 7.2, 0)
+				var cab := CS.make_cable_bundle(pa, pc, rng.randi_range(5, 9), rng, false)
+				(b.call(&"grp", "Cables") as Node3D).add_child(cab)
+				n += 1
+			# drop lines from the pole to the nearest facades (2–3 per pole)
+			for k in rng.randi_range(2, 3):
+				var line := a.get_node_or_null("ATTACH_LINE_%02d" % rng.randi_range(0, 7)) as Node3D
+				var from: Vector3 = (a.transform * line.position) if line != null else a.position + Vector3(0, 6.8, 0)
+				var dir := Vector3(rng.randf_range(-1, 1), 0, rng.randf_range(-1, 1)).normalized()
+				var q := PhysicsRayQueryParameters3D.create(from, from + dir * 14.0 + Vector3(0, -1.5, 0), 1)
+				var hit := space.intersect_ray(q)
+				if hit.is_empty():
+					continue
+				var cab := CS.make_cable_bundle(from, hit["position"] + (hit["normal"] as Vector3) * 0.05, rng.randi_range(1, 3), rng, false)
+				(b.call(&"grp", "Cables") as Node3D).add_child(cab)
+				n += 1
+	# across-street spans between facades at 6–8 m (the typical tangle over Phố Hàng Mây)
+	for s: Array in L.STREETS:
+		if s[1] != "x":
+			continue
+		var c: float = s[2]
+		var x := -110.0
+		while x < 110.0:
+			var y := rng.randf_range(5.5, 8.0)
+			var half := float(s[5]) * 0.5 + float(s[6]) + 1.0
+			var h1 := space.intersect_ray(PhysicsRayQueryParameters3D.create(Vector3(x, y, c), Vector3(x, y, c - half), 1))
+			var h2 := space.intersect_ray(PhysicsRayQueryParameters3D.create(Vector3(x, y, c), Vector3(x + rng.randf_range(-3, 3), y + rng.randf_range(-0.8, 0.8), c + half), 1))
+			if not h1.is_empty() and not h2.is_empty():
+				var cab := CS.make_cable_bundle(h1["position"], h2["position"], rng.randi_range(2, 6), rng, false)
+				(b.call(&"grp", "Cables") as Node3D).add_child(cab)
+				n += 1
+			x += rng.randf_range(6.0, 14.0)
+	report["decorative_cable_spans"] = n
+
+
+func _add_mun_patrol() -> void:
+	var placed: Array = b.get(&"placed")
+	var pts: Array = []
+	var spawn: Vector3 = b.get(&"cam_nap_pos")
+	for i in samples.size():
+		var mi: int = samples[i]["m"]
+		if str(placed[mi]["row"]) != "main_south_w":
+			continue
+		if _find(i) != _find(_nearest_sample(spawn)):
+			continue
+		pts.append(samples[i]["p"])
+	pts.sort_custom(func(a: Vector3, c: Vector3) -> bool: return a.x < c.x)
+	var path := Path3D.new()
+	path.name = "Patrol_mun"
+	path.add_to_group(&"patrol_path")
+	path.set_meta(&"npc_id", "mun")
+	var curve := Curve3D.new()
+	var step := maxi(1, pts.size() / 10)
+	for k in range(0, pts.size(), step):
+		curve.add_point(pts[k] + Vector3.UP * 0.05)
+	path.curve = curve
+	(b.call(&"grp", "Markers") as Node3D).add_child(path)
+	report["mun_patrol_points"] = curve.point_count
+
+
+func _nearest_sample(p: Vector3) -> int:
+	var best := 0
+	var bd := INF
+	for i in samples.size():
+		var d := (samples[i]["p"] as Vector3).distance_squared_to(p)
+		if d < bd:
+			bd = d
+			best = i
+	return best
+
+
+# --- navigation -------------------------------------------------------------------------------------
+
+static func bake_nav(root: Node3D) -> NavigationRegion3D:
+	var region := NavigationRegion3D.new()
+	region.name = "NavRegion"
+	region.add_to_group(&"nav_region")
+	var nm := NavigationMesh.new()
+	nm.geometry_parsed_geometry_type = NavigationMesh.PARSED_GEOMETRY_STATIC_COLLIDERS
+	nm.geometry_collision_mask = 1
+	nm.geometry_source_geometry_mode = NavigationMesh.SOURCE_GEOMETRY_ROOT_NODE_CHILDREN
+	nm.cell_size = 0.25
+	nm.cell_height = 0.25
+	nm.agent_radius = 0.35
+	nm.agent_height = 1.6
+	nm.agent_max_climb = 0.25
+	nm.agent_max_slope = 40.0
+	nm.region_min_size = 4.0
+	nm.filter_baking_aabb = AABB(Vector3(-124.0, -0.45, -102.0), Vector3(248.0, 3.0, 204.0))
+	var src := NavigationMeshSourceGeometryData3D.new()
+	NavigationServer3D.parse_source_geometry_data(nm, src, root)
+	NavigationServer3D.bake_from_source_geometry_data(nm, src)
+	region.navigation_mesh = nm
+	return region

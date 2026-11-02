@@ -13,17 +13,17 @@ var _card2: Control
 
 
 func _ready() -> void:
-	set_anchors_preset(Control.PRESET_FULL_RECT)
+	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	theme = UIStyle.theme()
 	var bg := ColorRect.new()
 	bg.color = Color("#0d0907")
-	bg.set_anchors_preset(Control.PRESET_FULL_RECT)
+	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(bg)
 	var grain := TextureRect.new()
 	grain.texture = UIStyle.ui_tex("vignette")
-	grain.set_anchors_preset(Control.PRESET_FULL_RECT)
+	grain.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	grain.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	grain.stretch_mode = TextureRect.STRETCH_SCALE
 	grain.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -56,7 +56,7 @@ func _ready() -> void:
 	_logo.modulate.a = 0.0
 
 	_card2 = VBoxContainer.new()
-	_card2.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_card2.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	(_card2 as VBoxContainer).alignment = BoxContainer.ALIGNMENT_CENTER
 	add_child(_card2)
 	var made := UIStyle.label(tr("SPLASH_MADE_WITH"), &"light", 26, UIStyle.TEXT_DIM)

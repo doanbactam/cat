@@ -194,6 +194,8 @@ var _wet_drip_t := 0.0
 var _face_goal := 0.0
 var _face_active := false
 var _refuse_t := 0.0
+var _shelter_t := 0.0
+var _sheltered := false
 
 # --- visual state -------------------------------------------------------------------------
 var _vis_pitch := 0.0
@@ -569,8 +571,24 @@ func _physics_process(delta: float) -> void:
 	_update_visual(delta)
 	_update_look_target()
 	_update_gait_phase(delta)
+	_update_shelter(delta)
 	_prev_velocity = velocity
 	RenderingServer.global_shader_parameter_set(&"player_position", global_position)
+
+
+## Rain-on-tin ambience under awnings: GameState resolves the "shelter" areas, AudioManager mixes.
+func _update_shelter(delta: float) -> void:
+	_shelter_t -= delta
+	if _shelter_t > 0.0:
+		return
+	_shelter_t = 0.3
+	var sh := GameState.is_sheltered()
+	if sh == _sheltered:
+		return
+	_sheltered = sh
+	var am := get_node_or_null(^"/root/AudioManager")
+	if am != null and am.has_method(&"set_sheltered"):
+		am.call(&"set_sheltered", sh)
 
 
 # =============================================================================================
@@ -1243,8 +1261,7 @@ func _launch(charge: float) -> void:
 	mode = Mode.AIR
 	_set_crawl(false)
 	_set_state(&"jump")
-	GameEvents.player_jumped.emit(charge)
-	_play_sfx(&"cat_jump_effort", global_position, -10.0 + charge * 4.0)
+	GameEvents.player_jumped.emit(charge)  # AudioManager plays the jump effort
 	if _fx != null:
 		_fx.call(&"puff", global_position, 0.3 + 0.4 * charge, _surface)
 	leapt.emit(_air_targeted, _target.get("point", Vector3.INF))
@@ -1345,7 +1362,6 @@ func _land(impact: float) -> void:
 	var loud := clampf(impact / 9.0, 0.05, 1.0) * GameState.get_modifier(&"landing_noise_mult")
 	GameEvents.player_landed.emit(impact, _surface)
 	GameEvents.player_noise.emit(global_position, clampf(loud, 0.0, 1.0))
-	_play_sfx(StringName("land_%s_%s" % ["hard" if hard else "soft", _land_material(_surface)]), global_position, linear_to_db(clampf(0.35 + impact / 8.0, 0.2, 1.0)))
 	if _fx != null:
 		_fx.call(&"puff", global_position, clampf(impact / 6.0, 0.2, 1.2), _surface)
 	if hard and _camera_rig != null:
@@ -1359,26 +1375,6 @@ func _land(impact: float) -> void:
 		_jump_buffer_t = 0.0
 		if not hard:
 			_quick_leap()
-
-
-func _land_material(surface: StringName) -> String:
-	match surface:
-		&"asphalt", &"concrete":
-			return "stone"
-		&"tile":
-			return "tile"
-		&"wood":
-			return "wood"
-		&"metal":
-			return "metal"
-		&"roof_tile":
-			return "roof"
-		&"plastic":
-			return "plastic"
-		&"water":
-			return "water"
-		_:
-			return "soft"
 
 
 # =============================================================================================
@@ -1843,17 +1839,13 @@ func _can_rest() -> bool:
 
 func meow(kind: StringName = &"short") -> void:
 	var loud := kind == &"loud"
-	var sfx := &"cat_meow_loud" if loud else &"cat_meow_short"
-	if not loud:
-		var r := randf()
+	if kind == &"short":
+		# variety: greet a nearby NPC, otherwise an occasional chirp/trill (AudioManager resolves
+		# the kind to a sound on GameEvents.player_meowed — the player never plays it twice)
 		if _interaction != null and _interaction.call(&"has_npc_nearby"):
-			sfx = &"cat_meow_greet"
-		elif r < 0.2:
-			sfx = &"cat_meow_chirp"
+			kind = &"greet"
+		elif randf() < 0.25:
 			kind = &"chirp"
-		elif r < 0.35:
-			sfx = &"cat_meow_trill"
-	_play_sfx(sfx, global_position + _forward() * 0.2 + Vector3.UP * 0.22)
 	if _anim != null:
 		_anim.call(&"play_oneshot", &"meow", true)
 	GameEvents.player_meowed.emit(kind)
@@ -1908,7 +1900,6 @@ func drop_mouth_item() -> void:
 	var parent := get_parent() if get_parent() != null else get_tree().current_scene
 	# (GameState.drop_mouth_item already emitted GameEvents.item_dropped)
 	PickupItem.spawn_dropped(id, Transform3D(xf.basis, xf.origin + _forward() * 0.04), parent)
-	_play_sfx(&"cat_drop", xf.origin)
 	if mode == Mode.GROUND and absf(_speed) < 0.5:
 		_enter_action(&"pickup", _clip_length(&"pickup", 0.6) * 0.8, 0.3)
 
@@ -2180,9 +2171,10 @@ func _update_gait_phase(delta: float) -> void:
 
 func _footstep(spd: float) -> void:
 	_step_count += 1
-	var intensity := clampf(spd / run_speed, 0.08, 1.0)
+	# AudioManager scale: sneak ≈ 0.2, walk ≈ 0.45, trot ≈ 0.65, run ≈ 0.9
+	var intensity := clampf(0.25 + 0.65 * sqrt(clampf(spd / run_speed, 0.0, 1.0)), 0.08, 1.0)
 	if _sneaking or _crawling:
-		intensity *= 0.35
+		intensity *= 0.45
 	var am := get_node_or_null(^"/root/AudioManager")
 	if am != null and am.has_method(&"play_footstep"):
 		am.call(&"play_footstep", _surface, global_position, intensity)
