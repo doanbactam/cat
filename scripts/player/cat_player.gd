@@ -607,8 +607,38 @@ func _physics_process(delta: float) -> void:
 	_update_look_target()
 	_update_gait_phase(delta)
 	_update_shelter(delta)
+	_update_fall_rescue(delta)
 	_prev_velocity = velocity
 	RenderingServer.global_shader_parameter_set(&"player_position", global_position)
+
+
+## Out-of-world safety net (city only): the city's SafetyFloor sits at y -5.5 under everything, the
+## lowest legit ground is the lake bed (~ -2.7). Below FALL_RESCUE_Y the cat fell through a collision
+## gap, so put it back on the last solid ground it stood on instead of leaving it stuck under the map.
+const FALL_RESCUE_Y := -4.0
+var _safe_xform := Transform3D()
+var _has_safe := false
+var _safe_t := 0.0
+
+
+func _update_fall_rescue(delta: float) -> void:
+	if global_position.y < FALL_RESCUE_Y:
+		if get_tree().get_first_node_in_group(&"city") == null:
+			return
+		var target := _safe_xform
+		if not _has_safe:
+			var sp := get_tree().get_first_node_in_group(&"player_spawn") as Node3D
+			if sp == null:
+				return
+			target = sp.global_transform
+		push_warning("CatPlayer: fell out of the world at %s, rescued to %s" % [global_position, target.origin])
+		teleport(target)
+		return
+	_safe_t -= delta
+	if _safe_t <= 0.0 and is_on_floor() and mode == Mode.GROUND and global_position.y > -2.0:
+		_safe_t = 0.5
+		_safe_xform = global_transform
+		_has_safe = true
 
 
 ## Rain-on-tin ambience under awnings: GameState resolves the "shelter" areas, AudioManager mixes.

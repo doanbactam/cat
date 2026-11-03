@@ -337,12 +337,15 @@ func _build_ground() -> void:
 		_street_edges(s)
 	# intersections: fill the crossing squares are part of the N-S asphalt (z range overlaps)
 	# --- block fills (alleys/courtyards at sidewalk level) ---
-	grect(&"concrete", -121.0, -63.0, -61.0, 55.0, 0.0)          # west maze (alleys + light wells)
-	grect(&"concrete", 56.0, -63.0, 122.0, 55.0, 0.0)            # market quarter
-	grect(&"concrete", -122.0, -100.0, 122.0, -77.0, 0.0)        # behind the north row
-	grect(&"concrete", -122.0, 69.0, -34.0, 112.0, 0.0)          # behind temple-street south rows
-	grect(&"concrete", 34.0, 69.0, 122.0, 112.0, 0.0)
-	grect(&"brick", -34.0, 69.0, 34.0, 112.0, 0.0)               # temple garden (the kit has its own courtyard)
+	# Fills reach the map bounds (±124 × -98..114): narrower fills left gaps between/behind buildings
+	# where the cat fell through the world onto the SafetyFloor.
+	grect(&"concrete", -124.0, -63.0, -61.0, 55.0, 0.0)          # west maze (alleys + light wells)
+	grect(&"concrete", 56.0, -63.0, 124.0, 55.0, 0.0)            # market quarter
+	grect(&"concrete", -124.0, -100.0, 124.0, -77.0, 0.0)        # behind the north row
+	grect(&"concrete", -49.0, -63.0, 44.0, -49.0, 0.0)           # lake block north row (street → park edge)
+	grect(&"concrete", -124.0, 69.0, -34.0, 114.0, 0.0)          # behind temple-street south rows
+	grect(&"concrete", 34.0, 69.0, 124.0, 114.0, 0.0)
+	grect(&"brick", -34.0, 69.0, 34.0, 114.0, 0.0)               # temple garden (the kit has its own courtyard)
 	# market plaza: terrazzo-ish concrete under the hall is the same concrete; stall lanes get brick
 	grect(&"brick", 56.0, 3.5, 118.0, 12.5, 0.005)               # fish lane paving
 	# lake park lawn handled in _build_lake (needs the ellipse hole)
@@ -457,6 +460,23 @@ func _finish_ground() -> void:
 		cs.shape = mesh.create_trimesh_shape()
 		body.add_child(cs)
 		g.add_child(body)
+	# tree-pit soil (drawn with the lakebed surface, which has no ground collider): without this the
+	# 1.2 m pits were open holes down to the SafetyFloor.
+	if not tree_pits.is_empty():
+		var pits := StaticBody3D.new()
+		pits.name = "GroundBody_tree_pits"
+		pits.collision_layer = 1
+		pits.collision_mask = 0
+		pits.set_meta(&"surface", &"dirt")
+		pits.add_to_group(&"nav_source")
+		var pit_shape := BoxShape3D.new()
+		pit_shape.size = Vector3(1.2, 0.2, 1.2)
+		for p: Vector3 in tree_pits:
+			var pcs := CollisionShape3D.new()
+			pcs.shape = pit_shape
+			pcs.position = Vector3(p.x, -0.04 - 0.1, p.z)
+			pits.add_child(pcs)
+		g.add_child(pits)
 	# safety floor far below (anything that falls through the world lands somewhere)
 	var floor_body := StaticBody3D.new()
 	floor_body.name = "SafetyFloor"

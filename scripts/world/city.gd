@@ -22,6 +22,95 @@ func _enter_tree() -> void:
 		if n != null:
 			merged_bodies += int(cm.call(&"merge_under", n))
 	_apply_visibility_ranges()
+	_patch_ground_holes()
+
+
+## Ground gaps in scenes built before the city_builder fix (2026-11-03): the cat fell through them onto
+## the SafetyFloor (y -5.5) and got stuck under the map. Rebuilding the city is not deterministic, so
+## the saved scene is patched at load instead; skipped once the scene has GroundBody_tree_pits.
+const _GAP_FILLS := [
+	[&"concrete", -124.0, -63.0, -121.0, 55.0],   # west edge of the west maze
+	[&"concrete", 122.0, -63.0, 124.0, 55.0],     # east edge of the market quarter
+	[&"concrete", -124.0, -100.0, -122.0, -77.0], # north row, both ends
+	[&"concrete", 122.0, -100.0, 124.0, -77.0],
+	[&"concrete", -49.0, -63.0, 44.0, -49.0],     # lake block north row: street sidewalk → park edge
+	[&"concrete", -124.0, 69.0, -122.0, 114.0],   # south rows, both ends + south edge
+	[&"concrete", 122.0, 69.0, 124.0, 114.0],
+	[&"concrete", -122.0, 112.0, -34.0, 114.0],
+	[&"concrete", 34.0, 112.0, 122.0, 114.0],
+	[&"brick", -34.0, 112.0, 34.0, 114.0],
+]
+var patched_ground := false
+
+
+func _patch_ground_holes() -> void:
+	var ground := get_node_or_null(^"Ground")
+	if ground == null or ground.has_node(^"GroundBody_tree_pits") or ground.has_node(^"GroundPatch"):
+		return
+	var MU: GDScript = load("res://scripts/world/mesh_util.gd")
+	var WM: GDScript = load("res://scripts/world/world_materials.gd")
+	var patch := Node3D.new()
+	patch.name = "GroundPatch"
+	# --- missing block fills: visible ground + a box collider each ---
+	var by_key: Dictionary = {}
+	for f: Array in _GAP_FILLS:
+		var key: StringName = f[0]
+		if not by_key.has(key):
+			var st := SurfaceTool.new()
+			st.begin(Mesh.PRIMITIVE_TRIANGLES)
+			by_key[key] = st
+		MU.call(&"rect_xz", by_key[key], float(f[1]), float(f[2]), float(f[3]), float(f[4]), 0.0, float(WM.call(&"tile_of", key)))
+	for key: StringName in by_key:
+		var st: SurfaceTool = by_key[key]
+		st.generate_tangents()
+		var mi := MeshInstance3D.new()
+		mi.name = "Ground_" + String(key)
+		mi.mesh = st.commit()
+		var existing := ground.get_node_or_null(NodePath("Ground_" + String(key))) as MeshInstance3D
+		var mat: Material = existing.mesh.surface_get_material(0) if existing != null and existing.mesh != null else WM.call(&"ground", key)
+		mi.mesh.surface_set_material(0, mat)
+		mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		patch.add_child(mi)
+	for f: Array in _GAP_FILLS:
+		var body := StaticBody3D.new()
+		body.collision_layer = 1
+		body.collision_mask = 0
+		body.set_meta(&"surface", &"tile" if f[0] == &"brick" else &"concrete")
+		var cs := CollisionShape3D.new()
+		var box := BoxShape3D.new()
+		var w := float(f[3]) - float(f[1])
+		var d := float(f[4]) - float(f[2])
+		box.size = Vector3(w, 0.2, d)
+		cs.shape = box
+		cs.position = Vector3(float(f[1]) + w * 0.5, -0.1, float(f[2]) + d * 0.5)
+		body.add_child(cs)
+		patch.add_child(body)
+	# --- tree-pit soil: the pit quads live in the collider-less lakebed mesh at y -0.04 ---
+	var lakebed := ground.get_node_or_null(^"Ground_lakebed") as MeshInstance3D
+	if lakebed != null and lakebed.mesh != null:
+		var faces := lakebed.mesh.get_faces()
+		var pit_faces := PackedVector3Array()
+		for i in range(0, faces.size(), 3):
+			var a := faces[i]
+			var b := faces[i + 1]
+			var c := faces[i + 2]
+			if absf(a.y + 0.04) < 0.005 and absf(b.y + 0.04) < 0.005 and absf(c.y + 0.04) < 0.005:
+				pit_faces.append_array([a, b, c])
+		if not pit_faces.is_empty():
+			var pits := StaticBody3D.new()
+			pits.name = "GroundBody_tree_pits"
+			pits.collision_layer = 1
+			pits.collision_mask = 0
+			pits.set_meta(&"surface", &"dirt")
+			var shape := ConcavePolygonShape3D.new()
+			shape.backface_collision = true
+			shape.set_faces(pit_faces)
+			var pcs := CollisionShape3D.new()
+			pcs.shape = shape
+			pits.add_child(pcs)
+			patch.add_child(pits)
+	ground.add_child(patch)
+	patched_ground = true
 
 
 ## Size-based draw distances for everything instanced from asset scenes (GLB sub-meshes cannot be
