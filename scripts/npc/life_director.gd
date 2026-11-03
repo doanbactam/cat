@@ -382,6 +382,37 @@ func _update_lod(all: bool) -> void:
 			interval = 0.0
 		if n.has_method(&"set_lod"):
 			n.call(&"set_lod", l, interval)
+		# Perf: skeletal animation is the single biggest NPC cost (~128 mixers). Only animate what
+		# can actually be seen; set_lod above only hides far agents, their mixers kept running.
+		var visible_now := l < 3 and (d < 8.0 or _sphere_in_view(cam, pos, 4.0))
+		_set_anim_active(n, visible_now)
+
+
+## Frustum test with a radius (agents/flocks are bodies, not points). Planes point outward.
+func _sphere_in_view(cam: Camera3D, pos: Vector3, radius: float) -> bool:
+	if cam == null:
+		return true
+	for pl: Plane in cam.get_frustum():
+		if pl.distance_to(pos) > radius:
+			return false
+	return true
+
+
+## Enables/disables every AnimationMixer under `n` (cached in meta; refreshed if a model was swapped).
+func _set_anim_active(n: Node, on: bool) -> void:
+	var mixers: Array = n.get_meta(&"_lod_mixers", [])
+	var stale := not n.has_meta(&"_lod_mixers")
+	for m: Variant in mixers:
+		if not is_instance_valid(m):
+			stale = true
+			break
+	if stale:
+		mixers = n.find_children("*", "AnimationMixer", true, false)
+		n.set_meta(&"_lod_mixers", mixers)
+	for m: Variant in mixers:
+		var mx := m as AnimationMixer
+		if mx.active != on:
+			mx.active = on
 
 
 func _hour_index() -> int:

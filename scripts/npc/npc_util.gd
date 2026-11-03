@@ -25,6 +25,18 @@ const QUALITY_CAPS := {
 }
 
 static var _warned: Dictionary = {}
+static var _scenes: Dictionary = {}
+
+
+## Cached PackedScene load. A plain load() + instantiate() drops the PackedScene right away, so the
+## next spawn re-parsed the GLB from disk (~20–280 ms hitch) and duplicated its meshes/materials.
+static func scene(path: String) -> PackedScene:
+	var ps: PackedScene = _scenes.get(path)
+	if ps == null:
+		ps = load(path) as PackedScene
+		if ps != null:
+			_scenes[path] = ps
+	return ps
 
 
 static func quality() -> String:

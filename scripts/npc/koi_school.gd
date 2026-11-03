@@ -41,7 +41,7 @@ func setup(marker: Node3D, n: int) -> void:
 		var length := _rng.randf_range(0.32, 0.62)
 		var scl := length
 		if ResourceLoader.exists(glb):
-			var inst := (load(glb) as PackedScene).instantiate() as Node3D
+			var inst := NpcUtil.scene(glb).instantiate() as Node3D
 			mi.add_child(inst)
 			scl = length / 0.5          # creatures' koi is authored ~0.5 m long
 			var ap := inst.find_child("AnimationPlayer", true, false) as AnimationPlayer

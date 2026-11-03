@@ -80,29 +80,45 @@ func apply_graphics_settings() -> void:
 			environment.sdfgi_cascades = 6
 			environment.ssr_max_steps = 96
 		_:
-			environment.sdfgi_cascades = 5
+			# 4 cascades (was 5): -2.5 ms GPU on a GTX 1650, the 5th cascade only covered far roofs.
+			environment.sdfgi_cascades = 4
 			environment.ssr_max_steps = 64
 	_apply_shadow_quality()
 
 
+## Perf: the sun shadow pass was the single biggest render cost (4 splits × 140 m redrew the whole
+## quarter: 8.2 M tris / 7 300 draws per frame). Below ultra we use 2 splits with a tight first split,
+## which keeps crisp shadows around the cat and halves the shadow pass.
 func _apply_shadow_quality() -> void:
-	var dist := 140.0
+	var dist := 100.0
 	var atlas := 8192
+	var four := false
+	var split1 := 0.18
 	match _shadow_quality:
 		"low":
-			dist = 70.0
+			dist = 50.0
 			atlas = 2048
+			split1 = 0.25
 		"medium":
-			dist = 100.0
+			dist = 80.0
 			atlas = 4096
+			split1 = 0.2
 		"ultra":
 			dist = 200.0
 			atlas = 8192
+			four = true
 	for l: DirectionalLight3D in [sun, moon]:
 		if l == null:
 			continue
 		l.directional_shadow_max_distance = dist
-		l.directional_shadow_mode = DirectionalLight3D.SHADOW_PARALLEL_4_SPLITS if _shadow_quality != "low" else DirectionalLight3D.SHADOW_PARALLEL_2_SPLITS
+		if four:
+			l.directional_shadow_mode = DirectionalLight3D.SHADOW_PARALLEL_4_SPLITS
+			l.directional_shadow_split_1 = 0.06
+			l.directional_shadow_split_2 = 0.18
+			l.directional_shadow_split_3 = 0.45
+		else:
+			l.directional_shadow_mode = DirectionalLight3D.SHADOW_PARALLEL_2_SPLITS
+			l.directional_shadow_split_1 = split1
 	RenderingServer.directional_shadow_atlas_set_size(atlas, true)
 
 
