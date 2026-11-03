@@ -49,7 +49,7 @@ func setup(p_kind: String, opts: Dictionary = {}) -> void:
 	kind = p_kind
 	var path := _resolve_model(opts.get("model_names", []) as Array)
 	if path != "":
-		var ps := load(path) as PackedScene
+		var ps := NpcUtil.scene(path)
 		if ps != null:
 			model = ps.instantiate() as Node3D
 			is_standin = false
@@ -199,7 +199,7 @@ func _make_umbrella(color: Color) -> Node3D:
 	var u: Node3D = null
 	for p: String in ["res://assets/models/props/umbrella.glb", "res://assets/models/props/umbrella_handheld.glb"]:
 		if ResourceLoader.exists(p):
-			var ps := load(p) as PackedScene
+			var ps := NpcUtil.scene(p)
 			if ps != null:
 				u = ps.instantiate() as Node3D
 				break

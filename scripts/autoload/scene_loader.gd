@@ -13,6 +13,8 @@ signal load_progress(progress: float)
 signal load_finished(path: String)
 signal load_failed(path: String)
 signal scene_changed(scene: Node)
+## Internal: emitted when the current fade completes or is interrupted by a newer fade.
+signal _fade_done
 
 const LOADING_SCREEN := "res://scenes/ui/loading_screen.tscn"
 const MAIN_MENU_SCENE := "res://scenes/main/main.tscn"
@@ -156,7 +158,9 @@ func _run_change(path: String, show_loading: bool) -> void:
 	get_tree().paused = false
 	if show_loading:
 		_show_screen()
-	var err := ResourceLoader.load_threaded_request(path, "PackedScene", true)
+	# use_sub_threads=false: with sub-threads the loader deadlocks on the big city scene (main thread
+	# froze forever at ~13 % in Godot 4.8-beta2 while other code load()ed shared resources).
+	var err := ResourceLoader.load_threaded_request(path, "PackedScene", false)
 	var t0 := Time.get_ticks_msec()
 	if show_loading:
 		await _fade_to(0.0, 0.3)
@@ -246,10 +250,14 @@ func _hide_screen() -> void:
 func _fade_to(alpha: float, t: float) -> void:
 	if _fade_tween != null and _fade_tween.is_valid():
 		_fade_tween.kill()
+		# A killed tween never emits `finished`; release whoever awaited the interrupted fade so
+		# that coroutine (e.g. _run_change) cannot hang forever with _loading stuck at true.
+		_fade_done.emit()
 	if t <= 0.0 or not is_inside_tree():
 		_fade.modulate.a = alpha
 		return
 	_fade_tween = create_tween()
 	_fade_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	_fade_tween.tween_property(_fade, "modulate:a", alpha, t).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	await _fade_tween.finished
+	_fade_tween.finished.connect(_fade_done.emit)
+	await _fade_done

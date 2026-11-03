@@ -100,7 +100,7 @@ func _build_model() -> void:
 	vis.name = "Visual"
 	add_child(vis)
 	visual = null    # we drive the AnimationPlayer directly
-	model = (load(CAT_SCENE) as PackedScene).instantiate() as Node3D
+	model = NpcUtil.scene(CAT_SCENE).instantiate() as Node3D
 	model.name = "Model"
 	var sc := float(profile["scale"])
 	model.scale = Vector3.ONE * sc
